@@ -1,0 +1,319 @@
+html {
+  scroll-behavior: smooth;
+}
+
+
+
+.home-contents {
+  width: 100%;
+  height: 720px;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* LOG IN PAGE   */
+
+.login-page {
+  background-color: #171616;
+  position: absolute;
+  top: -300px;
+  right: 120%;
+  width: 800px;
+  height: 1000px;
+  transform: rotate(-70deg);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  opacity: 0;
+  transition: 0.2s;
+  color: white;
+  z-index: 10;
+
+
+}
+
+.login-page.login-show {
+  opacity: 1;
+  right: 40%;
+  transition: right 0.4s;
+}
+
+
+
+.login {
+  transform: rotate(70deg);
+  margin-bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  
+
+}
+
+.login h1 {
+  margin-top: 0px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.login-form hr {
+  width: 100%;
+}
+
+.login-form input {
+  height: 35px;
+  color: white;
+  background-color: #171616;
+  border: 0;
+  font-size: 1.2rem;
+}
+
+.login-form button {
+  height: 35px;
+  color: white;
+  background-color: #171616;
+  border: 1px solid white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.login-form button:hover {
+  background-color: gray;
+  transition: 0.2s ease-out;
+}
+
+::placeholder {
+  color: white;
+}
+
+/* REGISTER PAGE */
+.register-page {
+  background-color: #171616;
+  position: absolute;
+  top: -300px;
+  right: 120%;
+  width: 800px;
+  height: 1000px;
+  transform: rotate(-70deg);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  opacity: 0;
+  transition: 0.2s;
+  color: white;
+  z-index: 10;
+}
+
+.register-page.register-show {
+  opacity: 1;
+  right: 40%;
+  transition: 0.4s;
+}
+
+
+
+.register {
+  transform: rotate(70deg);
+  margin-bottom: 120px;
+}
+
+
+
+
+
+/* MAIN TEXTS */
+
+
+
+.main-texts {
+  padding-top: 90px;
+  height: auto;
+  background-color: #171616;
+  padding-left: 8%;
+  flex-basis: 30%;
+  padding-right: 20px;
+  transition: 0.4s;
+}
+
+.main-texts.main-texts-active {
+  flex-basis: 60%;
+  transition: 0.4s;
+}
+
+
+.find {
+  margin-top: 40px;
+  display: block;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.find.hide-find {
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.find h1 {
+  margin-bottom: 40px;
+}
+
+.main-image {
+  flex-basis: 70%;
+  background-image: url("../images/boxing.jpg");
+  background-position: 50% 0;
+
+}
+
+.main-image.bw {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+
+.main-texts div hr {
+  background-color: white;
+}
+
+
+.gym-txt {
+  margin: 0;
+  transition: 0.5s ease;
+}
+
+.gym-txt:hover {
+  color: red;
+}
+
+.martialart-txt {
+  transition: 0.5s ease;
+  scroll-behavior: smooth;
+}
+
+.martialart-txt:hover {
+  color: red;
+}
+
+.coach-txt {
+  color: white;
+}
+
+.coach-txt:hover {
+  color: red;
+}
+
+.spar-txt {
+  color: white;
+  transition: 0.5s ease;
+}
+
+.spar-txt:hover {
+  color: red;
+}
+
+.gym-l {
+  width: 200px;
+  margin-left: 0;
+}
+
+.martialart-l {
+  width: 300px;
+  margin-left: 0;
+}
+
+.coach-l {
+  width: 236px;
+  margin-left: 0;
+}
+
+.spar-l {
+  width: 290px;
+  margin-left: 0;
+}
+
+
+
+@media(max-width:920px) {
+
+
+
+  .home-contents {
+    flex-direction: column;
+    align-items: center;
+    height: 1000px;
+  }
+
+  .login-page {
+    top: 0px;
+    transform: rotate(0deg);
+    height: 715px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  .register-page {
+    top: 0px;
+    transform: rotate(0deg);
+    height: 715px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  
+
+  .login {
+    transform: rotate(0deg);
+  }
+
+  .register {
+    transform: rotate(0deg);
+  }
+
+
+  .login-page.login-show {
+    opacity: 1;
+    right: 0%;
+  }
+
+  .register-page.register-show {
+    opacity: 1;
+    right: 0%;
+  }
+
+
+
+  .main-texts {
+    flex-basis: 70%;
+    height: 720px;
+    padding-top: 100px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 50px;
+    width: 100%;
+    position: relative;
+    text-align: center;
+  }
+
+  .main-image {
+    flex-basis: 30%;
+    width: 100%;
+    height: 700px;
+    background-position: 20% 0;
+
+  }
+
+  .main-texts div hr {
+    margin: auto;
+  }
+}

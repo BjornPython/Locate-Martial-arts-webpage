@@ -1,0 +1,14 @@
+.main-footer {
+    height: 180px;
+    background-color: #171616;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.soc-fonts {
+    color: white;
+    font-size: 3rem;
+
+}
