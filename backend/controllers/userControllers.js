@@ -5,22 +5,14 @@ const bcrypt = require("bcryptjs")
 const registerUser = asyncHandler(async (req, res) => {
     const {
         name,
-        nickname,
         email,
-        password, 
-        ma
+        password
     } = req.body
 
 
-    console.log("BEFORE: ", ma);
-    console.log("TYPE: ", typeof(ma));
-    martialArts = JSON.parse(ma)
-    console.log("AFTER: ", martialArts);
-
-
-    if (!name || !nickname || !email || !password) {
+    if (!name || !email || !password) {
         res.status(400)
-        throw new Error("Please include name, nickname, email, and password Fields.")
+        throw new Error("Please include name, email, and password Fields.")
     }
 
     const salt = await bcrypt.genSalt(10)
@@ -28,8 +20,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
     const user = await User.create({
-        name, nickname, email, password: hashedPass,
-        ma: martialArts
+        name, email, password: hashedPass,
     })
 
 

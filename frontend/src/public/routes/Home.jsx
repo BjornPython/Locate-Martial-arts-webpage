@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 
+import { useSelector, useDispatch } from "react-redux"
+import { register, reset } from "../../features/authentication/authSlice"
 
 import "../css/home.css"
 
@@ -8,12 +10,15 @@ import Arts from "../comps/Arts"
 
 function Home() {
 
+    const dispatch = useDispatch()
+
     const [loginFormData, setLoginFormData] = useState({
         loginEmail: "",
         loginPass: ""
     })
 
     const [registerFormData, setRegisterFormData] = useState({
+        regisName: "",
         regisEmail: "",
         regisPass: "",
         regisCPass: "",
@@ -23,7 +28,7 @@ function Home() {
 
     const { loginEmail, loginPass } = loginFormData
 
-    const { regisEmail, regisPass, regisCPass } = registerFormData
+    const { regisName, regisEmail, regisPass, regisCPass } = registerFormData
 
     const changeLoginForm = (e) => {
         setLoginFormData((prevState) => ({
@@ -50,6 +55,28 @@ function Home() {
             loginEmail, loginPass
         }
         console.log(userData);
+    }
+
+    const submitRegisData = (e) => {
+        e.preventDefault()
+
+        if (regisName == "" || regisEmail == "" || regisPass == "" || regisCPass == "") {
+            toast.error("Please Fill all Fields.")
+        }
+
+        if (regisPass !== regisCPass) {
+            toast.error("Passwords do not match.")
+        }
+
+        const userData = {
+            regisName,
+            regisEmail,
+            regisPass,
+            regisCPass
+        }
+
+        dispatch(register(userData))
+
     }
 
     return (
@@ -79,6 +106,8 @@ function Home() {
                         <div className="register">
                             <h2>REGISTER</h2>
                             <form action="" onSubmit={submitForm} className="login-form">
+                                <input className="font" type="text" name="regisName" value={regisName} placeholder={"Name"} onChange={changeRegisterForm} />
+                                <hr />
                                 <input className="font" type="text" name="regisemail" value={regisEmail} placeholder={"Email"} onChange={changeRegisterForm} />
                                 <hr />
                                 <input className="font" type="password" name="regispass" value={regisPass} placeholder={"Password"} onChange={changeRegisterForm} />
