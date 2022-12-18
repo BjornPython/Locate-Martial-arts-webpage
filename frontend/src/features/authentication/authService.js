@@ -1,13 +1,23 @@
 import axios from "axios"
 
 
-const API_URL = "/api/users"
+const API_URL = "http://localhost:8000/api/users/"
 
 
 const register = async (userData) => {
     const response = await axios.post(API_URL + "register", userData)
-
+    console.log(response);
     if (response.data) {
+        localStorage.setItem("user", JSON.stringify(response.data))
+    }
+
+    return response.data
+}
+
+const login = async (userData) => {
+    const response = await axios.post(API_URL, userData)
+    if (response.data) {
+        console.log("TOKEN: ", response.data);
         localStorage.setItem("user", JSON.stringify(response.data))
     }
 
@@ -16,7 +26,7 @@ const register = async (userData) => {
 
 
 const authService = {
-    register
+    register, login
 }
 
 export default authService

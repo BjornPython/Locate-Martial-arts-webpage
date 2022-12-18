@@ -46,11 +46,12 @@ html {
 
 .login {
   transform: rotate(70deg);
-  margin-bottom: 120px;
+  margin-bottom: 190px;
+  margin-right: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   
 
 }
@@ -63,6 +64,7 @@ html {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
+  width: 300px;
 }
 
 .login-form hr {
@@ -122,7 +124,10 @@ html {
 
 .register {
   transform: rotate(70deg);
-  margin-bottom: 120px;
+  margin-bottom: 100px;
+  margin-right: 120px;
+  width: 300px;
+  
 }
 
 
@@ -274,10 +279,12 @@ html {
 
   .login {
     transform: rotate(0deg);
+    margin: auto;
   }
 
   .register {
     transform: rotate(0deg);
+    margin: auto;
   }
 
 

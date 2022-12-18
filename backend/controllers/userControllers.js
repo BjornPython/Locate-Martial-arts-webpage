@@ -1,6 +1,11 @@
 const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+
+
+
+// REGISTER USER // REGISTER USER // REGISTER USER // REGISTER USER // REGISTER USER 
 
 const registerUser = asyncHandler(async (req, res) => {
     const {
@@ -11,8 +16,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 
     if (!name || !email || !password) {
-        res.status(400)
-        throw new Error("Please include name, email, and password Fields.")
+        res.status(400).json({message: "Please include all fields."})
     }
 
     const salt = await bcrypt.genSalt(10)
@@ -23,12 +27,19 @@ const registerUser = asyncHandler(async (req, res) => {
         name, email, password: hashedPass,
     })
 
+    if (user) {
+        const token = generateToken(user.id)
+        res.status(200).json(token)
 
-    res.status(200).json({sentinfo: req.body, user})
+    } else {
+        res.status(400).json({error: "Failed to create User."})
+
+    }
+
 })
 
 
-
+// LOGIN USER // LOGIN USER // LOGIN USER // LOGIN USER // LOGIN USER // LOGIN USER 
 
 const loginUser = asyncHandler(async (req, res) => {
 
@@ -37,14 +48,21 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({email})
 
     if (!user) {
-        res.status(400).json({message: "User email does not exist."})
+        res.status(400).json({message: "Wrong Email or Password."})
     }
     console.log(await bcrypt.compare(password, user.password));
     if ( ! await bcrypt.compare(password, user.password)) {
         res.status(400).json({message: "Wrong password"})
     }
     
-    res.status(200).json({message: "its WORKING!"})
+    const token = generateToken(user.id)
+    res.status(200).json(token) 
 })
+
+
+const generateToken = (id) => {
+    return jwt.sign({id}, process.env.JWT_TOKEN, {expiresIn: "7d"})
+}
+
 
 module.exports = {registerUser, loginUser}

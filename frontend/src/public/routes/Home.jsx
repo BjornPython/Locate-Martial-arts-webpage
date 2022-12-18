@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 
 import { useSelector, useDispatch } from "react-redux"
-import { register, reset } from "../../features/authentication/authSlice"
+import { register, login, reset } from "../../features/authentication/authSlice"
 
 import "../css/home.css"
 
@@ -44,7 +44,7 @@ function Home() {
         }))
     }
 
-    const submitForm = (e) => {
+    const submitLoginData = (e) => {
         e.preventDefault()
 
         if (loginEmail == "" || loginPass == "") {
@@ -52,9 +52,10 @@ function Home() {
         }
 
         const userData = {
-            loginEmail, loginPass
+            email: loginEmail, password: loginPass
         }
-        console.log(userData);
+
+        dispatch(login(userData))
     }
 
     const submitRegisData = (e) => {
@@ -69,10 +70,9 @@ function Home() {
         }
 
         const userData = {
-            regisName,
-            regisEmail,
-            regisPass,
-            regisCPass
+            name: regisName,
+            email: regisEmail,
+            password: regisPass
         }
 
         dispatch(register(userData))
@@ -91,7 +91,7 @@ function Home() {
                         <div className="login">
 
                             <h1>LOG IN</h1>
-                            <form action="" onSubmit={submitForm} className="login-form">
+                            <form action="" onSubmit={submitLoginData} className="login-form">
                                 <input className="font" type="text" name="loginEmail" value={loginEmail} placeholder={"Email"} onChange={changeLoginForm} />
                                 <hr />
                                 <input className="font" type="password" name="loginPass" value={loginPass} placeholder={"Password"} onChange={changeLoginForm} />
@@ -104,15 +104,15 @@ function Home() {
 
                     <div className="register-page">
                         <div className="register">
-                            <h2>REGISTER</h2>
-                            <form action="" onSubmit={submitForm} className="login-form">
+                            <h1>REGISTER</h1>
+                            <form action="" onSubmit={submitRegisData} className="login-form">
                                 <input className="font" type="text" name="regisName" value={regisName} placeholder={"Name"} onChange={changeRegisterForm} />
                                 <hr />
-                                <input className="font" type="text" name="regisemail" value={regisEmail} placeholder={"Email"} onChange={changeRegisterForm} />
+                                <input className="font" type="text" name="regisEmail" value={regisEmail} placeholder={"Email"} onChange={changeRegisterForm} />
                                 <hr />
-                                <input className="font" type="password" name="regispass" value={regisPass} placeholder={"Password"} onChange={changeRegisterForm} />
+                                <input className="font" type="password" name="regisPass" value={regisPass} placeholder={"Password"} onChange={changeRegisterForm} />
                                 <hr />
-                                <input className="font" type="password" name="regiscpass" value={regisCPass} placeholder={"Confirm Password"} onChange={changeRegisterForm} />
+                                <input className="font" type="password" name="regisCPass" value={regisCPass} placeholder={"Confirm Password"} onChange={changeRegisterForm} />
                                 <hr />
                                 <button type="submit">Log In</button>
                             </form>
