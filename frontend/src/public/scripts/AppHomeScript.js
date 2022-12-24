@@ -1,4 +1,4 @@
-window.onload=function(){
+window.onload = (() => {
 
     // ANIMATIONS FOR LOG IN    
 
@@ -140,8 +140,19 @@ window.onload=function(){
     })
 
 
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show")
+            } else {
+                entry.target.classList.remove("show")
+            }
+        })
+    }) 
 
-}
-    
-    
-    
+    const artsBoxes = document.querySelectorAll(".arts-box")
+    artsBoxes.forEach((artBox) => observer.observe(artBox))
+
+
+
+})

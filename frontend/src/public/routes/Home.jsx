@@ -7,10 +7,21 @@ import { register, login, reset } from "../../features/authentication/authSlice"
 import "../css/home.css"
 
 import Arts from "../comps/Arts"
+import Gym from "../comps/Gym"
+
+import { useNavigate } from "react-router-dom"
 
 function Home() {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth)
+
+    if (user || isSuccess) {
+        navigate("/userhome")
+    }
+
 
     const [loginFormData, setLoginFormData] = useState({
         loginEmail: "",
@@ -56,6 +67,7 @@ function Home() {
         }
 
         dispatch(login(userData))
+        navigate("/userhome")
     }
 
     const submitRegisData = (e) => {
@@ -122,7 +134,7 @@ function Home() {
 
 
                     <div className="find" id="find1">
-                        <h1><a href="/" className="gym-txt">FIND A GYM</a></h1>
+                        <h1><a href="#find-gym" className="gym-txt">FIND A GYM</a></h1>
                         <hr className="gym-l" />
                     </div>
                     <div className="find" id="find2">
@@ -142,6 +154,8 @@ function Home() {
 
                 </div>
             </div>
+            <tag id="find-gym"></tag>
+            <Gym />
             <tag id="martial-arts"></tag>
             <Arts />
         </div>

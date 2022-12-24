@@ -14,11 +14,12 @@ function Carousell() {
 
         <div className="martial-arts-page">
             <div className="text">
-                <h1 className="mainfont">FIND YOUR MARTIAL ARTS</h1>
+                <h1 className="mainfont">DIFFERENT MARTIAL ARTS</h1>
+                <h3 className="font">DISCOVER THE MARTIAL ART THAT IS BEST FOR YOU</h3>
             </div>
 
             <div className="martial-arts">
-                <div className="arts-box">
+                <div className="arts-box hide">
                     <div className="image">
                         <img src={img1} alt="muay thai" />
                         <div className="overlay">
@@ -33,7 +34,7 @@ function Carousell() {
                     </div>
                 </div>
 
-                <div className="arts-box">
+                <div className="arts-box hide">
                     <div className="image">
                         <img src={img4} alt="Boxing" />
                         <div className="overlay">
@@ -50,7 +51,7 @@ function Carousell() {
 
 
 
-                <div className="arts-box">
+                <div className="arts-box hide">
                     <div className="image">
                         <img src={img5} alt="Boxing" />
                         <div className="overlay">
@@ -65,7 +66,7 @@ function Carousell() {
                     </div>
                 </div>
 
-                <div className="arts-box">
+                <div className="arts-box hide">
                     <div className="image">
                         <img src={img3} alt="Boxing" />
                         <div className="overlay">

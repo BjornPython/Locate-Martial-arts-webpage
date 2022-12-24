@@ -1,0 +1,32 @@
+.gym-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.gym-components {
+    width: 90%;
+    height: 720px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.map-info {
+    margin-left: 200px;
+}
+
+
+.map-bg {
+    width: 500px;
+    height: 600px;
+    border-radius: 25px;
+    margin-right: 80px;
+    background-color: #171616;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
