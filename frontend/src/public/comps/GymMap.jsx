@@ -6,9 +6,31 @@ import { useMap } from 'react-leaflet/hooks'
 import { Marker, useMapEvent } from "react-leaflet";
 import { Popup } from "react-leaflet/Popup";
 import "leaflet/dist/leaflet.css";
+import "../css/gymMap.css"
 
 
+const GetCoordinates = () => {
+    const map = useMap();
 
+    useEffect(() => {
+        if (!map) return;
+        let latLong
+
+
+        map.on('click', (e) => {
+            latLong = e.latlng;
+            map.setView(latLong, 18)
+            console.log(latLong);
+
+        })
+
+
+    }, [map])
+
+
+    return null
+
+}
 
 function GymMap() {
 
@@ -56,7 +78,7 @@ function GymMap() {
 
     return (
         <div className="map">
-            <MapContainer ref={mapRef} center={position} zoom={18} scrollWheelZoom={true} style={{ height: "500px", width: "100%" }}>
+            <MapContainer ref={mapRef} center={position} zoom={18} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -64,21 +86,21 @@ function GymMap() {
 
                 <Marker position={position} icon={markerIcon}>
                     <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
+                        You <br /> {position}
                     </Popup>
                 </Marker>
-                {/* <GetCoordinates /> */}
+                <GetCoordinates />
 
 
             </MapContainer>
-
+            {/* 
             <form action="" onSubmit={submitLatLong} className="login-form">
                 <input className="font" type="text" name="lat" value={lat} placeholder={"lat"} onChange={changeLogilatlongnForm} />
                 <hr />
                 <input className="font" type="text" name="long" value={long} placeholder={"long"} onChange={changeLogilatlongnForm} />
                 <hr />
                 <button type="submit">Submit</button>
-            </form>
+            </form> */}
         </div>
 
     )
