@@ -32,7 +32,7 @@ const GetCoordinates = () => {
 
 }
 
-function GymMap() {
+function GymMap({ state, handleTest }) {
 
 
 
@@ -73,11 +73,17 @@ function GymMap() {
     const [position, setPosition] = useState([41.8719, 12.5674])
 
 
+    useEffect(() => {
+        console.log("effect");
+    })
+
+
 
 
 
     return (
-        <div className="map">
+        <div className="map" >
+            <button onClick={handleTest}>CLICK</button>
             <MapContainer ref={mapRef} center={position} zoom={18} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

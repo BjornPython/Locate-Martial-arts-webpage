@@ -1,0 +1,42 @@
+[33mcommit bf648e2df8d288b182f56703dace6903c3f6dfba[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Nathan <nathanflores887@gmail.com>
+Date:   Mon Jan 2 15:20:54 2023 +0800
+
+    disabled lat long input temporarily to be replaced with the address input.
+
+[33mcommit 5bb712aaeca3f6da25a751d293d426edeba99203[m
+Author: Nathan <nathanflores887@gmail.com>
+Date:   Sat Dec 24 10:45:31 2022 +0800
+
+    Placed the leaflet map with working lat and lang on the gym page.
+
+[33mcommit 577d1e3036a70a9257003fd0f98645e80a6247af[m
+Author: Nathan <nathanflores887@gmail.com>
+Date:   Sun Dec 18 13:47:04 2022 +0800
+
+    Login and Register forms can now make post requests to the backend server.
+
+[33mcommit 76319bf61e1388270690024f1b6e26d1abe64d26[m
+Author: Nathan <nathanflores887@gmail.com>
+Date:   Sat Dec 17 20:49:56 2022 +0800
+
+    added authentication for user account registration. (Not done)
+
+[33mcommit 89194e91601a2ae10120fdedf9559c4dbb8762a5[m
+Author: Nathan <nathanflores887@gmail.com>
+Date:   Sat Dec 17 20:15:04 2022 +0800
+
+    Fixed homepage login and register animation and functionality.
+
+[33mcommit 8efb2a5a070787b340224ac0288a0364c394c77b[m
+Author: Nathan <nathanflores887@gmail.com>
+Date:   Sat Dec 17 12:43:47 2022 +0800
+
+    Locate Martial Arts website created with MERN stack. need to fix home
+    page.
+
+[33mcommit 94b2eeb630385a950485c72a43a3c270097b806d[m
+Author: Nathan <nathanflores887@gmail.com>
+Date:   Wed Dec 14 11:07:38 2022 +0800
+
+    Initialize project using Create React App

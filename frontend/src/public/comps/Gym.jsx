@@ -1,23 +1,31 @@
 import "../css/gym.css"
 import GymMap from "./GymMap"
+import { useState } from "react"
+import MapForm from "./MapForm"
 
 function Gym() {
+
+    const [latLong, setLatLong] = useState([])
+
+
+
+    const handleSearch = (lat, long) => {
+        console.log("IN GYM: ", lat, long);
+        setLatLong([lat, long])
+        console.log("LATLONG: ", latLong);
+    }
+
+
+
     return (
         <div className="gym-page">
             <div className="gym-components">
 
-                <div className="map-info">
-                    <h1>ADDRESS</h1>
-
-                    <h3>option</h3>
-                    <h3>option</h3>
-                    <h3>option</h3>
-                    <h3>option</h3>
-                </div>
+                <MapForm handleSearch={handleSearch} />
 
                 <div className="gym-map">
                     <div className="map-bg">
-                        <GymMap />
+                        <GymMap latLong={latLong} />
 
                     </div>
                 </div>
