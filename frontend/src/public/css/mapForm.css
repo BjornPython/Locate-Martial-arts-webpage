@@ -1,0 +1,107 @@
+.map-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.find-gym-btn {
+    background-color: green;
+}
+
+.address-div {
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    row-gap: 0px;
+    column-gap: 0px;
+}
+
+.address-div h1{
+    margin: 0;
+}
+
+.address-div p{
+    margin: 0;
+}
+
+.address-div div{
+    margin-top: 30px;
+}
+
+.address-form {
+    height: 100px;
+    width: 450px;
+    display: flex;
+    justify-content:flex-start;
+    align-items: flex-start;
+}
+
+.address {
+    width: 90%;
+    height: 40px;
+    border-width: 2px;
+    border-color: black;
+    font-size: 1.2rem;
+    padding-left: 15px;
+    
+}
+
+.address::placeholder {
+    color: black;
+}
+
+.address-btn {
+    width: 10%;
+    height: 45px;
+    cursor: pointer;
+    background-color: black;
+    box-shadow: none;
+    text-shadow: none;
+
+}
+
+.address-btn:hover .search-fnt{
+    transition: 0.2s;
+    color: black;
+}
+
+.address-btn:hover {
+    transition: 0.2s;
+    background-color: white;
+    border-color: white;
+}
+.latLong-form {
+    display: none;
+}
+
+.search-fnt {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.find-btns {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.find-btn {
+    transition: 0.2s ease-in;
+    width: 120px;
+    height: 30px;
+    background-color: gray;
+    border-color: gray;
+    color: white;  
+    border-style: solid;
+    cursor: pointer;
+}
+
+.find-btns button:hover {
+    background-color: black;
+    border-color: black;
+}
+
+.find-active {
+    background-color: green;
+}

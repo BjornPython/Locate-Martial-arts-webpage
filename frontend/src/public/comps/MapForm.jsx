@@ -3,7 +3,6 @@ import { useState } from 'react'
 import "../css/mapForm.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { faSquareFacebook } from "@fortawesome/free-brands-svg-icons"
 
 
 function MapForm({ handleSearch }) {
@@ -39,13 +38,23 @@ function MapForm({ handleSearch }) {
 
     return (
         <div className='map-form'>
+            <div className='address-div'>
+                <form action="" className="address-form">
+                    <input className="address font" type="text" name="lat" value={lat} placeholder="Search Your Area" onChange={changeLogilatlongnForm} />
 
-            <form action="" className="address-form">
-                <input className="address font" type="text" name="lat" value={lat} placeholder="Address" onChange={changeLogilatlongnForm} />
+                    <button onClick={onSearchAddress} className="address-btn"><FontAwesomeIcon icon={faSearch} className="search-fnt" />
+                    </button>
+                </form>
+                <h1>FIND A? </h1>
+                <p>(what are you looking for?)</p>
+                <div className='find-btns'>
+                    <button className='find-btn'>GYM</button>
+                    <button className='find-btn'>COACH</button>
+                    <button className='find-btn'>SPARTNER</button>
+                </div>
+                <h1>WHAT MARTIAL ART? </h1>
+            </div>
 
-                <button onClick={onSearchAddress} className="address-btn"><FontAwesomeIcon icon={faSearch} className="search-fnt" />
-                </button>
-            </form>
 
             <form action="" className="latLong-form">
                 <input className="font" type="text" name="lat" value={lat} placeholder={"lat"} onChange={changeLogilatlongnForm} />
@@ -56,7 +65,9 @@ function MapForm({ handleSearch }) {
             </form>
 
 
-        </div>
+
+
+        </div >
     )
 }
 
