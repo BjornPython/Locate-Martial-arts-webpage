@@ -6,6 +6,7 @@ import MapForm from "./MapForm"
 function Gym() {
 
     const [latLong, setLatLong] = useState([])
+    const [goSearch, setgoSearch] = useState(false)
 
 
 

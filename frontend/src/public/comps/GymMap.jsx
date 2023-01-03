@@ -32,12 +32,12 @@ const GetCoordinates = () => {
 
 }
 
-function GymMap({ state, handleTest }) {
+function GymMap({ latLong, goSearch }) {
 
 
 
     const mapRef = useRef()
-    console.log("MAP REF: ", mapRef);
+    // console.log("MAP REF: ", mapRef);
 
     const markerIcon = L.icon({
         iconUrl: require("../images/location.png"),
@@ -45,37 +45,28 @@ function GymMap({ state, handleTest }) {
         iconSize: [42, 42]
     })
 
-    const [latlongFormData, setlatlongFormData] = useState({
-        lat: "",
-        long: ""
-    })
-
-    const { lat, long } = latlongFormData
-
-    const changeLogilatlongnForm = (e) => {
-        setlatlongFormData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }))
-    }
-
-    const submitLatLong = (e) => {
-        e.preventDefault()
-        console.log("Submitting");
-        console.log("LAT: ", parseFloat(lat), " LONG: ", parseFloat(long));
-        setPosition([parseFloat(lat), parseFloat(long)])
-        console.log("LAT: ", parseFloat(lat), "LONG: ", parseFloat(long));
-        console.log(mapRef.current.setView({ lat: parseFloat(lat), lng: parseFloat(long) }, 18, { animate: true, duration: 1 }));
-
-    }
 
 
     const [position, setPosition] = useState([41.8719, 12.5674])
 
 
+    // // const handleSearch = () => {
+    // console.log("SETTING POSITION, LAT AND LONG: ", latLong[0], latLong[1]);
+    // setPosition([parseFloat(latLong[0]), parseFloat(latLong[1])])
+    // console.log("mapref.current", mapRef);
+    // console.log(mapRef.current.setView({ lat: parseFloat(latLong[0]), lng: parseFloat(latLong[1]) }, 18, { animate: true, duration: 1 }));
+    // // };
+
+
     useEffect(() => {
-        console.log("effect");
-    })
+        console.log("MAPREF CURRENT: ", mapRef.current);
+        if (!mapRef.current) return;
+        console.log("SETTING POSITION, LAT AND LONG: ", latLong[0], latLong[1]);
+        setPosition([parseFloat(latLong[0]), parseFloat(latLong[1])])
+        console.log(mapRef.current.setView({ lat: parseFloat(latLong[0]), lng: parseFloat(latLong[1]) }, 18, { animate: true, duration: 1 }));
+
+
+    }, [latLong])
 
 
 
@@ -83,7 +74,6 @@ function GymMap({ state, handleTest }) {
 
     return (
         <div className="map" >
-            <button onClick={handleTest}>CLICK</button>
             <MapContainer ref={mapRef} center={position} zoom={18} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -99,14 +89,6 @@ function GymMap({ state, handleTest }) {
 
 
             </MapContainer>
-            {/* 
-            <form action="" onSubmit={submitLatLong} className="login-form">
-                <input className="font" type="text" name="lat" value={lat} placeholder={"lat"} onChange={changeLogilatlongnForm} />
-                <hr />
-                <input className="font" type="text" name="long" value={long} placeholder={"long"} onChange={changeLogilatlongnForm} />
-                <hr />
-                <button type="submit">Submit</button>
-            </form> */}
         </div>
 
     )
