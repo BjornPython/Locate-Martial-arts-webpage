@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import "../css/mapForm.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 
 function MapForm({ handleSearch }) {
@@ -10,10 +10,11 @@ function MapForm({ handleSearch }) {
 
     const [latlongFormData, setlatlongFormData] = useState({
         lat: "",
-        long: ""
+        long: "",
+        arts: ""
     })
 
-    const { lat, long } = latlongFormData
+    const { lat, long, arts } = latlongFormData
 
     const changeLogilatlongnForm = (e) => {
         setlatlongFormData((prevState) => ({
@@ -53,6 +54,20 @@ function MapForm({ handleSearch }) {
                     <button className='find-btn'>SPARTNER</button>
                 </div>
                 <h1>WHAT MARTIAL ART? </h1>
+
+                <div className='select-m-arts'>
+                    <h3>Select Martial Arts...</h3>
+                    <FontAwesomeIcon icon={faCaretDown} className="dd-icon" />
+                </div>
+                <div className='marts-dropdown '>
+                    <div className='m-art'><h3>Muay Thai</h3></div>
+                    <div className='m-art'><h3>Mixed Martial Arts</h3></div>
+                    <div className='m-art'><h3>Brazilian Jiu Jitsu</h3></div>
+                    <div className='m-art'><h3>Boxing</h3></div>
+                    <input className="others font" type="text" name="arts" value={arts} placeholder="Other..." onChange={changeLogilatlongnForm} />
+
+                </div>
+
             </div>
 
 

@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    height: 500px;
 }
 
 .find-gym-btn {
@@ -24,12 +25,9 @@
     margin: 0;
 }
 
-.address-div div{
-    margin-top: 30px;
-}
 
 .address-form {
-    height: 100px;
+    height: 70px;
     width: 450px;
     display: flex;
     justify-content:flex-start;
@@ -80,7 +78,7 @@
 }
 
 .find-btns {
-    margin-top: 0px;
+    margin-top: 20px;
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
@@ -104,4 +102,53 @@
 
 .find-active {
     background-color: green;
+}
+
+.others {
+    height: 30px;
+    border-radius: 8px;
+    border-style: solid;
+    border: none;
+    width: 80%;
+}
+.others::placeholder {
+    color: black;
+}
+
+.select-m-arts {
+    background-color: black;
+    color: white;
+    height: 40px;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 8px;
+}
+
+.dd-icon {
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.marts-dropdown {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: gray;
+    width: 300px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+
+}
+
+.m-art {
+    color: white;
 }

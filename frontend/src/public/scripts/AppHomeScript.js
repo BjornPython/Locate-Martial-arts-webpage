@@ -16,9 +16,9 @@ window.onload = (() => {
     const hamburger = document.querySelector(".hamburger");
     const links = document.querySelector(".links");
 
-    console.log(loginButton);
-    console.log(loginPage);
-    console.log("MAIN TEXTS: ", mainTexts);
+
+    //GYM PAGE
+    const ddButton = document.querySelector(".dd-icon");
 
     if (!(loginPage.classList.contains("login-show")) || 
     !(registerPage.classList.contains("register-show"))) {
@@ -99,16 +99,7 @@ window.onload = (() => {
 
 
 
-        // if (loginPage.classList.contains("login-show")) {
-        //     animateLogin()
-        //     loginButton.classList.toggle("btn-dark")
-        // }
 
-        // if (registerPage.classList.contains("register-show")) {
-        //     animateRegister()
-        //     registerButton.classList.toggle("btn-dark")
-
-        // }
     })
 
 
