@@ -18,9 +18,13 @@ window.onload = (() => {
 
 
     //GYM PAGE
+
     const selectArts = document.querySelector(".select-span");
     const martsDropdown = document.querySelector(".marts-dropdown");
-    const mapForm = document.querySelector(".map-form");
+
+
+    const mArts = document.querySelectorAll(".m-art");
+
 
 
     if (!(loginPage.classList.contains("login-show")) || 
@@ -156,7 +160,13 @@ window.onload = (() => {
     })
 
 
-
+    mArts.forEach((mart) => {
+        console.log("MART: ", mart);
+        mart.addEventListener("click", () => {
+            const span = mart.querySelector(".m-art-span")
+            span.classList.toggle("show-span")
+        })
+    })
 
 
 })

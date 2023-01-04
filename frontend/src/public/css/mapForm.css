@@ -156,7 +156,6 @@
     background-color: black ;
     width: 320px;
     padding-bottom: 20px;
-    border-radius: 8px;
     opacity: 0;
     transition: 0.2s;
 }
@@ -167,13 +166,12 @@
 
 .m-art {
     width: 100%;
-    border-radius: 8px;
     transition: 0.2s ease-in;
     color: white;
-    position: relative;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
-
 
 
 .m-art h3 {
@@ -182,6 +180,20 @@
 
 .m-art:hover {
     background-color: gray;
+}
+
+
+
+.m-art-span {
+    width: 5px;
+    height: 97%;
+    background-color: red;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.show-span {
+    opacity: 1;
 }
 
 /* width */

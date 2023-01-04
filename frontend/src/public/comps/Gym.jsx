@@ -16,13 +16,16 @@ function Gym() {
         console.log("LATLONG: ", latLong);
     }
 
+    const handleAddressSearch = (address, lf, art) => {
+        console.log("IN GYM: ", address, lf, art);
+    }
 
 
     return (
         <div className="gym-page">
             <div className="gym-components">
 
-                <MapForm handleSearch={handleSearch} />
+                <MapForm handleSearch={handleSearch} handleAddressSearch={handleAddressSearch} />
 
                 <div className="gym-map">
                     <div className="map-bg">
