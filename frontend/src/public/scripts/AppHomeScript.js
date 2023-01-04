@@ -26,6 +26,7 @@ window.onload = (() => {
     const mArts = document.querySelectorAll(".m-art");
     const findBtns = document.querySelectorAll(".find-btn");
 
+    const locBtn = document.querySelector(".loc-btn");
 
     if (!(loginPage.classList.contains("login-show")) || 
     !(registerPage.classList.contains("register-show"))) {
@@ -102,11 +103,6 @@ window.onload = (() => {
         
         links.classList.toggle("links-active");
         hamburger.classList.toggle("active");
-
-
-
-
-
     })
 
 
@@ -151,9 +147,6 @@ window.onload = (() => {
     const artsBoxes = document.querySelectorAll(".arts-box")
     artsBoxes.forEach((artBox) => observer.observe(artBox))
 
-
-
-
     selectArts.addEventListener("click", () => {
         console.log("clicked");
         martsDropdown.classList.toggle("marts-dropdown-active")
@@ -174,5 +167,15 @@ window.onload = (() => {
             btn.classList.toggle("find-btn-active")
         })
     })
+
+
+
+    console.log("LOC BTN: ", locBtn);
+
+    locBtn.addEventListener("click", () => {
+        console.log("LOC BTN CLICKED");
+        locBtn.classList.toggle("loc-btn-active")
+    })
+
 
 })

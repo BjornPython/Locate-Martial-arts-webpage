@@ -28,17 +28,44 @@
 
 
 .address-form {
-    height: 70px;
+    height: 55px;
     width: 450px;
     display: flex;
     justify-content:flex-start;
     align-items: flex-start;
 }
 
+.loc-btn {
+    margin-right: 5px;
+    border: green;
+    background-color: black;
+    height: 46px;
+    width: 46px;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.loc-btn:hover .loc-fnt {
+    color: gray;
+}
+
+
+.loc-btn-active {
+    background-color: red;
+
+}
+
+.loc-fnt {
+    transition: 0.2s ease-in;
+    color: white;
+    font-size: 2rem;
+}
+
+
+
 .address {
-    width: 90%;
+    width: 80%;
     height: 40px;
-    border-width: 2px;
     border-color: black;
     font-size: 1.2rem;
     padding-left: 15px;
@@ -50,12 +77,10 @@
 }
 
 .address-btn {
-    width: 10%;
-    height: 45px;
+    height: 46px;
+    width: 46px;
     cursor: pointer;
     background-color: black;
-    box-shadow: none;
-    text-shadow: none;
 
 }
 
@@ -67,6 +92,9 @@
 .address-btn:hover {
     transition: 0.2s;
 }
+
+
+
 .latLong-form {
     display: none;
 }

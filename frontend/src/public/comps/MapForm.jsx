@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import "../css/mapForm.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faCaretDown, faLocation, faL } from '@fortawesome/free-solid-svg-icons'
 
 
 function MapForm({ handleSearch, handleAddressSearch }) {
@@ -73,7 +73,8 @@ function MapForm({ handleSearch, handleAddressSearch }) {
     }
 
 
-    const getLocation = () => {
+    const getLocation = (e) => {
+        e.preventDefault()
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
 
     }
@@ -88,15 +89,16 @@ function MapForm({ handleSearch, handleAddressSearch }) {
 
     return (
         <div className='map-form'>
-            <button onClick={getLocation}>CLICK ME</button>
-
             <div className='address-div'>
                 <form action="" className="address-form">
+                    <button className='loc-btn' onClick={getLocation}><FontAwesomeIcon icon={faLocation} className="loc-fnt" /></button>
+
                     <input className="address font" type="text" name="address" value={address} placeholder="Search Your Area" onChange={changeAddressData} />
 
                     <button onClick={onSearchAddress} className="address-btn"><FontAwesomeIcon icon={faSearch} className="search-fnt" />
                     </button>
                 </form>
+
                 <h1>FIND A? </h1>
                 <p>(what are you looking for?)</p>
                 <div className='find-btns'>
