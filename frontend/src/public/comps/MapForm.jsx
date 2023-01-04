@@ -36,6 +36,9 @@ function MapForm({ handleSearch }) {
         handleSearch(lat, long)
     }
 
+    const test = (art) => {
+        console.log(`${art} clicked`);
+    }
 
     return (
         <div className='map-form'>
@@ -61,13 +64,13 @@ function MapForm({ handleSearch }) {
                     <span className='select-span'></span>
                 </div>
                 <div className='marts-dropdown'>
-                    <div className='m-art'><h3>Muay Thai</h3></div>
-                    <div className='m-art'><h3>Mixed Martial Arts</h3></div>
-                    <div className='m-art'><h3>Brazilian Jiu Jitsu</h3></div>
-                    <div className='m-art'><h3>Boxing</h3></div>
-                    <div className='m-art'><h3>Karate</h3></div>
-                    <div className='m-art'><h3>Wrestling</h3></div>
-                    <div className='m-art'><h3>Sambo</h3></div>
+                    <div id='m-art-muay' className='m-art' onClick={() => { test("Muay thai") }}><h3>Muay Thai</h3></div>
+                    <div id='m-art-mma' className='m-art' onClick={() => { test("Mixed Martial Arts") }}><h3>Mixed Martial Arts</h3></div>
+                    <div id='m-art-bjj' className='m-art' onClick={() => { test("Brazilian Jiu Jitsu") }}><h3>Brazilian Jiu Jitsu</h3></div>
+                    <div id='m-art-bxg' className='m-art' onClick={() => { test("Boxing") }}><h3>Boxing</h3></div>
+                    <div id='m-art-ktd' className='m-art' onClick={() => { test("Karate") }}><h3>Karate</h3></div>
+                    <div id='m-art-wrs' className='m-art' onClick={() => { test("Wrestling") }}><h3>Wrestling</h3></div>
+                    <div id='m-art-sbo' className='m-art' onClick={() => { test("Sambo") }}><h3>Sambo</h3></div>
                     <input className="others font" type="text" name="arts" value={arts} placeholder="Other..." onChange={changeLogilatlongnForm} />
 
                 </div>

@@ -171,6 +171,7 @@
     transition: 0.2s ease-in;
     color: white;
     position: relative;
+    cursor: pointer;
 }
 
 
@@ -203,12 +204,13 @@
     background: #555; 
   }
 
-  @media(max-width:920px) {
-    .map-form {
-        transform: translateY(-140px);
-    }
+  @media(max-width:920px) { 
+
 
     .marts-dropdown {
-        height: 300px;
+        height: 200px;
     }
+
+
+
 }
