@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import "../css/mapForm.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,10 +8,10 @@ import { faSearch, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 function MapForm({ handleSearch, handleAddressSearch }) {
 
 
+
     const [latlongFormData, setlatlongFormData] = useState({
         lat: "",
-        long: "",
-        arts: ""
+        long: ""
     })
 
     const { lat, long, arts } = latlongFormData
@@ -23,6 +23,14 @@ function MapForm({ handleSearch, handleAddressSearch }) {
     })
 
     const { address, lf, marts } = addressData
+
+    const changeAddressData = (e) => {
+        setAddressData((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
+    }
+
 
     const changeFormData = (e) => {
         setlatlongFormData((prevState) => ({
@@ -50,11 +58,41 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         console.log(`${art} clicked`);
     }
 
+
+    const successCallback = async (success) => {
+        console.log(success);
+        console.log("LATLONG: ", success.coords.latitude, success.coords.longitude)
+        console.log("CHANGING LATLONGFORMDATA...");
+        setlatlongFormData({ lat: success.coords.latitude, long: success.coords.longitude })
+
+
+    }
+
+    const errorCallback = (error) => {
+        console.log(error);
+    }
+
+
+    const getLocation = () => {
+        navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
+
+    }
+
+    useEffect(() => {
+        if (lat === "" || long === "") { return }
+        console.log("LATLONG FORMDATA: ", latlongFormData);
+        console.log(lat);
+        console.log(long);
+        handleSearch(lat, long)
+    }, [latlongFormData])
+
     return (
         <div className='map-form'>
+            <button onClick={getLocation}>CLICK ME</button>
+
             <div className='address-div'>
                 <form action="" className="address-form">
-                    <input className="address font" type="text" name="lat" value={lat} placeholder="Search Your Area" onChange={changeFormData} />
+                    <input className="address font" type="text" name="address" value={address} placeholder="Search Your Area" onChange={changeAddressData} />
 
                     <button onClick={onSearchAddress} className="address-btn"><FontAwesomeIcon icon={faSearch} className="search-fnt" />
                     </button>
@@ -62,9 +100,9 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                 <h1>FIND A? </h1>
                 <p>(what are you looking for?)</p>
                 <div className='find-btns'>
-                    <button className='find-btn'>GYM</button>
-                    <button className='find-btn'>COACH</button>
-                    <button className='find-btn'>SPARTNER</button>
+                    <button className='find-btn font'>GYM</button>
+                    <button className='find-btn font'>COACH</button>
+                    <button className='find-btn font'>SPARTNER</button>
                 </div>
                 <h1>WHAT MARTIAL ART? </h1>
 
@@ -103,8 +141,8 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                         <h3>Sambo</h3>
                     </div>
                     <input className="others font" type="text" name="arts" value={arts} placeholder="Other..." onChange={changeFormData} />
-
                 </div>
+
 
             </div>
 

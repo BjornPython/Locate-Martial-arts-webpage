@@ -87,16 +87,22 @@
     transition: 0.2s ease-in;
     width: 120px;
     height: 30px;
-    background-color: gray;
-    border-color: gray;
+    background-color: black;
+    border-color: black;
     color: white;  
     border-style: solid;
     cursor: pointer;
 }
 
+.find-btn-active {
+    background-color: red;
+    border: red;
+    font-weight: 600;
+}
+
 .find-btns button:hover {
-    background-color: black;
-    border-color: black;
+    background-color: gray;
+    border-color: gray;
 }
 
 .find-active {

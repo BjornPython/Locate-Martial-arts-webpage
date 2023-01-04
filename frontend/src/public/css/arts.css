@@ -90,7 +90,7 @@
 
 .image-txt {
     color: white;
-    letter-spacing: 6px;
+    letter-spacing: 2px;
 
     transition: 0.5s ease;
 
@@ -118,7 +118,7 @@
 }
 
 .image-txt:hover {
-    color: gray;
+    color: red;
 }
 
 @media(max-width:920px) {

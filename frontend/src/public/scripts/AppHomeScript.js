@@ -24,7 +24,7 @@ window.onload = (() => {
 
 
     const mArts = document.querySelectorAll(".m-art");
-
+    const findBtns = document.querySelectorAll(".find-btn");
 
 
     if (!(loginPage.classList.contains("login-show")) || 
@@ -168,5 +168,11 @@ window.onload = (() => {
         })
     })
 
+
+    findBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            btn.classList.toggle("find-btn-active")
+        })
+    })
 
 })
