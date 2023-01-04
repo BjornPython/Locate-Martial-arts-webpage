@@ -6,8 +6,8 @@ import { register, login, reset } from "../../features/authentication/authSlice"
 
 import "../css/home.css"
 
-import Arts from "../comps/Arts"
-import Gym from "../comps/Gym"
+import Arts from "./Arts"
+import Gym from "./Gym"
 
 import { useNavigate } from "react-router-dom"
 

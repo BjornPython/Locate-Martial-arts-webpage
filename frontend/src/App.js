@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import Home from './public/routes/Home';
+import Home from './public/comps/Home';
 import Header from './public/comps/Header';
 import Footer from './public/comps/Footer';
 import UserHome from './public/routes/UserHome';

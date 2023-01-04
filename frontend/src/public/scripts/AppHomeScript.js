@@ -145,5 +145,8 @@ window.onload = (() => {
     artsBoxes.forEach((artBox) => observer.observe(artBox))
 
 
+    ddButton.addEventListener("click", () => {
+        console.log("clicked");
+    })
 
 })
