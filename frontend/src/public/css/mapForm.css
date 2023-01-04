@@ -1,7 +1,7 @@
 .map-form {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     height: 500px;
 }
 
@@ -15,6 +15,7 @@
     justify-content:flex-start;
     row-gap: 0px;
     column-gap: 0px;
+    margin-right: 10px;
 }
 
 .address-div h1{
@@ -60,13 +61,11 @@
 
 .address-btn:hover .search-fnt{
     transition: 0.2s;
-    color: black;
+    color: gray;
 }
 
 .address-btn:hover {
     transition: 0.2s;
-    background-color: white;
-    border-color: white;
 }
 .latLong-form {
     display: none;
@@ -105,17 +104,20 @@
 }
 
 .others {
-    height: 30px;
-    border-radius: 8px;
+    height: 40px;
+    font-size: 1rem;
     border-style: solid;
     border: none;
     width: 80%;
+    margin-left: 10px;
+    margin-top: 20px;
 }
 .others::placeholder {
     color: black;
 }
 
 .select-m-arts {
+    cursor: pointer;
     background-color: black;
     color: white;
     height: 40px;
@@ -127,7 +129,15 @@
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 8px;
+    position: relative;
 }
+
+.select-span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 
 .dd-icon {
     font-size: 1.3rem;
@@ -135,20 +145,70 @@
 }
 
 .marts-dropdown {
+    height: 350px;
+    overflow: scroll;
+    overflow-x: hidden;
     margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    background-color: gray;
-    width: 300px;
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color: black ;
+    width: 320px;
     padding-bottom: 20px;
     border-radius: 8px;
+    opacity: 0;
+    transition: 0.2s;
+}
 
+.marts-dropdown-active {
+    opacity: 1;
 }
 
 .m-art {
+    width: 100%;
+    border-radius: 8px;
+    transition: 0.2s ease-in;
     color: white;
+    position: relative;
+}
+
+
+
+.m-art h3 {
+    padding-left: 10px;
+}
+
+.m-art:hover {
+    background-color: gray;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: black; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #555; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+
+  @media(max-width:920px) {
+    .map-form {
+        transform: translateY(-140px);
+    }
+
+    .marts-dropdown {
+        height: 300px;
+    }
 }

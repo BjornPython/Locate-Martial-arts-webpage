@@ -28,6 +28,18 @@
 }
 
 
+@media(max-width:920px) {
+    .gym-page {
+        height: 1200px;
+    }
+
+    .gym-components {
+        height: 1200px;
+
+        flex-direction: column;
+    }
+  }
+
 
 
 

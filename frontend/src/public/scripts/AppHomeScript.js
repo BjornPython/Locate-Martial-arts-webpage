@@ -18,7 +18,10 @@ window.onload = (() => {
 
 
     //GYM PAGE
-    const ddButton = document.querySelector(".dd-icon");
+    const selectArts = document.querySelector(".select-span");
+    const martsDropdown = document.querySelector(".marts-dropdown");
+    const mapForm = document.querySelector(".map-form");
+
 
     if (!(loginPage.classList.contains("login-show")) || 
     !(registerPage.classList.contains("register-show"))) {
@@ -145,8 +148,15 @@ window.onload = (() => {
     artsBoxes.forEach((artBox) => observer.observe(artBox))
 
 
-    ddButton.addEventListener("click", () => {
+
+
+    selectArts.addEventListener("click", () => {
         console.log("clicked");
+        martsDropdown.classList.toggle("marts-dropdown-active")
     })
+
+
+
+
 
 })

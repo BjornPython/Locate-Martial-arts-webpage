@@ -58,12 +58,16 @@ function MapForm({ handleSearch }) {
                 <div className='select-m-arts'>
                     <h3>Select Martial Arts...</h3>
                     <FontAwesomeIcon icon={faCaretDown} className="dd-icon" />
+                    <span className='select-span'></span>
                 </div>
-                <div className='marts-dropdown '>
+                <div className='marts-dropdown'>
                     <div className='m-art'><h3>Muay Thai</h3></div>
                     <div className='m-art'><h3>Mixed Martial Arts</h3></div>
                     <div className='m-art'><h3>Brazilian Jiu Jitsu</h3></div>
                     <div className='m-art'><h3>Boxing</h3></div>
+                    <div className='m-art'><h3>Karate</h3></div>
+                    <div className='m-art'><h3>Wrestling</h3></div>
+                    <div className='m-art'><h3>Sambo</h3></div>
                     <input className="others font" type="text" name="arts" value={arts} placeholder="Other..." onChange={changeLogilatlongnForm} />
 
                 </div>
