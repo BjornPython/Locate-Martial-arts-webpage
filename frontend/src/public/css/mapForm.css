@@ -36,13 +36,18 @@
 }
 
 .loc-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 5px;
-    border: green;
     background-color: black;
     height: 46px;
     width: 46px;
     cursor: pointer;
     transition: 0.2s ease-in;
+    border-style: solid;
+    border-color: black;
+    
 }
 
 .loc-btn:hover .loc-fnt {
@@ -52,6 +57,7 @@
 
 .loc-btn-active {
     background-color: red;
+
 
 }
 
@@ -124,9 +130,10 @@
 
 .find-btn-active {
     background-color: red;
-    border: red;
     font-weight: 600;
 }
+
+
 
 .find-btns button:hover {
     background-color: gray;

@@ -16,16 +16,16 @@ function MapForm({ handleSearch, handleAddressSearch }) {
 
     const { lat, long, arts } = latlongFormData
 
-    const [addressData, setAddressData] = useState({
+    const [searchData, setSearchData] = useState({
         address: "",
         lf: [],
         marts: []
     })
 
-    const { address, lf, marts } = addressData
+    const { address, lf, marts } = searchData
 
     const changeAddressData = (e) => {
-        setAddressData((prevState) => ({
+        setSearchData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value
         }))
@@ -44,18 +44,11 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         console.log("ADDRESS");
     }
 
-    const onSearchLatLong = (e) => {
-        e.preventDefault()
-        console.log("E: ", e);
-        console.log("LATLONG: ", lat, long);
-        if (lat === "" || long === "") return;
-        handleSearch(lat, long)
-    }
-
-
 
     const test = (art) => {
         console.log(`${art} clicked`);
+        let newSearchData = searchData.marts.push(art)
+        setSearchData(newSearchData)
     }
 
 
@@ -85,7 +78,10 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         console.log(lat);
         console.log(long);
         handleSearch(lat, long)
-    }, [latlongFormData])
+
+        console.log("SEARCH DATA: ", searchData);
+
+    }, [latlongFormData, searchData])
 
     return (
         <div className='map-form'>
@@ -147,15 +143,6 @@ function MapForm({ handleSearch, handleAddressSearch }) {
 
 
             </div>
-
-
-            <form action="" className="latLong-form">
-                <input className="font" type="text" name="lat" value={lat} placeholder={"lat"} onChange={changeFormData} />
-                <hr />
-                <input className="font" type="text" name="long" value={long} placeholder={"long"} onChange={changeFormData} />
-                <hr />
-                <button onClick={onSearchLatLong}>Search</button>
-            </form>
 
 
 
