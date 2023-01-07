@@ -24,15 +24,16 @@ function MapForm({ handleSearch, handleAddressSearch }) {
     // The information the user is looking for. (gym/coach/spartner, martial arts) 
     const [searchData, setSearchData] = useState({
         lf: [],
-        marts: ""
+        marts: [],
+        other: ""
     })
-    const { lf, marts } = searchData
-    const changeAddressData = (e) => {
-        setSearchData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }))
-    }
+    const { lf, marts, other } = searchData
+    // const changeAddressData = (e) => {
+    //     setSearchData((prevState) => ({
+    //         ...prevState,
+    //         [e.target.name]: e.target.value
+    //     }))
+    // }
 
     // The user's inputted Address.
     const [searchedAddress, setSearchedAddress] = useState({ address: "" })
@@ -53,16 +54,20 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         e.preventDefault()
         if (address !== "") {
             setUserLatLong({ lat: addressResults[0].y, long: addressResults[0].x })
+            setShowSuggestions(false)
+
         } else {
             console.log("no");
         }
     }
 
 
-    const test = (art) => {
+    const addArt = (art) => {
         console.log(`${art} clicked`);
-        let newSearchData = searchData.marts.push(art)
+        let newSearchData = searchData
+        newSearchData.marts.push(art)
         setSearchData(newSearchData)
+        console.log(searchData);
     }
 
     // Function and Callbacks for requesting and getting the user's location.
@@ -85,7 +90,10 @@ function MapForm({ handleSearch, handleAddressSearch }) {
     const handleAddressClick = (x, y) => {
         console.log("HANDLING ADDRESS CLICK");
         setUserLatLong({ lat: y, long: x })
+        setShowSuggestions(false)
     }
+
+    // Shows the suggested adresses if True, hides it if False.
     const [showSuggestions, setShowSuggestions] = useState(false)
 
 
@@ -124,7 +132,7 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                     setShowSuggestions(true)
                     setAddressResults(res)
                 }
-            }, 1000));
+            }, 300));
 
 
         }
@@ -164,37 +172,38 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                 </div>
 
                 <div className='marts-dropdown'>
-                    <div id='m-art-muay' className='m-art' onClick={() => { test("Muay thai") }}>
+                    <div id='m-art-muay' className='m-art' onClick={() => { addArt("Muay thai") }}>
                         <span id="muay-span" className='m-art-span'></span>
                         <h3>Muay Thai</h3>
                     </div>
-                    <div id='m-art-mma' className='m-art' onClick={() => { test("Mixed Martial Arts") }}>
+                    <div id='m-art-mma' className='m-art' onClick={() => { addArt("Mixed Martial Arts") }}>
                         <span id='mma-span' className='m-art-span'></span>
                         <h3>Mixed Martial Arts</h3>
                     </div>
-                    <div id='m-art-bjj' className='m-art' onClick={() => { test("Brazilian Jiu Jitsu") }}>
+                    <div id='m-art-bjj' className='m-art' onClick={() => { addArt("Brazilian Jiu Jitsu") }}>
                         <span id='mma-span' className='m-art-span'></span>
                         <h3>Brazilian Jiu Jitsu</h3>
                     </div>
-                    <div id='m-art-bxg' className='m-art' onClick={() => { test("Boxing") }}>
+                    <div id='m-art-bxg' className='m-art' onClick={() => { addArt("Boxing") }}>
                         <span id='bxg-span' className='m-art-span'></span>
                         <h3>Boxing</h3>
                     </div>
-                    <div id='m-art-ktd' className='m-art' onClick={() => { test("Karate") }}>
+                    <div id='m-art-ktd' className='m-art' onClick={() => { addArt("Karate") }}>
                         <span id='ktd-span' className='m-art-span'></span>
                         <h3>Karate</h3>
                     </div>
-                    <div id='m-art-wrs' className='m-art' onClick={() => { test("Wrestling") }}>
+                    <div id='m-art-wrs' className='m-art' onClick={() => { addArt("Wrestling") }}>
                         <span id='wrs-span' className='m-art-span'></span>
                         <h3>Wrestling</h3>
                     </div>
-                    <div id='m-art-sbo' className='m-art' onClick={() => { test("Sambo") }}>
+                    <div id='m-art-sbo' className='m-art' onClick={() => { addArt("Sambo") }}>
                         <span id='sbo-span' className='m-art-span'></span>
                         <h3>Sambo</h3>
                     </div>
-                    <input className="others font" type="text" name="marts" value={marts} placeholder="Other..." onChange={changeAddressData} />
+                    {/* <input className="others font" type="text" name="other" value={other} placeholder="Other..." onChange={changeAddressData} /> */}
                 </div>
 
+                {/* // Shows the suggested adresses if True, hides it if False. */}
                 {showSuggestions &&
                     <div className='search-results'>
                         {addressResults.slice(0, 5).map((address) => {
