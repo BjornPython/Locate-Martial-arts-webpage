@@ -51,7 +51,11 @@ function MapForm({ handleSearch, handleAddressSearch }) {
     // Will pin the marker on the first result from the autocomplete when address is submitted.
     const onSearchAddress = (e) => {
         e.preventDefault()
-        console.log("ADDRESS");
+        if (address !== "") {
+            setUserLatLong({ lat: addressResults[0].y, long: addressResults[0].x })
+        } else {
+            console.log("no");
+        }
     }
 
 
@@ -82,8 +86,9 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         console.log("HANDLING ADDRESS CLICK");
         setUserLatLong({ lat: y, long: x })
     }
-
     const [showSuggestions, setShowSuggestions] = useState(false)
+
+
 
     // Triggered when latLongFormData is changed. calls the 
     // handleSearch function to pin and center the map.
@@ -94,22 +99,33 @@ function MapForm({ handleSearch, handleAddressSearch }) {
     }, [userLatLong])
 
 
+
+    const [timeoutId, setTimeoutId] = useState(null);
+
     // Triggered everytime the address input changes. 
     // Calls the provider.search to get the address results.
     useEffect(() => {
         const fetchAddresses = async () => {
-            const res = await provider.search({ query: address })
 
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            setTimeoutId(setTimeout(async () => {
+                console.log("CALLING PROVIDER.SEARCH()");
+                const res = await provider.search({ query: address })
 
-            if (address === "") {
-                setAddressResults([])
-                setShowSuggestions(false)
-            }
-            else {
-                console.log("RESPONSE: ", res);
-                setShowSuggestions(true)
-                setAddressResults(res)
-            }
+                // do something after 2 seconds of no state changes
+                if (address === "") {
+                    setAddressResults([])
+                    setShowSuggestions(false)
+                }
+                else {
+                    console.log("RESPONSE: ", res);
+                    setShowSuggestions(true)
+                    setAddressResults(res)
+                }
+            }, 1000));
+
 
         }
         fetchAddresses()
@@ -182,7 +198,6 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                 {showSuggestions &&
                     <div className='search-results'>
                         {addressResults.slice(0, 5).map((address) => {
-                            console.log("ADDRESS: ", address);
                             return (<Addresses key={uuid()} x={address.x} y={address.y} label={address.label} handleAddressClick={handleAddressClick} />)
                         })}
                     </div>
