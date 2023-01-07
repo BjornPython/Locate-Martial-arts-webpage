@@ -3,27 +3,28 @@ import { useState } from 'react'
 import "../css/mapForm.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCaretDown, faLocation, faL } from '@fortawesome/free-solid-svg-icons'
-
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import Addresses from './Addresses'
 
 function MapForm({ handleSearch, handleAddressSearch }) {
 
+    //provider for the address input autocomplete.
+    const provider = new OpenStreetMapProvider();
 
-
-    const [latlongFormData, setlatlongFormData] = useState({
+    // Latitude and Longitude Data used for centering the map and pinning.
+    const [userLatLong, setUserLatLong] = useState({
         lat: "",
         long: ""
     })
+    const { lat, long } = userLatLong
 
-    const { lat, long, arts } = latlongFormData
 
+    // The information the user is looking for. (gym/coach/spartner, martial arts) 
     const [searchData, setSearchData] = useState({
-        address: "",
         lf: [],
-        marts: []
+        marts: ""
     })
-
-    const { address, lf, marts } = searchData
-
+    const { lf, marts } = searchData
     const changeAddressData = (e) => {
         setSearchData((prevState) => ({
             ...prevState,
@@ -31,14 +32,21 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         }))
     }
 
+    // The user's inputted Address.
+    const [searchedAddress, setSearchedAddress] = useState({ address: "" })
+    const { address } = searchedAddress
+    const changeSearchedAddress = (e) => {
+        console.log("CURRENT ADDRESS: ", address);
 
-    const changeFormData = (e) => {
-        setlatlongFormData((prevState) => ({
+        setSearchedAddress((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value
         }))
     }
 
+    const [addressResults, setAddressResults] = useState([])
+
+    // Will pin the marker on the first result from the autocomplete when address is submitted.
     const onSearchAddress = (e) => {
         e.preventDefault()
         console.log("ADDRESS");
@@ -51,57 +59,76 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         setSearchData(newSearchData)
     }
 
-
+    // Function and Callbacks for requesting and getting the user's location.
     const successCallback = async (success) => {
         console.log(success);
         console.log("LATLONG: ", success.coords.latitude, success.coords.longitude)
         console.log("CHANGING LATLONGFORMDATA...");
-        setlatlongFormData({ lat: success.coords.latitude, long: success.coords.longitude })
-
-
+        setUserLatLong({ lat: success.coords.latitude, long: success.coords.longitude })
     }
-
     const errorCallback = (error) => {
         console.log(error);
     }
-
-
     const getLocation = (e) => {
         e.preventDefault()
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
 
     }
 
+    // Called when an address is clicked. 
+    const handleAddressClick = (x, y) => {
+        setUserLatLong({ lat: y, long: x })
+    }
+
+
+
+    // Triggered when latLongFormData is changed. calls the 
+    // handleSearch function to pin and center the map.
     useEffect(() => {
         if (lat === "" || long === "") { return }
-        console.log("LATLONG FORMDATA: ", latlongFormData);
-        console.log(lat);
-        console.log(long);
+        console.log("LATLONG FORMDATA: ", userLatLong);
         handleSearch(lat, long)
+    }, [userLatLong])
 
-        console.log("SEARCH DATA: ", searchData);
 
-    }, [latlongFormData, searchData])
+    // Triggered everytime the address input changes. 
+    // Calls the provider.search to get the address results.
+    useEffect(() => {
+        const fetchAddresses = async () => {
+            const res = await provider.search({ query: address })
+            res.forEach((loc) => {
+                console.log(loc.label);
+            })
+        }
+        fetchAddresses()
+            .catch(console.error)
+    }, [address])
+
+
 
     return (
         <div className='map-form'>
             <div className='address-div'>
+
                 <form action="" className="address-form">
                     <button className='loc-btn' onClick={getLocation}><FontAwesomeIcon icon={faLocation} className="loc-fnt" /></button>
 
-                    <input className="address font" type="text" name="address" value={address} placeholder="Search Your Area" onChange={changeAddressData} />
+                    <input className="address font" type="text" name="address" value={address} placeholder="Search Your Area" onChange={changeSearchedAddress} />
 
                     <button onClick={onSearchAddress} className="address-btn"><FontAwesomeIcon icon={faSearch} className="search-fnt" />
                     </button>
                 </form>
 
                 <h1>FIND A? </h1>
+
                 <p>(what are you looking for?)</p>
+
                 <div className='find-btns'>
                     <button className='find-btn font'>GYM</button>
                     <button className='find-btn font'>COACH</button>
                     <button className='find-btn font'>SPARTNER</button>
                 </div>
+
                 <h1>WHAT MARTIAL ART? </h1>
 
                 <div className='select-m-arts'>
@@ -109,6 +136,7 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                     <FontAwesomeIcon icon={faCaretDown} className="dd-icon" />
                     <span className='select-span'></span>
                 </div>
+
                 <div className='marts-dropdown'>
                     <div id='m-art-muay' className='m-art' onClick={() => { test("Muay thai") }}>
                         <span id="muay-span" className='m-art-span'></span>
@@ -138,15 +166,10 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                         <span id='sbo-span' className='m-art-span'></span>
                         <h3>Sambo</h3>
                     </div>
-                    <input className="others font" type="text" name="arts" value={arts} placeholder="Other..." onChange={changeFormData} />
+                    <input className="others font" type="text" name="marts" value={marts} placeholder="Other..." onChange={changeAddressData} />
                 </div>
 
-
             </div>
-
-
-
-
         </div >
     )
 }
