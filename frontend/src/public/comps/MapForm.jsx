@@ -64,10 +64,21 @@ function MapForm({ handleSearch, handleAddressSearch }) {
     // Adds the user's selected art in the dropdown.
     const addArt = (art) => {
         console.log(`${art} clicked`);
-        let newSearchData = searchData
-        newSearchData.marts.push(art)
-        setSearchData(newSearchData)
-        console.log(searchData);
+
+        if (searchData.marts.includes(art)) {
+            console.log("Art is  already in");
+            let newSearchData = searchData
+            const i = newSearchData.marts.indexOf(art)
+            newSearchData.marts.splice(i, 1)
+            setSearchData(newSearchData)
+            console.log(searchData);
+        } else {
+            let newSearchData = searchData
+            newSearchData.marts.push(art)
+            setSearchData(newSearchData)
+            console.log(searchData);
+        }
+
     }
 
     // Function and Callbacks for requesting and getting the user's location.
