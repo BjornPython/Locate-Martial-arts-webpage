@@ -61,7 +61,7 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         }
     }
 
-
+    // Adds the user's selected art in the dropdown.
     const addArt = (art) => {
         console.log(`${art} clicked`);
         let newSearchData = searchData
@@ -158,9 +158,9 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                 <p>(what are you looking for?)</p>
 
                 <div className='find-btns'>
-                    <button className='find-btn font'>GYM</button>
-                    <button className='find-btn font'>COACH</button>
-                    <button className='find-btn font'>SPARTNER</button>
+                    <button className='find-btn'> <span className='find-btn-span'></span> <h3>GYM</h3></button>
+                    <button className='find-btn'> <span className='find-btn-span'></span> <h3>COACH</h3></button>
+                    <button className='find-btn'> <span className='find-btn-span'></span> <h3>SPARTNER</h3></button>
                 </div>
 
                 <h1>WHAT MARTIAL ART? </h1>

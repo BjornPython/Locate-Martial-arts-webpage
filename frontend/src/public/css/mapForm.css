@@ -122,18 +122,36 @@
 .find-btn {
     transition: 0.2s ease-in;
     width: 120px;
+    padding: 0;
     height: 30px;
     background-color: black;
-    border-color: black;
+    border-style: none;
     color: white;  
-    border-style: solid;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
-.find-btn-active {
+.find-btn-span {
+    transition: 0.1s ease-in;
+    width: 0;
+    height: 100%;
     background-color: red;
-    font-weight: 600;
 }
+
+.find-btn h3 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.find-btn-active span {
+    width: 5px;
+}
+
+
+
+
 
 
 
@@ -228,15 +246,15 @@
 
 
 .m-art-span {
-    width: 5px;
-    height: 97%;
+    width: 0;
+    height: 100%;
     background-color: red;
-    opacity: 0;
     transition: 0.2s;
+    transition: 0.1s ease-in;
 }
 
 .show-span {
-    opacity: 1;
+    width: 5px;
 }
 
 .search-results {
