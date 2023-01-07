@@ -4,9 +4,11 @@ import "../css/mapForm.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCaretDown, faLocation, faL } from '@fortawesome/free-solid-svg-icons'
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import uuid from 'react-uuid';
 import Addresses from './Addresses'
 
 function MapForm({ handleSearch, handleAddressSearch }) {
+
 
     //provider for the address input autocomplete.
     const provider = new OpenStreetMapProvider();
@@ -44,7 +46,7 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         }))
     }
 
-    const [addressResults, setAddressResults] = useState([])
+    const [addressResults, setAddressResults] = useState([{ x: 12, y: 43, label: "test label 1" }, { x: 12, y: 43, label: "test label 2" }, { x: 12, y: 43, label: "test label 3" }])
 
     // Will pin the marker on the first result from the autocomplete when address is submitted.
     const onSearchAddress = (e) => {
@@ -77,10 +79,11 @@ function MapForm({ handleSearch, handleAddressSearch }) {
 
     // Called when an address is clicked. 
     const handleAddressClick = (x, y) => {
+        console.log("HANDLING ADDRESS CLICK");
         setUserLatLong({ lat: y, long: x })
     }
 
-
+    const [showSuggestions, setShowSuggestions] = useState(false)
 
     // Triggered when latLongFormData is changed. calls the 
     // handleSearch function to pin and center the map.
@@ -96,14 +99,21 @@ function MapForm({ handleSearch, handleAddressSearch }) {
     useEffect(() => {
         const fetchAddresses = async () => {
             const res = await provider.search({ query: address })
-            res.forEach((loc) => {
-                console.log(loc.label);
-            })
+
+
+            if (address === "") {
+                setAddressResults([])
+                setShowSuggestions(false)
+            }
+            else {
+                console.log("RESPONSE: ", res);
+                setShowSuggestions(true)
+                setAddressResults(res)
+            }
+
         }
         fetchAddresses()
-            .catch(console.error)
     }, [address])
-
 
 
     return (
@@ -113,7 +123,7 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                 <form action="" className="address-form">
                     <button className='loc-btn' onClick={getLocation}><FontAwesomeIcon icon={faLocation} className="loc-fnt" /></button>
 
-                    <input className="address font" type="text" name="address" value={address} placeholder="Search Your Area" onChange={changeSearchedAddress} />
+                    <input className="address font" type="text" name="address" value={address} placeholder="Search Your Area" onChange={changeSearchedAddress} autoComplete="off" />
 
                     <button onClick={onSearchAddress} className="address-btn"><FontAwesomeIcon icon={faSearch} className="search-fnt" />
                     </button>
@@ -168,6 +178,15 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                     </div>
                     <input className="others font" type="text" name="marts" value={marts} placeholder="Other..." onChange={changeAddressData} />
                 </div>
+
+                {showSuggestions &&
+                    <div className='search-results'>
+                        {addressResults.slice(0, 5).map((address) => {
+                            console.log("ADDRESS: ", address);
+                            return (<Addresses key={uuid()} x={address.x} y={address.y} label={address.label} handleAddressClick={handleAddressClick} />)
+                        })}
+                    </div>
+                }
 
             </div>
         </div >

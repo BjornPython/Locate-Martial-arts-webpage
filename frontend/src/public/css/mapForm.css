@@ -11,6 +11,7 @@
 
 .address-div {
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content:flex-start;
     row-gap: 0px;
@@ -74,9 +75,10 @@
     height: 40px;
     border-color: black;
     font-size: 1.2rem;
-    padding-left: 15px;
-    
+    padding-left: 15px;    
 }
+
+
 
 .address::placeholder {
     color: black;
@@ -237,6 +239,20 @@
     opacity: 1;
 }
 
+.search-results {
+    background-color: gray;
+    margin-left: 50px;
+    margin-top: 50px;
+    position: absolute;
+    width: 353px;
+    border-style: solid;
+    background-color: white;
+    border-color: black;
+    border-width: 2px;
+}
+
+
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -256,6 +272,8 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
   }
+
+ 
 
   @media(max-width:920px) { 
 
