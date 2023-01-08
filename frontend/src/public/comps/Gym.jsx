@@ -6,7 +6,6 @@ import MapForm from "./MapForm"
 function Gym() {
 
     const [latLong, setLatLong] = useState([])
-    const [goSearch, setgoSearch] = useState(false)
 
 
 
@@ -29,7 +28,7 @@ function Gym() {
 
                 <div className="gym-map">
                     <div className="map-bg">
-                        <GymMap latLong={latLong} />
+                        <GymMap latLong={latLong} setLatLong={setLatLong} />
 
                     </div>
                 </div>

@@ -28,14 +28,7 @@ function MapForm({ handleSearch, handleAddressSearch }) {
         other: ""
     })
     const { lf, marts, other } = searchData
-    // const changeAddressData = (e) => {
-    //     setSearchData((prevState) => ({
-    //         ...prevState,
-    //         [e.target.name]: e.target.value
-    //     }))
-    // }
 
-    // The user's inputted Address.
     const [searchedAddress, setSearchedAddress] = useState({ address: "" })
     const { address } = searchedAddress
     const changeSearchedAddress = (e) => {
