@@ -1,9 +1,9 @@
 const express = require("express")
-const router = express.Router()
+const gymRouter = express.Router()
 
 const {registerGym, loginGym } = require("../controllers/gymControllers")
 
-router.post("/register", registerGym)
-router.post("/", loginGym)
+gymRouter.post("/register", registerGym)
+gymRouter.post("/", loginGym)
 
-module.exports = router
+module.exports = gymRouter
