@@ -2,6 +2,9 @@ const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const Gym = require("../models/gymModel")
+
+const Student = require("../models/studentModel")
 
 
 

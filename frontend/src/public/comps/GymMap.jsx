@@ -7,6 +7,7 @@ import { Marker, useMapEvent } from "react-leaflet";
 import { Popup } from "react-leaflet/Popup";
 import "leaflet/dist/leaflet.css";
 import "../css/gymMap.css"
+import GetGyms from './GetGyms';
 
 // Component for getting the clicked position and setting the marker.
 const GetCoordinates = ({ setPosition }) => {
@@ -35,17 +36,19 @@ function GymMap({ latLong, setLatLong }) {
     // a map ref for setting the view of the map.
     const mapRef = useRef()
 
+    // Used for setting the starting position of the center of the 
+    // map and the starting position of the marker.
+    const [position, setPosition] = useState([14.611185, 121.113449])
+
     // Initializing the image and size of the markerIcon.
     const markerIcon = L.icon({
-        iconUrl: require("../images/location.png"),
-        iconRetinaUrl: require("../images/location.png"),
+        iconUrl: require("../images/place.png"),
+        iconRetinaUrl: require("../images/place.png"),
         iconSize: [42, 42]
     })
 
 
-    // Used for setting the starting position of the center of the 
-    // map and the starting position of the marker.
-    const [position, setPosition] = useState([41.8719, 12.5674])
+
 
 
     // Triggered when the latLong passed from the Gym.jsx changes. 
@@ -80,9 +83,12 @@ function GymMap({ latLong, setLatLong }) {
 
                 <Marker eventHandlers={eventHandlers} position={position} draggable={true} icon={markerIcon}>
                     <Popup>
-                        You <br /> {position}
+                        <h4>Your Position</h4> <br /> <p>lat: {position[0]} lng: {position[1]}</p>
                     </Popup>
                 </Marker>
+
+                <GetGyms />
+
                 <GetCoordinates setPosition={setPosition} />
 
 
