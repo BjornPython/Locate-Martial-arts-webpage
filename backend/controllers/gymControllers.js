@@ -27,10 +27,11 @@ const registerGym = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPass = await bcrypt.hash(password, salt)
 
-    const jsonmarts = JSON.stringify(marts)
-    console.log(jsonmarts);
+    const jsonmarts = JSON.parse(marts)
+    console.log("JSONMARTS: ", jsonmarts);
+    console.log(typeof(jsonmarts));
     const gym = await Gym.create({
-        name, email, password: hashedPass
+        name, email, password: hashedPass, location, marts:jsonmarts
     })
 
     if (gym) {
