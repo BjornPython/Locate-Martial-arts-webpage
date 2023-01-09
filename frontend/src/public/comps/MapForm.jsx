@@ -55,12 +55,30 @@ function MapForm({ handleSearch, setSearchInfo }) {
         }
     }
 
+    // Adds the user's selected queries (GYM / COACH / SPARTNER)
+    const addLf = (lf) => {
+        console.log(`${lf} clicked`);
+
+        if (searchData.lf.includes(lf)) {
+            let newSearchData = searchData
+            const i = newSearchData.lf.indexOf(lf)
+            newSearchData.lf.splice(i, 1)
+            setSearchData(newSearchData)
+            console.log(searchData);
+        } else {
+            let newSearchData = searchData
+            newSearchData.lf.push(lf)
+            setSearchData(newSearchData)
+            console.log(searchData);
+        }
+    }
+
+
     // Adds the user's selected art in the dropdown.
     const addArt = (art) => {
         console.log(`${art} clicked`);
 
         if (searchData.marts.includes(art)) {
-            console.log("Art is  already in");
             let newSearchData = searchData
             const i = newSearchData.marts.indexOf(art)
             newSearchData.marts.splice(i, 1)
@@ -146,6 +164,7 @@ function MapForm({ handleSearch, setSearchInfo }) {
 
 
 
+
     return (
         <div className='map-form'>
             <div className='address-div'>
@@ -164,9 +183,9 @@ function MapForm({ handleSearch, setSearchInfo }) {
                 <p>(what are you looking for?)</p>
 
                 <div className='find-btns'>
-                    <button className='find-btn'> <span className='find-btn-span'></span> <h3>GYM</h3></button>
-                    <button className='find-btn'> <span className='find-btn-span'></span> <h3>COACH</h3></button>
-                    <button className='find-btn'> <span className='find-btn-span'></span> <h3>SPARTNER</h3></button>
+                    <button className='find-btn' onClick={() => { addLf("gym") }}> <span className='find-btn-span'></span> <h3>GYM</h3></button>
+                    <button className='find-btn' onClick={() => { addLf("coach") }}> <span className='find-btn-span'></span> <h3>COACH</h3></button>
+                    <button className='find-btn' onClick={() => { addLf("spartner") }}> <span className='find-btn-span'></span> <h3>SPARTNER</h3></button>
                 </div>
 
                 <h1>WHAT MARTIAL ART? </h1>
@@ -177,10 +196,10 @@ function MapForm({ handleSearch, setSearchInfo }) {
                     <span className='select-span'></span>
                 </div>
 
-                <button onClick={() => { setSearchInfo([lat, long], lf, marts, other); console.log("CLICK"); }} className="find-gyms-btn"><h2>SEARCH</h2></button>
+                <button onClick={() => { setSearchInfo({ location: [lat, long], lf, marts, other }); console.log("CLICK"); }} className="find-gyms-btn"><h2>SEARCH</h2></button>
 
                 <div className='marts-dropdown'>
-                    <div id='m-art-muay' className='m-art' onClick={() => { addArt("Muay thai") }}>
+                    <div id='m-art-muay' className='m-art' onClick={() => { addArt("muaythai") }}>
                         <span id="muay-span" className='m-art-span'></span>
                         <h3>Muay Thai</h3>
                     </div>

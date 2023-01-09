@@ -58,30 +58,34 @@ function GetGyms({ searchInfo }) {
 
     useEffect(() => {
         if (!searchInfo) { return }
+        console.log("searchInfo has been changed");
+        console.log("SEARCH INFO: ", searchInfo);
+        const { location, marts } = searchInfo
 
         if (searchInfo.lf.includes("gym")) {
             // Get gyms data from gym database
-            const getGymsData = async () => {
-                try {
-                    const response = await apiService.findGyms();
-                    const addressPoints = response.data.map((gym) => {
-                        return { lat: gym.location.lat, lng: gym.location.long, title: gym.location.name }
-                    })
-                    console.log(addressPoints);
-                } catch (err) {
-                    console.error(err)
-                }
-            };
-
-            getGymsData()
+            console.log("IN GYM");
+            const getGymData = async () => {
+                const gymData = await apiService.findGyms([parseFloat(location[0]), parseFloat(location[0])], JSON.stringify(marts))
+                console.log(gymData);
+                const gymPoints = gymData.data.map((gym) => {
+                    return { lat: gym.location.lat, lng: gym.location.long, title: gym.name }
+                })
+                console.log("GYM POINTS: ", gymPoints);
+                setGymLocations(gymPoints)
+            }
+            getGymData()
         }
 
         if (searchInfo.lf.includes("coach")) {
             // Get coach data from coach database
+            console.log("IN COACH");
+
         }
 
         if (searchInfo.lf.includes("spartner")) {
             //Get Spartners data from coach and student database
+            console.log("IN SPARTNER");
 
         }
 
@@ -89,10 +93,6 @@ function GetGyms({ searchInfo }) {
 
     }, [searchInfo])
 
-    useEffect(() => {
-        console.log("searchInfo has been changed");
-        console.log(searchInfo);
-    }, [searchInfo])
 
 
     return (

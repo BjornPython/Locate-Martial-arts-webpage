@@ -71,15 +71,16 @@ const loginGym = asyncHandler(async (req, res) => {
 
 
 const getGyms = asyncHandler(async (req, res) => {
-    const { lf, marts, other } = req.body
-    console.log(lf, marts, other);
+    const { marts } = req.body
+    console.log("in backend | marts: ", marts);
+    console.log("in backend | marts type: ",  typeof(marts));
     
-    const jsonLf = JSON.parse(lf)
     const jsonMarts = JSON.parse(marts)
-    
+    console.log("jsonMarts: ", jsonMarts);
     const searchMarts = jsonMarts.map((art) => {
         return {[`marts.${art}`]: {$exists: true}}
     })
+    console.log("searchMarts: ", searchMarts);
     const gyms = await Gym.find({$or: searchMarts});
     res.status(200).json(gyms)
 })
