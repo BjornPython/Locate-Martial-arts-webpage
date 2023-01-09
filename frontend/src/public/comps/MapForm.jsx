@@ -29,6 +29,7 @@ function MapForm({ handleSearch, setPoints }) {
     })
     const { lf, marts, other } = searchData
 
+
     const [searchedAddress, setSearchedAddress] = useState({ address: "" })
     const { address } = searchedAddress
     const changeSearchedAddress = (e) => {
@@ -40,7 +41,7 @@ function MapForm({ handleSearch, setPoints }) {
         }))
     }
 
-    const [addressResults, setAddressResults] = useState([{ x: 12, y: 43, label: "test label 1" }, { x: 12, y: 43, label: "test label 2" }, { x: 12, y: 43, label: "test label 3" }])
+    const [addressResults, setAddressResults] = useState([])
 
     // Will pin the marker on the first result from the autocomplete when address is submitted.
     const onSearchAddress = (e) => {
@@ -175,6 +176,8 @@ function MapForm({ handleSearch, setPoints }) {
                     <span className='select-span'></span>
                 </div>
 
+                <button onClick={() => { setPoints(1); console.log("CLICK"); }} className="find-gyms-btn"><h2>SEARCH</h2></button>
+
                 <div className='marts-dropdown'>
                     <div id='m-art-muay' className='m-art' onClick={() => { addArt("Muay thai") }}>
                         <span id="muay-span" className='m-art-span'></span>
@@ -206,7 +209,6 @@ function MapForm({ handleSearch, setPoints }) {
                     </div>
                     {/* <input className="others font" type="text" name="other" value={other} placeholder="Other..." onChange={changeAddressData} /> */}
                 </div>
-                <button onClick={() => { setPoints(1); console.log("CLICK"); }} >PIN MARKERS</button>
 
                 {/* // Shows the suggested adresses if True, hides it if False. */}
                 {showSuggestions &&
