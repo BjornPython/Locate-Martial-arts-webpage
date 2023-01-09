@@ -29,11 +29,12 @@ const MyMarkers = ({ data }) => {
 }
 
 
-function GetGyms() {
+function GetGyms({ points }) {
 
-    const [points, setPoints] = useState(null)
+    const [pinPoints, setPinPoints] = useState(null)
 
     useEffect(() => {
+        if (!points) { return }
         const getSetData = async () => {
             try {
                 const response = await apiService.findGyms();
@@ -41,14 +42,14 @@ function GetGyms() {
                     return { lat: gym.location.lat, lng: gym.location.long, title: gym.location.name }
                 })
                 console.log(addressPoints);
-                setPoints(addressPoints)
+                setPinPoints(addressPoints)
             } catch (err) {
                 console.error(err)
             }
         };
 
         getSetData()
-    }, [])
+    }, [points])
 
     useEffect(() => {
         console.log("points has been changed");
@@ -58,7 +59,7 @@ function GetGyms() {
 
     return (
         <div>
-            <MyMarkers data={points} ></MyMarkers>
+            <MyMarkers data={pinPoints} ></MyMarkers>
         </div>
     )
 }

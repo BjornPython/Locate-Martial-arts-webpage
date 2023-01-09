@@ -7,7 +7,7 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import uuid from 'react-uuid';
 import Addresses from './Addresses'
 
-function MapForm({ handleSearch, handleAddressSearch }) {
+function MapForm({ handleSearch, setPoints }) {
 
 
     //provider for the address input autocomplete.
@@ -206,6 +206,7 @@ function MapForm({ handleSearch, handleAddressSearch }) {
                     </div>
                     {/* <input className="others font" type="text" name="other" value={other} placeholder="Other..." onChange={changeAddressData} /> */}
                 </div>
+                <button onClick={() => { setPoints(1); console.log("CLICK"); }} >PIN MARKERS</button>
 
                 {/* // Shows the suggested adresses if True, hides it if False. */}
                 {showSuggestions &&

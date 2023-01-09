@@ -13,6 +13,7 @@ import GetGyms from './GetGyms';
 const GetCoordinates = ({ setPosition }) => {
     const map = useMap();
 
+
     useEffect(() => {
         if (!map) return;
         let latLong
@@ -28,9 +29,10 @@ const GetCoordinates = ({ setPosition }) => {
 
 
 // COmponent where the GymMap is, 
-function GymMap({ latLong, setLatLong }) {
+function GymMap({ latLong, setLatLong, points }) {
     // a map ref for setting the view of the map.
     const mapRef = useRef()
+
     // Used for setting the starting position of the center of the 
     // map and the starting position of the marker.
     const [position, setPosition] = useState([14.611185, 121.113449])
@@ -75,10 +77,9 @@ function GymMap({ latLong, setLatLong }) {
                     </Popup>
                 </Marker>
 
-                <GetGyms />
+                <GetGyms points={points} />
 
                 <GetCoordinates setPosition={setPosition} />
-
 
             </MapContainer>
         </div>
