@@ -30,8 +30,11 @@ const registerGym = asyncHandler(async (req, res) => {
     const jsonmarts = JSON.parse(marts)
     console.log("JSONMARTS: ", jsonmarts);
     console.log(typeof(jsonmarts));
+
+    const jsonLoc = JSON.parse(location)
+
     const gym = await Gym.create({
-        name, email, password: hashedPass, location, marts:jsonmarts
+        name, email, password: hashedPass, location: jsonLoc, marts:jsonmarts
     })
 
     if (gym) {
@@ -69,7 +72,7 @@ const loginGym = asyncHandler(async (req, res) => {
 
 const getGyms = asyncHandler(async (req, res) => {
     
-    const gyms = await Gym.find({ "marts.muay thai": "coach id sample 1" });
+    const gyms = await Gym.find({"marts.kickboxing": {$exists: true}});
     res.status(200).json(gyms)
 })
 

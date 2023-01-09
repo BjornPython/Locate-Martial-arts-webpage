@@ -22,8 +22,6 @@ const GetCoordinates = ({ setPosition }) => {
             console.log("LATLONG: ", latLong);
             setPosition([latLong.lat, latLong.lng])
         })
-
-
     }, [map])
     return null
 }
@@ -31,25 +29,17 @@ const GetCoordinates = ({ setPosition }) => {
 
 // COmponent where the GymMap is, 
 function GymMap({ latLong, setLatLong }) {
-
-
     // a map ref for setting the view of the map.
     const mapRef = useRef()
-
     // Used for setting the starting position of the center of the 
     // map and the starting position of the marker.
     const [position, setPosition] = useState([14.611185, 121.113449])
-
     // Initializing the image and size of the markerIcon.
     const markerIcon = L.icon({
         iconUrl: require("../images/place.png"),
         iconRetinaUrl: require("../images/place.png"),
         iconSize: [42, 42]
     })
-
-
-
-
 
     // Triggered when the latLong passed from the Gym.jsx changes. 
     // sets a new position, and changes the current view of the map. 
@@ -60,8 +50,6 @@ function GymMap({ latLong, setLatLong }) {
         setPosition([parseFloat(latLong[0]), parseFloat(latLong[1])])
         mapRef.current.setView({ lat: parseFloat(latLong[0]), lng: parseFloat(latLong[1]) }, 18, { animate: true, duration: 1 });
     }, [latLong])
-
-
     // an event handler of the Marker. gets the latitude and the longitude
     // of the marker when it is dragged, and sets the latLong.
     const eventHandlers = useMemo(() => ({

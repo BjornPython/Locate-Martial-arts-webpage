@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import L from "leaflet"
+import { useState } from 'react'
+
+import apiService from "../../features/apis/apiService"
+import { set } from 'mongoose'
 
 
 const markerIcon = L.icon({
@@ -12,6 +16,7 @@ const markerIcon = L.icon({
 
 
 const MyMarkers = ({ data }) => {
+    if (!data) { return }
     return data.map(({ lat, lng, title }, index) => (
         <Marker
             key={index}
@@ -26,28 +31,30 @@ const MyMarkers = ({ data }) => {
 
 function GetGyms() {
 
-    const points = [
-        {
-            lat: 14.610744,
-            lng: 121.114182,
-            title: 'point 1'
-        },
-        {
-            lat: 14.6114137,
-            lng: 121.1132973,
-            title: 'point 2'
-        },
-        {
-            lat: 14.61141377,
-            lng: 121.1137157,
-            title: 'point 3'
-        },
-        {
-            lat: 14.6111490,
-            lng: 121.11409664,
-            title: 'point 4'
-        },
-    ];
+    const [points, setPoints] = useState(null)
+
+    useEffect(() => {
+        const getSetData = async () => {
+            try {
+                const response = await apiService.findGyms();
+                const addressPoints = response.data.map((gym) => {
+                    return { lat: gym.location.lat, lng: gym.location.long, title: gym.location.name }
+                })
+                console.log(addressPoints);
+                setPoints(addressPoints)
+            } catch (err) {
+                console.error(err)
+            }
+        };
+
+        getSetData()
+    }, [])
+
+    useEffect(() => {
+        console.log("points has been changed");
+        console.log(points);
+    }, [points])
+
 
     return (
         <div>
