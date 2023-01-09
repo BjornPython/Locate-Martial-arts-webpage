@@ -7,9 +7,9 @@ const {registerGym, loginGym, getGyms } = require("../controllers/gymControllers
 
 
 router.post("/users/register", registerUser)
-router.post("/users/", loginUser)
+router.post("/users/login", loginUser)
 router.post("/gym/register", registerGym)
-router.post("/gym/", loginGym)
-router.get("/gym/getgyms", getGyms)
+router.post("/gym/login", loginGym)
+router.post("/gym/getgyms", getGyms)
 
 module.exports = router

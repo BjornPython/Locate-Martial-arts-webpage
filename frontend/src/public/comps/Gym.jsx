@@ -7,7 +7,7 @@ function Gym() {
 
     const [latLong, setLatLong] = useState([])
 
-    const [points, setPoints] = useState(null)
+    const [searchInfo, setSearchInfo] = useState(null)
 
 
 
@@ -26,11 +26,11 @@ function Gym() {
         <div className="gym-page">
             <div className="gym-components">
 
-                <MapForm handleSearch={handleSearch} handleAddressSearch={handleAddressSearch} setPoints={setPoints} />
+                <MapForm handleSearch={handleSearch} handleAddressSearch={handleAddressSearch} setSearchInfo={setSearchInfo} />
 
                 <div className="gym-map">
                     <div className="map-bg">
-                        <GymMap latLong={latLong} setLatLong={setLatLong} points={points} />
+                        <GymMap latLong={latLong} setLatLong={setLatLong} searchInfo={searchInfo} />
 
                     </div>
                 </div>

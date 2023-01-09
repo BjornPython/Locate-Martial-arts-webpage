@@ -71,8 +71,16 @@ const loginGym = asyncHandler(async (req, res) => {
 
 
 const getGyms = asyncHandler(async (req, res) => {
+    const { lf, marts, other } = req.body
+    console.log(lf, marts, other);
     
-    const gyms = await Gym.find({"marts.kickboxing": {$exists: true}});
+    const jsonLf = JSON.parse(lf)
+    const jsonMarts = JSON.parse(marts)
+    
+    const searchMarts = jsonMarts.map((art) => {
+        return {[`marts.${art}`]: {$exists: true}}
+    })
+    const gyms = await Gym.find({$or: searchMarts});
     res.status(200).json(gyms)
 })
 

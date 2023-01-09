@@ -29,7 +29,7 @@ const GetCoordinates = ({ setPosition }) => {
 
 
 // COmponent where the GymMap is, 
-function GymMap({ latLong, setLatLong, points }) {
+function GymMap({ latLong, setLatLong, searchInfo }) {
     // a map ref for setting the view of the map.
     const mapRef = useRef()
 
@@ -77,7 +77,7 @@ function GymMap({ latLong, setLatLong, points }) {
                     </Popup>
                 </Marker>
 
-                <GetGyms points={points} />
+                <GetGyms searchInfo={searchInfo} />
 
                 <GetCoordinates setPosition={setPosition} />
 
