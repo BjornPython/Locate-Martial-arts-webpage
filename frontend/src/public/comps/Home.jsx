@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { toast } from "react-toastify"
 
 import { useSelector, useDispatch } from "react-redux"
-import { register, login, reset } from "../../features/authentication/authSlice"
+import { registerUser, loginUser, registerGym, reset } from "../../features/authentication/authSlice"
 
 import "../css/home.css"
 
@@ -42,7 +42,6 @@ function Home() {
         e.preventDefault()
         if (isUser === false) {
             setRegisterFormData(prevState => ({ ...prevState, isUser: true }))
-            console.log("NEW REGISTER DATA: ", registerFormData);
         }
     }
 
@@ -50,10 +49,12 @@ function Home() {
         e.preventDefault()
         if (isUser === true) {
             setRegisterFormData(prevState => ({ ...prevState, isUser: false }))
-            console.log("NEW REGISTER DATA: ", registerFormData);
         }
     }
 
+    useEffect(() => {
+        console.log(registerFormData);
+    }, [registerFormData])
 
 
 
@@ -82,7 +83,7 @@ function Home() {
             email: loginEmail, password: loginPass
         }
 
-        dispatch(login(userData))
+        dispatch(loginUser(userData))
         navigate("/userhome")
     }
 
@@ -97,13 +98,26 @@ function Home() {
             toast.error("Passwords do not match.")
         }
 
-        const userData = {
-            name: regisName,
-            email: regisEmail,
-            password: regisPass
+        if (isUser) {
+            const userData = {
+                name: regisName,
+                email: regisEmail,
+                password: regisPass
+            }
+
+            dispatch(registerUser(userData))
+        } else {
+            const gymData = {
+                name: regisName,
+                email: regisEmail,
+                password: regisPass
+            }
+            console.log("IN REGISTER GYM");
+            dispatch(registerGym(gymData))
         }
 
-        dispatch(register(userData))
+
+
 
     }
 

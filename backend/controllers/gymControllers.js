@@ -14,9 +14,7 @@ const registerGym = asyncHandler(async (req, res) => {
     const {
         name,
         email,
-        password,
-        location,
-        marts
+        password
     } = req.body
 
 
@@ -27,14 +25,10 @@ const registerGym = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     const hashedPass = await bcrypt.hash(password, salt)
 
-    const jsonmarts = JSON.parse(marts)
-    console.log("JSONMARTS: ", jsonmarts);
-    console.log(typeof(jsonmarts));
 
-    const jsonLoc = JSON.parse(location)
 
     const gym = await Gym.create({
-        name, email, password: hashedPass, location: jsonLoc, marts:jsonmarts
+        name, email, password: hashedPass
     })
 
     if (gym) {

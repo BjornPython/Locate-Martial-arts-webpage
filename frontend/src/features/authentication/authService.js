@@ -3,8 +3,10 @@ import axios from "axios"
 
 const API_URL = "http://localhost:8000/api/users/"
 
+const GYM_API_ENDPOINT = "http://localhost:8000/api/gym"
 
-const register = async (userData) => {
+
+const registerUser = async (userData) => {
     const response = await axios.post(API_URL + "register", userData)
     console.log(response);
     if (response.data) {
@@ -14,7 +16,7 @@ const register = async (userData) => {
     return response.data
 }
 
-const login = async (userData) => {
+const loginUser = async (userData) => {
     const response = await axios.post(API_URL, userData)
     if (response.data) {
         localStorage.setItem("user", JSON.stringify(response.data))
@@ -23,9 +25,20 @@ const login = async (userData) => {
     return response.data
 }
 
+const registerGym = async(gymData) => {
+    console.log("IN AUTHSERVICE");
+    const response = await axios.post(`${GYM_API_ENDPOINT}/register`, gymData)
+    console.log("RESPONSE: ", response);
+    if (response.data) {
+        localStorage.setItem("gymUser", JSON.stringify(response.data))
+    }
+    console.log("REPONSE.DATA: ", response.data);
+    return response.data
+}
+
 
 const authService = {
-    register, login
+    registerUser, loginUser, registerGym
 }
 
 export default authService
