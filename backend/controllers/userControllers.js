@@ -79,7 +79,8 @@ const generateToken = (id) => {
 
 const getSparringUsers = asyncHandler(async (req, res) => {
     console.log("IN GETSPARRINGUSERS");
-    let { lat, long } = req.query
+    console.log(req.body);
+    let { lat, long } = req.body
     let searchLoc = false
     if (!lat || !long) { searchLoc = false} else {console.log("IN ELSE"); lat = 0.3 + parseFloat(lat); long = 0.3 + parseFloat(long); searchLoc=true}
     console.log(lat, long);
@@ -97,6 +98,11 @@ const getSparringUsers = asyncHandler(async (req, res) => {
     else {
         res.status(401).json({message: "FAILED TO GET DATA FROM USER DATABASE."})
     }
+})
+
+const getCoaches = asyncHandler(async (req, res) => {
+    console.log("IN GET COACHES");
+
 })
 
 

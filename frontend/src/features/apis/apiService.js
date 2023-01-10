@@ -16,13 +16,12 @@ const findGyms = async (location, marts) => {
 
 const findSparringPartners = async (location=null) => {
     console.log("IN FIND SPARRING PARTNERS");
-    const endpt = 
-    !location 
-    ? `${USERS_API_ENDPOINT}/sparringusers` 
-    : `${USERS_API_ENDPOINT}/sparringusers?lat=${location.lat}&long=${location.long}`
 
-    console.log("ENDPOINT: ", endpt);
-    const response = await axios.get(endpt)
+    const response = await axios.post(`${USERS_API_ENDPOINT}/sparringusers`, location, {
+      headers: { 
+        'Content-Type': 'application/json'
+      }
+    })
 
     if (response) { return response } else {return "no response from request"}
 }

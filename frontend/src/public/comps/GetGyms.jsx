@@ -92,17 +92,20 @@ function GetGyms({ searchInfo }) {
             getGymData()
         }
 
+        if (!searchInfo.lf.includes("gym")) { setGymLocations(null) }
+
         if (searchInfo.lf.includes("coach")) {
             // Get users data with coach==true from user database
             console.log("IN COACH");
 
         }
+        if (!searchInfo.lf.includes("coach")) { setCoachLocations(null) }
 
         if (searchInfo.lf.includes("spartner")) {
             // Get users data with lfspartner==true from user database
             console.log("IN SPARTNER");
             const getUserData = async () => {
-                const sparringUsersData = await apiService.findSparringPartners()
+                const sparringUsersData = await apiService.findSparringPartners(location)
                 console.log(sparringUsersData);
                 const sparringUsersPoints = sparringUsersData.data.map((user) => {
                     const type = user.coach ? "coach" : "student"
@@ -111,12 +114,11 @@ function GetGyms({ searchInfo }) {
                 })
                 console.log("SPARRING USERS POINTS: ", sparringUsersPoints);
                 setSpartnerLocations(sparringUsersPoints)
-
             }
 
             getUserData()
         }
-
+        if (!searchInfo.lf.includes("spartner")) { setSpartnerLocations(null) }
 
 
     }, [searchInfo])

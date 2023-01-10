@@ -8,7 +8,7 @@ const {registerGym, loginGym, getGyms } = require("../controllers/gymControllers
 
 router.post("/users/register", registerUser)
 router.post("/users/login", loginUser)
-router.get("/users/sparringusers", getSparringUsers)
+router.post("/users/sparringusers", getSparringUsers)
 router.post("/gym/register", registerGym)
 router.post("/gym/login", loginGym)
 router.post("/gym/getgyms", getGyms)
