@@ -28,4 +28,4 @@ Need to find a gym? a coach? a sparring partner? or are you a coach who wants to
 ![websitecc6](https://user-images.githubusercontent.com/110831700/211466997-492eff88-9a52-4855-814d-74c1cec23041.PNG)
 
 
-# Developer: Nathan Flores
+# Developed by: Nathan Flores
