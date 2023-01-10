@@ -30,21 +30,31 @@ const StudentMarkerIcon = L.icon({
 })
 
 
-const MyMarkers = ({ data, type }) => {
+const MyMarkers = ({ data }) => {
     if (!data) { return }
-    let iconStyle;
-    if (type === "gym") { iconStyle = GymMarkerIcon }
-    else if (type === "coach") { iconStyle = CoachMarkerIcon }
-    else { iconStyle = StudentMarkerIcon }
-    return data.map(({ lat, lng, title }, index) => (
-        <Marker
-            key={index}
-            position={{ lat, lng }}
-            icon={iconStyle}
-        >
-            <Popup>{title}</Popup>
-        </Marker>
-    ));
+
+
+    const markers = data.map(({ lat, lng, title, type }, index) => {
+        let iconStyle;
+        if (type === "gym") { iconStyle = GymMarkerIcon }
+        else if (type === "coach") { iconStyle = CoachMarkerIcon }
+        else { iconStyle = StudentMarkerIcon }
+        return (
+            <Marker
+                key={index}
+                position={{ lat, lng }}
+                icon={iconStyle}
+            >
+                <Popup>{title}</Popup>
+            </Marker>
+        )
+    }
+
+
+    );
+
+
+    return markers
 }
 
 
@@ -53,7 +63,7 @@ function GetGyms({ searchInfo }) {
 
     const [gymLocations, setGymLocations] = useState(null)
     const [coachLocations, setCoachLocations] = useState(null)
-    const [studentLocations, setStudentLocations] = useState(null)
+    const [spartnerLocations, setSpartnerLocations] = useState(null)
 
 
     useEffect(() => {
@@ -66,13 +76,18 @@ function GetGyms({ searchInfo }) {
             // Get gyms data from gym database
             console.log("IN GYM");
             const getGymData = async () => {
-                const gymData = await apiService.findGyms([parseFloat(location[0]), parseFloat(location[0])], JSON.stringify(marts))
+                const gymData = await apiService.findGyms([parseFloat(location[0]), parseFloat(location[1])], JSON.stringify(marts))
                 console.log(gymData);
-                const gymPoints = gymData.data.map((gym) => {
-                    return { lat: gym.location.lat, lng: gym.location.long, title: gym.name }
-                })
-                console.log("GYM POINTS: ", gymPoints);
-                setGymLocations(gymPoints)
+                try {
+                    const gymPoints = gymData.data.map((gym) => {
+                        return { lat: gym.location.lat, lng: gym.location.long, title: gym.name, type: "gym" }
+                    })
+                    console.log("GYM POINTS: ", gymPoints);
+                    setGymLocations(gymPoints)
+                } catch (err) {
+                    console.log(err);
+                }
+
             }
             getGymData()
         }
@@ -87,8 +102,16 @@ function GetGyms({ searchInfo }) {
             // Get users data with lfspartner==true from user database
             console.log("IN SPARTNER");
             const getUserData = async () => {
-                const sparringUsers = await apiService.findSparringPartners()
-                console.log(sparringUsers);
+                const sparringUsersData = await apiService.findSparringPartners()
+                console.log(sparringUsersData);
+                const sparringUsersPoints = sparringUsersData.data.map((user) => {
+                    const type = user.coach ? "coach" : "student"
+                    console.log("TYPE: ", type);
+                    return { lat: user.location.lat, lng: user.location.long, title: user.name, type }
+                })
+                console.log("SPARRING USERS POINTS: ", sparringUsersPoints);
+                setSpartnerLocations(sparringUsersPoints)
+
             }
 
             getUserData()
@@ -104,7 +127,7 @@ function GetGyms({ searchInfo }) {
         <div>
             <MyMarkers data={gymLocations} type="gym" ></MyMarkers>
             <MyMarkers data={coachLocations} type="coach" ></MyMarkers>
-            <MyMarkers data={studentLocations} type="student" ></MyMarkers>
+            <MyMarkers data={spartnerLocations} ></MyMarkers>
         </div>
     )
 }
