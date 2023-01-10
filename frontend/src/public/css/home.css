@@ -130,7 +130,16 @@ html {
   
 }
 
+.account-as {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 40px;
+}
 
+.account-as button {
+  margin-bottom: 20px;
+}
 
 
 

@@ -27,19 +27,35 @@ function Home() {
         loginEmail: "",
         loginPass: ""
     })
+    const { loginEmail, loginPass } = loginFormData
 
     const [registerFormData, setRegisterFormData] = useState({
         regisName: "",
         regisEmail: "",
         regisPass: "",
         regisCPass: "",
-
+        isUser: true
     })
+    const { regisName, regisEmail, regisPass, regisCPass, isUser } = registerFormData
+
+    const setIsUserTrue = (e) => {
+        e.preventDefault()
+        if (isUser === false) {
+            setRegisterFormData(prevState => ({ ...prevState, isUser: true }))
+            console.log("NEW REGISTER DATA: ", registerFormData);
+        }
+    }
+
+    const setIsUserFalse = (e) => {
+        e.preventDefault()
+        if (isUser === true) {
+            setRegisterFormData(prevState => ({ ...prevState, isUser: false }))
+            console.log("NEW REGISTER DATA: ", registerFormData);
+        }
+    }
 
 
-    const { loginEmail, loginPass } = loginFormData
 
-    const { regisName, regisEmail, regisPass, regisCPass } = registerFormData
 
     const changeLoginForm = (e) => {
         setLoginFormData((prevState) => ({
@@ -117,7 +133,7 @@ function Home() {
                     <div className="register-page">
                         <div className="register">
                             <h1>REGISTER</h1>
-                            <form action="" onSubmit={submitRegisData} className="login-form">
+                            <form action="" className="login-form">
                                 <input className="font" type="text" name="regisName" value={regisName} placeholder={"Name"} onChange={changeRegisterForm} />
                                 <hr />
                                 <input className="font" type="text" name="regisEmail" value={regisEmail} placeholder={"Email"} onChange={changeRegisterForm} />
@@ -126,7 +142,12 @@ function Home() {
                                 <hr />
                                 <input className="font" type="password" name="regisCPass" value={regisCPass} placeholder={"Confirm Password"} onChange={changeRegisterForm} />
                                 <hr />
-                                <button type="submit">Log In</button>
+                                <h3>register account as A:</h3>
+                                <div className="account-as">
+                                    <button onClick={setIsUserTrue}>Coach / Student</button>
+                                    <button onClick={setIsUserFalse}>Gym</button>
+                                </div>
+                                <button onClick={submitRegisData}>Register</button>
                             </form>
                         </div>
                     </div>

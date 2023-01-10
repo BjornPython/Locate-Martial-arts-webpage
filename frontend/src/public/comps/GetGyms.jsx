@@ -9,22 +9,22 @@ import e from 'cors'
 
 
 const GymMarkerIcon = L.icon({
-    iconUrl: require("../images/punching-bag.png"),
-    iconRetinaUrl: require("../images/punching-bag.png"),
+    iconUrl: require("../images/icons/punching-bag.png"),
+    iconRetinaUrl: require("../images/icons/punching-bag.png"),
     iconSize: [42, 42]
 
 })
 
 const CoachMarkerIcon = L.icon({
-    iconUrl: require("../images/punching-bag.png"),
-    iconRetinaUrl: require("../images/punching-bag.png"),
+    iconUrl: require("../images/icons/coach.png"),
+    iconRetinaUrl: require("../images/icons/coach.png"),
     iconSize: [42, 42]
 
 })
 
 const StudentMarkerIcon = L.icon({
-    iconUrl: require("../images/punching-bag.png"),
-    iconRetinaUrl: require("../images/punching-bag.png"),
+    iconUrl: require("../images/icons/student.png"),
+    iconRetinaUrl: require("../images/icons/student.png"),
     iconSize: [42, 42]
 
 })
@@ -78,13 +78,13 @@ function GetGyms({ searchInfo }) {
         }
 
         if (searchInfo.lf.includes("coach")) {
-            // Get coach data from coach database
+            // Get users data with coach==true from user database
             console.log("IN COACH");
 
         }
 
         if (searchInfo.lf.includes("spartner")) {
-            //Get Spartners data from coach and student database
+            // Get users data with lfspartner==true from user database
             console.log("IN SPARTNER");
 
         }

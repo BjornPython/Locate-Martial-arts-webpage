@@ -38,8 +38,8 @@ function GymMap({ latLong, setLatLong, searchInfo }) {
     const [position, setPosition] = useState([14.611185, 121.113449])
     // Initializing the image and size of the markerIcon.
     const markerIcon = L.icon({
-        iconUrl: require("../images/place.png"),
-        iconRetinaUrl: require("../images/place.png"),
+        iconUrl: require("../images/icons/place.png"),
+        iconRetinaUrl: require("../images/icons/place.png"),
         iconSize: [42, 42]
     })
 

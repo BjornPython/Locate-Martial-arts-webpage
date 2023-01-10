@@ -15,10 +15,9 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "Please include a password."]
     },
-
-    coach: {type: Boolean, required: false, default: false},
-    student: {type: Boolean, required: false, default: false},
-    fighter: {type: Boolean, required: false, default: false},
+    location: {type: Object, required: false, default: {lat: 0, long: 0}},
+    lfspar: {type: Boolean, required: false, default: false},
+    coach: {type: Boolean, required: true, default: false},
     lcoach: {type: Boolean, required: false, default: false},
     lfight: {type: Boolean, required: false, default: false},
     lspartner: {type: Boolean, required: false, default: false},
