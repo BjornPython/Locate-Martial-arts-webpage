@@ -1,4 +1,5 @@
 # Locate-Martial-arts-webpage
+
 The official webpage for Locate Martial Arts created with MERN stack.
 
 Need to find a gym? a coach? a sparring partner? or are you a coach who wants to find a student? LOCATE MARTIAL ARTS is the easiest way to connect with other martial artists. Integrated with the leaflet maps, easily find near gyms that have the martial art you are looking for, or connect with other people who are also interested in your art. 
@@ -26,3 +27,5 @@ Need to find a gym? a coach? a sparring partner? or are you a coach who wants to
 # Martial art suggestions for users new to Martial arts
 ![websitecc6](https://user-images.githubusercontent.com/110831700/211466997-492eff88-9a52-4855-814d-74c1cec23041.PNG)
 
+
+# Developer: Nathan Flores
