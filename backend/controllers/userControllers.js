@@ -2,9 +2,6 @@ const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-const Gym = require("../models/gymModel")
-
-const Student = require("../models/studentModel")
 
 
 
@@ -15,7 +12,8 @@ const registerUser = asyncHandler(async (req, res) => {
         name,
         email,
         password,
-        coach
+        coach,
+        lfspartner
     } = req.body
 
 
@@ -26,12 +24,15 @@ const registerUser = asyncHandler(async (req, res) => {
     let isCoach
     if (!coach) {isCoach = false} else { isCoach = true }
 
+    let islfSparner
+    if (!lfspartner) {islfSparner = false} else { islfSparner = true}
+
     const salt = await bcrypt.genSalt(10)
     const hashedPass = await bcrypt.hash(password, salt)
 
 
     const user = await User.create({
-        name, email, password: hashedPass, coach: isCoach
+        name, email, password: hashedPass, coach: isCoach, lfspartner: islfSparner
     })
 
     if (user) {
@@ -66,12 +67,37 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(200).json(token) 
 })
 
-
-
-
+// Generate token for Users
 const generateToken = (id) => {
     return jwt.sign({id}, process.env.JWT_TOKEN, {expiresIn: "7d"})
 }
 
 
-module.exports = {registerUser, loginUser}
+
+
+// GETTING USER DATA // GETTING USER DATA // GETTING USER DATA // GETTING USER DATA 
+
+const getSparringUsers = asyncHandler(async (req, res) => {
+    console.log("IN GETSPARRINGUSERS");
+    let { lat, long } = req.query
+    let searchLoc = false
+    if (!lat || !long) { searchLoc = false} else {console.log("IN ELSE"); lat = 0.3 + parseFloat(lat); long = 0.3 + parseFloat(long); searchLoc=true}
+    console.log(lat, long);
+    const sparringUsers = await User.find(
+    !searchLoc 
+    ? {lfspar: true}
+    : {$and: [{lfspar: true}, {"location.lat": {$lt: lat}}, {"location.long": {$lt: long}}]}
+    )
+
+
+    console.log("sparringUsers: ", sparringUsers);
+    if (sparringUsers) {
+        res.status(200).json(sparringUsers)
+    } 
+    else {
+        res.status(401).json({message: "FAILED TO GET DATA FROM USER DATABASE."})
+    }
+})
+
+
+module.exports = {registerUser, loginUser, getSparringUsers}
