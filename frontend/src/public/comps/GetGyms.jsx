@@ -6,6 +6,7 @@ import { useState } from 'react'
 import apiService from "../../features/apis/apiService"
 import { set } from 'mongoose'
 import e from 'cors'
+import axios from 'axios'
 
 
 const GymMarkerIcon = L.icon({
@@ -97,14 +98,22 @@ function GetGyms({ searchInfo }) {
         if (searchInfo.lf.includes("coach")) {
             // Get users data with coach==true from user database
             console.log("IN COACH");
-
+            const getCoachData = async () => {
+                const coachUsersData = await apiService.findCoach(location)
+                console.log(coachUsersData);
+                const coachUsersPoints = coachUsersData.data.map((user) => {
+                    return { lat: user.location.lat, lng: user.location.long, title: user.name, type: "coach" }
+                })
+                setCoachLocations(coachUsersPoints);
+            }
+            getCoachData()
         }
         if (!searchInfo.lf.includes("coach")) { setCoachLocations(null) }
 
         if (searchInfo.lf.includes("spartner")) {
             // Get users data with lfspartner==true from user database
             console.log("IN SPARTNER");
-            const getUserData = async () => {
+            const getSpartnerData = async () => {
                 const sparringUsersData = await apiService.findSparringPartners(location)
                 console.log(sparringUsersData);
                 const sparringUsersPoints = sparringUsersData.data.map((user) => {
@@ -116,7 +125,7 @@ function GetGyms({ searchInfo }) {
                 setSpartnerLocations(sparringUsersPoints)
             }
 
-            getUserData()
+            getSpartnerData()
         }
         if (!searchInfo.lf.includes("spartner")) { setSpartnerLocations(null) }
 
@@ -128,7 +137,7 @@ function GetGyms({ searchInfo }) {
     return (
         <div>
             <MyMarkers data={gymLocations} type="gym" ></MyMarkers>
-            <MyMarkers data={coachLocations} type="coach" ></MyMarkers>
+            <MyMarkers data={coachLocations} ></MyMarkers>
             <MyMarkers data={spartnerLocations} ></MyMarkers>
         </div>
     )

@@ -26,8 +26,20 @@ const findSparringPartners = async (location=null) => {
     if (response) { return response } else {return "no response from request"}
 }
 
+
+const findCoach = async (location=null) => {
+  console.log("IN FIND COACH");
+  const response = await axios.post(`${USERS_API_ENDPOINT}/coachusers`, location, {
+    headers: { 
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if (response) { return response } else {return "no response from request"}
+}
+
 const apiService = {
-    findGyms, findSparringPartners
+    findGyms, findSparringPartners, findCoach
 }
 
 export default apiService

@@ -100,10 +100,29 @@ const getSparringUsers = asyncHandler(async (req, res) => {
     }
 })
 
-const getCoaches = asyncHandler(async (req, res) => {
+const getCoachUsers = asyncHandler(async (req, res) => {
     console.log("IN GET COACHES");
+    let { lat, long } = req.body
+    let searchLoc = false
+    if (!lat || !long) { searchLoc = false} else {console.log("IN ELSE"); lat = 0.3 + parseFloat(lat); long = 0.3 + parseFloat(long); searchLoc=true}
+    console.log(lat, long);
+    const coachUsers = await User.find(
+    !searchLoc 
+    ? {coach: true}
+    : {$and: [{coach: true}, {"location.lat": {$lt: lat}}, {"location.long": {$lt: long}}]}
+    )
+
+
+    console.log("coachUsers: ", coachUsers);
+    if (coachUsers) {
+        res.status(200).json(coachUsers)
+    } 
+    else {
+        res.status(401).json({message: "FAILED TO GET DATA FROM USER DATABASE."})
+    }
+
 
 })
 
 
-module.exports = {registerUser, loginUser, getSparringUsers}
+module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers}
