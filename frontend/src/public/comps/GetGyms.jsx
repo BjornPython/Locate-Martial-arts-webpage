@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import L from "leaflet"
 import { useState } from 'react'
-
+import "../css/getGyms.css"
 import apiService from "../../features/apis/apiService"
 import { set } from 'mongoose'
 import e from 'cors'
@@ -46,7 +46,11 @@ const MyMarkers = ({ data }) => {
                 position={{ lat, lng }}
                 icon={iconStyle}
             >
-                <Popup>{title}</Popup>
+                <Popup>
+                    <div className='markers'>
+                        <h4>name: {title}</h4>
+                    </div>
+                </Popup>
             </Marker>
         )
     }
