@@ -86,7 +86,12 @@ function GetGyms({ searchInfo }) {
         if (searchInfo.lf.includes("spartner")) {
             // Get users data with lfspartner==true from user database
             console.log("IN SPARTNER");
+            const getUserData = async () => {
+                const sparringUsers = await apiService.findSparringPartners()
+                console.log(sparringUsers);
+            }
 
+            getUserData()
         }
 
 

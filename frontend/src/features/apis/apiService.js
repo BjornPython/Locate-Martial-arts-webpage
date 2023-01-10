@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const GYM_API_ENDPOINT = "http://localhost:8000/api/gym"
-
+const USERS_API_ENDPOINT = "http://localhost:8000/api/users"
 
 const findGyms = async (location, marts) => {
     console.log("apiservice MARTS: ", marts);
@@ -14,9 +14,21 @@ const findGyms = async (location, marts) => {
     return response
 }
 
+const findSparringPartners = async (location=null) => {
+    console.log("IN FIND SPARRING PARTNERS");
+    const endpt = 
+    !location 
+    ? `${USERS_API_ENDPOINT}/sparringusers` 
+    : `${USERS_API_ENDPOINT}/sparringusers?lat=${location.lat}&long=${location.long}`
+
+    console.log("ENDPOINT: ", endpt);
+    const response = await axios.get(endpt)
+
+    if (response) { return response } else {return "no response from request"}
+}
 
 const apiService = {
-    findGyms
+    findGyms, findSparringPartners
 }
 
 export default apiService
