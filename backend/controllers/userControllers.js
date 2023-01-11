@@ -78,51 +78,121 @@ const generateToken = (id) => {
 // GETTING USER DATA // GETTING USER DATA // GETTING USER DATA // GETTING USER DATA 
 
 const getSparringUsers = asyncHandler(async (req, res) => {
-    console.log("IN GETSPARRINGUSERS");
-    console.log(req.body);
+    console.log("IN GET SPARRING USERS");
+    const { marts } = req.body
     let { lat, long } = req.body
-    let searchLoc = false
-    if (!lat || !long) { searchLoc = false} else {console.log("IN ELSE"); lat = 0.3 + parseFloat(lat); long = 0.3 + parseFloat(long); searchLoc=true}
-    console.log(lat, long);
-    const sparringUsers = await User.find(
-    !searchLoc 
-    ? {lfspar: true}
-    : {$and: [{lfspar: true}, {"location.lat": {$lt: lat}}, {"location.long": {$lt: long}}]}
-    )
 
+    // If location is not sent,
+    if (!lat || !long) {
+        // If martial arts are sent, get users with lfspar = true and has one of the martial arts.
+        if (marts) {
+            const jsonMarts = JSON.parse(marts)
+            const searchMarts = jsonMarts.map((art) => {
+                return {[`marts.${art}`]: {$exists: true}}
+            })
+            const user = await User.find({$and: [{"lfspar": true}, {$or: searchMarts}]});
+            if (user) {res.status(200).json(user)}
+            else {res.status(401).json({message: "Failed to get data from user database."})}
+            
+        // if martial arts are not sent, get users with lfspar = true
+        } else {
+            const user = await User.find({"lfspar": true});
+            if (user) {res.status(200).json(user)}
+            else {res.status(401).json({message: "Failed to get data from user database."})}
+        }
+    
+        // if location is sent,
+    } else {
 
-    console.log("sparringUsers: ", sparringUsers);
-    if (sparringUsers) {
-        res.status(200).json(sparringUsers)
-    } 
-    else {
-        res.status(401).json({message: "FAILED TO GET DATA FROM USER DATABASE."})
+        // if martial arts are sent, get users with lfspar = true, near the location, and has one of the martial arts.
+        if (marts) {
+            const searchMarts = jsonMarts.map((art) => {
+                return {[`marts.${art}`]: {$exists: true}}
+            })
+            const user = await User.find(
+                {$and: 
+                    [
+                    {"lfspar": true},
+                    {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
+                    {"location.long": {$lt: 0.3 + parseFloat(long)}}, 
+                    {$or: searchMarts}
+                    ]
+                }
+            );
+            if (user) {res.status(200).json(user)}
+            else {res.status(401).json({message: "Failed to get data from user database."})}
+            // if martial arts are not sent, return users with lfspar = true and near the location.
+        } else {
+            const user = await User.find(
+                {$and: 
+                    [{"lfspar": true},
+                    {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
+                    {"location.long": {$lt: 0.3 + parseFloat(long)}}
+                    ]
+            });
+            if (user) {res.status(200).json(user)}
+            else {res.status(401).json({message: "Failed to get data from user database."})}
+        }
     }
-})
+}
+)
 
 const getCoachUsers = asyncHandler(async (req, res) => {
     console.log("IN GET COACHES");
+    const { marts } = req.body
     let { lat, long } = req.body
-    let searchLoc = false
-    if (!lat || !long) { searchLoc = false} else {console.log("IN ELSE"); lat = 0.3 + parseFloat(lat); long = 0.3 + parseFloat(long); searchLoc=true}
-    console.log(lat, long);
-    const coachUsers = await User.find(
-    !searchLoc 
-    ? {coach: true}
-    : {$and: [{coach: true}, {"location.lat": {$lt: lat}}, {"location.long": {$lt: long}}]}
-    )
-
-
-    console.log("coachUsers: ", coachUsers);
-    if (coachUsers) {
-        res.status(200).json(coachUsers)
-    } 
-    else {
-        res.status(401).json({message: "FAILED TO GET DATA FROM USER DATABASE."})
+    // if location is not sent, 
+    if (!lat || !long) {
+        // if martial arts are given, get users with coach = true, and has one of the martial arts.
+        if (marts) {
+            const jsonMarts = JSON.parse(marts)
+            const searchMarts = jsonMarts.map((art) => {
+                return {[`marts.${art}`]: {$exists: true}}
+            })
+            const user = await User.find({$and: [{coach: true}, {$or: searchMarts}]});
+            if (user) {res.status(200).json(user)}
+            else {res.status(401).json({message: "Failed to get data from user database."})}
+            // if martial arts are not given, get users with coach = true.
+        } else {
+            const user = await User.find({coach: true});
+            if (user) {res.status(200).json(user)}
+            else {res.status(401).json({message: "Failed to get data from user database."})}
+        }
+        // if location is given, 
+    } else {
+        // if martial arts are given, get users with coach = true, near the location, and has one of the martial arts.
+        if (marts) {
+            const searchMarts = jsonMarts.map((art) => {
+                return {[`marts.${art}`]: {$exists: true}}
+            })
+            const user = await User.find(
+                {$and: 
+                    [
+                    {coach: true},
+                    {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
+                    {"location.long": {$lt: 0.3 + parseFloat(long)}}, 
+                    {$or: searchMarts}
+                    ]
+                }
+            );
+            if (user) {res.status(200).json(user)}
+            else {res.status(401).json({message: "Failed to get data from user database."})}
+            // if martial arts is not given, get users with coach = true, and near the location.
+        } else {
+            const user = await User.find(
+                {$and: 
+                    [
+                    {coach: true},
+                    {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
+                    {"location.long": {$lt: 0.3 + parseFloat(long)}}
+                    ]
+            });
+            if (user) {res.status(200).json(user)}
+            else {res.status(401).json({message: "Failed to get data from user database."})}
+        }
     }
-
-
-})
+}
+)
 
 
 module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers}

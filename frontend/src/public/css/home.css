@@ -210,6 +210,12 @@ html {
 
 }
 
+.main-texts-line {
+  width: 300px;
+  align-self: flex-start;
+  background-color: white;
+  margin-left: 0;
+}
 
 .find {
   display: flex;
@@ -253,10 +259,6 @@ html {
   color: gray;
 }
 
-.spar-l {
-  width: 290px;
-  margin-left: 0;
-}
 
 
 
@@ -336,8 +338,17 @@ html {
     justify-content: center;
   }
 
+  .main-texts-line {
+    width: 80%;
+    margin: auto;
+  }
+
   .main-texts-info h1 {
     width: 80%;
+  }
+
+  .find {
+    justify-content: space-around;
   }
 
   .main-image {

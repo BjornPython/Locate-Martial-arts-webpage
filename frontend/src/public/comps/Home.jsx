@@ -170,7 +170,7 @@ function Home() {
                     <div className="main-texts-info">
                         <h1>THE BEST<br /> WAY TO CONNECT WITH MARTIAL ARTISTS.</h1>
                     </div>
-
+                    <hr className="main-texts-line" />
                     <div className="find" id="find1">
                         <h1><a href="#find-gym" className="gym-txt">LOCATE OTHERS</a></h1>
                         <h1><a href="#martial-arts-page" className="gym-txt">MARTIAL ARTS</a></h1>
