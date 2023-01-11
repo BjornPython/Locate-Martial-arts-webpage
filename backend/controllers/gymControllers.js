@@ -67,7 +67,7 @@ const loginGym = asyncHandler(async (req, res) => {
 
 const getGyms = asyncHandler(async (req, res) => {
     console.log("IN GET GYMS");
-    console.log("EWQ.BODY: ", req.body);
+    console.log("REQ.BODY: ", req.body);
     let { marts } = req.body
     let { lat, long } = req.body.location
     if (marts === "[]") {marts = null}

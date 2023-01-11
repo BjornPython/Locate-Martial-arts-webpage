@@ -15,10 +15,10 @@ const findGyms = async (location, marts) => {
     return response
 }
 
-const findSparringPartners = async (location=null) => {
+const findSparringPartners = async (location, marts) => {
     console.log("IN FIND SPARRING PARTNERS");
 
-    const response = await axios.post(`${USERS_API_ENDPOINT}/sparringusers`, location, {
+    const response = await axios.post(`${USERS_API_ENDPOINT}/sparringusers`, {location, marts}, {
       headers: { 
         'Content-Type': 'application/json'
       }
@@ -28,9 +28,9 @@ const findSparringPartners = async (location=null) => {
 }
 
 
-const findCoach = async (location=null) => {
+const findCoach = async (location, marts) => {
   console.log("IN FIND COACH");
-  const response = await axios.post(`${USERS_API_ENDPOINT}/coachusers`, location, {
+  const response = await axios.post(`${USERS_API_ENDPOINT}/coachusers`, {location, marts}, {
     headers: { 
       'Content-Type': 'application/json'
     }

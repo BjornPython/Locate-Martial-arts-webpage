@@ -103,7 +103,7 @@ function GetGyms({ searchInfo }) {
             // Get users data with coach==true from user database
             console.log("IN COACH");
             const getCoachData = async () => {
-                const coachUsersData = await apiService.findCoach(location)
+                const coachUsersData = await apiService.findCoach({ lat: location[0], long: location[1] }, JSON.stringify(marts))
                 console.log(coachUsersData);
                 const coachUsersPoints = coachUsersData.data.map((user) => {
                     return { lat: user.location.lat, lng: user.location.long, title: user.name, type: "coach" }
@@ -118,14 +118,10 @@ function GetGyms({ searchInfo }) {
             // Get users data with lfspartner==true from user database
             console.log("IN SPARTNER");
             const getSpartnerData = async () => {
-                const sparringUsersData = await apiService.findSparringPartners({
-                    location: { lat: location[0], long: location[1] },
-                    marts
-                })
+                const sparringUsersData = await apiService.findSparringPartners({ lat: location[0], long: location[1] }, JSON.stringify(marts))
                 console.log(sparringUsersData);
                 const sparringUsersPoints = sparringUsersData.data.map((user) => {
                     const type = user.coach ? "coach" : "student"
-                    console.log("TYPE: ", type);
                     return { lat: user.location.lat, lng: user.location.long, title: user.name, type }
                 })
                 console.log("SPARRING USERS POINTS: ", sparringUsersPoints);
