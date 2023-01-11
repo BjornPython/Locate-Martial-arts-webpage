@@ -167,24 +167,15 @@ function Home() {
                         </div>
                     </div>
 
-
+                    <div className="main-texts-info">
+                        <h1>THE BEST<br /> WAY TO CONNECT WITH MARTIAL ARTISTS.</h1>
+                    </div>
 
                     <div className="find" id="find1">
-                        <h1><a href="#find-gym" className="gym-txt">FIND A GYM</a></h1>
+                        <h1><a href="#find-gym" className="gym-txt">LOCATE OTHERS</a></h1>
                         <hr className="gym-l" />
                     </div>
-                    <div className="find" id="find2">
-                        <h1><a href="#martial-arts" className="martialart-txt">FIND MARTIAL ART</a></h1>
-                        <hr className="martialart-l" />
-                    </div>
-                    <div className="find" id="find3">
-                        <h1><a href="/" className="coach-txt">FIND A COACH</a></h1>
-                        <hr className="coach-l" />
-                    </div>
-                    <div className="find" id="find4">
-                        <h1><a href="/" className="spar-txt">FIND A SPARTNER</a></h1>
-                        <hr className="spar-l" />
-                    </div>
+
                 </div>
                 <div className="main-image">
 

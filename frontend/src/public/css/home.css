@@ -185,13 +185,14 @@ html {
 
 
 .main-texts {
-  padding-top: 90px;
+  padding-top: 160px;
   height: auto;
   background-color: #171616;
-  padding-left: 8%;
+  padding-left: 5%;
   flex-basis: 30%;
-  padding-right: 20px;
+  padding-right: 80px;
   transition: 0.4s;
+
 }
 
 .main-texts.main-texts-active {
@@ -199,9 +200,18 @@ html {
   transition: 0.4s;
 }
 
+.main-texts-info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: x-large;
+  color: white;
+  width: 450px;
+
+}
+
 
 .find {
-  margin-top: 40px;
   display: block;
   flex-direction: column;
   justify-content: space-between;
@@ -305,7 +315,7 @@ html {
   .login-page {
     top: 0px;
     transform: rotate(0deg);
-    height: 715px;
+    height: 100%;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -315,7 +325,7 @@ html {
   .register-page {
     top: 0px;
     transform: rotate(0deg);
-    height: 715px;
+    height: 100%;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -348,8 +358,7 @@ html {
 
 
   .main-texts {
-    flex-basis: 70%;
-    height: 720px;
+    flex-basis: 100%;
     padding-top: 100px;
     padding-left: 0;
     padding-right: 0;
@@ -357,6 +366,19 @@ html {
     width: 100%;
     position: relative;
     text-align: center;
+  }
+
+  .main-texts.main-texts-active {
+    flex-basis: 100%;
+  }
+  .main-texts-info {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-texts-info h1 {
+    width: 80%;
   }
 
   .main-image {
