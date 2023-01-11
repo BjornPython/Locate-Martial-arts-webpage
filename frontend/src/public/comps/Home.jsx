@@ -173,8 +173,9 @@ function Home() {
 
                     <div className="find" id="find1">
                         <h1><a href="#find-gym" className="gym-txt">LOCATE OTHERS</a></h1>
-                        <hr className="gym-l" />
+                        <h1><a href="#martial-arts-page" className="gym-txt">MARTIAL ARTS</a></h1>
                     </div>
+
 
                 </div>
                 <div className="main-image">

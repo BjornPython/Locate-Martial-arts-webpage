@@ -12,7 +12,7 @@ import karate from "../images/karate-combat.jpg"
 function Carousell() {
     return (
 
-        <div className="martial-arts-page">
+        <div className="martial-arts-page" id="martial-arts-page">
             <div className="text">
                 <h1 className="mainfont">DIFFERENT MARTIAL ARTS</h1>
                 <h3 className="font">DISCOVER THE MARTIAL ART THAT IS BEST FOR YOU</h3>

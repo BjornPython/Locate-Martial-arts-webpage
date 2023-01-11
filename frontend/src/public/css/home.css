@@ -185,7 +185,7 @@ html {
 
 
 .main-texts {
-  padding-top: 160px;
+  padding-top: 150px;
   height: auto;
   background-color: #171616;
   padding-left: 5%;
@@ -212,9 +212,10 @@ html {
 
 
 .find {
-  display: block;
-  flex-direction: column;
-  justify-content: space-between;
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 30px;
+  height: 60px;
   padding: 0;
 }
 
@@ -223,9 +224,6 @@ html {
   transition: 0.2s;
 }
 
-.find h1 {
-  margin-bottom: 40px;
-}
 
 .main-image {
   flex-basis: 70%;
@@ -247,51 +245,12 @@ html {
 .gym-txt {
   margin: 0;
   transition: 0.5s ease;
+  color: yellow;
+  font-size: 1.5rem;
 }
 
 .gym-txt:hover {
-  color: red;
-}
-
-.martialart-txt {
-  transition: 0.5s ease;
-  scroll-behavior: smooth;
-}
-
-.martialart-txt:hover {
-  color: red;
-}
-
-.coach-txt {
-  color: white;
-}
-
-.coach-txt:hover {
-  color: red;
-}
-
-.spar-txt {
-  color: white;
-  transition: 0.5s ease;
-}
-
-.spar-txt:hover {
-  color: red;
-}
-
-.gym-l {
-  width: 200px;
-  margin-left: 0;
-}
-
-.martialart-l {
-  width: 300px;
-  margin-left: 0;
-}
-
-.coach-l {
-  width: 236px;
-  margin-left: 0;
+  color: gray;
 }
 
 .spar-l {
