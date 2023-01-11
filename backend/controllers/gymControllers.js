@@ -66,22 +66,27 @@ const loginGym = asyncHandler(async (req, res) => {
 
 
 const getGyms = asyncHandler(async (req, res) => {
-    const { marts } = req.body
-    let { lat, long } = req.body
-
+    console.log("IN GET GYMS");
+    console.log("EWQ.BODY: ", req.body);
+    let { marts } = req.body
+    let { lat, long } = req.body.location
+    if (marts === "[]") {marts = null}
     // If location is not sent, 
     if (!lat || !long) {
         // if martial arts are given, get gyms that has one of the martial arts.
         if (marts) {
+            console.log("HERE1");
             const jsonMarts = JSON.parse(marts)
             const searchMarts = jsonMarts.map((art) => {
                 return {[`marts.${art}`]: {$exists: true}}
             })
+            console.log("SEARCH MARTS: ", searchMarts);
             const gyms = await Gym.find({$or: searchMarts});
             if (gyms) {res.status(200).json(gyms)}
             else {res.status(401).json({message: "Failed to get data from gym database."})}
             // if martial arts are not given, get all gyms.
         } else {
+            console.log("HERE2");
             const gyms = await Gym.find();
             if (gyms) {res.status(200).json(gyms)}
             else {res.status(401).json({message: "Failed to get data from gym database."})}
@@ -90,6 +95,8 @@ const getGyms = asyncHandler(async (req, res) => {
     } else {
         // if martial arts are given, get gyms near the location, and has one of the martial arts.
         if (marts) {
+            console.log("HERE3");
+            const jsonMarts = JSON.parse(marts)
             const searchMarts = jsonMarts.map((art) => {
                 return {[`marts.${art}`]: {$exists: true}}
             })
@@ -106,6 +113,8 @@ const getGyms = asyncHandler(async (req, res) => {
             else {res.status(401).json({message: "Failed to get data from gym database."})}
             // if martial arts are not given, get gyms that are near the location.
         } else {
+            console.log("HERE4");
+
             const gyms = await Gym.find(
                 {$and: 
                     [

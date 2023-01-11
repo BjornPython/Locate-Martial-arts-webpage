@@ -81,7 +81,7 @@ function GetGyms({ searchInfo }) {
             // Get gyms data from gym database
             console.log("IN GYM");
             const getGymData = async () => {
-                const gymData = await apiService.findGyms(location, JSON.stringify(marts))
+                const gymData = await apiService.findGyms({ lat: location[0], long: location[1] }, JSON.stringify(marts))
                 console.log(gymData);
                 try {
                     const gymPoints = gymData.data.map((gym) => {
