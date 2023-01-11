@@ -12,12 +12,13 @@ import Gym from "./Gym"
 import { useNavigate } from "react-router-dom"
 
 function Home() {
-
+    // to use functions in the authslice
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth)
 
+    // redirect user to /userhome if logged in
     if (user || isSuccess) {
         navigate("/userhome")
     }
@@ -158,8 +159,8 @@ function Home() {
                                 <hr />
                                 <h3>register account as A:</h3>
                                 <div className="account-as">
-                                    <button onClick={setIsUserTrue}>Coach / Student</button>
-                                    <button onClick={setIsUserFalse}>Gym</button>
+                                    <div onClick={setIsUserTrue} className="account-as-btn account-as-btn-coach"><span className="account-as-span account-as-span-coach account-as-span-active"></span><h4>Coach / Student</h4></div>
+                                    <div onClick={setIsUserFalse} className="account-as-btn account-as-btn-gym"><span className="account-as-span account-as-span-gym"></span><h4>Gym</h4></div>
                                 </div>
                                 <button onClick={submitRegisData}>Register</button>
                             </form>

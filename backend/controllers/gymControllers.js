@@ -26,7 +26,7 @@ const registerGym = asyncHandler(async (req, res) => {
     const hashedPass = await bcrypt.hash(password, salt)
 
 
-
+    
     const gym = await Gym.create({
         name, email, password: hashedPass
     })

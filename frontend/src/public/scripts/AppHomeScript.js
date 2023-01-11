@@ -1,6 +1,6 @@
 window.onload = (() => {
 
-    // ANIMATIONS FOR LOG IN    
+    // ANIMATIONS FOR LOG IN AND REGISTER
 
     const homeButton = document.querySelector(".home-btn")
     const loginPage = document.querySelector(".login-page");
@@ -15,6 +15,10 @@ window.onload = (() => {
     
     const hamburger = document.querySelector(".hamburger");
     const links = document.querySelector(".links");
+    const registerCoach = document.querySelector(".account-as-btn-coach");
+    const registerCoachSpan = document.querySelector(".account-as-span-coach");
+    const registerGym = document.querySelector(".account-as-btn-gym");
+    const registerGymSpan = document.querySelector(".account-as-span-gym");
 
 
     //GYM PAGE
@@ -86,6 +90,24 @@ window.onload = (() => {
             registerButton.classList.toggle("btn-dark");
             animateRegister();
         }
+    })
+
+    console.log("REGISTERCOACH", registerCoach);
+    registerCoach.addEventListener("click", async () => {
+        if (!registerCoachSpan.classList.contains("account-as-span-active")) {
+            registerCoachSpan.classList.toggle("account-as-span-active");
+        registerGymSpan.classList.toggle("account-as-span-active");
+        }
+
+    })
+    console.log("REGISTERGYM", registerGym);
+
+    registerGym.addEventListener("click", async () => {
+        if (!registerGymSpan.classList.contains("account-as-span-active")) {
+        registerCoachSpan.classList.toggle("account-as-span-active");
+        registerGymSpan.classList.toggle("account-as-span-active");
+        }
+
     })
 
     /*--------------------------------------------------*/
