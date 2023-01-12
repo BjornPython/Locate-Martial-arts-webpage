@@ -8,6 +8,7 @@ Need to find a gym? a coach? a sparring partner? or are you a coach who wants to
 
 # HOME PAGE
 ![websitecc](https://user-images.githubusercontent.com/110831700/211466798-5e1fc33c-c21e-4a87-be65-cb7ea3aee7df.PNG)
+![Capture](https://user-images.githubusercontent.com/110831700/212015200-a0d59ebe-85da-4cdb-8d15-5be9e1ec8650.PNG)
 
 # first look on maps
 ![websitecc1](https://user-images.githubusercontent.com/110831700/211466811-26b3584b-2657-4108-af32-a8683c26bea4.PNG)
