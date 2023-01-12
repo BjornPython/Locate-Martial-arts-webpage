@@ -206,23 +206,23 @@ function MapForm({ handleSearch, setSearchInfo }) {
                         <span id='mma-span' className='m-art-span'></span>
                         <h3>Mixed Martial Arts</h3>
                     </div>
-                    <div id='m-art-bjj' className='m-art' onClick={() => { addArt("Brazilian Jiu Jitsu") }}>
+                    <div id='m-art-bjj' className='m-art' onClick={() => { addArt("bjj") }}>
                         <span id='mma-span' className='m-art-span'></span>
                         <h3>Brazilian Jiu Jitsu</h3>
                     </div>
-                    <div id='m-art-bxg' className='m-art' onClick={() => { addArt("Boxing") }}>
+                    <div id='m-art-bxg' className='m-art' onClick={() => { addArt("boxing") }}>
                         <span id='bxg-span' className='m-art-span'></span>
                         <h3>Boxing</h3>
                     </div>
-                    <div id='m-art-ktd' className='m-art' onClick={() => { addArt("Karate") }}>
+                    <div id='m-art-ktd' className='m-art' onClick={() => { addArt("karate") }}>
                         <span id='ktd-span' className='m-art-span'></span>
                         <h3>Karate</h3>
                     </div>
-                    <div id='m-art-wrs' className='m-art' onClick={() => { addArt("Wrestling") }}>
+                    <div id='m-art-wrs' className='m-art' onClick={() => { addArt("wrestling") }}>
                         <span id='wrs-span' className='m-art-span'></span>
                         <h3>Wrestling</h3>
                     </div>
-                    <div id='m-art-sbo' className='m-art' onClick={() => { addArt("Sambo") }}>
+                    <div id='m-art-sbo' className='m-art' onClick={() => { addArt("sambo") }}>
                         <span id='sbo-span' className='m-art-span'></span>
                         <h3>Sambo</h3>
                     </div>
