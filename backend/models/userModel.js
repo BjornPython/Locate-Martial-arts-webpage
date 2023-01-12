@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-
+mongoose.set('strictQuery', false);
 
 const userSchema = mongoose.Schema({
     name: {
@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
     lfight: {type: Boolean, required: false, default: false},
     lspartner: {type: Boolean, required: false, default: false},
 
-    ma: {type: [], required: false, default: false, default: []},
+    marts: {type: {}, required: false, default: false, default: {}},
     awards: {type: [], required: false, default: []}
     
 

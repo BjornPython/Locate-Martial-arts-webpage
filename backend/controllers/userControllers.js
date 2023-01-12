@@ -152,7 +152,7 @@ const getCoachUsers = asyncHandler(async (req, res) => {
                 return {[`marts.${art}`]: {$exists: true}}
             })
             console.log("SEARCHMARTS: ", searchMarts);
-            const user = await User.find({$and: [{coach: true}, {$or: searchMarts}]});
+            const user = await User.find({coach: true}, {$or: searchMarts});
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
             // if martial arts are not given, get users with coach = true.
@@ -168,14 +168,16 @@ const getCoachUsers = asyncHandler(async (req, res) => {
         if (marts) {
             console.log("IN COACH 3");
             const jsonMarts = JSON.parse(marts)
+            
             const searchMarts = jsonMarts.map((art) => {
-                return {[`marts.${art}`]: {$exists: true}}
+                return {[`marts.${art}`]: true}
             })
-            console.log("SEARCHMARTS: ", searchMarts);
-            const user = await User.find(
-                {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}, {$or: searchMarts}
-                );
 
+            let query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
+            
+            searchMarts.map((val) => query = {...query, ...val})
+            const user = await User.find(query);
+                
             console.log("USER: ", user);
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
