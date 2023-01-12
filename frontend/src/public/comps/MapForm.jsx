@@ -203,7 +203,7 @@ function MapForm({ handleSearch, setSearchInfo }) {
                         <span id="muay-span" className='m-art-span'></span>
                         <h3>Muay Thai</h3>
                     </div>
-                    <div id='m-art-mma' className='m-art' onClick={() => { addArt("Mixed Martial Arts") }}>
+                    <div id='m-art-mma' className='m-art' onClick={() => { addArt("kickboxing") }}>
                         <span id='mma-span' className='m-art-span'></span>
                         <h3>Mixed Martial Arts</h3>
                     </div>

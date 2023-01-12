@@ -151,8 +151,12 @@ const getCoachUsers = asyncHandler(async (req, res) => {
             const searchMarts = jsonMarts.map((art) => {
                 return {[`marts.${art}`]: {$exists: true}}
             })
-            console.log("SEARCHMARTS: ", searchMarts);
-            const user = await User.find({coach: true}, {$or: searchMarts});
+
+            let query = {coach: true, $or: []}
+            query.$or = query.$or.concat(searchMarts.map(val => val)) 
+
+            const user = await User.find(query);
+
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
             // if martial arts are not given, get users with coach = true.
@@ -173,9 +177,11 @@ const getCoachUsers = asyncHandler(async (req, res) => {
                 return {[`marts.${art}`]: true}
             })
 
-            let query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
-            
-            searchMarts.map((val) => query = {...query, ...val})
+            let query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}, $or: []}
+            console.log("QUERY1: ", query );
+            query.$or = query.$or.concat(searchMarts.map(val => val)) 
+            console.log("QUERY2: ", query);
+                // searchMarts.map((val) => query = {...query, ...val})
             const user = await User.find(query);
                 
             console.log("USER: ", user);
@@ -185,14 +191,8 @@ const getCoachUsers = asyncHandler(async (req, res) => {
         } else {
             console.log("IN COACH 4");
 
-            const user = await User.find(
-                {$and: 
-                    [
-                    {coach: true},
-                    {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
-                    {"location.long": {$lt: 0.3 + parseFloat(long)}}
-                    ]
-            });
+            const query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
+            const user = await User.find(query);
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
         }
