@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
     lfspar: {type: Boolean, required: false, default: false}, // if User is looking for a sparring partner
     lfSparArts: {type: Boolean, required: false, default: {}}, // User's martial arts
     coach: {type: Boolean, required: true, default: false}, // if User is a coach
-    coaches: {type: Object, required: false, default: {}}, // what the user coaches.
+    teaches: {type: Object, required: false, default: {}}, // what the user teaches.
     lcoach: {type: Boolean, required: false, default: false}, // if user is looking for a coach.
     lfight: {type: Boolean, required: false, default: false}, // If user is looking for a fight.
 

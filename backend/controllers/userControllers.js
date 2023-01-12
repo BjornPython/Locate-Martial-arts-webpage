@@ -13,7 +13,7 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         coach,
-        lfspartner
+        lfspartner  
     } = req.body
 
 
@@ -89,7 +89,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
             console.log("IN SPAR 1");
             const jsonMarts = JSON.parse(marts)
             const searchMarts = jsonMarts.map((art) => {
-                return {[`marts.${art}`]: true}
+                return {[`lfsparArts.${art}`]: {$exists: true}}
             })
             let query = {lfspar: true, $or: []}
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
@@ -118,7 +118,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
 
             const jsonMarts = JSON.parse(marts)
             const searchMarts = jsonMarts.map((art) => {
-                return {[`marts.${art}`]: true}
+                return {[`lfsparArts.${art}`]: {$exists: true}}
             })
             let query = {lfspar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}, $or: []}
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
@@ -155,7 +155,7 @@ const getCoachUsers = asyncHandler(async (req, res) => {
             console.log("IN COACH 1");
             const jsonMarts = JSON.parse(marts)
             const searchMarts = jsonMarts.map((art) => {
-                return {[`marts.${art}`]: {$exists: true}}
+                return {[`teaches.${art}`]: {$exists: true}}
             })
 
             let query = {coach: true, $or: []}
@@ -180,7 +180,7 @@ const getCoachUsers = asyncHandler(async (req, res) => {
             const jsonMarts = JSON.parse(marts)
             
             const searchMarts = jsonMarts.map((art) => {
-                return {[`marts.${art}`]: true}
+                return {[`teaches.${art}`]: {$exists: true}}
             })
 
             let query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}, $or: []}
