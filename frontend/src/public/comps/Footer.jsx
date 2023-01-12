@@ -7,14 +7,6 @@ import { faSquareFacebook, faSquareGithub, faSquareInstagram } from "@fortawesom
 function Footer() {
     return (
         <div className="main-footer">
-            <div className="soc--icons">
-                <FontAwesomeIcon icon={faSquareFacebook} className="soc-fonts"></FontAwesomeIcon>
-                <FontAwesomeIcon icon={faSquareGithub} className="soc-fonts"></FontAwesomeIcon>
-                <FontAwesomeIcon icon={faSquareInstagram} className="soc-fonts"></FontAwesomeIcon>
-            </div>
-
-            <span className="footer-line"></span>
-
             <div className="footer-infos">
                 <div className="footer-info">
                     <h3>Contact Us</h3>
@@ -26,6 +18,15 @@ function Footer() {
                     <h3>FAQs</h3>
                 </div>
             </div>
+
+            <hr className="footer-line" />
+
+            <div className="soc-icons">
+                <a href="#"><FontAwesomeIcon icon={faSquareFacebook} className="soc-fonts"></FontAwesomeIcon></a>
+                <a href="#"><FontAwesomeIcon icon={faSquareGithub} className="soc-fonts"></FontAwesomeIcon></a>
+                <a href="#"><FontAwesomeIcon icon={faSquareInstagram} className="soc-fonts"></FontAwesomeIcon></a>
+            </div>
+            <h4 className="copyright">@Copyright. All RIghts Reserved.</h4>
 
 
         </div >

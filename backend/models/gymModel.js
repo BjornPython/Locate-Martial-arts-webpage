@@ -18,8 +18,7 @@ const gymSchema = mongoose.Schema({
     },
 
     location: {type: Object, required: false, default: {lat: 0, long: 0}},
-    marts: {type: Object, required: false, default: {"muay thai": ["coach id sample 1", "coach id sample 2"]}}}
-    
+    marts: {type: Object, required: false, default: {"muay thai": {coach: ["coach id sample 1", "coach id sample 2"], students: ["student id sample 1", "student id sample 2"]}}}}
 
 , {timestamps: true})
 
