@@ -83,20 +83,28 @@ const getSparringUsers = asyncHandler(async (req, res) => {
     let { lat, long } = req.body.location
     if (marts === "[]") {marts = null}
     // If location is not sent,
-    if (!lat || !long) {
+    if (!lat || !long || lat === null || long === null) {
         // If martial arts are sent, get users with lfspar = true and has one of the martial arts.
         if (marts) {
+            console.log("IN SPAR 1");
             const jsonMarts = JSON.parse(marts)
             const searchMarts = jsonMarts.map((art) => {
-                return {[`marts.${art}`]: {$exists: true}}
+                return {[`marts.${art}`]: true}
             })
-            const user = await User.find({$and: [{"lfspar": true}, {$or: searchMarts}]});
+            let query = {lfspar: true, $or: []}
+            query.$or = query.$or.concat(searchMarts.map(val => val)) 
+            const user = await User.find(query);
+            console.log("USER: ", user);
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
             
         // if martial arts are not sent, get users with lfspar = true
         } else {
-            const user = await User.find({"lfspar": true});
+            console.log("IN SPAR 2");
+
+            const user = await User.find({lfspar: true});
+            console.log("USER: ", user);
+
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
         }
@@ -106,30 +114,28 @@ const getSparringUsers = asyncHandler(async (req, res) => {
 
         // if martial arts are sent, get users with lfspar = true, near the location, and has one of the martial arts.
         if (marts) {
+            console.log("IN SPAR 3");
+
+            const jsonMarts = JSON.parse(marts)
             const searchMarts = jsonMarts.map((art) => {
-                return {[`marts.${art}`]: {$exists: true}}
+                return {[`marts.${art}`]: true}
             })
-            const user = await User.find(
-                {$and: 
-                    [
-                    {"lfspar": true},
-                    {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
-                    {"location.long": {$lt: 0.3 + parseFloat(long)}}, 
-                    {$or: searchMarts}
-                    ]
-                }
-            );
+            let query = {lfspar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}, $or: []}
+            query.$or = query.$or.concat(searchMarts.map(val => val)) 
+            const user = await User.find(query);
+            console.log("USER: ", user);
+
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
             // if martial arts are not sent, return users with lfspar = true and near the location.
         } else {
-            const user = await User.find(
-                {$and: 
-                    [{"lfspar": true},
-                    {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
-                    {"location.long": {$lt: 0.3 + parseFloat(long)}}
-                    ]
-            });
+            console.log("IN SPAR 4");
+
+            const query = {lfspar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
+
+            const user = await User.find(query);
+            console.log("USER: ", user);
+
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
         }
@@ -143,7 +149,7 @@ const getCoachUsers = asyncHandler(async (req, res) => {
     let { lat, long } = req.body.location
     if (marts === "[]") {marts = null}
     // if location is not sent, 
-    if (!lat || !long) {
+    if (!lat || !long || lat === null || long === null) {
         // if martial arts are given, get users with coach = true, and has one of the martial arts.
         if (marts) {
             console.log("IN COACH 1");

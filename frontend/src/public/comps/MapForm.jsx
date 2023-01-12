@@ -15,8 +15,8 @@ function MapForm({ handleSearch, setSearchInfo }) {
 
     // Latitude and Longitude Data used for centering the map and pinning.
     const [userLatLong, setUserLatLong] = useState({
-        lat: "",
-        long: ""
+        lat: null,
+        long: null
     })
     const { lat, long } = userLatLong
 
@@ -106,7 +106,6 @@ function MapForm({ handleSearch, setSearchInfo }) {
     const getLocation = (e) => {
         e.preventDefault()
         navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
-
     }
 
     // Called when an address is clicked. 

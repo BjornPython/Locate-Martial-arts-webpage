@@ -30,7 +30,6 @@ window.onload = (() => {
     const mArts = document.querySelectorAll(".m-art");
     const findBtns = document.querySelectorAll(".find-btn");
 
-    const locBtn = document.querySelector(".loc-btn");
 
     if (!(loginPage.classList.contains("login-show")) || 
     !(registerPage.classList.contains("register-show"))) {
@@ -191,13 +190,6 @@ window.onload = (() => {
     })
 
 
-
-    console.log("LOC BTN: ", locBtn);
-
-    locBtn.addEventListener("click", () => {
-        console.log("LOC BTN CLICKED");
-        locBtn.classList.toggle("loc-btn-active")
-    })
 
 
 })

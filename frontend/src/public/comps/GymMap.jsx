@@ -35,7 +35,7 @@ function GymMap({ latLong, setLatLong, searchInfo }) {
 
     // Used for setting the starting position of the center of the 
     // map and the starting position of the marker.
-    const [position, setPosition] = useState([14.611185, 121.113449])
+    const [position, setPosition] = useState([14.59637514, 120.9782618])
     // Initializing the image and size of the markerIcon.
     const markerIcon = L.icon({
         iconUrl: require("../images/icons/place.png"),
@@ -45,9 +45,12 @@ function GymMap({ latLong, setLatLong, searchInfo }) {
 
     // Triggered when the latLong passed from the Gym.jsx changes. 
     // sets a new position, and changes the current view of the map. 
+    // if latLong is null, do not do anything.
     useEffect(() => {
         console.log("MAPREF CURRENT: ", mapRef.current);
         if (!mapRef.current) return;
+        console.log("LATLONG: ", latLong);
+        if (latLong[0] === null || latLong[1] === null) return;
         console.log("SETTING POSITION, LAT AND LONG: ", parseFloat(latLong[0]), parseFloat(latLong[1]));
         setPosition([parseFloat(latLong[0]), parseFloat(latLong[1])])
         mapRef.current.setView({ lat: parseFloat(latLong[0]), lng: parseFloat(latLong[1]) }, 18, { animate: true, duration: 1 });

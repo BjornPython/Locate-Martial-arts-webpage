@@ -72,7 +72,7 @@ const getGyms = asyncHandler(async (req, res) => {
     let { lat, long } = req.body.location
     if (marts === "[]") {marts = null}
     // If location is not sent, 
-    if (!lat || !long) {
+    if (!lat || !long || lat === null || long === null) {
         // if martial arts are given, get gyms that has one of the martial arts.
         if (marts) {
             console.log("HERE1");
@@ -80,6 +80,9 @@ const getGyms = asyncHandler(async (req, res) => {
             const searchMarts = jsonMarts.map((art) => {
                 return {[`marts.${art}`]: {$exists: true}}
             })
+
+            let query = {$or: []}
+            query.$or = query.$or.concat(searchMarts.map(val => val)) 
             console.log("SEARCH MARTS: ", searchMarts);
             const gyms = await Gym.find({$or: searchMarts});
             if (gyms) {res.status(200).json(gyms)}
@@ -88,6 +91,7 @@ const getGyms = asyncHandler(async (req, res) => {
         } else {
             console.log("HERE2");
             const gyms = await Gym.find();
+            console.log("GYMS: ", gyms);
             if (gyms) {res.status(200).json(gyms)}
             else {res.status(401).json({message: "Failed to get data from gym database."})}
         }
