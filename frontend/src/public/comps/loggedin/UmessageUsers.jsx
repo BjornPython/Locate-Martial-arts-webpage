@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
-const userMessages = (userName, status) => {
+
+const userMessages = (userName, status, key) => {
     return (
-        <div className='user'>
+        <div key={key} className='user'>
             <div className='user-icon'>
                 <FontAwesomeIcon icon={faUser} />
             </div>
@@ -28,14 +29,28 @@ function UmessageUsers() {
         { userName: "chan", status: "active now" },
         { userName: "kev", status: "active now" },
         { userName: "curt", status: "active now" },
+        { userName: "rob", status: "active now" },
+        { userName: "nate", status: "active now" },
+        { userName: "jeff", status: "active now" },
+        { userName: "chan", status: "active now" },
+        { userName: "kev", status: "active now" },
+        { userName: "curt", status: "active now" },
+        { userName: "rob", status: "active now" },
+        { userName: "nate", status: "active now" },
+        { userName: "jeff", status: "active now" },
+        { userName: "chan", status: "active now" },
+        { userName: "kev", status: "active now" },
+        { userName: "curt", status: "active now" },
         { userName: "rob", status: "active now" }
 
     ])
     return (
         <div className='u-message-page'>
-            {messages.map((message) => {
-                return userMessages(message.userName, message.status)
+            {messages.map((message, index) => {
+                return userMessages(message.userName, message.status, index)
             })}
+
+
         </div>
     )
 }
