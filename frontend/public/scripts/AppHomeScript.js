@@ -2,7 +2,7 @@ window.onload = (() => {
 
     // ANIMATIONS FOR LOG IN AND REGISTER
 
-    const homeButton = document.querySelector(".home-btn");
+    const homeButton = document.querySelector(".home-btn")
     const loginPage = document.querySelector(".login-page");
     const loginButton = document.querySelector(".login-btn");
     const registerButton = document.querySelector(".register-btn");

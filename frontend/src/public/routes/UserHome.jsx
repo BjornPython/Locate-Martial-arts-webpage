@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Uhome from '../comps/loggedin/Uhome'
 function UserHome() {
     return (
         <div>
-            <h1>USER IS LOGGED IN</h1>
+            <Uhome />
         </div>
     )
 }

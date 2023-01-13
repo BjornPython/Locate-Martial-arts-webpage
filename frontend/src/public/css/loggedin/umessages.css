@@ -1,0 +1,25 @@
+.u-messages {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.u-m-page {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    height: 600px;
+    margin-left: 40px;
+    margin-right: 40px;
+
+    column-gap: 20px;
+}
+
+.u-m-page hr {
+    height: -100%;
+    margin: 0;
+    width: 2px;
+    border: none;
+    background-color: black;
+}

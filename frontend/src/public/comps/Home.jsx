@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { toast } from "react-toastify"
-
+import Header from '../comps/Header';
+import Footer from "../comps/Footer";
 import { useSelector, useDispatch } from "react-redux"
 import { registerUser, loginUser, registerGym, reset } from "../../features/authentication/authSlice"
 
@@ -125,7 +126,7 @@ function Home() {
     return (
 
         <div className="homepage">
-
+            <Header />
             <div className="home-contents">
 
                 <div className="main-texts">
@@ -186,6 +187,8 @@ function Home() {
             <Gym />
             <tag id="martial-arts"></tag>
             <Arts />
+            <Footer />
+
         </div>
 
     )

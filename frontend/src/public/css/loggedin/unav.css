@@ -1,0 +1,25 @@
+.u-navbar {
+    width: 60px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.u-navbar-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 40px;
+}
+
+.u-n-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}

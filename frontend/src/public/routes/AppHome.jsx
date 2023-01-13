@@ -1,12 +1,26 @@
 import Home from "../comps/Home"
+import React from 'react';
+// import AppHomeScript from "../scripts/AppHomeScript";
 
 
-function AppHome() {
-    return (
-        <div>
-            <Home />
-        </div>
-    )
+class AppHome extends React.Component {
+
+    componentDidMount() {
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "../scripts/AppHomeScript.js"
+        document.body.appendChild(script);
+    }
+
+
+    render() {
+        return (
+            <div>
+                <Home />
+            </div>
+        )
+    }
 }
+
 
 export default AppHome
