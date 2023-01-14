@@ -23,7 +23,7 @@ const userMessages = (userName, status, key) => {
 
 
 function UmessageUsers() {
-    const [messages, setMessages] = useState([
+    const [Chats, setChats] = useState([
         { userName: "nate", status: "active now" },
         { userName: "jeff", status: "active now" },
         { userName: "chan", status: "active now" },
@@ -46,7 +46,7 @@ function UmessageUsers() {
     ])
     return (
         <div className='u-message-page'>
-            {messages.map((message, index) => {
+            {Chats.map((message, index) => {
                 return userMessages(message.userName, message.status, index)
             })}
 
