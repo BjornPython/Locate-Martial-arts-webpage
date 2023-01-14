@@ -1,0 +1,143 @@
+.u-profile-page {
+    height: 720px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+
+.profile-box {
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+
+}
+
+.profile {
+    display: flex;
+    justify-content:space-between;
+}
+
+.profile-avatar {
+    font-size: 3rem;
+    align-self: center;
+}
+.profile-info {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-info h2 {
+    margin: 0;
+}
+
+.profile-info p {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+
+.u-profile-contents {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.u-profile-contents span {
+    margin-top: 1px;
+    width: 60%;
+    border: solid black 1px;
+    background-color: black;
+}
+
+.u-profile-contents p {
+    margin-top: 70px;
+    color: gray;
+    width: 60%;
+}
+
+.p-setting-icon {
+    font-size: 1rem;
+    align-self: flex-end;
+}
+
+.looking-for {
+    margin-top: 40px;
+    width: 50%;
+}
+
+.u-for {
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+    height: 90px;
+
+}
+
+.u-for h3 {
+    display: flex;
+    align-items: center;
+}
+
+.looking-for-dropdown {
+    padding: 10px;
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    border: solid 1px black;
+}
+
+.spar-dropdown {
+    display: none;
+}
+
+.u-profile-marts {
+    padding-top: 10px;
+    margin-top: 20px;
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.u-profile-marts h2 {
+    margin: 0;
+}
+
+.u-profile-grp {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+}
+
+.profile-marts-box {
+    border-left: solid 2px black;
+    padding-left: 20px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.profile-marts-box h3 {
+    font-weight: 400;
+    margin: 0;
+    width: 100%;
+    height: 40px;
+}
+
+.user-loc {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: 400;
+    font-size: 1.3rem;
+    border: solid 2px black;
+}

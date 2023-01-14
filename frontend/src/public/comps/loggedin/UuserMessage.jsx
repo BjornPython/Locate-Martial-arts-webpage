@@ -18,16 +18,16 @@ const showCurrentChat = (userName, status, key) => {
     )
 }
 
-const showMessage = (message, type = null) => {
+const showMessage = (message, index, type = null) => {
     if (type) {
         return (
-            <div className='message'>
+            <div key={index} className='message'>
                 <h4>{message}</h4>
             </div>
         )
     } else {
         return (
-            <div className='users-message'>
+            <div key={index} className='users-message'>
                 <h4>{message}</h4>
             </div>
         )
@@ -62,9 +62,9 @@ function UuserMessage() {
             <hr />
 
             <div className='u-message-contents'>
-                {messages.map((msg) => {
+                {messages.map((msg, index) => {
                     return (
-                        showMessage(msg.message, msg.type)
+                        showMessage(msg.message, index, msg.type)
                     )
                 })}
             </div>
