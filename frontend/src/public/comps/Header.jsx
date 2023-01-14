@@ -1,14 +1,14 @@
 import "../css/header.css"
-
+import img from "../images/locate-icon.png"
 
 const Header = () => {
     return (
         <nav className="navbar">
 
             <div className="navbar-content">
-                <a href="#">
+                <a href="#" className="navbar-brand">
+                    <img src={img} alt="" />
                     <div className="brand">
-
                         <h3 className="mainfont">LOCATE MARTIAL ARTS</h3>
                         <p className="font">HONE YOUR SKILLS</p>
 

@@ -13,6 +13,18 @@
     align-items: center;
 }
 
+.navbar-brand {
+    display: flex;
+    width: 500px;
+}
+
+.navbar-brand img {
+    width: 70px;
+}
+
+
+
+
 .links {
     list-style: none;
     display: flex;

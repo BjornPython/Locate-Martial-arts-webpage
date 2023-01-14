@@ -20,9 +20,14 @@ function Home() {
     const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth)
 
     // redirect user to /userhome if logged in
-    if (user || isSuccess) {
-        navigate("/userhome")
-    }
+    useEffect(() => {
+        "USER CHANGED"
+        if (user || isSuccess) {
+            console.log("USER SUCCESS");
+            navigate("/userhome")
+        }
+    }, [user, isSuccess])
+
 
 
     const [loginFormData, setLoginFormData] = useState({

@@ -141,3 +141,7 @@
     font-size: 1.3rem;
     border: solid 2px black;
 }
+
+.lf-active {
+    color: black;
+}

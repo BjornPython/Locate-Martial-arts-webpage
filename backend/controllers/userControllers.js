@@ -11,9 +11,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const {
         name,
         email,
-        password,
-        coach,
-        lfspartner  
+        password 
     } = req.body
 
 
@@ -21,20 +19,14 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(400).json({message: "Please include all fields."})
     }
 
-    let isCoach
-    if (!coach) {isCoach = false} else { isCoach = true }
-
-    let islfSparner
-    if (!lfspartner) {islfSparner = false} else { islfSparner = true}
-
     const salt = await bcrypt.genSalt(10)
     const hashedPass = await bcrypt.hash(password, salt)
 
 
     const user = await User.create({
-        name, email, password: hashedPass, coach: isCoach, lfspartner: islfSparner
+        name, email, password: hashedPass
     })
-
+    console.log(user);
     if (user) {
         const token = generateToken(user.id)
         res.status(200).json(token)

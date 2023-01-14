@@ -21,9 +21,11 @@ function Uprofile() {
     const [userInfo, setUserInfo] = useState({
         name: "",
         bio: "",
+        location: {},
         lfspar: false,
-        lfSparArts: {},
+        lfSparArts: { "kickboxing": true },
         lfcoach: false,
+        lfcoachArts: {},
         marts: {
             "kickboxing": true,
             "muay thai": true,
@@ -31,10 +33,12 @@ function Uprofile() {
         awards: ["champion in mma", "2nd runner up kickboxing"]
     })
 
-    const { marts, awards } = userInfo
+
+    const { lfSparArts, lfcoachArts, marts, awards } = userInfo
 
     return (
         <div className='u-profile-page'>
+
             <div className='profile-box'>
                 <div className='profile'>
                     <FontAwesomeIcon icon={faUser} className="profile-avatar" />
@@ -48,14 +52,14 @@ function Uprofile() {
 
             <div className="u-profile-contents">
                 <div className="looking-for">
-                    <div className='u-for'>
+                    <div className={Object.keys(lfSparArts).length < 1 ? "u-for" : "u-for lf-active"}>
                         <h3>Looking for a Sparring Partner:</h3>
                         <h4 className='looking-for-dropdown'>Sparring partner in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
                         <div className="spar-dropdown">
                         </div>
                     </div>
 
-                    <div className='u-for'>
+                    <div className={Object.keys(lfcoachArts).length < 1 ? "u-for" : "u-for lf-active"}>
                         <h3>Looking for a Coach:</h3>
                         <h4 className='looking-for-dropdown'>Coach in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
                         <div className="spar-dropdown">
@@ -98,7 +102,7 @@ function Uprofile() {
                 <div className='u-profile-marts'>
                     <h2>Area Location:</h2>
                     <div className='u-profile-grp'>
-                        <h2 className='user-loc'>Locationnnn</h2>
+                        <h2 className='user-loc'>Cainta Greenpark, Cainta Rizal</h2>
                         <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
                     </div>
                 </div>

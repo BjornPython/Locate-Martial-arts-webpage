@@ -2,8 +2,16 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import authService from "./authService"
 
 
-const user = JSON.parse(localStorage.getItem("user"))
+let user = JSON.parse(localStorage.getItem("user"))
 
+const gymUser = JSON.parse(localStorage.getItem("gymUser"))
+
+
+if (!user) {
+    if (gymUser) {
+        user = gymUser
+    }
+}
 const initialState = {
     user: user ? user : null,
     isError: false,
@@ -15,7 +23,9 @@ const initialState = {
 
 export const registerUser = createAsyncThunk("/register", async (user, thunkAPI) => {
     try {
-        return await authService.registerUser(user)
+        const res =  await authService.registerUser(user)
+        thunkAPI.fulfillWithValue(res)
+        return res
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -24,7 +34,9 @@ export const registerUser = createAsyncThunk("/register", async (user, thunkAPI)
 
 export const loginUser = createAsyncThunk("/", async (user, thunkAPI) => {
     try {
-        return await authService.loginUser(user)
+        const res =  await authService.loginUser(user)
+        thunkAPI.fulfillWithValue(res)
+        return res
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -35,7 +47,9 @@ export const loginUser = createAsyncThunk("/", async (user, thunkAPI) => {
 export const registerGym = createAsyncThunk("/register", async (gym, thunkAPI) => {
     console.log("IN AUTHSLICE");
     try {
-        return await authService.registerGym(gym)
+        const res = await authService.registerGym(gym)
+        thunkAPI.fulfillWithValue(res)
+        return res
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -62,6 +76,7 @@ const authSlice = createSlice({
             state.isLoading = true
         })
         .addCase(registerUser.fulfilled, (state, action) => {
+            console.log("REGISTER USER FULFILLED");
             state.isLoading = false
             state.isSuccess = true
             state.user = action.payload
