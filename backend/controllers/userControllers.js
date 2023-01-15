@@ -44,9 +44,9 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
 
     const {email, password} = req.body
-
+    console.log(email, password);
     const user = await User.findOne({email})
-
+    console.log("USER: ", user);
     if (!user) {
         res.status(400).json({message: "Wrong Email or Password."})
     }

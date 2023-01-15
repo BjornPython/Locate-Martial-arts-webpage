@@ -34,6 +34,8 @@ export const registerUser = createAsyncThunk("/register", async (user, thunkAPI)
 
 export const loginUser = createAsyncThunk("/", async (user, thunkAPI) => {
     try {
+        console.log("IN AUTHSLICE LOGINUSER");
+
         const res =  await authService.loginUser(user)
         thunkAPI.fulfillWithValue(res)
         return res
@@ -91,9 +93,12 @@ const authSlice = createSlice({
             state.isLoading = true
         })
         .addCase(loginUser.fulfilled, (state, action) => {
+            console.log("LOGIN USER FULFILLED");
+            console.log("action.payload: ", action.payload);
             state.isLoading = false
             state.isSuccess = true
             state.user = action.payload
+            console.log("STATE.USER: ", state.user);
         })
         .addCase(loginUser.rejected, (state, action) => {
             state.isLoading = false

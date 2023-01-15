@@ -21,7 +21,7 @@ function Home() {
 
     // redirect user to /userhome if logged in
     useEffect(() => {
-        "USER CHANGED"
+
         if (user || isSuccess) {
             console.log("USER SUCCESS");
             navigate("/userhome")
