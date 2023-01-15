@@ -61,10 +61,6 @@ function Home() {
         }
     }
 
-    useEffect(() => {
-        console.log(registerFormData);
-    }, [registerFormData])
-
 
 
     const changeLoginForm = (e) => {

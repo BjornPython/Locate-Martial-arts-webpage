@@ -1,14 +1,16 @@
 import axios from "axios";
 
+
 const GYM_API_ENDPOINT = "http://localhost:8000/api/gym"
 const USERS_API_ENDPOINT = "http://localhost:8000/api/users"
 
-const findGyms = async (location, marts) => {
+
+const findGyms = async (location, marts, token) => { 
     console.log("apiservice MARTS: ", marts);
     console.log("apiService LOCATION: ", location);
     const response = await axios.post(`${GYM_API_ENDPOINT}/getgyms`, {location, marts}, {
         headers: { 
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         }
       })
     console.log(response);
@@ -39,8 +41,16 @@ const findCoach = async (location, marts) => {
   if (response) { return response } else {return "no response from request"}
 }
 
+const getUserInfo = async (token) => {
+  const response = await axios.get(USERS_API_ENDPOINT, {headers: {
+    Authorization: `Bearer ${token}`
+  }})
+  console.log("RESPONSE: ", response);
+}
+
+
 const apiService = {
-    findGyms, findSparringPartners, findCoach
+    findGyms, findSparringPartners, findCoach, getUserInfo
 }
 
 export default apiService

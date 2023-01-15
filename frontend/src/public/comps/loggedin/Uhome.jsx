@@ -30,9 +30,9 @@ function Uhome() {
         <div className='uhome-page'>
             <Unav setCurrentPage={setCurrentPage} />
             <div className="u-home-pages">
-                {currentPage === "profile" ? <Uprofile /> : null}
-                {currentPage === "messages" ? <Umessages /> : null}
-                {currentPage === "search" ? <Umessages /> : null}
+                {currentPage === "profile" ? <Uprofile user={user} /> : null}
+                {currentPage === "messages" ? <Umessages user={user} /> : null}
+                {currentPage === "search" ? <Umessages user={user} /> : null}
             </div>
 
         </div>

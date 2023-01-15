@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const { isObjectIdOrHexString } = require("mongoose")
 
 
 
@@ -198,5 +199,24 @@ const getCoachUsers = asyncHandler(async (req, res) => {
 }
 )
 
+const getUserInfo = asyncHandler(async (req, res) => {
+    console.log("IN BACKEND");
+    let token = req.headers.authorization.split(" ")[1]
+    console.log("TOKEN: ", token);
+    if (!token) {res.status(401).json({message: "No token received"})} 
+    else { 
+        const decoded = jwt.verify(token, process.env.JWT_TOKEN)
+        console.log("USERID: ", decoded.id);
+        const userInfo = await User.findOne({_id: `${decoded.id}`})
+        console.log("USER INFO: ", userInfo);
+        if (userInfo) {
+            res.status(200).json(userInfo)
+        } else {
+            res.status(400).json({message: "Failed to get User Info from database."})
+        }
+    }
 
-module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers}
+})
+
+
+module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo}

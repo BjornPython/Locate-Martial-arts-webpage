@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
-
+import apiService from '../../../features/apis/apiService'
 
 const showMart = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
@@ -16,7 +16,13 @@ const showAward = (mart, id) => {
 
 
 
-function Uprofile() {
+function Uprofile({ user }) {
+
+    const getUserInfo = async () => {
+        const response = await apiService.getUserInfo(user)
+        console.log(response);
+    }
+
 
     const [userInfo, setUserInfo] = useState({
         name: "",
@@ -36,6 +42,8 @@ function Uprofile() {
 
     const { lfSparArts, lfcoachArts, marts, awards } = userInfo
 
+
+
     return (
         <div className='u-profile-page'>
             <div className='profile-box'>
@@ -50,15 +58,14 @@ function Uprofile() {
             </div>
 
             <div className="looking-for">
-                {console.log(Object.keys(lfSparArts).length < 1 ? "u-for" : "u-for")}
-                <div className={Object.keys(lfSparArts).length < 1 ? "u-for" : "u-for"}>
+                <div className="u-for">
                     <h4>Looking for a Sparring Partner:</h4>
                     <h4 className='looking-for-dropdown'>Sparring partner in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
                     <div className="spar-dropdown">
                     </div>
                 </div>
 
-                <div className={Object.keys(lfcoachArts).length < 1 ? "u-for" : "u-for"}>
+                <div className="u-for">
                     <h4>Looking for a Coach:</h4>
                     <h4 className='looking-for-dropdown'>Coach in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
                     <div className="spar-dropdown">
@@ -72,11 +79,13 @@ function Uprofile() {
                     <h4>Martial Arts:</h4>
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
-                            {console.log(marts)}
+
                             {Object.keys(marts).map((mart, val) => {
                                 const id = uuid()
                                 return showMart(mart, id)
                             })}
+
+
                         </div>
                         <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
                     </div>
@@ -89,6 +98,8 @@ function Uprofile() {
                     <h4>Achievements:</h4>
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
+
+
                             {awards.map((award, val) => {
                                 const id = uuid()
                                 return showAward(award, id)
