@@ -7,11 +7,11 @@ import "../../css/loggedin/uprofile.css"
 
 
 const showMart = (mart, key) => {
-    return (<h3 key={key}>● {mart}</h3>)
+    return (<h4 key={key}>● {mart}</h4>)
 }
 
 const showAward = (award, key) => {
-    return (<h3 key={key}>● {award}</h3>)
+    return (<h4 key={key}>● {award}</h4>)
 }
 
 
@@ -30,7 +30,7 @@ function Uprofile() {
             "kickboxing": true,
             "muay thai": true,
         },
-        awards: ["champion in mma", "2nd runner up kickboxing"]
+        awards: ["Blue belt in BJJ", "champion in mma", "2nd runner up kickboxing"]
     })
 
 
@@ -38,7 +38,6 @@ function Uprofile() {
 
     return (
         <div className='u-profile-page'>
-
             <div className='profile-box'>
                 <div className='profile'>
                     <FontAwesomeIcon icon={faUser} className="profile-avatar" />
@@ -51,6 +50,7 @@ function Uprofile() {
             </div>
 
             <div className="u-profile-contents">
+
                 <div className="looking-for">
                     <div className={Object.keys(lfSparArts).length < 1 ? "u-for" : "u-for lf-active"}>
                         <h3>Looking for a Sparring Partner:</h3>
@@ -60,7 +60,7 @@ function Uprofile() {
                     </div>
 
                     <div className={Object.keys(lfcoachArts).length < 1 ? "u-for" : "u-for lf-active"}>
-                        <h3>Looking for a Coach:</h3>
+                        <h4>Looking for a Coach:</h4>
                         <h4 className='looking-for-dropdown'>Coach in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
                         <div className="spar-dropdown">
                         </div>
@@ -70,7 +70,7 @@ function Uprofile() {
                 <span />
 
                 <div className='u-profile-marts'>
-                    <h2>Martial Arts:</h2>
+                    <h4>Martial Arts:</h4>
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
                             {console.log(marts)}
@@ -86,7 +86,7 @@ function Uprofile() {
                 <span />
 
                 <div className='u-profile-marts'>
-                    <h2>Awards:</h2>
+                    <h4>Achievements:</h4>
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
                             {awards.map((award, index) => {
@@ -100,12 +100,23 @@ function Uprofile() {
                 <p>People can see your martial arts when they check your profile.</p>
                 <span />
                 <div className='u-profile-marts'>
-                    <h2>Area Location:</h2>
+                    <h4>Area Location:</h4>
                     <div className='u-profile-grp'>
                         <h2 className='user-loc'>Cainta Greenpark, Cainta Rizal</h2>
                         <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
                     </div>
                 </div>
+                <p>Help people near you connect with you. Pin your area on the maps to set. </p>
+                <span />
+
+                <div className='u-profile-marts'>
+                    <h4>Account Status:</h4>
+                    <div className="u-status">
+                        <div className="what-status"><h4>coach</h4></div>
+                        <div className="what-status"><h4>student</h4></div>
+                    </div>
+                </div>
+
                 <p>Help people near you connect with you. Pin your area on the maps to set. </p>
                 <span />
             </div>
