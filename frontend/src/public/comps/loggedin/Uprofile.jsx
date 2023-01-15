@@ -102,7 +102,7 @@ function Uprofile() {
                 <div className='u-profile-marts'>
                     <h4>Area Location:</h4>
                     <div className='u-profile-grp'>
-                        <h2 className='user-loc'>Cainta Greenpark, Cainta Rizal</h2>
+                        <h4 className='user-loc'>Cainta Greenpark, Cainta Rizal</h4>
                         <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
                     </div>
                 </div>
