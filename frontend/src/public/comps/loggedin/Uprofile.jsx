@@ -2,16 +2,16 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
-
+import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
 
 
-const showMart = (mart, key) => {
-    return (<h4 key={key}>● {mart}</h4>)
+const showMart = (mart, id) => {
+    return (<h4 key={id}>● {mart}</h4>)
 }
 
-const showAward = (award, key) => {
-    return (<h4 key={key}>● {award}</h4>)
+const showAward = (mart, id) => {
+    return (<h4 key={id}>● {mart}</h4>)
 }
 
 
@@ -73,8 +73,9 @@ function Uprofile() {
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
                             {console.log(marts)}
-                            {Object.keys(marts).map((mart, key, index) => {
-                                return showMart(mart, index)
+                            {Object.keys(marts).map((mart, val) => {
+                                const id = uuid()
+                                return showMart(mart, id)
                             })}
                         </div>
                         <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
@@ -88,8 +89,9 @@ function Uprofile() {
                     <h4>Achievements:</h4>
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
-                            {awards.map((award, index) => {
-                                return showAward(award, index)
+                            {awards.map((award, val) => {
+                                const id = uuid()
+                                return showAward(award, id)
                             })}
                         </div>
                         <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
