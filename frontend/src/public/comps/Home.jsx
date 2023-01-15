@@ -25,6 +25,8 @@ function Home() {
         if (user || isSuccess) {
             console.log("USER SUCCESS");
             navigate("/userhome")
+        } else {
+            console.log("NO USER");
         }
     }, [user, isSuccess])
 

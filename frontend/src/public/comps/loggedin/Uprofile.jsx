@@ -49,25 +49,24 @@ function Uprofile() {
                 <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
             </div>
 
-            <div className="u-profile-contents">
-
-                <div className="looking-for">
-                    <div className={Object.keys(lfSparArts).length < 1 ? "u-for" : "u-for lf-active"}>
-                        <h3>Looking for a Sparring Partner:</h3>
-                        <h4 className='looking-for-dropdown'>Sparring partner in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
-                        <div className="spar-dropdown">
-                        </div>
-                    </div>
-
-                    <div className={Object.keys(lfcoachArts).length < 1 ? "u-for" : "u-for lf-active"}>
-                        <h4>Looking for a Coach:</h4>
-                        <h4 className='looking-for-dropdown'>Coach in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
-                        <div className="spar-dropdown">
-                        </div>
+            <div className="looking-for">
+                {console.log(Object.keys(lfSparArts).length < 1 ? "u-for" : "u-for")}
+                <div className={Object.keys(lfSparArts).length < 1 ? "u-for" : "u-for"}>
+                    <h4>Looking for a Sparring Partner:</h4>
+                    <h4 className='looking-for-dropdown'>Sparring partner in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
+                    <div className="spar-dropdown">
                     </div>
                 </div>
 
-                <span />
+                <div className={Object.keys(lfcoachArts).length < 1 ? "u-for" : "u-for"}>
+                    <h4>Looking for a Coach:</h4>
+                    <h4 className='looking-for-dropdown'>Coach in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
+                    <div className="spar-dropdown">
+                    </div>
+                </div>
+            </div>
+
+            <div className="u-profile-contents">
 
                 <div className='u-profile-marts'>
                     <h4>Martial Arts:</h4>
@@ -117,7 +116,7 @@ function Uprofile() {
                     </div>
                 </div>
 
-                <p>Help people near you connect with you. Pin your area on the maps to set. </p>
+                <p>Are you a coach or a student?</p>
                 <span />
             </div>
         </div>

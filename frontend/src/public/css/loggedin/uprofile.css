@@ -1,4 +1,5 @@
 .u-profile-page {
+    margin-left: 60px;
     height: 710px;
     width: 100%;
     display: flex;
@@ -44,7 +45,7 @@
 
 .u-profile-contents {
     margin-top: 30px;
-    overflow-y: scroll;
+    padding-bottom: 30px;
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -65,6 +66,7 @@
     margin-top: 70px;
     color: gray;
     width: 60%;
+    font-size: 0.8rem;
 }
 
 .p-setting-icon {
@@ -74,7 +76,8 @@
 
 .looking-for {
     margin-top: 40px;
-    width: 50%;
+    width: 40%;
+    height: 200px;
 }
 
 .u-for {
@@ -82,23 +85,22 @@
     justify-content: space-between;
     color: gray;
     height: 90px;
-
 }
 
-.u-for h3 {
-    flex-basis: 250px;
-    display: flex;
-    align-items: center;
+.u-for h4 {
+   align-items: center;
 }
+
 
 .looking-for-dropdown {
     flex-basis: 180px;
     min-width: 180px;
     white-space: pre;
+    color: gray;
     padding: 10px;
     display: flex;
     justify-content: space-between;
-    border: solid 1px white;
+    border: solid 1px gray;
 }
 
 .spar-dropdown {
@@ -150,9 +152,6 @@
 
 }
 
-.lf-active {
-    color: white;
-}
 
 .u-status {
     display: flex;
