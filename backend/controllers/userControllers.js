@@ -224,10 +224,10 @@ const updateUserInfo = asyncHandler(async (req, res) => {
     console.log(token);
     const decoded = jwt.verify(token, process.env.JWT_TOKEN);
     console.log("DECODED: ", decoded);
-    const toUpdate = Object.keys(req.body.newUserInfo).map((key, value) => {return {[key]: req.body.newUserInfo[`${key}`]}})
+    toUpdate = {...req.body.newUserInfo}
     console.log("TO OPDATE: ", toUpdate);
-    // const response = User.updateOne({_id: `${decoded.id}`, $set: toUpdate})
-    // console.log(response);
+    const response = await User.updateOne({_id: `${decoded.id}`}, {$set: toUpdate})
+    console.log("BACKEND REPSONSE: ", response);
 })
 
 
