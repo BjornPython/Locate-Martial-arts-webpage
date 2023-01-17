@@ -12,23 +12,27 @@ const showInfo = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
 }
 
-// Shows the awards of the user.
-const showAward = (mart, id) => {
-    return (<h4 key={id}>● {mart}</h4>)
-}
-
-const editInfo = (info, id, delMart) => {
+// Show Editable Mart.
+const editMart = (mart, id, delMart) => {
     return (
         <div key={id} className='edit-info'>
-            <h4 >● {info}</h4>
-            <FontAwesomeIcon icon={faXmark} className="u-delete-font" onClick={() => { delMart(info) }} />
+            <h4 >● {mart}</h4>
+            <FontAwesomeIcon icon={faXmark} className="u-delete-font" onClick={() => { delMart(mart) }} />
+        </div>
+    )
+}
+// Show Editable Art
+const editArt = (award, id, delAward) => {
+    return (
+        <div key={id} className='edit-info'>
+            <h4 >● {award}</h4>
+            <FontAwesomeIcon icon={faXmark} className="u-delete-font" onClick={() => { delAward(award) }} />
         </div>
     )
 }
 
-
 function Uprofile({ user }) {
-
+    // true if user is editing profile.
     const [isEditingInfo, setIsEditingInfo] = useState(false)
 
     // gets the user's information by requesting a GET request to the backend.
@@ -46,15 +50,15 @@ function Uprofile({ user }) {
 
     // Initial values for userInfo and setUserInfo.
     const [userInfo, setUserInfo] = useState({
-        name: "",
+        name: "updated name",
         bio: "",
         location: {},
         lfspar: false,
         lfSparArts: {},
         lfcoach: false,
         lfcoachArts: {},
-        marts: {},
-        awards: []
+        marts: { "karate": true, "sambo": true },
+        awards: ["champion in muay thai", "black belt in taekwando"]
     })
 
     // has the initial value of userInfo. information here will be displayed in the
@@ -62,6 +66,21 @@ function Uprofile({ user }) {
     const [newUserInfo, setNewUserInfo] = useState(userInfo)
 
     const { name, bio, lfSparArts, lfcoachArts, marts, awards } = newUserInfo
+
+    // Calls the getUserInfo function to get and set the user's information. also sets the 
+    // setDisplayInfo to true so the profile will display the information.
+    useEffect(() => {
+        const setProfileData = async () => {
+            await getUserInfo();
+            setDisplayInfo(true)
+        }
+        setProfileData()
+    }, [displayInfo])
+
+    useEffect(() => {
+        console.log("NEWUSERINFO: ", newUserInfo);
+    }, [newUserInfo])
+
 
     // Will be used in handling form changes when editing user's profile.
     const handleNewUserInfo = ((e) => {
@@ -91,20 +110,12 @@ function Uprofile({ user }) {
         }))
     })
 
-    // Calls the getUserInfo function to get and set the user's information. also sets the 
-    // setDisplayInfo to true so the profile will display the information.
-    useEffect(() => {
-        const setProfileData = async () => {
-            await getUserInfo();
-            setDisplayInfo(true)
-        }
-        setProfileData()
-    }, [displayInfo])
+    const changeUserData = () => {
+        console.log(newUserInfo);
+    }
 
-    useEffect(() => {
-        console.log("NEWUSERINFO: ", newUserInfo);
-    }, [newUserInfo])
 
+    // Deletes a martial art in newUserInfo
     const delMart = (mart) => {
         console.log(`del ${mart} called`);
         setNewUserInfo((prevState) => {
@@ -114,10 +125,14 @@ function Uprofile({ user }) {
         })
 
     }
-
-    const addMart = (mart) => {
-        console.log(`del ${mart} called`);
-
+    // Deletes an award in newUserInfo
+    const delAward = (award) => {
+        console.log(`del ${award} called`);
+        setNewUserInfo((prevState) => {
+            const newState = { ...prevState };
+            newState.awards = newState.awards.filter((item) => item !== award);
+            return newState
+        })
     }
 
 
@@ -166,12 +181,9 @@ function Uprofile({ user }) {
                                 })
                                 : Object.keys(marts).map((mart, val) => {
                                     const id = uuid()
-                                    return editInfo(mart, id, delMart)
+                                    return editMart(mart, id, delMart)
                                 })
                             }
-
-
-
                         </div>
                     </div>
                 </div>
@@ -190,7 +202,7 @@ function Uprofile({ user }) {
                                 })
                                 : awards.map((award, val) => {
                                     const id = uuid()
-                                    return editInfo(award, id, delMart)
+                                    return editArt(award, id, delAward)
                                 })}
                         </div>
                     </div>
@@ -220,7 +232,7 @@ function Uprofile({ user }) {
                 {newUserInfo !== userInfo
                     ? (
                         <div className='save-changes'>
-                            <button>Save Changes</button>
+                            <button onClick={changeUserData}>Save Changes</button>
                         </div>
                     )
                     : null}
