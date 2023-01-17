@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "Please include a password."]
     },
+    bio: {type: String, required: false, default: ""},
     location: {type: Object, required: false, default: {lat: 0, long: 0}}, // Users location
     lfspar: {type: Boolean, required: false, default: false}, // if User is looking for a sparring partner
     lfSparArts: {type: Object, required: false, default: { "kickboxing": true }}, // User's martial arts

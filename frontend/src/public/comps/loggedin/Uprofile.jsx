@@ -7,42 +7,35 @@ import "../../css/loggedin/uprofile.css"
 import apiService from '../../../features/apis/apiService'
 
 
-// {
-//     name: "",
-//     bio: "",
-//     location: {},
-//     lfspar: false,
-//     lfSparArts: { "kickboxing": true },
-//     lfcoach: false,
-//     lfcoachArts: {},
-//     marts: {
-//         "kickboxing": true,
-//         "muay thai": true,
-//     },
-//     awards: ["Blue belt in BJJ", "champion in mma", "2nd runner up kickboxing"]
-// }
+// Shows the martial arts of the user. 
 const showMart = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
 }
 
+// Shows the awards of the user.
 const showAward = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
 }
 
 
 
+
 function Uprofile({ user }) {
 
+    // gets the user's information by requesting a GET request to the backend.
     const getUserInfo = async () => {
         const response = await apiService.getUserInfo(user);
         console.log(response.data);
-        setUserInfo(response.data)
+        setUserInfo(response.data);
+        // setNewUserInfo(response.data);
 
     }
 
+    // Used when the dom is first loaded. will only display userInfo once the
+    // user's information from the backend is received and set.
     const [displayInfo, setDisplayInfo] = useState(false)
 
-
+    // Initial values for userInfo and setUserInfo.
     const [userInfo, setUserInfo] = useState({
         name: "",
         bio: "",
@@ -55,7 +48,21 @@ function Uprofile({ user }) {
         awards: []
     })
 
-    const { name, bio, lfSparArts, lfcoachArts, marts, awards } = userInfo
+    // has the initial value of userInfo. information here will be displayed in the
+    // user's profile. 
+    const [newUserInfo, setNewUserInfo] = useState(userInfo)
+
+    const { name, bio, lfSparArts, lfcoachArts, marts, awards } = newUserInfo
+
+    // Will be used in handling form changes when editing user's profile.
+    const handleNewUserInfo = ((e) => {
+        setNewUserInfo((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
+    })
+
+
 
 
     useEffect(() => {
@@ -78,7 +85,6 @@ function Uprofile({ user }) {
                         <p >{(bio === "" || bio === undefined) ? "Edit your bio" : bio}</p>
                     </div>
                 </div>
-                <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
             </div>
 
             <div className="looking-for">
@@ -98,7 +104,7 @@ function Uprofile({ user }) {
             </div>
 
             <div className="u-profile-contents">
-
+                <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
                 <div className='u-profile-marts'>
                     <h4>Martial Arts:</h4>
                     <div className='u-profile-grp'>
@@ -111,7 +117,6 @@ function Uprofile({ user }) {
 
 
                         </div>
-                        <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
                     </div>
                 </div>
 
@@ -127,7 +132,6 @@ function Uprofile({ user }) {
                                 return showAward(award, id)
                             })}
                         </div>
-                        <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
                     </div>
                 </div>
 
@@ -137,7 +141,6 @@ function Uprofile({ user }) {
                     <h4>Area Location:</h4>
                     <div className='u-profile-grp'>
                         <h4 className='user-loc'>Cainta Greenpark, Cainta Rizal</h4>
-                        <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
                     </div>
                 </div>
                 <p>Help people near you connect with you. Pin your area on the maps to set. </p>
@@ -153,7 +156,19 @@ function Uprofile({ user }) {
 
                 <p>Are you a coach or a student?</p>
                 <span />
+                {console.log("NEW: ", newUserInfo)}
+                {console.log("OLD: ", userInfo)}
+                {newUserInfo !== userInfo
+                    ? (
+                        <div className='save-changes'>
+                            <button>Save Changes</button>
+                        </div>
+                    )
+                    : null}
+
+
             </div>
+
         </div>
     )
 }
