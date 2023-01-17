@@ -49,9 +49,16 @@ const getUserInfo = async (token) => {
   return response
 }
 
+const updateUserInfo = async (token, newUserInfo) => {
+  const response = await axios.post(USERS_API_ENDPOINT + "/update", {newUserInfo}, {headers: {
+    Authorization: `Bearer ${token}`
+  }})
+  console.log("API SERVICE RESPONSE: ", response);
+  return response
+}
 
 const apiService = {
-    findGyms, findSparringPartners, findCoach, getUserInfo
+    findGyms, findSparringPartners, findCoach, getUserInfo, updateUserInfo
 }
 
 export default apiService

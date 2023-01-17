@@ -83,12 +83,10 @@ function Uprofile({ user }) {
 
 
     // Will be used in handling form changes when editing user's profile.
-    const handleNewUserInfo = ((e) => {
-        setNewUserInfo((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }))
-    })
+    const handleNewUserInfo = async () => {
+        const response = apiService.updateUserInfo(newUserInfo);
+        console.log("RESPONSE IN UPROFILE: ", response);
+    }
 
     const handleAddMart = ((mart) => {
         setNewUserInfo((prevState) => ({
@@ -111,7 +109,9 @@ function Uprofile({ user }) {
     })
 
     const changeUserData = () => {
-        console.log(newUserInfo);
+        console.log("SENDING: ", newUserInfo);
+        const response = apiService.updateUserInfo(user, newUserInfo);
+        console.log("RESPONSE IN UPROFILE: ", response);
     }
 
 

@@ -206,7 +206,7 @@ const getUserInfo = asyncHandler(async (req, res) => {
     if (!token) {res.status(401).json({message: "No token received"})} 
     else { 
         const decoded = jwt.verify(token, process.env.JWT_TOKEN)
-        console.log("USERID: ", decoded.id);
+        console.log("decoded: ", decoded);
         const userInfo = await User.findOne({_id: `${decoded.id}`})
         console.log("USER INFO: ", userInfo);
         if (userInfo) {
@@ -218,5 +218,17 @@ const getUserInfo = asyncHandler(async (req, res) => {
 
 })
 
+const updateUserInfo = asyncHandler(async (req, res) => {
+    console.log("IN BACKEND REQ BODY: ", req.body.newUserInfo);
+    let token = req.headers.authorization.split(" ")[1]
+    console.log(token);
+    const decoded = jwt.verify(token, process.env.JWT_TOKEN);
+    console.log("DECODED: ", decoded);
+    const toUpdate = Object.keys(req.body.newUserInfo).map((key, value) => {return {[key]: req.body.newUserInfo[`${key}`]}})
+    console.log("TO OPDATE: ", toUpdate);
+    // const response = User.updateOne({_id: `${decoded.id}`, $set: toUpdate})
+    // console.log(response);
+})
 
-module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo}
+
+module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo, updateUserInfo}
