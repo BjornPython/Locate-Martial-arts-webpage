@@ -8,7 +8,7 @@ import apiService from '../../../features/apis/apiService'
 
 
 // Shows the martial arts of the user. 
-const showMart = (mart, id) => {
+const showInfo = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
 }
 
@@ -17,11 +17,11 @@ const showAward = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
 }
 
-const editMart = (mart, id, delMart) => {
+const editInfo = (info, id, delMart) => {
     return (
         <div key={id} className='edit-info'>
-            <h4 >● {mart}</h4>
-            <FontAwesomeIcon icon={faXmark} className="u-delete-font" onClick={() => { delMart(mart) }} />
+            <h4 >● {info}</h4>
+            <FontAwesomeIcon icon={faXmark} className="u-delete-font" onClick={() => { delMart(info) }} />
         </div>
     )
 }
@@ -71,6 +71,26 @@ function Uprofile({ user }) {
         }))
     })
 
+    const handleAddMart = ((mart) => {
+        setNewUserInfo((prevState) => ({
+            ...prevState,
+            marts: {
+                ...prevState.marts,
+                [mart]: true
+            }
+        }))
+    })
+
+    const handleAddAward = ((info, e) => {
+        setNewUserInfo((prevState) => ({
+            ...prevState,
+            marts: {
+                ...prevState.marts,
+                info: true
+            }
+        }))
+    })
+
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
     useEffect(() => {
@@ -81,9 +101,25 @@ function Uprofile({ user }) {
         setProfileData()
     }, [displayInfo])
 
+    useEffect(() => {
+        console.log("NEWUSERINFO: ", newUserInfo);
+    }, [newUserInfo])
+
     const delMart = (mart) => {
         console.log(`del ${mart} called`);
+        setNewUserInfo((prevState) => {
+            const newState = { ...prevState };
+            delete newState.marts[`${mart}`]
+            return newState
+        })
+
     }
+
+    const addMart = (mart) => {
+        console.log(`del ${mart} called`);
+
+    }
+
 
     return (
         <div className='u-profile-page'>
@@ -117,21 +153,22 @@ function Uprofile({ user }) {
             </div>
 
             <div className="u-profile-contents">
-                <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
+                <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { setIsEditingInfo(!isEditingInfo) }} />
                 <div className='u-profile-marts'>
                     <h4>Martial Arts:</h4>
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
 
-                            {/* {!isEditingInfo && Object.keys(marts).map((mart, val) => {
-                                const id = uuid()
-                                return showMart(mart, id)
-                            })} */}
-
-                            {!isEditingInfo && Object.keys(marts).map((mart, val) => {
-                                const id = uuid()
-                                return editMart(mart, id, delMart)
-                            })}
+                            {!isEditingInfo
+                                ? Object.keys(marts).map((mart, val) => {
+                                    const id = uuid()
+                                    return showInfo(mart, id)
+                                })
+                                : Object.keys(marts).map((mart, val) => {
+                                    const id = uuid()
+                                    return editInfo(mart, id, delMart)
+                                })
+                            }
 
 
 
@@ -146,10 +183,15 @@ function Uprofile({ user }) {
                     <h4>Achievements:</h4>
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
-                            {!isEditingInfo && awards.map((award, val) => {
-                                const id = uuid()
-                                return showAward(award, id)
-                            })}
+                            {!isEditingInfo
+                                ? awards.map((award, val) => {
+                                    const id = uuid()
+                                    return showInfo(award, id, delMart)
+                                })
+                                : awards.map((award, val) => {
+                                    const id = uuid()
+                                    return editInfo(award, id, delMart)
+                                })}
                         </div>
                     </div>
                 </div>
@@ -157,7 +199,7 @@ function Uprofile({ user }) {
                 <p>People can see your martial arts when they check your profile.</p>
                 <span />
                 <div className='u-profile-marts'>
-                    <h4>Area Location:</h4>
+                    <h4>Your Area:</h4>
                     <div className='u-profile-grp'>
                         <h4 className='user-loc'>Cainta Greenpark, Cainta Rizal</h4>
                     </div>

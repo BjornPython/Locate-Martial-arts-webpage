@@ -74,11 +74,13 @@
     margin-right: 40px;
     font-size: 1rem;
     align-self: flex-end;
+    cursor: pointer;
 }
 
 .u-setting-icon {
     font-size: 1rem;
     align-self: flex-start;
+    cursor: pointer;
 }
 
 .looking-for {
