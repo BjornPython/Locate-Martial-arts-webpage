@@ -207,4 +207,32 @@
     font-size: 1rem;
     color: red;
     cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.u-delete-font:hover {
+    color: gray;
+}
+
+.add-info {
+    transition: 0.2s ease-in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-info input {
+    width: 80%;
+    border: none;
+}
+
+.add-info-icon {
+    font-size: 1rem;
+    color: green;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.add-info-icon:hover {
+    color: gray;
 }

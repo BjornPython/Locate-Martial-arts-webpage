@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faGear, faCaretDown, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faGear, faCaretDown, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
@@ -43,6 +43,13 @@ function Uprofile({ user }) {
         setNewUserInfo(response.data);
 
     }
+
+    const [newInfo, setNewInfo] = useState({
+        addMart: "",
+        addAward: ""
+    })
+
+    const { addMart, addAward } = newInfo
 
     // Used when the dom is first loaded. will only display userInfo once the
     // user's information from the backend is received and set.
@@ -88,23 +95,10 @@ function Uprofile({ user }) {
         console.log("RESPONSE IN UPROFILE: ", response);
     }
 
-    const handleAddMart = ((mart) => {
-        setNewUserInfo((prevState) => ({
+    const handleNewInfo = ((e) => {
+        setNewInfo((prevState) => ({
             ...prevState,
-            marts: {
-                ...prevState.marts,
-                [mart]: true
-            }
-        }))
-    })
-
-    const handleAddAward = ((info, e) => {
-        setNewUserInfo((prevState) => ({
-            ...prevState,
-            marts: {
-                ...prevState.marts,
-                info: true
-            }
+            [e.target.name]: e.target.value
         }))
     })
 
@@ -184,6 +178,11 @@ function Uprofile({ user }) {
                                     return editMart(mart, id, delMart)
                                 })
                             }
+                            {isEditingInfo &&
+                                <div className='add-info'>
+                                    <input type="text" value={addMart} name="addMart" onChange={handleNewInfo} />
+                                    <FontAwesomeIcon icon={faPlus} className="add-info-icon" />
+                                </div>}
                         </div>
                     </div>
                 </div>
@@ -204,6 +203,11 @@ function Uprofile({ user }) {
                                     const id = uuid()
                                     return editArt(award, id, delAward)
                                 })}
+                            {isEditingInfo &&
+                                <div className='add-info'>
+                                    <input type="text" value={addAward} name="addAward" onChange={handleNewInfo} />
+                                    <FontAwesomeIcon icon={faPlus} className="add-info-icon" />
+                                </div>}
                         </div>
                     </div>
                 </div>

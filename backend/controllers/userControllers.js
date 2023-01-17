@@ -219,15 +219,13 @@ const getUserInfo = asyncHandler(async (req, res) => {
 })
 
 const updateUserInfo = asyncHandler(async (req, res) => {
-    console.log("IN BACKEND REQ BODY: ", req.body.newUserInfo);
     let token = req.headers.authorization.split(" ")[1]
     console.log(token);
     const decoded = jwt.verify(token, process.env.JWT_TOKEN);
-    console.log("DECODED: ", decoded);
     toUpdate = {...req.body.newUserInfo}
-    console.log("TO OPDATE: ", toUpdate);
-    const response = await User.updateOne({_id: `${decoded.id}`}, {$set: toUpdate})
-    console.log("BACKEND REPSONSE: ", response);
+    const response = await User.findByIdAndUpdate({_id: `${decoded.id}`}, {$set: toUpdate}, {new: true})
+    
+    console.log("RESPONSE: ", response);
 })
 
 
