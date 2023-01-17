@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faGear, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faGear, faCaretDown, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
@@ -17,17 +17,26 @@ const showAward = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
 }
 
-
+const editMart = (mart, id, delMart) => {
+    return (
+        <div key={id} className='edit-info'>
+            <h4 >● {mart}</h4>
+            <FontAwesomeIcon icon={faXmark} className="u-delete-font" onClick={() => { delMart(mart) }} />
+        </div>
+    )
+}
 
 
 function Uprofile({ user }) {
+
+    const [isEditingInfo, setIsEditingInfo] = useState(false)
 
     // gets the user's information by requesting a GET request to the backend.
     const getUserInfo = async () => {
         const response = await apiService.getUserInfo(user);
         console.log(response.data);
         setUserInfo(response.data);
-        // setNewUserInfo(response.data);
+        setNewUserInfo(response.data);
 
     }
 
@@ -62,9 +71,8 @@ function Uprofile({ user }) {
         }))
     })
 
-
-
-
+    // Calls the getUserInfo function to get and set the user's information. also sets the 
+    // setDisplayInfo to true so the profile will display the information.
     useEffect(() => {
         const setProfileData = async () => {
             await getUserInfo();
@@ -73,6 +81,9 @@ function Uprofile({ user }) {
         setProfileData()
     }, [displayInfo])
 
+    const delMart = (mart) => {
+        console.log(`del ${mart} called`);
+    }
 
     return (
         <div className='u-profile-page'>
@@ -85,6 +96,8 @@ function Uprofile({ user }) {
                         <p >{(bio === "" || bio === undefined) ? "Edit your bio" : bio}</p>
                     </div>
                 </div>
+                <FontAwesomeIcon icon={faGear} className="u-setting-icon" />
+
             </div>
 
             <div className="looking-for">
@@ -110,10 +123,16 @@ function Uprofile({ user }) {
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
 
-                            {Object.keys(marts).map((mart, val) => {
+                            {/* {!isEditingInfo && Object.keys(marts).map((mart, val) => {
                                 const id = uuid()
                                 return showMart(mart, id)
+                            })} */}
+
+                            {!isEditingInfo && Object.keys(marts).map((mart, val) => {
+                                const id = uuid()
+                                return editMart(mart, id, delMart)
                             })}
+
 
 
                         </div>
@@ -127,7 +146,7 @@ function Uprofile({ user }) {
                     <h4>Achievements:</h4>
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
-                            {awards.map((award, val) => {
+                            {!isEditingInfo && awards.map((award, val) => {
                                 const id = uuid()
                                 return showAward(award, id)
                             })}
@@ -156,8 +175,6 @@ function Uprofile({ user }) {
 
                 <p>Are you a coach or a student?</p>
                 <span />
-                {console.log("NEW: ", newUserInfo)}
-                {console.log("OLD: ", userInfo)}
                 {newUserInfo !== userInfo
                     ? (
                         <div className='save-changes'>
