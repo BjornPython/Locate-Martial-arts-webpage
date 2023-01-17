@@ -6,6 +6,21 @@ import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
 import apiService from '../../../features/apis/apiService'
 
+
+// {
+//     name: "",
+//     bio: "",
+//     location: {},
+//     lfspar: false,
+//     lfSparArts: { "kickboxing": true },
+//     lfcoach: false,
+//     lfcoachArts: {},
+//     marts: {
+//         "kickboxing": true,
+//         "muay thai": true,
+//     },
+//     awards: ["Blue belt in BJJ", "champion in mma", "2nd runner up kickboxing"]
+// }
 const showMart = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
 }
@@ -19,9 +34,13 @@ const showAward = (mart, id) => {
 function Uprofile({ user }) {
 
     const getUserInfo = async () => {
-        const response = await apiService.getUserInfo(user)
-        console.log(response);
+        const response = await apiService.getUserInfo(user);
+        console.log(response.data);
+        setUserInfo(response.data)
+
     }
+
+    const [displayInfo, setDisplayInfo] = useState(false)
 
 
     const [userInfo, setUserInfo] = useState({
@@ -29,19 +48,23 @@ function Uprofile({ user }) {
         bio: "",
         location: {},
         lfspar: false,
-        lfSparArts: { "kickboxing": true },
+        lfSparArts: {},
         lfcoach: false,
         lfcoachArts: {},
-        marts: {
-            "kickboxing": true,
-            "muay thai": true,
-        },
-        awards: ["Blue belt in BJJ", "champion in mma", "2nd runner up kickboxing"]
+        marts: {},
+        awards: []
     })
 
+    const { name, bio, lfSparArts, lfcoachArts, marts, awards } = userInfo
 
-    const { lfSparArts, lfcoachArts, marts, awards } = userInfo
 
+    useEffect(() => {
+        const setProfileData = async () => {
+            await getUserInfo();
+            setDisplayInfo(true)
+        }
+        setProfileData()
+    }, [displayInfo])
 
 
     return (
@@ -50,8 +73,9 @@ function Uprofile({ user }) {
                 <div className='profile'>
                     <FontAwesomeIcon icon={faUser} className="profile-avatar" />
                     <div className='profile-info'>
-                        <h2>Name</h2>
-                        <p>bio</p>
+                        <h2>{name}</h2>
+                        {console.log("BIO", bio)}
+                        <p >{(bio === "" || bio === undefined) ? "Edit your bio" : bio}</p>
                     </div>
                 </div>
                 <FontAwesomeIcon icon={faGear} className="p-setting-icon" />
@@ -98,8 +122,6 @@ function Uprofile({ user }) {
                     <h4>Achievements:</h4>
                     <div className='u-profile-grp'>
                         <div className='profile-marts-box'>
-
-
                             {awards.map((award, val) => {
                                 const id = uuid()
                                 return showAward(award, id)

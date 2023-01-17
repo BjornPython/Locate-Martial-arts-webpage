@@ -46,6 +46,7 @@ const getUserInfo = async (token) => {
     Authorization: `Bearer ${token}`
   }})
   console.log("RESPONSE: ", response);
+  return response
 }
 
 
