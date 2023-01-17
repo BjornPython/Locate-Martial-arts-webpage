@@ -6,7 +6,6 @@ import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
 import apiService from '../../../features/apis/apiService'
 
-
 // Shows the martial arts of the user. 
 const showInfo = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
@@ -77,6 +76,7 @@ function Uprofile({ user }) {
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
     useEffect(() => {
+        console.log("IN USE EFFECT");
         const setProfileData = async () => {
             await getUserInfo();
             setDisplayInfo(true)
@@ -84,16 +84,8 @@ function Uprofile({ user }) {
         setProfileData()
     }, [displayInfo])
 
-    useEffect(() => {
-        console.log("NEWUSERINFO: ", newUserInfo);
-    }, [newUserInfo])
 
 
-    // Will be used in handling form changes when editing user's profile.
-    const handleNewUserInfo = async () => {
-        const response = apiService.updateUserInfo(newUserInfo);
-        console.log("RESPONSE IN UPROFILE: ", response);
-    }
 
     const handleNewInfo = ((e) => {
         setNewInfo((prevState) => ({
@@ -129,6 +121,25 @@ function Uprofile({ user }) {
         })
     }
 
+    const addNewInfo = (info, type = null) => {
+        console.log("INFO: ", info);
+        if (type) {
+            console.log("IN FIRST");
+            setNewUserInfo((prevState) => {
+                const newState = { ...prevState };
+                newState.marts = {
+                    ...newState.marts,
+                    [info]: true
+                }
+                return newState
+            })
+        } else {
+            console.log("IN SCND");
+            const newAwards = { ...newUserInfo }
+            newAwards.awards.push(info)
+            setNewUserInfo(newAwards)
+        }
+    }
 
     return (
         <div className='u-profile-page'>
@@ -178,11 +189,13 @@ function Uprofile({ user }) {
                                     return editMart(mart, id, delMart)
                                 })
                             }
+
                             {isEditingInfo &&
                                 <div className='add-info'>
                                     <input type="text" value={addMart} name="addMart" onChange={handleNewInfo} />
-                                    <FontAwesomeIcon icon={faPlus} className="add-info-icon" />
+                                    <FontAwesomeIcon icon={faPlus} className="add-info-icon" onClick={() => { addNewInfo(addMart, 1) }} />
                                 </div>}
+
                         </div>
                     </div>
                 </div>
@@ -206,7 +219,7 @@ function Uprofile({ user }) {
                             {isEditingInfo &&
                                 <div className='add-info'>
                                     <input type="text" value={addAward} name="addAward" onChange={handleNewInfo} />
-                                    <FontAwesomeIcon icon={faPlus} className="add-info-icon" />
+                                    <FontAwesomeIcon icon={faPlus} className="add-info-icon" onClick={() => { addNewInfo(addAward) }} />
                                 </div>}
                         </div>
                     </div>

@@ -228,7 +228,7 @@
 
 .add-info-icon {
     font-size: 1rem;
-    color: green;
+    color: yellow;
     cursor: pointer;
     transition: 0.2s ease-in;
 }
@@ -236,3 +236,4 @@
 .add-info-icon:hover {
     color: gray;
 }
+
