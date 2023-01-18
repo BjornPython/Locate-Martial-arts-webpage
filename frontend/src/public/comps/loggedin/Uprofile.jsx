@@ -59,6 +59,7 @@ function Uprofile({ user }) {
     const [userInfo, setUserInfo] = useState({
         name: "updated name",
         bio: "",
+        coach: true,
         location: {},
         lfspar: false,
         lfSparArts: {},
@@ -72,7 +73,7 @@ function Uprofile({ user }) {
     // user's profile. 
     const [newUserInfo, setNewUserInfo] = useState(userInfo)
 
-    const { name, bio, lfSparArts, lfcoachArts, marts, awards } = newUserInfo
+    const { name, bio, coach, lfSparArts, lfcoachArts, marts, awards } = newUserInfo
 
 
     const [showSave, setShowSave] = useState(false)
@@ -242,16 +243,34 @@ function Uprofile({ user }) {
 
                 <div className='u-profile-marts'>
                     <h4>Account Status:</h4>
-                    <div className="u-status">
-                        <div className="user-coach what-status what-status-active">
-                            <span></span>
-                            <div className="status-txt"><h4>Coach</h4></div>
+
+
+                    {!isEditingInfo &&
+                        (<div className="u-status">
+                            <div className="user-coach what-status">
+                                <span></span>
+                                <div className="status-txt"><h4>{coach ? "Coach" : "Student"}</h4></div>
+                            </div>
                         </div>
-                        <div className="user-stud what-status">
-                            <span></span>
-                            <div className="status-txt"><h4>student</h4></div>
-                        </div>
-                    </div>
+                        )
+                    }
+
+                    {isEditingInfo &&
+                        (
+                            <div className="u-status">
+                                <div className="user-coach what-status what-status-active">
+                                    <span></span>
+                                    <div className="status-txt"><h4>Coach</h4></div>
+                                </div>
+                                <div className="user-stud what-status">
+                                    <span></span>
+                                    <div className="status-txt"><h4>student</h4></div>
+                                </div>
+                            </div>
+                        )
+                    }
+
+
                 </div>
 
                 <p>Are you a coach or a student?</p>
