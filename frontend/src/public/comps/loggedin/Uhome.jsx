@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-
+import "../../scripts/userHomeScript.js"
 
 function Uhome() {
 
@@ -30,9 +30,8 @@ function Uhome() {
         <div className='uhome-page'>
             <Unav setCurrentPage={setCurrentPage} />
             <div className="u-home-pages">
-                {currentPage === "profile" ? <Uprofile user={user} /> : null}
-                {currentPage === "messages" ? <Umessages user={user} /> : null}
-                {currentPage === "search" ? <Umessages user={user} /> : null}
+                <Uprofile user={user} />
+                <Umessages user={user} />
             </div>
 
         </div>

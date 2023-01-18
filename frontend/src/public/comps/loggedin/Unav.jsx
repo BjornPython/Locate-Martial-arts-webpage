@@ -21,9 +21,9 @@ function Unav({ setCurrentPage }) {
         <div className='u-navbar'>
 
             <div className="u-navbar-icons">
-                <div className="u-n-icon"> <FontAwesomeIcon className='' icon={faSearch} /></div>
-                <div className="u-n-icon" onClick={handleProfileClick}> <FontAwesomeIcon icon={faUser} /></div>
-                <div className="u-n-icon" onClick={handleMessagesClick}><FontAwesomeIcon icon={faMessage} /></div>
+                <div className="u-n-icon "> <FontAwesomeIcon className='' icon={faSearch} /></div>
+                <div className="u-n-icon profile-btn" onClick={handleProfileClick}> <FontAwesomeIcon icon={faUser} /></div>
+                <div className="u-n-icon messages-btn" onClick={handleMessagesClick}><FontAwesomeIcon icon={faMessage} /></div>
             </div>
 
 

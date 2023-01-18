@@ -1,7 +1,7 @@
 .u-profile-page {
     margin-left: 60px;
     height: 710px;
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -4,6 +4,7 @@ import { faUser, faGear, faCaretDown, faXmark, faPlus } from '@fortawesome/free-
 import { useState } from 'react'
 import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
+
 import apiService from '../../../features/apis/apiService'
 import UprofileMarts from './UprofileMarts';
 import UprofileAwards from './UprofileAwards';
@@ -13,6 +14,7 @@ import UprofileFinding from './UprofileFinding'
 
 
 function Uprofile({ user }) {
+
     // true if user is editing profile.
     const [isEditingInfo, setIsEditingInfo] = useState(false)
 
