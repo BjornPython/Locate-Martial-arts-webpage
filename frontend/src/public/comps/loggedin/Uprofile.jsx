@@ -8,7 +8,7 @@ import apiService from '../../../features/apis/apiService'
 import UprofileMarts from './UprofileMarts';
 import UprofileAwards from './UprofileAwards';
 import UprofileStatus from './UprofileStatus';
-
+import UprofileFinding from './UprofileFinding'
 
 
 
@@ -24,7 +24,7 @@ function Uprofile({ user }) {
         setNewUserInfo(response.data);
 
     }
-
+    // Used for adding martial arts and awards/Achievements
     const [newInfo, setNewInfo] = useState({
         addMart: "",
         addAward: ""
@@ -163,21 +163,7 @@ function Uprofile({ user }) {
 
             </div>
 
-            <div className="looking-for">
-                <div className="u-for">
-                    <h4>Looking for a Sparring Partner:</h4>
-                    <h4 className='looking-for-dropdown'>Sparring partner in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
-                    <div className="spar-dropdown">
-                    </div>
-                </div>
-
-                <div className="u-for">
-                    <h4>Looking for a Coach:</h4>
-                    <h4 className='looking-for-dropdown'>Coach in...  <FontAwesomeIcon icon={faCaretDown} /></h4>
-                    <div className="spar-dropdown">
-                    </div>
-                </div>
-            </div>
+            <UprofileFinding />
 
             <div className="u-profile-contents">
                 <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { setIsEditingInfo(!isEditingInfo); setShowSave(!showSave) }} />
