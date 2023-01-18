@@ -181,7 +181,9 @@
     color: gray;
 }
 
-
+.what-status-cursor {
+    cursor: pointer;
+}
 
 
 .what-status span {

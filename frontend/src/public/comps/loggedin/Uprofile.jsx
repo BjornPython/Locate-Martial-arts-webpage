@@ -5,30 +5,12 @@ import { useState } from 'react'
 import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
 import apiService from '../../../features/apis/apiService'
+import UprofileMarts from './UprofileMarts';
+import UprofileAwards from './UprofileAwards';
+import UprofileStatus from './UprofileStatus';
 
-// Shows the martial arts of the user. 
-const showInfo = (mart, id) => {
-    return (<h4 key={id}>● {mart}</h4>)
-}
 
-// Show Editable Mart.
-const editMart = (mart, id, delMart) => {
-    return (
-        <div key={id} className='edit-info'>
-            <h4 >● {mart}</h4>
-            <FontAwesomeIcon icon={faXmark} className="u-delete-font" onClick={() => { delMart(mart) }} />
-        </div>
-    )
-}
-// Show Editable Art
-const editArt = (award, id, delAward) => {
-    return (
-        <div key={id} className='edit-info'>
-            <h4 >● {award}</h4>
-            <FontAwesomeIcon icon={faXmark} className="u-delete-font" onClick={() => { delAward(award) }} />
-        </div>
-    )
-}
+
 
 function Uprofile({ user }) {
     // true if user is editing profile.
@@ -144,6 +126,7 @@ function Uprofile({ user }) {
         }
     }
 
+
     return (
         <div className='u-profile-page'>
             <div className='profile-box'>
@@ -177,57 +160,13 @@ function Uprofile({ user }) {
 
             <div className="u-profile-contents">
                 <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { setIsEditingInfo(!isEditingInfo); setShowSave(!showSave) }} />
-                <div className='u-profile-marts'>
-                    <h4>Martial Arts:</h4>
-                    <div className='u-profile-grp'>
-                        <div className='profile-marts-box'>
 
-                            {!isEditingInfo
-                                ? Object.keys(marts).map((mart, val) => {
-                                    const id = uuid()
-                                    return showInfo(mart, id)
-                                })
-                                : Object.keys(marts).map((mart, val) => {
-                                    const id = uuid()
-                                    return editMart(mart, id, delMart)
-                                })
-                            }
-
-                            {isEditingInfo &&
-                                <div className='add-info'>
-                                    <input type="text" value={addMart} name="addMart" onChange={handleNewInfo} />
-                                    <FontAwesomeIcon icon={faPlus} className="add-info-icon" onClick={() => { addNewInfo(addMart, 1) }} />
-                                </div>}
-
-                        </div>
-                    </div>
-                </div>
+                <UprofileMarts isEditingInfo={isEditingInfo} marts={marts} addMart={addMart} delMart={delMart} handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} />
 
                 <p>People can see your martial arts when they check your profile.</p>
                 <span />
 
-                <div className='u-profile-marts'>
-                    <h4>Achievements:</h4>
-                    <div className='u-profile-grp'>
-                        <div className='profile-marts-box'>
-                            {!isEditingInfo
-                                ? awards.map((award, val) => {
-                                    const id = uuid()
-                                    return showInfo(award, id, delMart)
-                                })
-                                : awards.map((award, val) => {
-                                    const id = uuid()
-                                    return editArt(award, id, delAward)
-                                })}
-                            {isEditingInfo &&
-                                <div className='add-info'>
-                                    <input type="text" value={addAward} name="addAward" onChange={handleNewInfo} />
-                                    <FontAwesomeIcon icon={faPlus} className="add-info-icon" onClick={() => { addNewInfo(addAward) }} />
-                                </div>}
-                        </div>
-                    </div>
-                </div>
-
+                <UprofileAwards isEditingInfo={isEditingInfo} awards={awards} delMart={delMart} delAward={delAward} addAward={addAward} handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} />
                 <p>People can see your martial arts when they check your profile.</p>
                 <span />
                 <div className='u-profile-marts'>
@@ -239,26 +178,7 @@ function Uprofile({ user }) {
                 <p>Help people near you connect with you. Pin your area on the maps to set. </p>
                 <span />
 
-                <div className='u-profile-marts'>
-                    <h4>Account Status:</h4>
-
-
-
-
-                    <div className="u-status">
-                        <div className={`user-coach what-status ${coach ? "what-status-active" : null}`}>
-                            <span></span>
-                            <div className="status-txt"><h4>Coach</h4></div>
-                        </div>
-                        <div className={`user-stud what-status ${!coach ? "what-status-active" : null}`}>
-                            <span></span>
-                            <div className="status-txt"><h4>student</h4></div>
-                        </div>
-                    </div>
-
-
-
-                </div>
+                <UprofileStatus coach={coach} />
 
                 <p>Are you a coach or a student?</p>
                 <span />

@@ -12,6 +12,8 @@ window.onload = (() => {
     editButton.addEventListener("click", () => {
         editing = !editing 
         console.log(editing);
+        userCoach.classList.toggle("what-status-cursor");
+        userStud.classList.toggle("what-status-cursor");
     })
 
     saveChangesBUtton.addEventListener("click", () => {
@@ -20,8 +22,11 @@ window.onload = (() => {
 
     userCoach.addEventListener("click", () => {
         if (editing) {
-        userCoach.classList.toggle("what-status-active")
-        userStud.classList.toggle("what-status-active")
+            if (!userCoach.classList.contains("what-status-active")) {
+                userCoach.classList.toggle("what-status-active")
+                userStud.classList.toggle("what-status-active")
+            }
+
         }
 
         })
@@ -29,9 +34,11 @@ window.onload = (() => {
 
         userStud.addEventListener("click", () => {
             if (editing) {
-            userStud.classList.toggle("what-status-active")
-            userCoach.classList.toggle("what-status-active")
+                if (!userStud.classList.contains("what-status-active")) {
+                    userStud.classList.toggle("what-status-active")
+                    userCoach.classList.toggle("what-status-active")
             }
+        }
         })
 
 
