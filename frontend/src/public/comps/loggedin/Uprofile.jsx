@@ -243,8 +243,14 @@ function Uprofile({ user }) {
                 <div className='u-profile-marts'>
                     <h4>Account Status:</h4>
                     <div className="u-status">
-                        <div className="what-status"><h4>coach</h4></div>
-                        <div className="what-status"><h4>student</h4></div>
+                        <div className="user-coach what-status what-status-active">
+                            <span></span>
+                            <div className="status-txt"><h4>Coach</h4></div>
+                        </div>
+                        <div className="user-stud what-status">
+                            <span></span>
+                            <div className="status-txt"><h4>student</h4></div>
+                        </div>
                     </div>
                 </div>
 

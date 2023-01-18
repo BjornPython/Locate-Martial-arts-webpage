@@ -165,16 +165,36 @@
 
 .u-status {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 240px;
 }
 
 .what-status {
-    padding: 10px;
-    margin-right: 30px;
+    height: 30px;
+    width: 100px;
     border: white 1px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.what-status h4 {
-    margin: 0;
+.what-status span {
+    height: 100%;
+    width: 0px;
+    border: none;
+    background-color: red;
+    transition: 0.2s ease-in;  
+}
+
+.what-status-active span {
+    width: 5px;
+}
+
+.status-txt {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .save-changes {
@@ -215,6 +235,7 @@
 }
 
 .add-info {
+    width: 100%;
     transition: 0.2s ease-in;
     display: flex;
     justify-content: space-between;
@@ -237,3 +258,19 @@
     color: gray;
 }
 
+@media(max-width:920px) {
+    .u-profile-marts {
+        flex-direction: column;
+        align-items: center;
+        row-gap: 40px;
+
+    }
+
+
+    .u-profile-grp {
+     width: 100%;   
+     flex-direction: column;
+    }
+
+
+}
