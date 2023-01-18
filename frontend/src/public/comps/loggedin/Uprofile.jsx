@@ -126,6 +126,27 @@ function Uprofile({ user }) {
         }
     }
 
+    const changeUserStatus = (makeCoach = null) => {
+        console.log("change user clicked");
+        if (isEditingInfo) {
+            console.log("user status will be editted");
+            if (makeCoach || coach === false) {
+                console.log("user status changing to coach");
+                setNewUserInfo((prevState) => {
+                    const newState = { ...prevState, coach: true };
+                    return newState
+                })
+            }
+            else if (!makeCoach || coach === true) {
+                console.log("user status changing to student");
+
+                setNewUserInfo((prevState) => {
+                    const newState = { ...prevState, coach: false }
+                    return newState
+                })
+            }
+        }
+    }
 
     return (
         <div className='u-profile-page'>
@@ -178,7 +199,7 @@ function Uprofile({ user }) {
                 <p>Help people near you connect with you. Pin your area on the maps to set. </p>
                 <span />
 
-                <UprofileStatus coach={coach} />
+                <UprofileStatus coach={coach} changeUserStatus={changeUserStatus} />
 
                 <p>Are you a coach or a student?</p>
                 <span />

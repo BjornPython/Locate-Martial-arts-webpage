@@ -18,6 +18,8 @@ window.onload = (() => {
 
     saveChangesBUtton.addEventListener("click", () => {
             editing = false;
+            userCoach.classList.remove("what-status-cursor");
+            userStud.classList.remove("what-status-cursor");
     })
 
     userCoach.addEventListener("click", () => {
