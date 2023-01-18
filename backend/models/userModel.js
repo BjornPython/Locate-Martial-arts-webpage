@@ -13,8 +13,7 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, "Please include a password."],
-        select: false
+        required: [true, "Please include a password."]
     },
     bio: {type: String, required: false, default: ""},
     location: {type: Object, required: false, default: {lat: 0, long: 0}}, // Users location

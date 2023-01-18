@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
-const { isObjectIdOrHexString } = require("mongoose")
 
 
 
@@ -14,7 +13,6 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password 
     } = req.body
-
 
     if (!name || !email || !password) {
         res.status(400).json({message: "Please include all fields."})
@@ -43,7 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // LOGIN USER // LOGIN USER // LOGIN USER // LOGIN USER // LOGIN USER // LOGIN USER 
 
 const loginUser = asyncHandler(async (req, res) => {
-
+    console.log("IN LOG IN");
     const {email, password} = req.body
     console.log(email, password);
     const user = await User.findOne({email})
@@ -223,9 +221,17 @@ const updateUserInfo = asyncHandler(async (req, res) => {
     console.log(token);
     const decoded = jwt.verify(token, process.env.JWT_TOKEN);
     toUpdate = {...req.body.newUserInfo}
-    const response = await User.findByIdAndUpdate({_id: `${decoded.id}`}, {$set: toUpdate}, {new: true})
+    const response = await User.findByIdAndUpdate({_id: `${decoded.id}`}, {$set: toUpdate}).select("-password")
+
+    if (response) {res.status(200).json(response)} 
+    else {res.status(400).json({message: "Failed to Update Database"})}
     
-    console.log("RESPONSE: ", response);
+    // if (response._id) {
+    // res.status(200).json({...response})
+
+    // } else {
+    //     res.status(400).json({message: "Cannot find user."})
+    // }
 })
 
 

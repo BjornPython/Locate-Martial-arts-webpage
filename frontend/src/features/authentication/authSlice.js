@@ -37,6 +37,7 @@ export const loginUser = createAsyncThunk("/", async (user, thunkAPI) => {
         console.log("IN AUTHSLICE LOGINUSER");
 
         const res =  await authService.loginUser(user)
+        console.log("AUTHSLICE RES: ", res);
         thunkAPI.fulfillWithValue(res)
         return res
     } catch (error) {

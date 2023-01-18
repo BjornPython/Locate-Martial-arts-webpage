@@ -42,6 +42,7 @@ const findCoach = async (location, marts) => {
 }
 
 const getUserInfo = async (token) => {
+  console.log("SENT TOKEN: ", token);
   const response = await axios.get(USERS_API_ENDPOINT, {headers: {
     Authorization: `Bearer ${token}`
   }})

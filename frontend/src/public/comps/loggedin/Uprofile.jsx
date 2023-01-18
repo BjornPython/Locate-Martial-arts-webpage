@@ -36,6 +36,7 @@ function Uprofile({ user }) {
 
     // gets the user's information by requesting a GET request to the backend.
     const getUserInfo = async () => {
+        console.log("USER TOKEN: ", user);
         const response = await apiService.getUserInfo(user);
         console.log(response.data);
         setUserInfo(response.data);
@@ -73,6 +74,8 @@ function Uprofile({ user }) {
 
     const { name, bio, lfSparArts, lfcoachArts, marts, awards } = newUserInfo
 
+
+    const [showSave, setShowSave] = useState(false)
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
     useEffect(() => {
@@ -85,8 +88,6 @@ function Uprofile({ user }) {
     }, [displayInfo])
 
 
-
-
     const handleNewInfo = ((e) => {
         setNewInfo((prevState) => ({
             ...prevState,
@@ -94,10 +95,13 @@ function Uprofile({ user }) {
         }))
     })
 
-    const changeUserData = () => {
+    const changeUserData = async () => {
         console.log("SENDING: ", newUserInfo);
-        const response = apiService.updateUserInfo(user, newUserInfo);
+        const response = await apiService.updateUserInfo(user, newUserInfo);
         console.log("RESPONSE IN UPROFILE: ", response);
+        setIsEditingInfo(false)
+        setShowSave(false)
+
     }
 
 
@@ -173,7 +177,7 @@ function Uprofile({ user }) {
             </div>
 
             <div className="u-profile-contents">
-                <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { setIsEditingInfo(!isEditingInfo) }} />
+                <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { setIsEditingInfo(!isEditingInfo); setShowSave(!showSave) }} />
                 <div className='u-profile-marts'>
                     <h4>Martial Arts:</h4>
                     <div className='u-profile-grp'>
@@ -246,7 +250,7 @@ function Uprofile({ user }) {
 
                 <p>Are you a coach or a student?</p>
                 <span />
-                {newUserInfo !== userInfo
+                {showSave
                     ? (
                         <div className='save-changes'>
                             <button onClick={changeUserData}>Save Changes</button>
