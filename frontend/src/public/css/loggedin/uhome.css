@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: center;
     padding-bottom: 30px;
-    
+    transition: 0.6s ease-out;
 }
 
 .show-messages {

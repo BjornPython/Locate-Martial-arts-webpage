@@ -1,5 +1,7 @@
 .u-navbar {
+
     position: fixed;
+    z-index: 1000;
     width: 60px;
     height: 100%;
     background-color: black;
