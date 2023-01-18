@@ -173,17 +173,16 @@
 .what-status {
     height: 30px;
     width: 100px;
-    border: white 1px solid;
+    border: gray 1px solid;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
     transition: 0.2s ease-in;
+    color: gray;
 }
 
-.what-status:hover {
-    background-color: gray;
-}
+
+
 
 .what-status span {
     height: 100%;
@@ -191,6 +190,11 @@
     border: none;
     background-color: red;
     transition: 0.2s ease-in;  
+}
+
+.what-status-active {
+    border-color: white;
+    color: white;
 }
 
 .what-status-active span {

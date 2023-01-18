@@ -243,43 +243,34 @@ function Uprofile({ user }) {
                     <h4>Account Status:</h4>
 
 
-                    {!isEditingInfo &&
-                        (<div className="u-status">
-                            <div className="user-coach what-status">
-                                <span></span>
-                                <div className="status-txt"><h4>{coach ? "Coach" : "Student"}</h4></div>
-                            </div>
-                        </div>
-                        )
-                    }
 
-                    {isEditingInfo &&
-                        (
-                            <div className="u-status">
-                                <div className="user-coach what-status what-status-active">
-                                    <span></span>
-                                    <div className="status-txt"><h4>Coach</h4></div>
-                                </div>
-                                <div className="user-stud what-status">
-                                    <span></span>
-                                    <div className="status-txt"><h4>student</h4></div>
-                                </div>
-                            </div>
-                        )
-                    }
+
+                    <div className="u-status">
+                        <div className={`user-coach what-status ${coach ? "what-status-active" : null}`}>
+                            <span></span>
+                            <div className="status-txt"><h4>Coach</h4></div>
+                        </div>
+                        <div className={`user-stud what-status ${!coach ? "what-status-active" : null}`}>
+                            <span></span>
+                            <div className="status-txt"><h4>student</h4></div>
+                        </div>
+                    </div>
+
 
 
                 </div>
 
                 <p>Are you a coach or a student?</p>
                 <span />
-                {showSave
-                    ? (
-                        <div className='save-changes'>
+                <div className='save-changes'>
+
+                    {showSave
+                        ? (
                             <button onClick={changeUserData}>Save Changes</button>
-                        </div>
-                    )
-                    : null}
+                        )
+                        : null}
+                </div>
+
 
 
             </div>
