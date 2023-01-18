@@ -39,7 +39,6 @@ function Uprofile({ user }) {
         console.log("USER TOKEN: ", user);
         const response = await apiService.getUserInfo(user);
         console.log(response.data);
-        setUserInfo(response.data);
         setNewUserInfo(response.data);
 
     }
@@ -55,8 +54,11 @@ function Uprofile({ user }) {
     // user's information from the backend is received and set.
     const [displayInfo, setDisplayInfo] = useState(false)
 
-    // Initial values for userInfo and setUserInfo.
-    const [userInfo, setUserInfo] = useState({
+
+
+    // has the initial value of userInfo. information here will be displayed in the
+    // user's profile. 
+    const [newUserInfo, setNewUserInfo] = useState({
         name: "updated name",
         bio: "",
         coach: true,
@@ -68,10 +70,6 @@ function Uprofile({ user }) {
         marts: { "karate": true, "sambo": true },
         awards: ["champion in muay thai", "black belt in taekwando"]
     })
-
-    // has the initial value of userInfo. information here will be displayed in the
-    // user's profile. 
-    const [newUserInfo, setNewUserInfo] = useState(userInfo)
 
     const { name, bio, coach, lfSparArts, lfcoachArts, marts, awards } = newUserInfo
 

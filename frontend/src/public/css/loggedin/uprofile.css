@@ -177,6 +177,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+.what-status:hover {
+    background-color: gray;
 }
 
 .what-status span {
@@ -259,6 +265,12 @@
 }
 
 @media(max-width:920px) {
+
+    .u-profile-contents {
+        width: 70%;
+
+    }
+
     .u-profile-marts {
         flex-direction: column;
         align-items: center;
