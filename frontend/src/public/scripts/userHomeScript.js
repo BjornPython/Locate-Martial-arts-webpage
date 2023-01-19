@@ -43,7 +43,7 @@ window.onload = (() => {
 
     coachDiv.addEventListener("click", () => {
         console.log("spartner div clicked");
-        spartnerDropdown.classList.toggle("spar-dropdown-active")
+        coachDropdown.classList.toggle("spar-dropdown-active")
     })
 
     console.log("COACH DIV", coachDiv);
