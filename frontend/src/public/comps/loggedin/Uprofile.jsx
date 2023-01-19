@@ -165,7 +165,7 @@ function Uprofile({ user }) {
 
             </div>
 
-            <UprofileFinding />
+            <UprofileFinding setNewUserInfo={setNewUserInfo} />
 
             <div className="u-profile-contents">
                 <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { setIsEditingInfo(!isEditingInfo); setShowSave(!showSave) }} />

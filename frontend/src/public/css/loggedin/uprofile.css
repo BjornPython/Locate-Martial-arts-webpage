@@ -120,6 +120,7 @@
     justify-content: space-between;
     align-items: center;
     border: solid 1px gray;
+    cursor: pointer;
 }
 
 
@@ -130,10 +131,16 @@
     color: gray;
     border: solid 1px gray;
     background-color: white;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: flex-start;
+    opacity: 0;
 
+}
+
+.spar-dropdown-active {
+    display: flex;
+    opacity: 1;
 }
 
 .u-display-mart {

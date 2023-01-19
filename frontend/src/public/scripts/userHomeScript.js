@@ -6,10 +6,16 @@ window.onload = (() => {
     const editButton = document.querySelector(".p-setting-icon")
     const saveChangesBUtton = document.querySelector(".save-changes")
     
-    //Animations for Uhome.jsx
+    //Animations for navbar
     const UhomePages = document.querySelector(".u-home-pages");
     const messageButton = document.querySelector(".messages-btn");
     const profileButton = document.querySelector(".profile-btn");
+
+    // Animations for find dropdown in UprofileFinding.jsx
+    const spartnerDiv = document.querySelector("#spartner-div");
+    const coachDiv = document.querySelector("#coach-div");
+    const spartnerDropdown = document.querySelector("#spartner-dropdown");
+    const coachDropdown = document.querySelector("#coach-dropdown");
 
     messageButton.addEventListener("click", () => {
         console.log("MESSAGE BTN CLICKED.");
@@ -21,6 +27,26 @@ window.onload = (() => {
         console.log("PROFILE BTN CLICKED.");
         UhomePages.classList.remove("show-messages");
     })
+
+
+
+
+
+    // Functions
+    // For profile
+
+    spartnerDiv.addEventListener("click", () => {
+        console.log("spartner div clicked");
+        spartnerDropdown.classList.toggle("spar-dropdown-active")
+    })
+
+    coachDiv.addEventListener("click", () => {
+        console.log("coach div clicked");
+        coachDropdown.classList.toggle("spar-dropdown-active")
+
+    })
+
+
 
     let editing = false;
 
@@ -61,5 +87,6 @@ window.onload = (() => {
         }
         })
 
+        
 
 })
