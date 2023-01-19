@@ -2,20 +2,29 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import uuid from 'react-uuid'
-const displayMart = (mart, setFunction) => {
 
-    return (
-        <div className='u-display-mart' key={uuid()} onClick={() => { console.log(`${mart} clicked`) }}>
-            <span className='u-mart-span'></span>
-            <h4>{mart}</h4>
-        </div>
-    )
-}
+import UdisplayMart from './UdisplayMart'
 
 
-function UprofileFinding({ setNewUserInfo }) {
-    const [spartnerIn, setSpartnerIn] = useState(["Kickboxing", "Muay thai", "BJJ"])
-    const [coachIn, setCoachIn] = useState(["Kickboxing", "Muay thai", "BJJ"])
+
+function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
+
+    const updateLfSpartner = (mart) => {
+        console.log(Object.keys(lfSparArts));
+        if (Object.keys(lfSparArts).includes(mart)) {
+            // remove
+            console.log("MART ALREADY IN ARTS");
+        } else { console.log("MART NOT IN ARTS"); }
+        // add
+    }
+    const updateLfCoach = (mart) => {
+        if (Object.keys(lfcoachArts).includes(mart)) {
+            // remove
+            console.log("MART ALREADY IN ARTS");
+        } else { console.log("MART NOT IN ARTS"); }
+        // add
+    }
+
     return (
         <div className="looking-for">
             <div className="u-for">
@@ -27,7 +36,7 @@ function UprofileFinding({ setNewUserInfo }) {
                     </div>
 
                     <div id="spartner-dropdown" className="spar-dropdown">
-                        {spartnerIn.map(mart => { return displayMart(mart, setSpartnerIn) })}
+                        {Object.keys(lfSparArts).map(mart => { return <UdisplayMart key={uuid()} mart={mart} setFunction={updateLfSpartner} /> })}
                     </div>
                 </div>
 
@@ -40,9 +49,9 @@ function UprofileFinding({ setNewUserInfo }) {
                         <h4>Sparring partner in...</h4>
                         <FontAwesomeIcon icon={faCaretDown} />
                     </div>
+                    <div id="coach-dropdown" className="spar-dropdown ">
+                        {Object.keys(lfcoachArts).map(mart => { return <UdisplayMart key={uuid()} mart={mart} setFunction={updateLfCoach} /> })}
 
-                    <div id="coach-dropdown" className="spar-dropdown">
-                        {coachIn.map(mart => { return displayMart(mart, setCoachIn) })}
                     </div>
                 </div>
 

@@ -131,7 +131,7 @@
     color: gray;
     border: solid 1px gray;
     background-color: white;
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     opacity: 0;
@@ -152,10 +152,17 @@
 }
 
 .u-mart-span {
-    width: 5px;
+    width: 0px;
     height: 100%;
     background-color: red;
     border: none;
+    transition: width 0.2s ease-in;
+
+}
+
+.u-mart-span-active {
+    transition: width 0.2s ease-in;
+    width: 5px;
 }
 
 .u-display-mart h4 {

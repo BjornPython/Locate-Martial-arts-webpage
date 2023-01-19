@@ -16,6 +16,7 @@ window.onload = (() => {
     const coachDiv = document.querySelector("#coach-div");
     const spartnerDropdown = document.querySelector("#spartner-dropdown");
     const coachDropdown = document.querySelector("#coach-dropdown");
+    const searchingArts = document.querySelectorAll(".u-display-mart");
 
     messageButton.addEventListener("click", () => {
         console.log("MESSAGE BTN CLICKED.");
@@ -41,10 +42,12 @@ window.onload = (() => {
     })
 
     coachDiv.addEventListener("click", () => {
-        console.log("coach div clicked");
-        coachDropdown.classList.toggle("spar-dropdown-active")
-
+        console.log("spartner div clicked");
+        spartnerDropdown.classList.toggle("spar-dropdown-active")
     })
+
+    console.log("COACH DIV", coachDiv);
+
 
 
 
