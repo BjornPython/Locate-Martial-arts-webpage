@@ -12,12 +12,25 @@ function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
     const [darkenSpar, setDarkenSpar] = useState(false)
     const [darkenCoach, setDarkenCoach] = useState(false)
 
+    console.log("LFS: ", lfSparArts, lfcoachArts);
     useEffect(() => {
-        setDarkenSpar(Object.keys(lfSparArts).length > 0 ? true : false)
+        if (lfSparArts !== null && lfSparArts !== undefined) {
+            setDarkenSpar(Object.keys(lfSparArts).length > 0 ? true : false)
+
+        } else {
+            setDarkenSpar(false)
+        }
     }, [lfSparArts])
 
     useEffect(() => {
-        setDarkenCoach(Object.keys(lfcoachArts).length > 0 ? true : false)
+        if (lfcoachArts !== null && lfcoachArts !== undefined) {
+            setDarkenCoach(Object.keys(lfcoachArts).length > 0 ? true : false)
+            console.log("DARKEN COACH RES: ", darkenCoach);
+
+        } else {
+            setDarkenCoach(false)
+            console.log("DARKEN COACH RES: ", darkenCoach);
+        }
     }, [lfcoachArts])
 
 
@@ -49,7 +62,7 @@ function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
                     </div>
 
                     <div id="spartner-dropdown" className={`spar-dropdown ${darkenSpar ? "spar-dropdown-has" : null}`}>
-                        {Object.keys(lfSparArts).map(mart => {
+                        {lfSparArts !== null && lfSparArts !== undefined && Object.keys(lfSparArts).map(mart => {
                             return <UdisplayMart key={uuid()} mart={mart}
                                 setFunction={updateLfSpartner}
                                 setSpan={Object.keys(lfSparArts).includes(mart) ? true : false} />
@@ -68,7 +81,7 @@ function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
                     </div>
                     {console.log("DARKEN COACH: ", darkenCoach)}
                     <div id="coach-dropdown" className={`spar-dropdown ${darkenCoach ? "spar-dropdown-has" : null}`}>
-                        {Object.keys(lfcoachArts).map(mart => {
+                        {lfcoachArts !== null && lfcoachArts !== undefined && Object.keys(lfcoachArts).map(mart => {
                             return <UdisplayMart key={uuid()} mart={mart}
                                 setFunction={updateLfCoach}
                                 setSpan={Object.keys(lfcoachArts).includes(mart) ? true : false} />
