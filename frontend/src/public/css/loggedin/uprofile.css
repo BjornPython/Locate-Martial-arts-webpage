@@ -96,8 +96,11 @@
     height: 90px;
 }   
 
-.u-for h4 {
-   align-items: center;
+.u-for-h {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    height: 40px;
 }
 
 .dropdowns-div {
@@ -123,7 +126,10 @@
     cursor: pointer;
 }
 
-
+.looking-for-dropdown-has {
+    color: black;
+    border-color: black;
+}
 
 .spar-dropdown {
     z-index: 4000;
@@ -135,12 +141,16 @@
     flex-direction: column;
     align-items: flex-start;
     opacity: 0;
-
 }
 
 .spar-dropdown-active {
     display: flex;
     opacity: 1;
+}
+
+.spar-dropdown-has {
+    border-color: black;
+    color: black;
 }
 
 .u-display-mart {

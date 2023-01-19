@@ -2,17 +2,30 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import uuid from 'react-uuid'
-
+import { useEffect } from 'react'
 import UdisplayMart from './UdisplayMart'
 
 
 
 function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
 
+    const [darkenSpar, setDarkenSpar] = useState(false)
+    const [darkenCoach, setDarkenCoach] = useState(false)
+
+    useEffect(() => {
+        setDarkenSpar(Object.keys(lfSparArts).length > 0 ? true : false)
+    }, [lfSparArts])
+
+    useEffect(() => {
+        setDarkenCoach(Object.keys(lfcoachArts).length > 0 ? true : false)
+    }, [lfcoachArts])
+
+
     const updateLfSpartner = (mart) => {
         console.log(Object.keys(lfSparArts));
         if (Object.keys(lfSparArts).includes(mart)) {
             // remove
+
             console.log("MART ALREADY IN ARTS");
         } else { console.log("MART NOT IN ARTS"); }
         // add
@@ -28,29 +41,38 @@ function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
     return (
         <div className="looking-for">
             <div className="u-for">
-                <h4>Looking for a Sparring Partner:</h4>
+                <h4 className='u-for-h' style={{ color: `${darkenSpar ? "black" : "gray"}` }}>Looking for a Sparring Partner:</h4>
                 <div className='dropdowns-div'>
-                    <div id='spartner-div' className='looking-for-dropdown'>
+                    <div id='spartner-div' className={`looking-for-dropdown ${darkenSpar ? "looking-for-dropdown-has" : null}`}>
                         <h4>Sparring partner in...</h4>
                         <FontAwesomeIcon icon={faCaretDown} />
                     </div>
 
-                    <div id="spartner-dropdown" className="spar-dropdown">
-                        {Object.keys(lfSparArts).map(mart => { return <UdisplayMart key={uuid()} mart={mart} setFunction={updateLfSpartner} /> })}
+                    <div id="spartner-dropdown" className={`spar-dropdown ${darkenSpar ? "spar-dropdown-has" : null}`}>
+                        {Object.keys(lfSparArts).map(mart => {
+                            return <UdisplayMart key={uuid()} mart={mart}
+                                setFunction={updateLfSpartner}
+                                setSpan={Object.keys(lfSparArts).includes(mart) ? true : false} />
+                        })}
                     </div>
                 </div>
 
             </div>
 
             <div className="u-for">
-                <h4>Looking for a Coach:</h4>
+                <h4 className='u-for-h' style={{ color: `${darkenCoach ? "black" : "gray"}` }}>Looking for a Coach:</h4>
                 <div className='dropdowns-div'>
-                    <div id="coach-div" className='looking-for-dropdown'>
+                    <div id="coach-div" className={`looking-for-dropdown ${darkenCoach ? "looking-for-dropdown-has" : null}`}>
                         <h4>Sparring partner in...</h4>
                         <FontAwesomeIcon icon={faCaretDown} />
                     </div>
-                    <div id="coach-dropdown" className="spar-dropdown ">
-                        {Object.keys(lfcoachArts).map(mart => { return <UdisplayMart key={uuid()} mart={mart} setFunction={updateLfCoach} /> })}
+                    {console.log("DARKEN COACH: ", darkenCoach)}
+                    <div id="coach-dropdown" className={`spar-dropdown ${darkenCoach ? "spar-dropdown-has" : null}`}>
+                        {Object.keys(lfcoachArts).map(mart => {
+                            return <UdisplayMart key={uuid()} mart={mart}
+                                setFunction={updateLfCoach}
+                                setSpan={Object.keys(lfcoachArts).includes(mart) ? true : false} />
+                        })}
 
                     </div>
                 </div>
