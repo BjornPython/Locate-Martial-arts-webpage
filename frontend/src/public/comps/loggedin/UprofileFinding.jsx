@@ -34,8 +34,12 @@ function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
         console.log(Object.keys(lfSparArts));
         if (Object.keys(lfSparArts).includes(mart)) {
             // remove
-
-            console.log("MART ALREADY IN ARTS");
+            setNewUserInfo((prevState) => {
+                const newState = { ...prevState }
+                delete newState.lfSparArts[mart]
+                console.log("NEWSTATE: ", newState);
+                return newState
+            })
         } else { console.log("MART NOT IN ARTS"); }
         // add
     }
