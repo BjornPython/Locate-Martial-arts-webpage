@@ -4,7 +4,7 @@ import UmessageUsers from './UmessageUsers'
 import UuserMessage from "./UuserMessage"
 function Umessages() {
     return (
-        <div className="u-messages">
+        <div id='u-messages' className="u-messages">
             <div className='u-m-page'>
                 <UmessageUsers />
                 <hr />

@@ -151,7 +151,7 @@ function Uprofile({ user }) {
     }
 
     return (
-        <div className='u-profile-page'>
+        <div id='u-profile-page' className='u-profile-page'>
             <div className='profile-box'>
                 <div className='profile'>
                     <FontAwesomeIcon icon={faUser} className="profile-avatar" />
@@ -165,7 +165,7 @@ function Uprofile({ user }) {
 
             </div>
 
-            <UprofileFinding lfSparArts={lfSparArts} lfcoachArts={lfcoachArts} setNewUserInfo={setNewUserInfo} />
+            <UprofileFinding lfSparArts={lfSparArts ? lfSparArts : {}} lfcoachArts={lfcoachArts ? lfcoachArts : {}} setNewUserInfo={setNewUserInfo} />
 
             <div className="u-profile-contents">
                 <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { setIsEditingInfo(!isEditingInfo); setShowSave(!showSave) }} />

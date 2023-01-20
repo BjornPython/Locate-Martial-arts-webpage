@@ -186,9 +186,9 @@ function Home() {
 
                 </div>
             </div>
-            <tag id="find-gym"></tag>
+            <div id="find-gym"></div>
             <Gym />
-            <tag id="martial-arts"></tag>
+            <div id="martial-arts"></div>
             <Arts />
             <Footer />
 

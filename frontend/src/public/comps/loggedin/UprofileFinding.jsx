@@ -15,26 +15,20 @@ function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
     const diffArts = ["Muay Thai", "Kickboxing", "Mixed Martial Arts", "Brazilian Jiu Jitsu",
         "Boxing", "Karate", "Wrestling", "Sambo"]
 
-    useEffect(() => {
-        if (lfSparArts !== null && lfSparArts !== undefined) {
-            setDarkenSpar(Object.keys(lfSparArts).length > 0 ? true : false)
+    console.log("LFSPAR ARTS: ", lfSparArts);
+    console.log("lFCOACH ARTS: ", lfcoachArts);
 
-        } else {
-            setDarkenSpar(false)
-        }
+    useEffect(() => {
+        if (Object.keys(lfSparArts).length > 0) {
+            setDarkenSpar(true)
+        } else { setDarkenSpar(false) }
     }, [lfSparArts])
 
     useEffect(() => {
-        if (lfcoachArts !== null && lfcoachArts !== undefined) {
-            setDarkenCoach(Object.keys(lfcoachArts).length > 0 ? true : false)
-            console.log("DARKEN COACH RES: ", darkenCoach);
-
-        } else {
-            setDarkenCoach(false)
-            console.log("DARKEN COACH RES: ", darkenCoach);
-        }
+        if (Object.keys(lfcoachArts).length > 0) {
+            setDarkenCoach(true)
+        } else { setDarkenCoach(false) }
     }, [lfcoachArts])
-
 
     const updateLfSpartner = (mart) => {
         console.log(Object.keys(lfSparArts));
@@ -84,7 +78,7 @@ function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
                     </div>
                     {console.log("DARKEN COACH: ", darkenCoach)}
                     <div id="coach-dropdown" className={`spar-dropdown ${darkenCoach ? "spar-dropdown-has" : null}`}>
-                        {lfcoachArts !== null && lfcoachArts !== undefined &&
+                        {
                             diffArts.map(mart => {
                                 return <UdisplayMart key={uuid()} mart={mart}
                                     setFunction={updateLfCoach}
