@@ -17,6 +17,9 @@ const editMart = (mart, id, delMart) => {
 
 
 function UprofileMarts({ isEditingInfo, marts, addMart, delMart, handleNewInfo, addNewInfo }) {
+
+
+
     return (
         <div className='u-profile-marts'>
             <h4>Martial Arts:</h4>

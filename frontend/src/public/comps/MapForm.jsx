@@ -198,34 +198,39 @@ function MapForm({ handleSearch, setSearchInfo }) {
                 <button onClick={() => { setSearchInfo({ location: [lat, long], lf, marts, other }); console.log("CLICK"); }} className="find-gyms-btn"><h2>SEARCH</h2></button>
 
                 <div className='marts-dropdown'>
-                    <div id='m-art-muay' className='m-art' onClick={() => { addArt("muaythai") }}>
-                        <span id="muay-span" className='m-art-span'></span>
+                    <div className='m-art' onClick={() => { addArt("Muay Thai") }}>
+                        <span className='m-art-span'></span>
                         <h3>Muay Thai</h3>
                     </div>
-                    <div id='m-art-mma' className='m-art' onClick={() => { addArt("kickboxing") }}>
-                        <span id='mma-span' className='m-art-span'></span>
+                    <div className='m-art' onClick={() => { addArt("Kickboxing") }}>
+                        <span className='m-art-span'></span>
+                        <h3>Kickboxing</h3>
+                    </div>
+                    <div className='m-art' onClick={() => { addArt("Mixed Martial Arts") }}>
+                        <span className='m-art-span'></span>
                         <h3>Mixed Martial Arts</h3>
                     </div>
-                    <div id='m-art-bjj' className='m-art' onClick={() => { addArt("bjj") }}>
-                        <span id='mma-span' className='m-art-span'></span>
+                    <div className='m-art' onClick={() => { addArt("bjj") }}>
+                        <span className='m-art-span'></span>
                         <h3>Brazilian Jiu Jitsu</h3>
                     </div>
-                    <div id='m-art-bxg' className='m-art' onClick={() => { addArt("boxing") }}>
-                        <span id='bxg-span' className='m-art-span'></span>
+                    <div className='m-art' onClick={() => { addArt("boxing") }}>
+                        <span className='m-art-span'></span>
                         <h3>Boxing</h3>
                     </div>
-                    <div id='m-art-ktd' className='m-art' onClick={() => { addArt("karate") }}>
-                        <span id='ktd-span' className='m-art-span'></span>
+                    <div className='m-art' onClick={() => { addArt("karate") }}>
+                        <span className='m-art-span'></span>
                         <h3>Karate</h3>
                     </div>
-                    <div id='m-art-wrs' className='m-art' onClick={() => { addArt("wrestling") }}>
-                        <span id='wrs-span' className='m-art-span'></span>
+                    <div className='m-art' onClick={() => { addArt("wrestling") }}>
+                        <span className='m-art-span'></span>
                         <h3>Wrestling</h3>
                     </div>
-                    <div id='m-art-sbo' className='m-art' onClick={() => { addArt("sambo") }}>
-                        <span id='sbo-span' className='m-art-span'></span>
+                    <div className='m-art' onClick={() => { addArt("sambo") }}>
+                        <span className='m-art-span'></span>
                         <h3>Sambo</h3>
                     </div>
+
                     {/* <input className="others font" type="text" name="other" value={other} placeholder="Other..." onChange={changeAddressData} /> */}
                 </div>
 
