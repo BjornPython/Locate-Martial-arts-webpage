@@ -10,6 +10,7 @@ window.onload = (() => {
     const UhomePages = document.querySelector(".u-home-pages");
     const messageButton = document.querySelector(".messages-btn");
     const profileButton = document.querySelector(".profile-btn");
+    const messagePage = document.querySelector("#u-user-message");
 
     // Animations for find dropdown in UprofileFinding.jsx
     const spartnerDiv = document.querySelector("#spartner-div");
@@ -20,8 +21,8 @@ window.onload = (() => {
 
     messageButton.addEventListener("click", () => {
         console.log("MESSAGE BTN CLICKED.");
-        UhomePages.classList.remove("show-profile")
-        UhomePages.classList.add("class", "show-messages")
+        messagePage.scrollIntoView({block: "center", inline: "center"});
+
     })
     
     profileButton.addEventListener("click", () => {

@@ -77,7 +77,7 @@ function UprofileFinding({ lfSparArts, lfcoachArts, setNewUserInfo }) {
                 <h4 className='u-for-h' style={{ color: `${darkenCoach ? "black" : "gray"}` }}>Looking for a Coach:</h4>
                 <div className='dropdowns-div'>
                     <div id="coach-div" className={`looking-for-dropdown ${darkenCoach ? "looking-for-dropdown-has" : null}`}>
-                        <h4>Sparring partner in...</h4>
+                        <h4>Coach in...</h4>
                         <FontAwesomeIcon icon={faCaretDown} />
                     </div>
                     {console.log("DARKEN COACH: ", darkenCoach)}

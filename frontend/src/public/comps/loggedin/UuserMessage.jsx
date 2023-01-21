@@ -55,7 +55,7 @@ function UuserMessage() {
 
 
     return (
-        <div className='u-user-message'>
+        <div id='u-user-message' className='u-user-message'>
 
             {showCurrentChat(userName, status, key)}
 
@@ -72,9 +72,9 @@ function UuserMessage() {
             <hr id='u-msg-hr' />
 
             <div className='u-msg-input-div'>
-                <forms className="u-msg-form">
+                <form className="u-msg-form">
                     <input type="text" className='u-msg-input' />
-                </forms>
+                </form>
                 <FontAwesomeIcon icon={faPaperPlane} className="send-msg-icon" />
             </div>
 

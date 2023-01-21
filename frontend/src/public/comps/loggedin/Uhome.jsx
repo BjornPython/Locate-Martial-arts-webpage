@@ -25,13 +25,12 @@ function Uhome() {
 
     const [currentPage, setCurrentPage] = useState("profile")
 
-
     return (
         <div className='uhome-page'>
             <Unav setCurrentPage={setCurrentPage} />
             <div className="u-home-pages">
-                <Uprofile user={user} />
-                <Umessages user={user} />
+                {currentPage === "profile" && <Uprofile user={user} />}
+                {currentPage === "messages" && <Umessages user={user} />}
             </div>
 
         </div>
