@@ -6,11 +6,12 @@ function UdisplayMart({ mart, setFunction, setSpan = false }) {
     const [showSpan, setShowSpan] = useState(setSpan)
 
     const handleClick = () => {
+        console.log(`${mart} clicked!`);
         setShowSpan(!showSpan)
     }
-
+    // setFunction(mart);
     return (
-        <div className='u-display-mart' onClick={() => { setFunction(mart); handleClick(); }}>
+        <div className='u-display-mart' onClick={() => { handleClick(); }}>
             <span className={`u-mart-span ${showSpan && "u-mart-span-active"}`}></span>
             <h4>{mart}</h4>
         </div>

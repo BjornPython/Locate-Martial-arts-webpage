@@ -4,7 +4,6 @@ import { faUser, faGear, faCaretDown, faXmark, faPlus } from '@fortawesome/free-
 import { useState } from 'react'
 import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
-import userProfileScript from '../../scripts/userProfileScript'
 import apiService from '../../../features/apis/apiService'
 
 
