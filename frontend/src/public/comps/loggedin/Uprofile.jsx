@@ -7,6 +7,8 @@ import "../../css/loggedin/uprofile.css"
 import userProfileScript from '../../scripts/userProfileScript'
 import apiService from '../../../features/apis/apiService'
 
+
+import UprofileBox from "./UprofileBox";
 import UprofileStatus from './UprofileStatus';
 import UprofileFinding from './UprofileFinding'
 import UprofileContents from './UprofileContents'
@@ -151,18 +153,9 @@ function Uprofile({ user }) {
 
     return (
         <div id='u-profile-page' className='u-profile-page'>
-            <div className='profile-box'>
-                <div className='profile'>
-                    <FontAwesomeIcon icon={faUser} className="profile-avatar" />
-                    <div className='profile-info'>
-                        <h2>{name}</h2>
-                        {console.log("BIO", bio)}
-                        <p >{(bio === "" || bio === undefined) ? "Edit your bio" : bio}</p>
-                    </div>
-                </div>
-                <FontAwesomeIcon icon={faGear} className="u-setting-icon" />
+            <UprofileBox faUser={faUser} name={name} bio={bio} undefined={undefined} faGear={faGear} />
 
-            </div>
+
             <UprofileFinding lfSparArts={lfSparArts ? lfSparArts : {}} lfcoachArts={lfcoachArts ? lfcoachArts : {}} setNewUserInfo={setNewUserInfo} />
             <UprofileContents
                 isEditingInfo={isEditingInfo} setIsEditingInfo={setIsEditingInfo} showSave={showSave} setShowSave={setShowSave}
@@ -175,5 +168,7 @@ function Uprofile({ user }) {
         </div>
     )
 }
+
+
 
 export default Uprofile
