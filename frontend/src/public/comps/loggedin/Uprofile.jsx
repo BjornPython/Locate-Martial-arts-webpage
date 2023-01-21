@@ -65,8 +65,29 @@ function Uprofile({ user }) {
     }, [displayInfo])
 
 
+    // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
+    const updateLfSpartner = (mart) => {
+        console.log(Object.keys(lfSparArts));
+        if (Object.keys(lfSparArts).includes(mart)) {
+            // remove
+            setNewUserInfo((prevState) => {
+                const newState = { ...prevState }
+                delete newState.lfSparArts[mart]
+                console.log("NEWSTATE: ", newState);
+                return newState
+            })
+        } else { console.log("MART NOT IN ARTS"); }
+        // add
+    }
 
-
+    const updateLfCoach = (mart) => {
+        if (Object.keys(lfcoachArts).includes(mart)) {
+            // remove
+            console.log("MART ALREADY IN ARTS");
+        } else { console.log("MART NOT IN ARTS"); }
+        // add
+    }
+    //****************************************************************************************************************************** */
 
 
     const handleNewInfo = ((e) => {
@@ -147,12 +168,15 @@ function Uprofile({ user }) {
             }
         }
     }
+
+
     return (
         <div id='u-profile-page' className='u-profile-page'>
             <UprofileBox name={name} bio={bio} faGear={faGear} />
 
 
-            <UprofileFinding lfSparArts={lfSparArts ? lfSparArts : {}} lfcoachArts={lfcoachArts ? lfcoachArts : {}} setNewUserInfo={setNewUserInfo} />
+            <UprofileFinding lfSparArts={lfSparArts ? lfSparArts : {}} lfcoachArts={lfcoachArts ? lfcoachArts : {}}
+                updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
 
             {/*             
             <UprofileContents
