@@ -18,29 +18,22 @@ function Uprofile({ user }) {
 
     // true if user is editing profile.
     const [isEditingInfo, setIsEditingInfo] = useState(false)
-
+    // Used for adding martial arts and awards/Achievements
+    const [newInfo, setNewInfo] = useState({
+        addMart: "",
+        addAward: ""
+    })
+    const { addMart, addAward } = newInfo
+    // Used when the dom is first loaded. will only display userInfo once the
+    // user's information from the backend is received and set.
+    const [displayInfo, setDisplayInfo] = useState(false)
     // gets the user's information by requesting a GET request to the backend.
     const getUserInfo = async () => {
         console.log("USER TOKEN: ", user);
         const response = await apiService.getUserInfo(user);
         console.log(response.data);
         setNewUserInfo(response.data);
-
     }
-    // Used for adding martial arts and awards/Achievements
-    const [newInfo, setNewInfo] = useState({
-        addMart: "",
-        addAward: ""
-    })
-
-    const { addMart, addAward } = newInfo
-
-    // Used when the dom is first loaded. will only display userInfo once the
-    // user's information from the backend is received and set.
-    const [displayInfo, setDisplayInfo] = useState(false)
-
-
-
     // has the initial value of userInfo. information here will be displayed in the
     // user's profile. 
     const [newUserInfo, setNewUserInfo] = useState({
@@ -57,11 +50,11 @@ function Uprofile({ user }) {
     })
 
     const { name, bio, coach, lfSparArts, lfcoachArts, marts, awards } = newUserInfo
-
-
     const [showSave, setShowSave] = useState(false)
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
+
+
     useEffect(() => {
         console.log("IN USE EFFECT");
         const setProfileData = async () => {
@@ -70,6 +63,10 @@ function Uprofile({ user }) {
         }
         setProfileData()
     }, [displayInfo])
+
+
+
+
 
 
     const handleNewInfo = ((e) => {
@@ -150,20 +147,21 @@ function Uprofile({ user }) {
             }
         }
     }
-
     return (
         <div id='u-profile-page' className='u-profile-page'>
-            <UprofileBox faUser={faUser} name={name} bio={bio} undefined={undefined} faGear={faGear} />
+            <UprofileBox name={name} bio={bio} faGear={faGear} />
 
 
             <UprofileFinding lfSparArts={lfSparArts ? lfSparArts : {}} lfcoachArts={lfcoachArts ? lfcoachArts : {}} setNewUserInfo={setNewUserInfo} />
+
+            {/*             
             <UprofileContents
                 isEditingInfo={isEditingInfo} setIsEditingInfo={setIsEditingInfo} showSave={showSave} setShowSave={setShowSave}
                 marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
                 handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
                 changeUserStatus={changeUserStatus} changeUserData={changeUserData}
 
-            />
+            /> */}
 
         </div>
     )
