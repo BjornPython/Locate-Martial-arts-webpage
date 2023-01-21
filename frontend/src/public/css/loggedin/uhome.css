@@ -23,3 +23,11 @@ html {
 .show-messages {
     transform: translateX(-100vw);
 }
+
+.hide {
+    display: 0;
+}
+
+.show {
+    display: 1;
+}
