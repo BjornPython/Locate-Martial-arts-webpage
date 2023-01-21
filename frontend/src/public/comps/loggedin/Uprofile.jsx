@@ -6,19 +6,13 @@ import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
 import userProfileScript from '../../scripts/userProfileScript'
 import apiService from '../../../features/apis/apiService'
-import UprofileMarts from './UprofileMarts';
-import UprofileAwards from './UprofileAwards';
+
 import UprofileStatus from './UprofileStatus';
 import UprofileFinding from './UprofileFinding'
-
+import UprofileContents from './UprofileContents'
 
 
 function Uprofile({ user }) {
-
-    useEffect(() => {
-        console.log("CALLING USER PROFILE SCRIPT");
-        userProfileScript()
-    })
 
     // true if user is editing profile.
     const [isEditingInfo, setIsEditingInfo] = useState(false)
@@ -169,45 +163,14 @@ function Uprofile({ user }) {
                 <FontAwesomeIcon icon={faGear} className="u-setting-icon" />
 
             </div>
-
             <UprofileFinding lfSparArts={lfSparArts ? lfSparArts : {}} lfcoachArts={lfcoachArts ? lfcoachArts : {}} setNewUserInfo={setNewUserInfo} />
+            <UprofileContents
+                isEditingInfo={isEditingInfo} setIsEditingInfo={setIsEditingInfo} showSave={showSave} setShowSave={setShowSave}
+                marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
+                handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
+                changeUserStatus={changeUserStatus} changeUserData={changeUserData}
 
-            <div className="u-profile-contents">
-                <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { setIsEditingInfo(!isEditingInfo); setShowSave(!showSave) }} />
-
-                <UprofileMarts isEditingInfo={isEditingInfo} marts={marts} addMart={addMart} delMart={delMart} handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} />
-
-                <p>People can see your martial arts when they check your profile.</p>
-                <span />
-
-                <UprofileAwards isEditingInfo={isEditingInfo} awards={awards} delMart={delMart} delAward={delAward} addAward={addAward} handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} />
-                <p>People can see your martial arts when they check your profile.</p>
-                <span />
-                <div className='u-profile-marts'>
-                    <h4>Your Area:</h4>
-                    <div className='u-profile-grp'>
-                        <h4 className='user-loc'>Cainta Greenpark, Cainta Rizal</h4>
-                    </div>
-                </div>
-                <p>Help people near you connect with you. Pin your area on the maps to set. </p>
-                <span />
-
-                <UprofileStatus coach={coach} changeUserStatus={changeUserStatus} />
-
-                <p>Are you a coach or a student?</p>
-                <span />
-                <div className='save-changes'>
-
-                    {showSave
-                        ? (
-                            <button onClick={changeUserData}>Save Changes</button>
-                        )
-                        : null}
-                </div>
-
-
-
-            </div>
+            />
 
         </div>
     )
