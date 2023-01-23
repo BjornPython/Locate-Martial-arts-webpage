@@ -40,15 +40,15 @@ function Uprofile({ user }) {
         bio: "",
         coach: true,
         location: {},
-        lfspar: false,
+        lfSpar: false,
         lfSparArts: {},
-        lfcoach: false,
-        lfcoachArts: {},
+        lfCoach: false,
+        lfCoachArts: {},
         marts: { "karate": true, "sambo": true },
         awards: ["champion in muay thai", "black belt in taekwando"]
     })
 
-    const { name, bio, coach, lfSparArts, lfcoachArts, marts, awards } = newUserInfo
+    const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards } = newUserInfo
     const [showSave, setShowSave] = useState(false)
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
@@ -88,7 +88,7 @@ function Uprofile({ user }) {
     }
 
     const updateLfCoach = (mart) => {
-        if (Object.keys(lfcoachArts).includes(mart)) {
+        if (Object.keys(lfCoachArts).includes(mart)) {
             // remove
             console.log("MART ALREADY IN ARTS");
         } else { console.log("MART NOT IN ARTS"); }
@@ -182,7 +182,7 @@ function Uprofile({ user }) {
             <UprofileBox name={name} bio={bio} faGear={faGear} />
 
 
-            <UprofileFinding lfSparArts={lfSparArts ? lfSparArts : {}} lfcoachArts={lfcoachArts ? lfcoachArts : {}}
+            <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts}
                 updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
 
             {/*             

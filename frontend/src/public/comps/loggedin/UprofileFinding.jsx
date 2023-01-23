@@ -7,7 +7,7 @@ import UdisplayMart from './UdisplayMart'
 
 
 
-function UprofileFinding({ lfSparArts, lfcoachArts, updateLfSpartner, updateLfCoach }) {
+function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCoach }) {
 
     const [darkenSpar, setDarkenSpar] = useState(false)
     const [darkenCoach, setDarkenCoach] = useState(false)
@@ -26,11 +26,11 @@ function UprofileFinding({ lfSparArts, lfcoachArts, updateLfSpartner, updateLfCo
         })
     }, [diffArts])
 
-    const lfcoachArtsMemo = useMemo(() => {
+    const lfCoachArtsMemo = useMemo(() => {
         return diffArts.map(mart => {
             return <UdisplayMart key={uuid()} mart={mart}
                 setFunction={updateLfSpartner}
-                setSpan={Object.keys(lfcoachArts).includes(mart) ? true : false} />
+                setSpan={Object.keys(lfCoachArts).includes(mart) ? true : false} />
         })
     }, [diffArts])
 
@@ -43,10 +43,10 @@ function UprofileFinding({ lfSparArts, lfcoachArts, updateLfSpartner, updateLfCo
     }, [lfSparArts])
 
     useEffect(() => {
-        if (Object.keys(lfcoachArts).length > 0) {
+        if (Object.keys(lfCoachArts).length > 0) {
             setDarkenCoach(true)
         } else { setDarkenCoach(false) }
-    }, [lfcoachArts])
+    }, [lfCoachArts])
 
 
     return (
@@ -78,7 +78,7 @@ function UprofileFinding({ lfSparArts, lfcoachArts, updateLfSpartner, updateLfCo
                     </div>
                     {console.log("DARKEN COACH: ", darkenCoach)}
                     <div id="coach-dropdown" className={`spar-dropdown ${darkenCoach ? "spar-dropdown-has" : null} ${showCoach ? "spar-dropdown-active" : ""}`}>
-                        {lfcoachArtsMemo}
+                        {lfCoachArtsMemo}
 
                     </div>
                 </div>
