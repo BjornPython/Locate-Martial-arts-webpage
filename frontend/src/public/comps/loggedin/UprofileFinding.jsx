@@ -18,13 +18,23 @@ function UprofileFinding({ lfSparArts, lfcoachArts, updateLfSpartner, updateLfCo
     const diffArts = ["Muay Thai", "Kickboxing", "Mixed Martial Arts", "Brazilian Jiu Jitsu",
         "Boxing", "Karate", "Wrestling", "Sambo"]
 
-    const diffArtsMemo = useMemo(() => {
+    const lfSparArtsMemo = useMemo(() => {
         return diffArts.map(mart => {
             return <UdisplayMart key={uuid()} mart={mart}
                 setFunction={updateLfSpartner}
                 setSpan={Object.keys(lfSparArts).includes(mart) ? true : false} />
         })
     }, [diffArts])
+
+    const lfcoachArtsMemo = useMemo(() => {
+        return diffArts.map(mart => {
+            return <UdisplayMart key={uuid()} mart={mart}
+                setFunction={updateLfSpartner}
+                setSpan={Object.keys(lfcoachArts).includes(mart) ? true : false} />
+        })
+    }, [diffArts])
+
+
 
     useEffect(() => {
         if (Object.keys(lfSparArts).length > 0) {
@@ -52,12 +62,12 @@ function UprofileFinding({ lfSparArts, lfcoachArts, updateLfSpartner, updateLfCo
 
                     <div id="spartner-dropdown"
                         className={`spar-dropdown ${darkenSpar ? "spar-dropdown-has" : ""} ${showSpar ? "spar-dropdown-active" : ""}`}>
-                        {diffArtsMemo}
+                        {lfSparArtsMemo}
                     </div>
                 </div>
 
             </div>
-            {/* 
+
             <div className="u-for">
                 <h4 className='u-for-h' style={{ color: `${darkenCoach ? "black" : "gray"}` }}>Looking for a Coach:</h4>
                 <div className='dropdowns-div' >
@@ -68,17 +78,12 @@ function UprofileFinding({ lfSparArts, lfcoachArts, updateLfSpartner, updateLfCo
                     </div>
                     {console.log("DARKEN COACH: ", darkenCoach)}
                     <div id="coach-dropdown" className={`spar-dropdown ${darkenCoach ? "spar-dropdown-has" : null} ${showCoach ? "spar-dropdown-active" : ""}`}>
-                        {
-                            diffArts.map(mart => {
-                                return <UdisplayMart key={uuid()} mart={mart}
-                                    setFunction={updateLfCoach}
-                                    setSpan={Object.keys(lfcoachArts).includes(mart) ? true : false} />
-                            })}
+                        {lfcoachArtsMemo}
 
                     </div>
                 </div>
 
-            </div> */}
+            </div>
 
         </div>
     )
