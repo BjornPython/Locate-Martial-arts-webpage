@@ -7,6 +7,7 @@ function UdisplayMart({ mart, setFunction, setSpan = false }) {
 
     const handleClick = () => {
         console.log(`${mart} clicked!`);
+        setFunction(mart)
         setShowSpan(!showSpan)
     }
     // setFunction(mart);

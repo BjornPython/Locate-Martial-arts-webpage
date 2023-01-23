@@ -50,10 +50,9 @@ function Uprofile({ user }) {
 
     const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards } = newUserInfo
     const [showSave, setShowSave] = useState(false)
+
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
-
-
     useEffect(() => {
         console.log("IN USE EFFECT");
         const setProfileData = async () => {
@@ -61,7 +60,7 @@ function Uprofile({ user }) {
             setDisplayInfo(true)
         }
         setProfileData()
-    }, [displayInfo])
+    }, [])
 
 
     // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
@@ -75,14 +74,16 @@ function Uprofile({ user }) {
                 console.log("NEWSTATE: ", newState);
                 return newState
             })
+            changeUserData()
         } else {
             console.log("MART NOT IN ARTS");
             setNewUserInfo((prevState) => {
                 const newState = { ...prevState };
                 newState.lfSparArts[mart] = true
                 console.log("NEWSTATE: ", newState);
-                return { ...prevState }
+                return newState
             })
+            changeUserData()
         }
         // add
     }
@@ -108,9 +109,8 @@ function Uprofile({ user }) {
         console.log("SENDING: ", newUserInfo);
         const response = await apiService.updateUserInfo(user, newUserInfo);
         console.log("RESPONSE IN UPROFILE: ", response);
-        setIsEditingInfo(false)
-        setShowSave(false)
-
+        if (isEditingInfo) { setIsEditingInfo(false) }
+        if (showSave) { setShowSave(false) }
     }
 
 
