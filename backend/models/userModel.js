@@ -32,6 +32,6 @@ const userSchema = mongoose.Schema({
     awards: {type: [], required: false, default: ["Blue belt in BJJ", "champion in mma", "2nd runner up kickboxing"]}
     
 
-}, {timestamps: true})
+}, {timestamps: true, minimize: false})
 
 module.exports = mongoose.model("User", userSchema)

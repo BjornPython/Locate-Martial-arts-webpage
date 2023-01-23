@@ -75,7 +75,15 @@ function Uprofile({ user }) {
                 console.log("NEWSTATE: ", newState);
                 return newState
             })
-        } else { console.log("MART NOT IN ARTS"); }
+        } else {
+            console.log("MART NOT IN ARTS");
+            setNewUserInfo((prevState) => {
+                const newState = { ...prevState };
+                newState.lfSparArts[mart] = true
+                console.log("NEWSTATE: ", newState);
+                return { ...prevState }
+            })
+        }
         // add
     }
 
