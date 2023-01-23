@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faCaretDown, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import uuid from 'react-uuid'
 import "../../css/loggedin/uprofile.css"
 import apiService from '../../../features/apis/apiService'
@@ -14,6 +14,8 @@ import UprofileContents from './UprofileContents'
 
 
 function Uprofile({ user }) {
+
+
 
     // true if user is editing profile.
     const [isEditingInfo, setIsEditingInfo] = useState(false)
@@ -36,7 +38,7 @@ function Uprofile({ user }) {
     // has the initial value of userInfo. information here will be displayed in the
     // user's profile. 
     const [newUserInfo, setNewUserInfo] = useState({
-        name: "updated name",
+        name: "",
         bio: "",
         coach: true,
         location: {},
@@ -51,6 +53,8 @@ function Uprofile({ user }) {
     const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards } = newUserInfo
     const [showSave, setShowSave] = useState(false)
 
+    const [updatedLfData, setUpdatedLfData] = useState(null)
+
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
     useEffect(() => {
@@ -62,6 +66,16 @@ function Uprofile({ user }) {
         setProfileData()
     }, [])
 
+    useEffect(() => {
+        if (updatedLfData === null) { return }
+        console.log("IN UPDATED USEEFFECT");
+        console.log("UPDATED DATA: ", updatedLfData);
+        changeUserData(updatedLfData)
+    }, [updatedLfData])
+
+    useEffect(() => {
+        console.log("USER INFO: ", newUserInfo);
+    }, [newUserInfo])
 
     // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
     const updateLfSpartner = (mart) => {
@@ -71,19 +85,19 @@ function Uprofile({ user }) {
             setNewUserInfo((prevState) => {
                 const newState = { ...prevState }
                 delete newState.lfSparArts[mart]
+                setUpdatedLfData(newState)
                 console.log("NEWSTATE: ", newState);
                 return newState
             })
-            changeUserData()
         } else {
             console.log("MART NOT IN ARTS");
             setNewUserInfo((prevState) => {
                 const newState = { ...prevState };
                 newState.lfSparArts[mart] = true
                 console.log("NEWSTATE: ", newState);
+                setUpdatedLfData(newState)
                 return newState
             })
-            changeUserData()
         }
         // add
     }
@@ -92,7 +106,23 @@ function Uprofile({ user }) {
         if (Object.keys(lfCoachArts).includes(mart)) {
             // remove
             console.log("MART ALREADY IN ARTS");
-        } else { console.log("MART NOT IN ARTS"); }
+            setNewUserInfo((prevState) => {
+                const newState = { ...prevState }
+                delete newState.lfCoachArts[mart]
+                setUpdatedLfData(newState)
+                console.log("NEWSTATE: ", newState);
+                return newState
+            })
+        } else {
+            console.log("MART NOT IN ARTS");
+            setNewUserInfo((prevState) => {
+                const newState = { ...prevState };
+                newState.lfCoachArts[mart] = true
+                console.log("NEWSTATE: ", newState);
+                setUpdatedLfData(newState)
+                return newState
+            })
+        }
         // add
     }
     //****************************************************************************************************************************** */
@@ -105,12 +135,10 @@ function Uprofile({ user }) {
         }))
     })
 
-    const changeUserData = async () => {
-        console.log("SENDING: ", newUserInfo);
-        const response = await apiService.updateUserInfo(user, newUserInfo);
+    const changeUserData = async (newInfo) => {
+        console.log("SENDING: ", newInfo);
+        const response = await apiService.updateUserInfo(user, newInfo);
         console.log("RESPONSE IN UPROFILE: ", response);
-        if (isEditingInfo) { setIsEditingInfo(false) }
-        if (showSave) { setShowSave(false) }
     }
 
 

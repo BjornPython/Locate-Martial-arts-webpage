@@ -19,20 +19,23 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
         "Boxing", "Karate", "Wrestling", "Sambo"]
 
     const lfSparArtsMemo = useMemo(() => {
+        console.log("LFSPARARTS KEYYS: ", Object.keys(lfSparArts));
         return diffArts.map(mart => {
+            console.log("MART: ", mart);
+            console.log(`SETSPAN: ${mart}`, Object.keys(lfSparArts).includes(mart) ? true : false);
             return <UdisplayMart key={uuid()} mart={mart}
                 setFunction={updateLfSpartner}
                 setSpan={Object.keys(lfSparArts).includes(mart) ? true : false} />
         })
-    }, [diffArts])
+    }, [])
 
     const lfCoachArtsMemo = useMemo(() => {
         return diffArts.map(mart => {
             return <UdisplayMart key={uuid()} mart={mart}
-                setFunction={updateLfSpartner}
+                setFunction={updateLfCoach}
                 setSpan={Object.keys(lfCoachArts).includes(mart) ? true : false} />
         })
-    }, [diffArts])
+    }, [])
 
 
 
