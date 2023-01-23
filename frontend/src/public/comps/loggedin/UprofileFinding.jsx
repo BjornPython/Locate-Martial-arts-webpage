@@ -27,7 +27,7 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
                 setFunction={updateLfSpartner}
                 setSpan={Object.keys(lfSparArts).includes(mart) ? true : false} />
         })
-    }, [])
+    }, [lfSparArts])
 
     const lfCoachArtsMemo = useMemo(() => {
         return diffArts.map(mart => {
@@ -35,7 +35,7 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
                 setFunction={updateLfCoach}
                 setSpan={Object.keys(lfCoachArts).includes(mart) ? true : false} />
         })
-    }, [])
+    }, [lfSparArts])
 
 
 

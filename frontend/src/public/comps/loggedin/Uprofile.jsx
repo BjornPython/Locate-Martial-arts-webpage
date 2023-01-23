@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Suspense } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faCaretDown, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState, useRef } from 'react'
@@ -206,14 +206,15 @@ function Uprofile({ user }) {
 
 
     return (
-        <div id='u-profile-page' className='u-profile-page'>
-            <UprofileBox name={name} bio={bio} faGear={faGear} />
+        <Suspense fallback={<div>loading...</div>}>
+            <div id='u-profile-page' className='u-profile-page'>
+                <UprofileBox name={name} bio={bio} faGear={faGear} />
 
 
-            <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts}
-                updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
+                <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts}
+                    updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
 
-            {/*             
+                {/*             
             <UprofileContents
                 isEditingInfo={isEditingInfo} setIsEditingInfo={setIsEditingInfo} showSave={showSave} setShowSave={setShowSave}
                 marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
@@ -222,7 +223,9 @@ function Uprofile({ user }) {
 
             /> */}
 
-        </div>
+            </div>
+        </Suspense>
+
     )
 }
 
