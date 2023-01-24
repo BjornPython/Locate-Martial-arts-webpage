@@ -33,10 +33,16 @@ function Uprofile({ user }) {
         console.log("USER TOKEN: ", user);
         const response = await apiService.getUserInfo(user);
         console.log(response.data);
+        const DbData = response.data
         setNewUserInfo({ ...response.data, changeData: 0 });
+        setDbUserInfo({ ...DbData, changeData: 0 });
+
     }
     // has the initial value of userInfo. information here will be displayed in the
     // user's profile. 
+
+
+    const [DbUserInfo, setDbUserInfo] = useState(null)
     const [newUserInfo, setNewUserInfo] = useState({
         name: "",
         bio: "",
@@ -55,6 +61,8 @@ function Uprofile({ user }) {
     const [showSave, setShowSave] = useState(false)
 
     const [updatedLfData, setUpdatedLfData] = useState(null)
+
+
 
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
@@ -76,6 +84,7 @@ function Uprofile({ user }) {
 
     useEffect(() => {
         console.log("USER INFO: ", newUserInfo);
+        console.log("DB INFO: ", DbUserInfo);
     }, [newUserInfo])
 
     // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
@@ -183,18 +192,18 @@ function Uprofile({ user }) {
         }
     }
 
-    const changeUserStatus = (makeCoach = null) => {
+    const changeUserStatus = (makeCoach) => {
         console.log("change user clicked");
         if (isEditingInfo) {
             console.log("user status will be editted");
-            if (makeCoach || coach === false) {
+            if (makeCoach === 1 && coach === false) {
                 console.log("user status changing to coach");
                 setNewUserInfo((prevState) => {
                     const newState = { ...prevState, coach: true };
                     return newState
                 })
             }
-            else if (!makeCoach || coach === true) {
+            else if (makeCoach !== 1 && coach === true) {
                 console.log("user status changing to student");
 
                 setNewUserInfo((prevState) => {
@@ -204,6 +213,13 @@ function Uprofile({ user }) {
             }
         }
     }
+
+    useEffect(() => {
+        if (!isEditingInfo && DbUserInfo !== null) {
+            console.log("UPDATING NEW USER INFO");
+            setNewUserInfo(DbUserInfo)
+        }
+    }, [isEditingInfo])
 
 
     return (

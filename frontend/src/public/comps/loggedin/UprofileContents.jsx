@@ -31,7 +31,7 @@ function UprofileContents(
                 </div>
             </div>
             {showPSpan("Help people near you connect with you. Pin your area on the maps to set.")}
-            <UprofileStatus coach={coach} changeUserStatus={changeUserStatus} />
+            <UprofileStatus coach={coach} changeUserStatus={changeUserStatus} isEditingInfo={isEditingInfo} />
             {showPSpan("Are you a coach or a student?")}
             <div className='save-changes'>
                 {showSave
