@@ -37,14 +37,12 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
 
 
     useEffect(() => {
-        console.log("CHANGE DATA CHANGED", lfDataChanged);
         if (Object.keys(lfSparArts).length > 0) {
             setDarkenSpar(true)
         } else { setDarkenSpar(false) }
     }, [lfSparArts, lfDataChanged])
 
     useEffect(() => {
-        console.log("CHANGE DATA CHANGED", lfDataChanged);
         if (Object.keys(lfCoachArts).length > 0) {
             setDarkenCoach(true)
         } else { setDarkenCoach(false) }

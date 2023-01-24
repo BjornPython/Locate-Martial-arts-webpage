@@ -80,10 +80,11 @@ const getSparringUsers = asyncHandler(async (req, res) => {
             console.log("IN SPAR 1");
             const jsonMarts = JSON.parse(marts)
             const searchMarts = jsonMarts.map((art) => {
-                return {[`lfsparArts.${art}`]: {$exists: true}}
+                return {[`lfSparArts.${art}`]: {$exists: true}}
             })
-            let query = {lfspar: true, $or: []}
+            let query = {lfSpar: true, $or: []}
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
+            console.log("query: ", query);
             const user = await User.find(query);
             console.log("USER: ", user);
             if (user) {res.status(200).json(user)}
@@ -109,10 +110,11 @@ const getSparringUsers = asyncHandler(async (req, res) => {
 
             const jsonMarts = JSON.parse(marts)
             const searchMarts = jsonMarts.map((art) => {
-                return {[`lfsparArts.${art}`]: {$exists: true}}
+                return {[`lfSparArts.${art}`]: {$exists: true}}
             })
-            let query = {lfspar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}, $or: []}
+            let query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}, $or: []}
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
+            console.log("QUERY: ", query);
             const user = await User.find(query);
             console.log("USER: ", user);
 
@@ -122,7 +124,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
         } else {
             console.log("IN SPAR 4");
 
-            const query = {lfspar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
+            const query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
 
             const user = await User.find(query);
             console.log("USER: ", user);

@@ -77,6 +77,11 @@
     cursor: pointer;
 }
 
+.p-setting-icon:hover {
+    color: gray;
+    transition: 0.2s ease-in-out;
+}
+
 .u-setting-icon {
     font-size: 1rem;
     align-self: flex-start;
@@ -101,6 +106,7 @@
     display: flex;
     align-items: center;
     height: 40px;
+    transition: color 0.2s ease-in;
 }
 
 .dropdowns-div {
@@ -124,6 +130,8 @@
     align-items: center;
     border: solid 1px gray;
     cursor: pointer;
+    transition: color 0.2s ease-in;
+
 }
 
 .looking-for-dropdown-has {
@@ -141,6 +149,7 @@
     flex-direction: column;
     align-items: flex-start;
     opacity: 0;
+    transition: color 0.2s ease-in;
 }
 
 .spar-dropdown-active {

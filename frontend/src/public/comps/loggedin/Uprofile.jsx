@@ -96,6 +96,7 @@ function Uprofile({ user }) {
                 console.log("NEWSTATE: ", newState);
                 return newState
             })
+            changeUserData()
         } else {
             console.log("MART NOT IN ARTS");
             setNewUserInfo((prevState) => {
@@ -106,6 +107,7 @@ function Uprofile({ user }) {
                 console.log("NEWSTATE: ", newState);
                 return newState
             })
+            changeUserData()
         }
         // add
     }
@@ -121,6 +123,7 @@ function Uprofile({ user }) {
                 console.log("NEWSTATE: ", newState);
                 return newState
             })
+            changeUserData()
         } else {
             console.log("MART NOT IN ARTS");
             setNewUserInfo((prevState) => {
@@ -130,6 +133,7 @@ function Uprofile({ user }) {
                 console.log("NEWSTATE: ", newState);
                 return newState
             })
+            changeUserData()
         }
         // add
     }
@@ -146,7 +150,7 @@ function Uprofile({ user }) {
     const changeUserData = async () => {
         console.log("SENDING: ", newUserInfo);
         const response = await apiService.updateUserInfo(user, newUserInfo);
-        setIsEditingInfo(false)
+        if (isEditingInfo) { setIsEditingInfo(false) }
         console.log("RESPONSE IN UPROFILE: ", response);
     }
 
