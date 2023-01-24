@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 const showNameBio = (name, bio) => {
     return (
         <div className='profile'>
@@ -28,12 +28,26 @@ const showEditableNameBio = (name, bio) => {
 
 function UprofileBox({ name, bio }) {
 
-    const [showEditable, setShowEditable] = useState(false)
+    const [editing, SetEditing] = useState(false)
+
+    const showNameBio = useMemo(() => {
+        console.log("CHANGED!");
+        return (
+            <div className='profile'>
+                <FontAwesomeIcon icon={faUser} className="profile-avatar" />
+                <div className='profile-info'>
+                    <input type="text" name="i-name" id="" placeholder={name} className={`i-name ${editing && "edit-profile-info"}`} />
+                    <input type="text" name="i-bio" id="" placeholder={bio !== "" ? bio : "Edit your bio"} className={`i-bio ${editing && "edit-profile-info"}`} />
+
+                </div>
+            </div>
+        )
+    }, [name, editing])
 
     return (
         <div className='profile-box'>
-            {showEditableNameBio(name, bio, showEditable)}
-            <FontAwesomeIcon icon={faGear} className="u-setting-icon" onClick={() => { setShowEditable(!showEditable) }} />
+            {showNameBio}
+            <FontAwesomeIcon icon={faGear} className="u-setting-icon" onClick={() => { SetEditing(!editing) }} />
 
         </div>
     );
