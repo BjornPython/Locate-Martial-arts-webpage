@@ -33,7 +33,7 @@ function Uprofile({ user }) {
         console.log("USER TOKEN: ", user);
         const response = await apiService.getUserInfo(user);
         console.log(response.data);
-        setNewUserInfo(response.data);
+        setNewUserInfo({ ...response.data, changeData: 0 });
     }
     // has the initial value of userInfo. information here will be displayed in the
     // user's profile. 
@@ -46,11 +46,12 @@ function Uprofile({ user }) {
         lfSparArts: {},
         lfCoach: false,
         lfCoachArts: {},
-        marts: { "karate": true, "sambo": true },
-        awards: ["champion in muay thai", "black belt in taekwando"]
+        marts: {},
+        awards: [],
+        changeData: 0
     })
 
-    const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards } = newUserInfo
+    const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards, changeData } = newUserInfo
     const [showSave, setShowSave] = useState(false)
 
     const [updatedLfData, setUpdatedLfData] = useState(null)
@@ -79,11 +80,10 @@ function Uprofile({ user }) {
 
     // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
     const updateLfSpartner = (mart) => {
-        console.log(Object.keys(lfSparArts));
         if (Object.keys(lfSparArts).includes(mart)) {
             // remove
             setNewUserInfo((prevState) => {
-                const newState = { ...prevState }
+                const newState = { ...prevState, changeData: prevState.changeData + 1 }
                 delete newState.lfSparArts[mart]
                 setUpdatedLfData(newState)
                 console.log("NEWSTATE: ", newState);
@@ -92,7 +92,7 @@ function Uprofile({ user }) {
         } else {
             console.log("MART NOT IN ARTS");
             setNewUserInfo((prevState) => {
-                const newState = { ...prevState };
+                const newState = { ...prevState, changeData: prevState.changeData + 1 };
                 newState.lfSparArts[mart] = true
                 console.log("NEWSTATE: ", newState);
                 setUpdatedLfData(newState)
@@ -148,6 +148,7 @@ function Uprofile({ user }) {
         setNewUserInfo((prevState) => {
             const newState = { ...prevState };
             delete newState.marts[`${mart}`]
+
             return newState
         })
 
@@ -211,17 +212,17 @@ function Uprofile({ user }) {
                 <UprofileBox name={name} bio={bio} faGear={faGear} />
 
 
-                <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts}
+                <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts} changeData={changeData}
                     updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
 
-                {/*             
-            <UprofileContents
-                isEditingInfo={isEditingInfo} setIsEditingInfo={setIsEditingInfo} showSave={showSave} setShowSave={setShowSave}
-                marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
-                handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
-                changeUserStatus={changeUserStatus} changeUserData={changeUserData}
 
-            /> */}
+                <UprofileContents
+                    isEditingInfo={isEditingInfo} setIsEditingInfo={setIsEditingInfo} showSave={showSave} setShowSave={setShowSave}
+                    marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
+                    handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
+                    changeUserStatus={changeUserStatus} changeUserData={changeUserData} changeData={changeData}
+
+                />
 
             </div>
         </Suspense>

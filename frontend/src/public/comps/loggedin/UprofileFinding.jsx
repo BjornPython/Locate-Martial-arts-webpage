@@ -7,7 +7,7 @@ import UdisplayMart from './UdisplayMart'
 
 
 
-function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCoach }) {
+function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCoach, changeData }) {
 
     const [darkenSpar, setDarkenSpar] = useState(false)
     const [darkenCoach, setDarkenCoach] = useState(false)
@@ -19,10 +19,7 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
         "Boxing", "Karate", "Wrestling", "Sambo"]
 
     const lfSparArtsMemo = useMemo(() => {
-        console.log("LFSPARARTS KEYYS: ", Object.keys(lfSparArts));
         return diffArts.map(mart => {
-            console.log("MART: ", mart);
-            console.log(`SETSPAN: ${mart}`, Object.keys(lfSparArts).includes(mart) ? true : false);
             return <UdisplayMart key={uuid()} mart={mart}
                 setFunction={updateLfSpartner}
                 setSpan={Object.keys(lfSparArts).includes(mart) ? true : false} />
@@ -35,21 +32,23 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
                 setFunction={updateLfCoach}
                 setSpan={Object.keys(lfCoachArts).includes(mart) ? true : false} />
         })
-    }, [lfSparArts])
+    }, [lfCoachArts])
 
 
 
     useEffect(() => {
+        console.log("CHANGE DATA CHANGED", changeData);
         if (Object.keys(lfSparArts).length > 0) {
             setDarkenSpar(true)
         } else { setDarkenSpar(false) }
-    }, [lfSparArts])
+    }, [changeData])
 
     useEffect(() => {
+        console.log("CHANGE DATA CHANGED", changeData);
         if (Object.keys(lfCoachArts).length > 0) {
             setDarkenCoach(true)
         } else { setDarkenCoach(false) }
-    }, [lfCoachArts])
+    }, [changeData])
 
 
     return (

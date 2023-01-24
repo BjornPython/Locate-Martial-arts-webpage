@@ -1,7 +1,7 @@
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import uuid from 'react-uuid'
-
+import { useEffect } from 'react'
 const showInfo = (mart, id) => {
     return (<h4 key={id}>● {mart}</h4>)
 }
@@ -19,6 +19,11 @@ const editArt = (award, id, delAward) => {
 
 
 function UprofileAwards({ isEditingInfo, awards, delMart, delAward, addAward, handleNewInfo, addNewInfo }) {
+    useEffect(() => {
+        console.log("AWARDS CHANGED: ", awards);
+
+    }, [awards])
+
     return (
         <div className='u-profile-marts'>
             <h4>Achievements:</h4>
