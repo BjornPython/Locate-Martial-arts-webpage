@@ -149,7 +149,6 @@ function Uprofile({ user }) {
         setNewUserInfo((prevState) => {
             const newState = { ...prevState };
             delete newState.marts[`${mart}`]
-
             return newState
         })
 
@@ -206,13 +205,24 @@ function Uprofile({ user }) {
         }
     }
 
-    useEffect(() => {
-        if (!isEditingInfo && dbUserInfo !== null) {
-            console.log("UPDATING NEW USER INFO");
-            console.log("DB INFO: ", dbUserInfo);
-            setNewUserInfo(dbUserInfo)
+    const handleEditProfile = () => {
+        console.log("ISEDITINGINFO? ", isEditingInfo);
+        if (!isEditingInfo) {
+            setIsEditingInfo(!isEditingInfo)
+        } else {
+            setIsEditingInfo(!isEditingInfo)
+            console.log("SETTING NEW USER INFO TO DBUSERINFO");
+            setNewUserInfo(JSON.parse(JSON.stringify({ ...dbUserInfo })))
         }
-    }, [isEditingInfo])
+    }
+
+    // useEffect(() => {
+    //     if (!isEditingInfo && dbUserInfo !== null) {
+    //         console.log("UPDATING NEW USER INFO");
+    //         console.log("DB INFO: ", dbUserInfo);
+    //         setNewUserInfo({ ...dbUserInfo, changeData: 0 })
+    //     }
+    // }, [isEditingInfo])
 
 
     return (
@@ -221,7 +231,7 @@ function Uprofile({ user }) {
             <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts} changeData={changeData}
                 updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
             <UprofileContents
-                isEditingInfo={isEditingInfo} setIsEditingInfo={setIsEditingInfo} showSave={showSave} setShowSave={setShowSave}
+                isEditingInfo={isEditingInfo} handleEditProfile={handleEditProfile} showSave={showSave} setShowSave={setShowSave}
                 marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
                 handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
                 changeUserStatus={changeUserStatus} changeUserData={changeUserData} changeData={changeData} />
