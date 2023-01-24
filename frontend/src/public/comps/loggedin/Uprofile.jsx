@@ -136,9 +136,10 @@ function Uprofile({ user }) {
         }))
     })
 
-    const changeUserData = async (newInfo) => {
-        console.log("SENDING: ", newInfo);
-        const response = await apiService.updateUserInfo(user, newInfo);
+    const changeUserData = async () => {
+        console.log("SENDING: ", newUserInfo);
+        const response = await apiService.updateUserInfo(user, newUserInfo);
+        setIsEditingInfo(false)
         console.log("RESPONSE IN UPROFILE: ", response);
     }
 
