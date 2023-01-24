@@ -33,21 +33,18 @@ function Uprofile({ user }) {
         console.log("USER TOKEN: ", user);
         const response = await apiService.getUserInfo(user);
         setNewUserInfo({ ...response.data, changeData: 0 });
+        // had to stringiny then parse so the two states will not have the same reference.
+        setDbUserInfo(JSON.parse(JSON.stringify(response.data)));
     }
 
-    const getDbInfo = async () => {
-        const res = await apiService.getUserInfo(user);
-        setDbUserInfo(res.data)
-    }
+
     // has the initial value of userInfo. information here will be displayed in the
     // user's profile. 
 
 
     const [dbUserInfo, setDbUserInfo] = useState(null)
 
-    useEffect(() => {
-        getDbInfo()
-    }, [])
+
 
     const [newUserInfo, setNewUserInfo] = useState({
         name: "",
