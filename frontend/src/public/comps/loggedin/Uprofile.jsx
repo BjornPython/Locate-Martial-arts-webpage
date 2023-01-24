@@ -32,17 +32,23 @@ function Uprofile({ user }) {
     const getUserInfo = async () => {
         console.log("USER TOKEN: ", user);
         const response = await apiService.getUserInfo(user);
-        console.log(response.data);
-        const DbData = response.data
         setNewUserInfo({ ...response.data, changeData: 0 });
-        setDbUserInfo({ ...DbData, changeData: 0 });
+    }
 
+    const getDbInfo = async () => {
+        const res = await apiService.getUserInfo(user);
+        setDbUserInfo(res.data)
     }
     // has the initial value of userInfo. information here will be displayed in the
     // user's profile. 
 
 
-    const [DbUserInfo, setDbUserInfo] = useState(null)
+    const [dbUserInfo, setDbUserInfo] = useState(null)
+
+    useEffect(() => {
+        getDbInfo()
+    }, [])
+
     const [newUserInfo, setNewUserInfo] = useState({
         name: "",
         bio: "",
@@ -60,7 +66,6 @@ function Uprofile({ user }) {
     const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards, changeData } = newUserInfo
     const [showSave, setShowSave] = useState(false)
 
-    const [updatedLfData, setUpdatedLfData] = useState(null)
 
 
 
@@ -75,16 +80,10 @@ function Uprofile({ user }) {
         setProfileData()
     }, [])
 
-    useEffect(() => {
-        if (updatedLfData === null) { return }
-        console.log("IN UPDATED USEEFFECT");
-        console.log("UPDATED DATA: ", updatedLfData);
-        changeUserData(updatedLfData)
-    }, [updatedLfData])
 
     useEffect(() => {
         console.log("USER INFO: ", newUserInfo);
-        console.log("DB INFO: ", DbUserInfo);
+        console.log("DB INFO: ", dbUserInfo);
     }, [newUserInfo])
 
     // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
@@ -94,7 +93,6 @@ function Uprofile({ user }) {
             setNewUserInfo((prevState) => {
                 const newState = { ...prevState, changeData: prevState.changeData + 1 }
                 delete newState.lfSparArts[mart]
-                setUpdatedLfData(newState)
                 console.log("NEWSTATE: ", newState);
                 return newState
             })
@@ -104,7 +102,6 @@ function Uprofile({ user }) {
                 const newState = { ...prevState, changeData: prevState.changeData + 1 };
                 newState.lfSparArts[mart] = true
                 console.log("NEWSTATE: ", newState);
-                setUpdatedLfData(newState)
                 return newState
             })
         }
@@ -118,7 +115,6 @@ function Uprofile({ user }) {
             setNewUserInfo((prevState) => {
                 const newState = { ...prevState, changeData: prevState.changeData + 1 }
                 delete newState.lfCoachArts[mart]
-                setUpdatedLfData(newState)
                 console.log("NEWSTATE: ", newState);
                 return newState
             })
@@ -128,7 +124,6 @@ function Uprofile({ user }) {
                 const newState = { ...prevState, changeData: prevState.changeData + 1 };
                 newState.lfCoachArts[mart] = true
                 console.log("NEWSTATE: ", newState);
-                setUpdatedLfData(newState)
                 return newState
             })
         }
@@ -215,9 +210,10 @@ function Uprofile({ user }) {
     }
 
     useEffect(() => {
-        if (!isEditingInfo && DbUserInfo !== null) {
+        if (!isEditingInfo && dbUserInfo !== null) {
             console.log("UPDATING NEW USER INFO");
-            setNewUserInfo(DbUserInfo)
+            console.log("DB INFO: ", dbUserInfo);
+            setNewUserInfo(dbUserInfo)
         }
     }, [isEditingInfo])
 
