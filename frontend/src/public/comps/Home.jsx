@@ -4,7 +4,7 @@ import Header from '../comps/Header';
 import Footer from "../comps/Footer";
 import { useSelector, useDispatch } from "react-redux"
 import { registerUser, loginUser, registerGym, reset } from "../../features/authentication/authSlice"
-import "../scripts/AppHomeScript"
+// import "../scripts/AppHomeScript"
 import "../css/home.css"
 
 import Arts from "./Arts"

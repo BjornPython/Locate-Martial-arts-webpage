@@ -151,6 +151,7 @@ function Uprofile({ user }) {
         console.log("SENDING: ", newUserInfo);
         const response = await apiService.updateUserInfo(user, newUserInfo);
         if (isEditingInfo) { setIsEditingInfo(false) }
+        setShowSave(!showSave)
         console.log("RESPONSE IN UPROFILE: ", response);
     }
 
@@ -218,19 +219,21 @@ function Uprofile({ user }) {
     }
 
     const handleEditProfile = () => {
-        console.log("ISEDITINGINFO? ", isEditingInfo);
         if (!isEditingInfo) {
+            console.log(" IN IF");
             setIsEditingInfo(!isEditingInfo)
+            setShowSave(!showSave)
         } else {
             setIsEditingInfo(!isEditingInfo)
+            setShowSave(!showSave)
             console.log("SETTING NEW USER INFO TO DBUSERINFO");
             setNewUserInfo(JSON.parse(JSON.stringify({ ...dbUserInfo })))
         }
     }
 
     useEffect(() => {
-        console.log("LFDATA CHANGED IN UPROFILE: ", lfDataChanged);
-    }, [lfDataChanged])
+        console.log("showSave CHANGED IN UPROFILE: ", showSave);
+    }, [showSave])
 
     return (
         <div id='u-profile-page' className='u-profile-page'>
@@ -238,7 +241,7 @@ function Uprofile({ user }) {
             <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts} lfDataChanged={lfDataChanged}
                 updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
             <UprofileContents
-                isEditingInfo={isEditingInfo} handleEditProfile={handleEditProfile} showSave={showSave} setShowSave={setShowSave}
+                isEditingInfo={isEditingInfo} handleEditProfile={handleEditProfile} showSave={showSave}
                 marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
                 handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
                 changeUserStatus={changeUserStatus} changeUserData={changeUserData} />

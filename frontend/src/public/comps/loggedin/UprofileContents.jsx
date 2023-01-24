@@ -11,7 +11,7 @@ const showPSpan = (txt) => {
 
 function UprofileContents(
     {
-        isEditingInfo, handleEditProfile, showSave, setShowSave,
+        isEditingInfo, handleEditProfile, showSave,
         marts, awards, addMart, delMart, delAward, addAward,
         handleNewInfo, addNewInfo, UprofileStatus, coach, changeUserStatus,
         changeUserData
@@ -19,7 +19,7 @@ function UprofileContents(
 ) {
     return (
         <div className="u-profile-contents">
-            <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { handleEditProfile(); setShowSave(!showSave) }} />
+            <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { handleEditProfile(); }} />
             <UprofileMarts isEditingInfo={isEditingInfo} marts={marts} addMart={addMart} delMart={delMart} handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} />
             {showPSpan("People can see your martial arts when they check your profile.")}
             <UprofileAwards isEditingInfo={isEditingInfo} awards={awards} delMart={delMart} delAward={delAward} addAward={addAward} handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} />
@@ -34,6 +34,7 @@ function UprofileContents(
             <UprofileStatus coach={coach} changeUserStatus={changeUserStatus} isEditingInfo={isEditingInfo} />
             {showPSpan("Are you a coach or a student?")}
             <div className='save-changes'>
+                {console.log("SHOWSAVE? ", showSave)}
                 {showSave
                     ? (
                         <button onClick={changeUserData}>Save Changes</button>
