@@ -1,5 +1,5 @@
 window.onload = (() => {
-
+    console.log("IN APP HOME SCRIPT!!!");
     // ANIMATIONS FOR LOG IN AND REGISTER
 
     const homeButton = document.querySelector(".home-btn");
@@ -15,8 +15,9 @@ window.onload = (() => {
     const registerCoachSpan = document.querySelector(".account-as-span-coach");
     const registerGym = document.querySelector(".account-as-btn-gym");
     const registerGymSpan = document.querySelector(".account-as-span-gym");
-
-
+    const mainTextsInfo = document.querySelector(".main-texts-info");
+    const findOne = document.querySelector(".find");
+    const mainTxtLine = document.querySelector(".main-texts-line");
     //GYM PAGE
 
     const selectArts = document.querySelector(".select-span");
@@ -47,15 +48,20 @@ window.onload = (() => {
     }
 
     loginButton.addEventListener("click", async () => {
-        
         if (registerPage.classList.contains("register-show")) {
+
             registerPage.classList.toggle("register-show");
             registerButton.classList.toggle("btn-dark");
             loginButton.classList.toggle("btn-dark");
             loginPage.classList.toggle("login-show");
 
+
         } else {
+            console.log("IN ELSE");
             loginButton.classList.toggle("btn-dark");
+            mainTextsInfo.classList.toggle("main-texts-hide");
+            findOne.classList.toggle("find-hide");
+            mainTxtLine.classList.toggle("main-texts-line-hide");
             animateLogin();
         }
 
@@ -75,6 +81,9 @@ window.onload = (() => {
 
         } else {
             registerButton.classList.toggle("btn-dark");
+            mainTextsInfo.classList.toggle("main-texts-hide");
+            findOne.classList.toggle("find-hide");
+            mainTxtLine.classList.toggle("main-texts-line-hide");
             animateRegister();
         }
     })
@@ -128,6 +137,9 @@ window.onload = (() => {
 
     homeButton.addEventListener("click", () => {
 
+        mainTextsInfo.classList.remove("main-texts-hide");
+        findOne.classList.remove("find-hide");
+        mainTxtLine.classList.remove("main-texts-line-hide");
 
         if (loginPage.classList.contains("login-show")) {
             console.log("HAS LOG IN ");

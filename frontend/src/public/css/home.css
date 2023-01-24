@@ -207,7 +207,23 @@ html {
   font-size: x-large;
   color: white;
   width: 450px;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
 
+.main-texts-hide {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.find {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.find-hide {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .main-texts-line {
@@ -215,6 +231,13 @@ html {
   align-self: flex-start;
   background-color: white;
   margin-left: 0;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.main-texts-line-hide {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .find {
@@ -272,7 +295,7 @@ html {
     padding-bottom: 30px;
     height: 600px;
   }
-
+  main-texts-info
   .login-page {
     top: 0px;
     transform: rotate(0deg);
@@ -338,6 +361,8 @@ html {
     justify-content: center;
   }
 
+
+  
   .main-texts-line {
     width: 80%;
     margin: auto;

@@ -10,14 +10,14 @@ class AppHome extends React.Component {
 
 
 
-    componentDidMount() {
-        const script = document.createElement("script");
-        script.async = true;
-        script.src = "../scripts/AppHomeScript.js"
-        document.body.appendChild(script);
+    // componentDidMount() {
+    //     const script = document.createElement("script");
+    //     script.async = true;
+    //     script.src = "../scripts/AppHomeScript.js"
+    //     document.body.appendChild(script);
 
 
-    }
+    // }
 
 
     render() {
