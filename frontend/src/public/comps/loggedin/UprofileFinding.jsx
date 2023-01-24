@@ -7,7 +7,7 @@ import UdisplayMart from './UdisplayMart'
 
 
 
-function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCoach, changeData }) {
+function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCoach, lfDataChanged }) {
 
     const [darkenSpar, setDarkenSpar] = useState(false)
     const [darkenCoach, setDarkenCoach] = useState(false)
@@ -37,18 +37,18 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
 
 
     useEffect(() => {
-        console.log("CHANGE DATA CHANGED", changeData);
+        console.log("CHANGE DATA CHANGED", lfDataChanged);
         if (Object.keys(lfSparArts).length > 0) {
             setDarkenSpar(true)
         } else { setDarkenSpar(false) }
-    }, [lfSparArts, changeData])
+    }, [lfSparArts, lfDataChanged])
 
     useEffect(() => {
-        console.log("CHANGE DATA CHANGED", changeData);
+        console.log("CHANGE DATA CHANGED", lfDataChanged);
         if (Object.keys(lfCoachArts).length > 0) {
             setDarkenCoach(true)
         } else { setDarkenCoach(false) }
-    }, [lfCoachArts, changeData])
+    }, [lfCoachArts, lfDataChanged])
 
 
     return (

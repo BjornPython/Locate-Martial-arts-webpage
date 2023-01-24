@@ -32,7 +32,7 @@ function Uprofile({ user }) {
     const getUserInfo = async () => {
         console.log("USER TOKEN: ", user);
         const response = await apiService.getUserInfo(user);
-        setNewUserInfo({ ...response.data, changeData: 0 });
+        setNewUserInfo({ ...response.data, lfDataChanged: 0 });
         // had to stringiny then parse so the two states will not have the same reference.
         setDbUserInfo(JSON.parse(JSON.stringify(response.data)));
     }
@@ -57,12 +57,12 @@ function Uprofile({ user }) {
         lfCoachArts: {},
         marts: {},
         awards: [],
-        changeData: 0
     })
 
-    const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards, changeData } = newUserInfo
+    const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards } = newUserInfo
     const [showSave, setShowSave] = useState(false)
 
+    const [lfDataChanged, setLfDataChanged] = useState(0)
 
 
 
@@ -88,7 +88,10 @@ function Uprofile({ user }) {
         if (Object.keys(lfSparArts).includes(mart)) {
             // remove
             setNewUserInfo((prevState) => {
-                const newState = { ...prevState, changeData: prevState.changeData + 1 }
+                console.log("UPDATING LF DATA");
+                setLfDataChanged(prevState => prevState + 1);
+                console.log(lfDataChanged);
+                const newState = { ...prevState }
                 delete newState.lfSparArts[mart]
                 console.log("NEWSTATE: ", newState);
                 return newState
@@ -96,7 +99,9 @@ function Uprofile({ user }) {
         } else {
             console.log("MART NOT IN ARTS");
             setNewUserInfo((prevState) => {
-                const newState = { ...prevState, changeData: prevState.changeData + 1 };
+                const newState = { ...prevState };
+                console.log("SETTING LF DATA");
+                setLfDataChanged(prevState => prevState + 1);
                 newState.lfSparArts[mart] = true
                 console.log("NEWSTATE: ", newState);
                 return newState
@@ -110,7 +115,8 @@ function Uprofile({ user }) {
             // remove
             console.log("MART ALREADY IN ARTS");
             setNewUserInfo((prevState) => {
-                const newState = { ...prevState, changeData: prevState.changeData + 1 }
+                const newState = { ...prevState }
+                setLfDataChanged(prevState => prevState + 1);
                 delete newState.lfCoachArts[mart]
                 console.log("NEWSTATE: ", newState);
                 return newState
@@ -118,7 +124,8 @@ function Uprofile({ user }) {
         } else {
             console.log("MART NOT IN ARTS");
             setNewUserInfo((prevState) => {
-                const newState = { ...prevState, changeData: prevState.changeData + 1 };
+                const newState = { ...prevState };
+                setLfDataChanged(prevState => prevState + 1);
                 newState.lfCoachArts[mart] = true
                 console.log("NEWSTATE: ", newState);
                 return newState
@@ -217,25 +224,20 @@ function Uprofile({ user }) {
         }
     }
 
-    // useEffect(() => {
-    //     if (!isEditingInfo && dbUserInfo !== null) {
-    //         console.log("UPDATING NEW USER INFO");
-    //         console.log("DB INFO: ", dbUserInfo);
-    //         setNewUserInfo({ ...dbUserInfo, changeData: 0 })
-    //     }
-    // }, [isEditingInfo])
-
+    useEffect(() => {
+        console.log("LFDATA CHANGED IN UPROFILE: ", lfDataChanged);
+    }, [lfDataChanged])
 
     return (
         <div id='u-profile-page' className='u-profile-page'>
             <UprofileBox name={name} bio={bio} faGear={faGear} />
-            <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts} changeData={changeData}
+            <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts} lfDataChanged={lfDataChanged}
                 updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
             <UprofileContents
                 isEditingInfo={isEditingInfo} handleEditProfile={handleEditProfile} showSave={showSave} setShowSave={setShowSave}
                 marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
                 handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
-                changeUserStatus={changeUserStatus} changeUserData={changeUserData} changeData={changeData} />
+                changeUserStatus={changeUserStatus} changeUserData={changeUserData} />
         </div>
 
     )
