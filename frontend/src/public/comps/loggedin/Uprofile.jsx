@@ -107,7 +107,7 @@ function Uprofile({ user }) {
             // remove
             console.log("MART ALREADY IN ARTS");
             setNewUserInfo((prevState) => {
-                const newState = { ...prevState }
+                const newState = { ...prevState, changeData: prevState.changeData + 1 }
                 delete newState.lfCoachArts[mart]
                 setUpdatedLfData(newState)
                 console.log("NEWSTATE: ", newState);
@@ -116,7 +116,7 @@ function Uprofile({ user }) {
         } else {
             console.log("MART NOT IN ARTS");
             setNewUserInfo((prevState) => {
-                const newState = { ...prevState };
+                const newState = { ...prevState, changeData: prevState.changeData + 1 };
                 newState.lfCoachArts[mart] = true
                 console.log("NEWSTATE: ", newState);
                 setUpdatedLfData(newState)
@@ -207,25 +207,16 @@ function Uprofile({ user }) {
 
 
     return (
-        <Suspense fallback={<div>loading...</div>}>
-            <div id='u-profile-page' className='u-profile-page'>
-                <UprofileBox name={name} bio={bio} faGear={faGear} />
-
-
-                <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts} changeData={changeData}
-                    updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
-
-
-                <UprofileContents
-                    isEditingInfo={isEditingInfo} setIsEditingInfo={setIsEditingInfo} showSave={showSave} setShowSave={setShowSave}
-                    marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
-                    handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
-                    changeUserStatus={changeUserStatus} changeUserData={changeUserData} changeData={changeData}
-
-                />
-
-            </div>
-        </Suspense>
+        <div id='u-profile-page' className='u-profile-page'>
+            <UprofileBox name={name} bio={bio} faGear={faGear} />
+            <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts} changeData={changeData}
+                updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
+            <UprofileContents
+                isEditingInfo={isEditingInfo} setIsEditingInfo={setIsEditingInfo} showSave={showSave} setShowSave={setShowSave}
+                marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
+                handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
+                changeUserStatus={changeUserStatus} changeUserData={changeUserData} changeData={changeData} />
+        </div>
 
     )
 }

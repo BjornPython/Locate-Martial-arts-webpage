@@ -41,14 +41,14 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
         if (Object.keys(lfSparArts).length > 0) {
             setDarkenSpar(true)
         } else { setDarkenSpar(false) }
-    }, [changeData])
+    }, [lfSparArts, changeData])
 
     useEffect(() => {
         console.log("CHANGE DATA CHANGED", changeData);
         if (Object.keys(lfCoachArts).length > 0) {
             setDarkenCoach(true)
         } else { setDarkenCoach(false) }
-    }, [changeData])
+    }, [lfCoachArts, changeData])
 
 
     return (
@@ -78,7 +78,6 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
                         <h4>Coach in...</h4>
                         <FontAwesomeIcon icon={faCaretDown} />
                     </div>
-                    {console.log("DARKEN COACH: ", darkenCoach)}
                     <div id="coach-dropdown" className={`spar-dropdown ${darkenCoach ? "spar-dropdown-has" : null} ${showCoach ? "spar-dropdown-active" : ""}`}>
                         {lfCoachArtsMemo}
 
