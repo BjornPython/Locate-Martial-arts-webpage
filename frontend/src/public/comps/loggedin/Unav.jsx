@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "../../css/loggedin/unav.css"
 import { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -6,20 +6,31 @@ import { fa } from "@fortawesome/free-brands-svg-icons"
 
 import { faSearch, faUser, faMessage, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
-const IconsComp = ({ page, callChangePage }) => {
+const IconsComp = ({ icon, page, callChangePage, currentPage }) => {
 
-    const [showSpan, setShowSpan] = useState(false)
+    const [showSpan, setShowSpan] = useState(currentPage === page ? true : false)
+
+    const handleIconClick = () => {
+        if (currentPage === page) { return }
+        else { setShowSpan(!showSpan) }
+    }
+
+    useEffect(() => {
+        if (currentPage !== page)
+            setShowSpan(false)
+    }, [currentPage])
+
 
     return (
-        <div className="u-n-icon profile-btn" onClick={() => { callChangePage(page); setShowSpan(!showSpan) }}>
+        <div className="u-n-icon profile-btn" onClick={() => { callChangePage(page); handleIconClick() }}>
             <span className={`profile-btn-span ${showSpan && "profile-btn-span-active"}`}></span>
-            <FontAwesomeIcon icon={faUser} className="nav-icns" />
+            <FontAwesomeIcon icon={icon} className="nav-icns" />
         </div>
     )
 
 }
 
-function Unav({ changePage }) {
+function Unav({ changePage, currentPage }) {
 
     const callChangePage = (page) => {
         changePage(page)
@@ -33,8 +44,8 @@ function Unav({ changePage }) {
             <div className="u-navbar-icons">
 
                 <div className="u-n-icon "> <FontAwesomeIcon icon={faSearch} className="nav-icns" /></div>
-                <IconsComp page="profile" callChangePage={callChangePage} />
-                <div className="u-n-icon messages-btn" onClick={() => { callChangePage("messages") }}><span></span><FontAwesomeIcon icon={faMessage} className="nav-icns" /></div>
+                <IconsComp icon={faUser} page="profile" callChangePage={callChangePage} currentPage={currentPage} />
+                <IconsComp icon={faMessage} page="messages" callChangePage={callChangePage} currentPage={currentPage} />
             </div>
 
 
