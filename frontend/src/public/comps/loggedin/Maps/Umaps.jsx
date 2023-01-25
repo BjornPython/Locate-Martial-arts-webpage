@@ -3,11 +3,15 @@ import UmapForms from './UmapForms'
 import UmapBox from './UmapBox'
 import "../../../css/loggedin/Umaps/umap.css"
 
-function Umaps() {
+function Umaps({ user, info }) {
+
+
+
+
     return (
         <div className='u-maps-page'>
             <UmapForms />
-            <UmapBox />
+            <UmapBox info={info} />
         </div>
     )
 }

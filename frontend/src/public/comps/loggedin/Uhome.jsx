@@ -60,7 +60,7 @@ function Uhome() {
         <div className='uhome-page'>
             <Unav changePage={changePage} currentPage={currentPage} />
             <div className="u-home-pages">
-                {currentPage === "search" && <Umaps />}
+                {currentPage === "search" && <Umaps info={info} />}
                 {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages user={user} />}
             </div>
