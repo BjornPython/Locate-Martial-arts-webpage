@@ -27,9 +27,20 @@ Need to find a gym? a coach? a sparring partner? or are you a coach who wants to
 # Martial art suggestions for users new to Martial arts
 ![websitecc6](https://user-images.githubusercontent.com/110831700/211466997-492eff88-9a52-4855-814d-74c1cec23041.PNG)
 
-# (FEATURES STILL WORKING ON...)
+# (FEATURES IN PROGRESS)
 
-# Homepage of user when logged in. (messages tab) 
+# Homepage of user when logged in. (profile tab) 
+![Capturefirstlookprofile1](https://user-images.githubusercontent.com/110831700/214484823-293a782a-f502-4886-a3ff-637a50c246df.PNG)
+
+# Quick profile settings
+### quick setup for what the user is looking for.
+![Capturefirstlookprofile](https://user-images.githubusercontent.com/110831700/214484973-8036b9c7-49f9-43cc-932e-c957c295eca0.PNG)
+
+# Editable profile information. Updates the database when changes are saved.
+![Capturefirstlookprofile12](https://user-images.githubusercontent.com/110831700/214485063-781f339d-077e-4ade-bb94-f65575173999.PNG)
+![2](https://user-images.githubusercontent.com/110831700/214485079-2b1c286f-6c96-4e04-a493-191178a6a7b3.PNG)
+
+# MESSAGES TAB (IN PROGRESS)
 ![ASDASD](https://user-images.githubusercontent.com/110831700/212444859-c1e8f494-fc03-4a21-b5b5-0f008720f89d.PNG)
 
 # Developed by: Nathan Flores
