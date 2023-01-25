@@ -1,0 +1,7 @@
+.u-maps-page {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 50px;
+}

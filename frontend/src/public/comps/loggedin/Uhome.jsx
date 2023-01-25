@@ -1,7 +1,8 @@
 import React from 'react'
 import Unav from './Unav'
 import Umessages from './Umessages'
-import Uprofile from './Uprofile'
+import Uprofile from './Profile/Uprofile'
+import Umaps from './Maps/Umaps'
 import "../../css/loggedin/uhome.css"
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -42,7 +43,7 @@ function Uhome() {
 
 
 
-    const [currentPage, setCurrentPage] = useState("profile")
+    const [currentPage, setCurrentPage] = useState("search")
 
     const changePage = (page) => {
         if (page === currentPage) { return }
@@ -51,7 +52,6 @@ function Uhome() {
 
 
     const UprofileMemo = useMemo(() => {
-        console.log("RESTARTING UPROFILE MEMO");
         return (<Uprofile user={user} info={info} />)
     }, [user, info])
 
@@ -60,6 +60,7 @@ function Uhome() {
         <div className='uhome-page'>
             <Unav changePage={changePage} currentPage={currentPage} />
             <div className="u-home-pages">
+                {currentPage === "search" && <Umaps />}
                 {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages user={user} />}
             </div>

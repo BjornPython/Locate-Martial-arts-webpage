@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faCaretDown, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState, useRef } from 'react'
 import uuid from 'react-uuid'
-import "../../css/loggedin/uprofile.css"
-import apiService from '../../../features/apis/apiService'
+import "../../../css/loggedin/uprofile.css"
+import apiService from '../../../../features/apis/apiService'
 
 
-import UprofileBox from "./UprofileBox";
+import UprofileBox from "./UprofileBox"
 import UprofileStatus from './UprofileStatus';
 import UprofileFinding from './UprofileFinding'
 import UprofileContents from './UprofileContents'
