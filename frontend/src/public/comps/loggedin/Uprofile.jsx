@@ -31,6 +31,7 @@ function Uprofile({ user }) {
     // gets the user's information by requesting a GET request to the backend.
     const getUserInfo = async () => {
         console.log("USER TOKEN: ", user);
+        console.log("GETTING USER INFO");
         const response = await apiService.getUserInfo(user);
         setNewUserInfo({ ...response.data, lfDataChanged: 0 });
         // had to stringiny then parse so the two states will not have the same reference.

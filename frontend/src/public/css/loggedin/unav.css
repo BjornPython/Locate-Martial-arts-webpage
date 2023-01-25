@@ -27,7 +27,7 @@
     width: 60px;
     height: 60px;
     color: white;
-    font-size: 2rem;
+    font-size: 1.6rem;
     cursor: pointer;
     transition: 0.2s ease-in;
 }
@@ -37,9 +37,16 @@
 }
 
 .nav-icns {
-    margin-left: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    color: gray;
 }
 
+.nav-icns-active {
+    color: white;
+}
 .profile-btn-span {
     width: 0px;
     color: red;
@@ -54,6 +61,13 @@
 }
 
 .sign-out-btn {
+    display: flex;
+    justify-content: center;
+    align-self: center;
     font-size: 1.2rem;
+    transform: rotateY(180deg);
 }
 
+.nav-msg-icn {
+    font-size: 1.45rem;
+}

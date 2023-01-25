@@ -24,7 +24,7 @@ const IconsComp = ({ icon, page, callChangePage, currentPage }) => {
     return (
         <div className="u-n-icon profile-btn" onClick={() => { callChangePage(page); handleIconClick() }}>
             <span className={`profile-btn-span ${showSpan && "profile-btn-span-active"}`}></span>
-            <FontAwesomeIcon icon={icon} className="nav-icns" />
+            <FontAwesomeIcon icon={icon} className={`nav-icns ${showSpan && "nav-icns-active"}`} />
         </div>
     )
 
@@ -42,8 +42,7 @@ function Unav({ changePage, currentPage }) {
             <div className="u-n-icon sign-out-btn"> <FontAwesomeIcon className='' icon={faSignOutAlt} /></div>
 
             <div className="u-navbar-icons">
-
-                <div className="u-n-icon "> <FontAwesomeIcon icon={faSearch} className="nav-icns" /></div>
+                <IconsComp icon={faSearch} page="search" callChangePage={callChangePage} currentPage={currentPage} />
                 <IconsComp icon={faUser} page="profile" callChangePage={callChangePage} currentPage={currentPage} />
                 <IconsComp icon={faMessage} page="messages" callChangePage={callChangePage} currentPage={currentPage} />
             </div>
