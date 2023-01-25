@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faGear, faCaretDown, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useState, useRef } from 'react'
@@ -11,10 +11,10 @@ import UprofileBox from "./UprofileBox";
 import UprofileStatus from './UprofileStatus';
 import UprofileFinding from './UprofileFinding'
 import UprofileContents from './UprofileContents'
+import { faAppStoreIos } from '@fortawesome/free-brands-svg-icons'
 
 
-function Uprofile({ user }) {
-
+function Uprofile({ user, info }) {
 
 
     // true if user is editing profile.
@@ -29,6 +29,9 @@ function Uprofile({ user }) {
     // user's information from the backend is received and set.
     const [displayInfo, setDisplayInfo] = useState(false)
     // gets the user's information by requesting a GET request to the backend.
+
+
+
     const getUserInfo = async () => {
         console.log("USER TOKEN: ", user);
         console.log("GETTING USER INFO");
@@ -66,23 +69,30 @@ function Uprofile({ user }) {
     const [lfDataChanged, setLfDataChanged] = useState(0)
 
 
-
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
     useEffect(() => {
-        console.log("IN USE EFFECT");
-        const setProfileData = async () => {
-            await getUserInfo();
-            setDisplayInfo(true)
+        console.log("INFO CHANGED IN UPROFILE: ", info);
+        if (info === null) {
+            console.log("INFO IN UPROFILE IS NULL");
+            return
+            // console.log("SETTING PROFULE DATA");
+            // const setProfileData = async () => {
+            //     await getUserInfo();
+            //     setDisplayInfo(true)
+            // }
+            // setProfileData()
+        } else {
+            console.log("INFO IN UPROFILE IS NOT NULL: ", info);
+
+            setNewUserInfo({ ...info });
+            // had to stringiny then parse so the two states will not have the same reference.
+            setDbUserInfo(JSON.parse(JSON.stringify(info)));
         }
-        setProfileData()
-    }, [])
+
+    }, [info])
 
 
-    useEffect(() => {
-        console.log("USER INFO: ", newUserInfo);
-        console.log("DB INFO: ", dbUserInfo);
-    }, [newUserInfo])
 
     // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
     const updateLfSpartner = (mart) => {

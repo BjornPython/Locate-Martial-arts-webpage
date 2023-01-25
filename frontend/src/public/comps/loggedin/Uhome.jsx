@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux'
 // import "../../scripts/userHomeScript.js"
 import "../../scripts/userHomeScript.js"
 import { useMemo } from 'react'
-
+import apiService from '../../../features/apis/apiService'
 
 function Uhome() {
 
@@ -19,12 +19,26 @@ function Uhome() {
     const navigate = useNavigate()
     // redirect user to "/" if logged in
     useEffect(() => {
-
+        console.log("USER CHANGED IN UHOME");
         if (!user) {
             console.log("NO USER, LOGGING OUT");
             navigate("/")
         }
     }, [user])
+
+
+    useEffect(() => {
+        console.log("SETTING INFO");
+        getUserInfo()
+    }, [])
+
+    const [info, setInfo] = useState(null)
+
+    const getUserInfo = async () => {
+        const response = await apiService.getUserInfo(user);
+        setInfo({ ...response.data })
+    }
+
 
 
 
@@ -35,13 +49,11 @@ function Uhome() {
         else { setCurrentPage(page) }
     }
 
-    useEffect(() => {
-        console.log("CURRENT PAGE CHANGED: ", currentPage);
-    }, [currentPage])
 
     const UprofileMemo = useMemo(() => {
-        return (<Uprofile user={user} />)
-    })
+        console.log("RESTARTING UPROFILE MEMO");
+        return (<Uprofile user={user} info={info} />)
+    }, [user, info])
 
 
     return (
