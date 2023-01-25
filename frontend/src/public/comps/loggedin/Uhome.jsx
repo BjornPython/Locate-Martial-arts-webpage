@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 // import "../../scripts/userHomeScript.js"
 import "../../scripts/userHomeScript.js"
+import { useMemo } from 'react'
 
 
 function Uhome() {
@@ -25,13 +26,29 @@ function Uhome() {
         }
     }, [user])
 
+
+
     const [currentPage, setCurrentPage] = useState("profile")
+
+    const changePage = (page) => {
+        if (page === currentPage) { return }
+        else { setCurrentPage(page) }
+    }
+
+    useEffect(() => {
+        console.log("CURRENT PAGE CHANGED: ", currentPage);
+    }, [currentPage])
+
+    const UprofileMemo = useMemo(() => {
+        return (<Uprofile user={user} />)
+    })
+
 
     return (
         <div className='uhome-page'>
-            <Unav setCurrentPage={setCurrentPage} />
+            <Unav changePage={changePage} />
             <div className="u-home-pages">
-                {currentPage === "profile" && <Uprofile user={user} />}
+                {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages user={user} />}
             </div>
 

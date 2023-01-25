@@ -6,12 +6,13 @@
     height: 100%;
     background-color: black;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .u-navbar-icons {
-    margin-top: 200px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,7 +22,7 @@
 
 .u-n-icon {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 60px;
     height: 60px;
@@ -34,3 +35,25 @@
 .u-n-icon:hover {
     background-color: gray;
 }
+
+.nav-icns {
+    margin-left: 10px;
+}
+
+.profile-btn-span {
+    width: 0px;
+    color: red;
+    background-color: red;
+    height: 100%;
+    transition: width ease-in 0.2s;
+}
+
+.profile-btn-span-active {
+    width: 5px;
+    transition: width ease-in 0.2s;
+}
+
+.sign-out-btn {
+    font-size: 1.2rem;
+}
+

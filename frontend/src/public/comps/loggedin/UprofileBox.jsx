@@ -31,22 +31,34 @@ function UprofileBox({ name, bio }) {
     const [editing, SetEditing] = useState(false)
 
     const showNameBio = useMemo(() => {
-        console.log("CHANGED!");
         return (
             <div className='profile'>
                 <FontAwesomeIcon icon={faUser} className="profile-avatar" />
                 <div className='profile-info'>
-                    <input type="text" name="i-name" id="" placeholder={name} className={`i-name ${editing && "edit-profile-info"}`} />
-                    <input type="text" name="i-bio" id="" placeholder={bio !== "" ? bio : "Edit your bio"} className={`i-bio ${editing && "edit-profile-info"}`} />
+                    <h2 className='i-name'>{name}</h2>
+                    <p className='i-bio'>{bio !== "" ? bio : "Edit your bio"}</p>
 
                 </div>
             </div>
         )
-    }, [name, editing])
+    }, [name, bio])
+
+    const showEditableNameBio = useMemo(() => {
+        return (
+            <div className='profile'>
+                <FontAwesomeIcon icon={faUser} className="profile-avatar" />
+                <div className='profile-info'>
+                    <input type="text" name="i-name-edit" id="" placeholder={name} className={`i-name-edit `} />
+                    <input type="text" name="i-bio-edit" id="" placeholder={bio !== "" ? bio : "Edit your bio"} className={`i-bio-edit`} />
+                </div>
+            </div>
+        )
+    }, [name, bio])
 
     return (
         <div className='profile-box'>
-            {showNameBio}
+            {editing ? showEditableNameBio : showNameBio}
+
             <FontAwesomeIcon icon={faGear} className="u-setting-icon" onClick={() => { SetEditing(!editing) }} />
 
         </div>

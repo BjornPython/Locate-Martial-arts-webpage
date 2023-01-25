@@ -151,7 +151,7 @@ function Uprofile({ user }) {
         console.log("SENDING: ", newUserInfo);
         const response = await apiService.updateUserInfo(user, newUserInfo);
         if (isEditingInfo) { setIsEditingInfo(false) }
-        setShowSave(!showSave)
+        { showSave && setShowSave(false) }
         console.log("RESPONSE IN UPROFILE: ", response);
     }
 
