@@ -3,7 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import uuid from 'react-uuid'
 import { useEffect } from 'react'
 const showInfo = (mart, id) => {
-    return (<h4 key={id}>● {mart}</h4>)
+    return (
+        <div key={id} className='edit-info'>
+            <h4 >● {mart}</h4>
+        </div>)
 }
 
 

@@ -2,7 +2,11 @@ import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import uuid from 'react-uuid'
 const showInfo = (mart, id) => {
-    return (<h4 key={id}>● {mart}</h4>)
+    return (
+        <div key={id} className='edit-info'>
+            <h4 >● {mart}</h4>
+        </div>
+    )
 }
 
 // Show Editable Mart.
