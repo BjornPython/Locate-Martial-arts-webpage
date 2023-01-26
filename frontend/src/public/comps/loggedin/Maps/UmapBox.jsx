@@ -20,7 +20,7 @@ function UmapBox({ info }) {
 
     useEffect(() => {
         console.log("INFO RECEIVED IN MAPBOX: ", info);
-        if (info === null) { return }
+        if (!info) { return }
         if (info.location.lat && info.location.long) {
             setUserInfo({ lat: info.location.lat, long: info.location.long })
         }
