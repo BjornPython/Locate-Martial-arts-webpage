@@ -16,25 +16,7 @@ const markerIcon = L.icon({
 
 
 
-function UmapBox({ info }) {
-
-    useEffect(() => {
-        console.log("INFO RECEIVED IN MAPBOX: ", info);
-        if (!info) { return }
-        if (info.location.lat && info.location.long) {
-            setUserInfo({ lat: info.location.lat, long: info.location.long })
-        }
-    }, [info])
-
-    const userMarker = useRef(null)
-
-
-    const [userInfo, setUserInfo] = useState({
-        lat: 12.8797,
-        long: 121.7740,
-
-    })
-    const { lat, long } = userInfo
+function UmapBox({ lat, long }) {
 
 
     const [mapCenter, setMapCenter] = useState([lat, long])
@@ -46,7 +28,6 @@ function UmapBox({ info }) {
     const updateUserLocation = async (lat, long) => {
         // const response = apiService.updateUserInfo(user, { location: { lat, long } })
         // console.log("RESPONSE: ", response);
-        console.log(userMarker.current._latlng);
     }
 
     const eventHandlers = useMemo(() => ({
@@ -63,7 +44,7 @@ function UmapBox({ info }) {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker ref={userMarker} eventHandlers={eventHandlers} position={mapCenter} draggable={true} icon={markerIcon}>
+                <Marker eventHandlers={eventHandlers} position={mapCenter} draggable={true} icon={markerIcon}>
                     <Popup>
                         <h4>Your Position</h4> <br />
                         <button onClick={() => { updateUserLocation() }} >Set this as your location</button>

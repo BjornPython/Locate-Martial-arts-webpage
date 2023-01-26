@@ -40,7 +40,9 @@ function Uhome() {
         setInfo({ ...response.data })
     }
 
-
+    useEffect(() => {
+        console.log("INFO: ", info);
+    }, [info])
 
 
     const [currentPage, setCurrentPage] = useState("search")
