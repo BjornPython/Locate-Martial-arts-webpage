@@ -21,6 +21,7 @@ function UmapBox({ lat, long }) {
 
     const [mapCenter, setMapCenter] = useState([lat, long])
 
+
     const changeMapCenter = (lat, long) => {
         setMapCenter([lat, long])
     }

@@ -20,16 +20,13 @@ function Uhome() {
     const navigate = useNavigate()
     // redirect user to "/" if logged in
     useEffect(() => {
-        console.log("USER CHANGED IN UHOME");
         if (!user) {
-            console.log("NO USER, LOGGING OUT");
             navigate("/")
         }
     }, [user])
 
 
     useEffect(() => {
-        console.log("SETTING INFO");
         getUserInfo()
     }, [])
 
@@ -41,7 +38,6 @@ function Uhome() {
     }
 
     useEffect(() => {
-        console.log("INFO: ", info);
     }, [info])
 
 
