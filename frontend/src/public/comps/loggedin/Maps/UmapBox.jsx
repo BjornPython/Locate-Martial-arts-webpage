@@ -5,27 +5,15 @@ import "../../../css/loggedin/Umaps/umapBox.css"
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { useState } from 'react';
 import apiService from '../../../../features/apis/apiService';
+import HelperComponent from './HelperComponent';
+
+
 const markerIcon = L.icon({
     iconUrl: require("../../../images/icons/place.png"),
     iconRetinaUrl: require("../../../images/icons/place.png"),
     iconSize: [42, 42]
 })
 
-const ChangeMapCenter = ({ lat, long, changeMapCenter }) => {
-    const map = useMap();
-
-    useEffect(() => {
-        if (lat && long) {
-            console.log("LAT LONG RECEIVED: ", [lat, long]);
-            map.setView([lat, long], 18)
-            changeMapCenter(lat, long)
-
-        } else {
-            console.log("NO LAT LONG");
-        }
-
-    }, [lat, long])
-}
 
 
 function UmapBox({ info }) {
@@ -81,7 +69,7 @@ function UmapBox({ info }) {
                         <button onClick={() => { updateUserLocation() }} >Set this as your location</button>
                     </Popup>
                 </Marker>
-                < ChangeMapCenter lat={lat} long={long} changeMapCenter={changeMapCenter} />
+                < HelperComponent lat={lat} long={long} changeMapCenter={changeMapCenter} />
             </MapContainer>
         </div>
     )
