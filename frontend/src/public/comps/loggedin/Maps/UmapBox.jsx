@@ -16,17 +16,15 @@ const markerIcon = L.icon({
 
 
 
-function UmapBox({ lat, long, updateUserInfo }) {
+function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation }) {
 
-    const updateUserLocation = async (lat, long) => {
-        // const response = apiService.updateUserInfo(user, { location: { lat, long } })
-        // console.log("RESPONSE: ", response);
+    const updateUserLocation = async () => {
+        updateNewUserLocation()
     }
 
     const eventHandlers = useMemo(() => ({
         dragend(e) {
             const latlng = e.target.getLatLng()
-            console.log("LATLNG: ", latlng);
             updateUserInfo(latlng.lat, latlng.lng)
         },
     }))

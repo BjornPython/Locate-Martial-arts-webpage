@@ -32,7 +32,6 @@ function Umaps({ user, info, getUserInfo }) {
 
     const updateUserDbLoc = async () => {
         const response = await apiService.updateUserInfo(user, newUserLocation)
-        getUserInfo()
         return response
     }
 

@@ -49,6 +49,7 @@ const getUserInfo = async (token) => {
 }
 
 const updateUserInfo = async (token, newUserInfo) => {
+  console.log("SENDING TOKEN: ", token);
   const response = await axios.post(USERS_API_ENDPOINT + "/update", {newUserInfo}, {headers: {
     Authorization: `Bearer ${token}`
   }})

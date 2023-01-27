@@ -9,7 +9,6 @@ const ChangeMapCenter = ({ lat, long }) => {
 
     useEffect(() => {
         if (lat && long) {
-            console.log("LAT LONG RECEIVED: ", [lat, long]);
             map.setView([lat, long], 18)
 
         }
@@ -22,7 +21,6 @@ const MoveMarkerOnClick = ({ updateUserInfo }) => {
 
     useEffect(() => {
         map.on("click", (e) => {
-            console.log("MAP CLICKED: ", e.latlng);
             updateUserInfo(e.latlng.lat, e.latlng.lng)
         })
     }, [])
