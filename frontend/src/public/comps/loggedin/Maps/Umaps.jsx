@@ -88,6 +88,7 @@ function Umaps({ user, info, getUserInfo }) {
     const getMarkerLocations = async () => {
         console.log("GETTING MARKER LOCATIONS");
         const location = newUserLocation ? newUserLocation : { lat, long }
+        console.log("SENDING LOCATION: ", location);
         if (selectedLfs.includes("GYM")) {
             const res = await apiService.findGyms(location, JSON.stringify(lookingForMarts))
             console.log("RESPONSE: ", res);

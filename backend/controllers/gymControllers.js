@@ -107,6 +107,7 @@ const getGyms = asyncHandler(async (req, res) => {
             const searchMarts = jsonMarts.map((art) => {
                 return {[`marts.${art}`]: {$exists: true}}
             })
+            console.log("SEARCHMARTS: ", searchMarts);
             const gyms = await Gym.find(
                 {$and: 
                     [
