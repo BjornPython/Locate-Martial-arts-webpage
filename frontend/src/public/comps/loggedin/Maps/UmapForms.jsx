@@ -65,6 +65,13 @@ function UmapForms({ updateUserInfo }) {
 
     const getUserLocation = (e) => {
         e.preventDefault()
+        navigator.geolocation.getCurrentPosition((res) => {
+            console.log("SUCCESS: ", res);
+            updateUserInfo(res.coords.latitude, res.coords.longitude)
+        }, (error) => {
+            console.log("ERROR: ", error);
+        })
+
     }
 
     const searchAddress = (e) => {
