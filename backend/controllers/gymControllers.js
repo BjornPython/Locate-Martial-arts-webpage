@@ -103,6 +103,7 @@ const getGyms = asyncHandler(async (req, res) => {
         if (marts) {
             console.log("HERE3");
             const jsonMarts = JSON.parse(marts)
+            console.log("JSONMARTS: ", jsonMarts);
             const searchMarts = jsonMarts.map((art) => {
                 return {[`marts.${art}`]: {$exists: true}}
             })
