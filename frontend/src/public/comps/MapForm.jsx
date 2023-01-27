@@ -144,7 +144,7 @@ function MapForm({ handleSearch, setSearchInfo }) {
                 console.log("CALLING PROVIDER.SEARCH()");
                 const res = await provider.search({ query: address })
 
-                // do something after 2 seconds of no state changes
+                // do something after .3 seconds of no state changes
                 if (address === "") {
                     setAddressResults([])
                     setShowSuggestions(false)

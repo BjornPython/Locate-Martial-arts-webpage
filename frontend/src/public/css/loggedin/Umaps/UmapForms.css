@@ -1,0 +1,14 @@
+.u-map-css {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.u-address-input {
+    width: 400px;
+    height: 40px;
+    font-size: 1.2rem;
+    padding-left: 5px;
+}
