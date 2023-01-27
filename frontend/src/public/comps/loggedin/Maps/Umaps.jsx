@@ -85,9 +85,31 @@ function Umaps({ user, info, getUserInfo }) {
         })
     }
 
+    const getMarkerLocations = async () => {
+        console.log("GETTING MARKER LOCATIONS");
+        const location = newUserLocation ? newUserLocation : { lat, long }
+        if (selectedLfs.includes("GYM")) {
+            const res = await apiService.findGyms(location, lookingForMarts)
+            console.log("RESPONSE: ", res);
+            setMarkerPoints((prevState) => {
+                const newState = { ...prevState, gyms: res.data }
+                return newState
+            })
+        }
+
+        if (selectedLfs.includes("COACH")) {
+
+        }
+
+        if (selectedLfs.includes("SPARTNER")) {
+
+        }
+    }
+
     return (
         <div className='u-maps-page'>
-            <UmapForms updateUserInfo={updateUserInfo} selectedLfs={selectedLfs} toggleLf={toggleLf} toggleLookingForMart={toggleLookingForMart} />
+            <UmapForms updateUserInfo={updateUserInfo} selectedLfs={selectedLfs} toggleLf={toggleLf} toggleLookingForMart={toggleLookingForMart}
+                getMarkerLocations={getMarkerLocations} />
             <UmapBox lat={lat} long={long} updateNewUserLocation={updateNewUserLocation} updateUserInfo={updateUserInfo} markerPoints={markerPoints} />
         </div>
     )

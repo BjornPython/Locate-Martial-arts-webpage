@@ -70,7 +70,9 @@ const getGyms = asyncHandler(async (req, res) => {
     console.log("REQ.BODY: ", req.body);
     let { marts } = req.body
     let { lat, long } = req.body.location
-    if (marts === "[]") {marts = null}
+    if (marts === "[]" || marts === [] || marts.length < 1) {marts = null}
+    console.log("MARTS: ", marts);
+    console.log("MARTS TYPE: ", typeof(marts));
     // If location is not sent, 
     if (!lat || !long || lat === null || long === null) {
         // if martial arts are given, get gyms that has one of the martial arts.

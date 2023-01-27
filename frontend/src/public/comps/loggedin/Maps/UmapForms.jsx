@@ -9,7 +9,7 @@ import UlookingFor from './UlookingFor';
 import UmartsDropdown from './UmartsDropdown';
 import UmapSearchBtn from './UmapSearchBtn';
 
-function UmapForms({ updateUserInfo, selectedLfs, toggleLf, lookingForMarts, toggleLookingForMart }) {
+function UmapForms({ updateUserInfo, selectedLfs, toggleLf, toggleLookingForMart, getMarkerLocations }) {
     const provider = new OpenStreetMapProvider();
 
     const [searchedAddress, setSearchedAddress] = useState({
@@ -114,7 +114,7 @@ function UmapForms({ updateUserInfo, selectedLfs, toggleLf, lookingForMarts, tog
                 <UlookingFor selectedLfs={selectedLfs} toggleLf={toggleLf} />
                 <UmartsDropdown toggleLookingForMart={toggleLookingForMart} />
                 <UsearchResults showSearchResults={showSearchResults} searchResults={searchResults} updateUserInfo={updateUserInfo} hideSearchResults={hideSearchResults} />
-                <UmapSearchBtn />
+                <UmapSearchBtn getMarkerLocations={getMarkerLocations} />
             </div>
 
         </>

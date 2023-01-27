@@ -16,7 +16,13 @@ const markerIcon = L.icon({
 
 
 
-function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation }) {
+function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation, markerPoints }) {
+
+    const { gyms, coaches, spartners } = markerPoints
+
+    useEffect(() => {
+        console.log("NEW GYMS: ", gyms);
+    }, [gyms])
 
     const updateUserLocation = async () => {
         updateNewUserLocation()
