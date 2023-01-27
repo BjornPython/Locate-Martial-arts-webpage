@@ -16,15 +16,7 @@ const markerIcon = L.icon({
 
 
 
-function UmapBox({ lat, long }) {
-
-
-    const [mapCenter, setMapCenter] = useState([lat, long])
-
-
-    const changeMapCenter = (lat, long) => {
-        setMapCenter([lat, long])
-    }
+function UmapBox({ lat, long, updateUserInfo }) {
 
     const updateUserLocation = async (lat, long) => {
         // const response = apiService.updateUserInfo(user, { location: { lat, long } })
@@ -35,23 +27,24 @@ function UmapBox({ lat, long }) {
         dragend(e) {
             const latlng = e.target.getLatLng()
             console.log("LATLNG: ", latlng);
+            updateUserInfo(latlng.lat, latlng.lng)
         },
     }))
 
     return (
         <div className='u-map-box'>
-            <MapContainer center={mapCenter} zoom={5} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
+            <MapContainer center={[lat, long]} zoom={5} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker eventHandlers={eventHandlers} position={mapCenter} draggable={true} icon={markerIcon}>
+                <Marker eventHandlers={eventHandlers} position={[lat, long]} draggable={true} icon={markerIcon}>
                     <Popup>
                         <h4>Your Position</h4> <br />
                         <button onClick={() => { updateUserLocation() }} >Set this as your location</button>
                     </Popup>
                 </Marker>
-                < HelperComponent lat={lat} long={long} changeMapCenter={changeMapCenter} />
+                < HelperComponent lat={lat} long={long} updateUserInfo={updateUserInfo} />
             </MapContainer>
         </div>
     )

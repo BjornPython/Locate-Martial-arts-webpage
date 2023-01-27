@@ -15,33 +15,29 @@ import apiService from '../../../features/apis/apiService'
 
 function Uhome() {
 
-    // Check for if user is logged in.
-    const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth)
     const navigate = useNavigate()
-    // redirect user to "/" if logged in
+
+    const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth)
+    const [info, setInfo] = useState(null)
+    const [currentPage, setCurrentPage] = useState("search")
+
+
     useEffect(() => {
         if (!user) {
             navigate("/")
         }
     }, [user])
 
-
     useEffect(() => {
         getUserInfo()
     }, [])
 
-    const [info, setInfo] = useState(null)
 
     const getUserInfo = async () => {
         const response = await apiService.getUserInfo(user);
         setInfo({ ...response.data })
     }
 
-    useEffect(() => {
-    }, [info])
-
-
-    const [currentPage, setCurrentPage] = useState("search")
 
     const changePage = (page) => {
         if (page === currentPage) { return }

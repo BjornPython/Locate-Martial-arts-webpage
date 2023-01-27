@@ -9,16 +9,18 @@ function Umaps({ user, info, getUserInfo }) {
 
     const [userInfo, setUserInfo] = useState({
         lat: 12.8797,
-        long: 121.7740,
+        long: 121.7740
 
     })
     const { lat, long } = userInfo
 
     const [newUserLocation, setNewUserLocation] = useState(null)
 
+
+
     useEffect(() => {
         if (newUserLocation === null) { return }
-        updateUserLocation(newUserLocation)
+        updateUserDbLoc(newUserLocation)
     }, [newUserLocation])
 
     useEffect(() => {
@@ -28,20 +30,26 @@ function Umaps({ user, info, getUserInfo }) {
         }
     }, [info])
 
-    const updateUserLocation = async () => {
+    const updateUserDbLoc = async () => {
         const response = await apiService.updateUserInfo(user, newUserLocation)
         getUserInfo()
         return response
+    }
+
+    const updateUserInfo = (lat, long) => {
+        setUserInfo({ lat, long })
     }
 
     const updateNewUserLocation = () => {
         setNewUserLocation({ location: { lat, long } })
     }
 
+
+
     return (
         <div className='u-maps-page'>
             <UmapForms />
-            <UmapBox lat={lat} long={long} updateNewUserLocation={updateNewUserLocation} setUserInfo={setUserInfo} />
+            <UmapBox lat={lat} long={long} updateNewUserLocation={updateNewUserLocation} updateUserInfo={updateUserInfo} />
         </div>
     )
 }
