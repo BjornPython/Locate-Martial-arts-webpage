@@ -7,6 +7,7 @@ import UsearchResults from './UsearchResults';
 import ShowError from './ShowError';
 import UlookingFor from './UlookingFor';
 import UmartsDropdown from './UmartsDropdown';
+import UmapSearchBtn from './UmapSearchBtn';
 
 function UmapForms({ updateUserInfo }) {
     const provider = new OpenStreetMapProvider();
@@ -86,7 +87,8 @@ function UmapForms({ updateUserInfo }) {
 
     const searchAddress = (e) => {
         e.preventDefault()
-
+        updateUserInfo(searchResults[0].lat, searchResults[0].long)
+        hideSearchResults()
     }
 
     const hideSearchResults = () => {
@@ -97,16 +99,19 @@ function UmapForms({ updateUserInfo }) {
         <>
             <div className='u-map-css'>
                 <ShowError showError={showError.show} error={showError.errorMessage} />
-                <UsearchResults showSearchResults={showSearchResults} searchResults={searchResults} updateUserInfo={updateUserInfo} hideSearchResults={hideSearchResults} />
 
                 <form className='address-forms' >
                     <button onClick={getUserLocation} className="u-loc-btn"><FontAwesomeIcon className='u-loc-icon' icon={faLocation} /></button>
-                    <input className='u-address-input' type="text" name='searchQuery' value={searchQuery} onChange={changeSearchedAddress} />
+                    <input className='u-address-input' type="text" name='searchQuery' value={searchQuery} onChange={changeSearchedAddress} placeholder="Search Your Area's Address" />
                     <button onClick={searchAddress} ><FontAwesomeIcon className='u-search-icon' icon={faSearch} /></button>
                 </form>
 
+                <hr className='u-map-form-hr' />
+
                 <UlookingFor />
                 <UmartsDropdown />
+                <UsearchResults showSearchResults={showSearchResults} searchResults={searchResults} updateUserInfo={updateUserInfo} hideSearchResults={hideSearchResults} />
+                <UmapSearchBtn />
             </div>
 
         </>

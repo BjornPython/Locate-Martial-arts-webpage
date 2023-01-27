@@ -45,6 +45,18 @@
     padding-left: 5px;
 }
 
+.u-address-input::placeholder {
+    color: gray;
+}
+
+.u-map-form-hr {
+    width: 100%;
+    margin-top: 20px;
+    height: 1.5px;
+    border: none;
+    background-color: black;
+}
+
 .display-error {
     position: absolute;
     top: -50px;
@@ -63,6 +75,7 @@
 }
 
 .u-searchres-div {
+    background-color: white;
     position: absolute;
     top: 50px;
     width: 327px;
@@ -87,7 +100,7 @@
     justify-content: space-between;
     margin-right: 5px;
     margin-left: 5px;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .u-lf-div {
@@ -176,4 +189,21 @@
 
 .u-marts-div h4 {
     margin-left: 10px;
+}
+
+.u-search-btn-div {
+    cursor: pointer;
+    background-color: yellow;
+    border: black 2px solid;
+    height: 40px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    margin-top: 20px;
+}
+
+.u-search-btn-div h2 {
+    font-weight: 500;
 }
