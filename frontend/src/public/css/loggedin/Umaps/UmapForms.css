@@ -14,7 +14,6 @@
 
 .address-forms button {
     width: 45px;
-    margin-right: 3px;
     border-radius: 0px;
     border-width: 1px;
     background-color: black;
@@ -25,6 +24,10 @@
 .address-forms button:hover {
     background-color: gray;
     transition: background-color 0.2s ease-in;
+}
+
+.u-loc-btn {
+    margin-right: 3px;
 }
 
 .u-loc-icon {
@@ -41,6 +44,19 @@
     font-size: 1.2rem;
     padding-left: 5px;
 }
+
+.display-error {
+    position: absolute;
+    top: -50px;
+    color: red;
+    opacity: 0;
+}
+
+.display-error-active {
+    opacity: 1;
+    transition: 0.2s ease-in-out;
+}
+
 
 .u-search-icon {
     height: 25px;
@@ -64,3 +80,44 @@
     cursor: pointer;
 }
 
+.u-lf-for {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    justify-content: space-between;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 40px;
+}
+
+.u-lf-div {
+    display: flex;
+    background-color: black;
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 110px;
+}
+
+.u-lf-btn {
+    height: 100%;
+    color: white;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.u-lf-span {
+    height: 100%;
+    width: 0px;
+    background-color: red;
+    border: none;
+    transition: width 0.2s ease-in;
+}
+
+.u-lf-span-active {
+    transition: width 0.2s ease-in;
+    width: 5px;
+}

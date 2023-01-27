@@ -4,7 +4,8 @@ import "../../../css/loggedin/Umaps/UmapForms.css"
 import { faLocation, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UsearchResults from './UsearchResults';
-
+import ShowError from './ShowError';
+import UlookingFor from './UlookingFor';
 
 function UmapForms({ updateUserInfo }) {
     const provider = new OpenStreetMapProvider();
@@ -19,6 +20,8 @@ function UmapForms({ updateUserInfo }) {
     const [showSearchResults, setShowSearchResults] = useState(false)
 
     const [timeoutId, setTimeoutId] = useState(null);
+
+    const [showError, setShowError] = useState({ show: false, errorMessage: "" })
 
     useEffect(() => {
         if (searchResults.length > 1) {
@@ -53,7 +56,11 @@ function UmapForms({ updateUserInfo }) {
         fetchAddresses()
     }, [searchQuery])
 
-
+    const hideError = () => {
+        setTimeout(() => {
+            setShowError({ show: false, message: "" })
+        }, 3000);
+    }
 
 
     const changeSearchedAddress = (e) => {
@@ -70,6 +77,8 @@ function UmapForms({ updateUserInfo }) {
             updateUserInfo(res.coords.latitude, res.coords.longitude)
         }, (error) => {
             console.log("ERROR: ", error);
+            setShowError({ show: true, errorMessage: error.message })
+            hideError()
         })
 
     }
@@ -86,14 +95,16 @@ function UmapForms({ updateUserInfo }) {
     return (
         <>
             <div className='u-map-css'>
+                <ShowError showError={showError.show} error={showError.errorMessage} />
+                <UsearchResults showSearchResults={showSearchResults} searchResults={searchResults} updateUserInfo={updateUserInfo} hideSearchResults={hideSearchResults} />
+
                 <form className='address-forms' >
-                    <button onClick={getUserLocation}><FontAwesomeIcon className='u-loc-icon' icon={faLocation} /></button>
+                    <button onClick={getUserLocation} className="u-loc-btn"><FontAwesomeIcon className='u-loc-icon' icon={faLocation} /></button>
                     <input className='u-address-input' type="text" name='searchQuery' value={searchQuery} onChange={changeSearchedAddress} />
                     <button onClick={searchAddress} ><FontAwesomeIcon className='u-search-icon' icon={faSearch} /></button>
                 </form>
 
-                <UsearchResults showSearchResults={showSearchResults} searchResults={searchResults} updateUserInfo={updateUserInfo} hideSearchResults={hideSearchResults} />
-
+                <UlookingFor />
             </div>
 
         </>
