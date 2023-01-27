@@ -21,13 +21,20 @@ function UmapForms({ updateUserInfo }) {
     const [timeoutId, setTimeoutId] = useState(null);
 
     useEffect(() => {
+        if (searchResults.length > 1) {
+            setShowSearchResults(true)
+        } else {
+            setShowSearchResults(false)
+        }
+    }, [searchResults])
+
+    useEffect(() => {
         const fetchAddresses = async () => {
 
             if (timeoutId) {
                 clearTimeout(timeoutId);
             }
             setTimeoutId(setTimeout(async () => {
-                console.log("CALLING PROVIDER.SEARCH()");
                 const res = await provider.search({ query: searchQuery })
                 // do something after .3 seconds of no state changes
                 if (searchQuery === "") {
@@ -75,7 +82,7 @@ function UmapForms({ updateUserInfo }) {
                     <button onClick={searchAddress} ><FontAwesomeIcon className='u-search-icon' icon={faSearch} /></button>
                 </form>
 
-                <UsearchResults searchResults={searchResults} updateUserInfo={updateUserInfo} />
+                <UsearchResults showSearchResults={showSearchResults} searchResults={searchResults} updateUserInfo={updateUserInfo} />
 
             </div>
 

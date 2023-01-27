@@ -8,17 +8,28 @@ const ShowResult = ({ result, updateUserInfo }) => {
 }
 
 
-function UsearchResults({ searchResults, updateUserInfo }) {
+function UsearchResults({ showSearchResults, searchResults, updateUserInfo }) {
 
-    return (
-        <div className='u-searchres-div'>
-            {searchResults.map((result, index) => {
-                return (
-                    <ShowResult key={index} result={result} updateUserInfo={updateUserInfo}></ShowResult>
-                )
-            })}
-        </div >
-    )
+
+    if (showSearchResults) {
+        console.log("SHOW SEARCH RESULTS");
+        return (
+            <div className='u-searchres-div'>
+                {searchResults.map((result, index) => {
+                    return (
+                        <ShowResult key={index} result={result} updateUserInfo={updateUserInfo}></ShowResult>
+                    )
+                })}
+            </div >
+        )
+    } else {
+        return (
+            <>
+            </>
+        )
+    }
+
+
 }
 
 export default UsearchResults
