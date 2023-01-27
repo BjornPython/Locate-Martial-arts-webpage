@@ -97,6 +97,12 @@
     color: white;
     cursor: pointer;
     width: 110px;
+    transition: background-color 0.2s ease-in;
+}
+
+.u-lf-div:hover {
+    transition: background-color 0.2s ease-in;
+    background-color: gray;
 }
 
 .u-lf-btn {
@@ -120,4 +126,54 @@
 .u-lf-span-active {
     transition: width 0.2s ease-in;
     width: 5px;
+}
+
+.u-lf-marts-div {
+    align-self: flex-start;
+    margin-top: 40px;
+    width: 250px;
+    color: white;
+    position: relative;
+}
+
+.u-lf-marts-box {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 40px;
+    margin: 0;
+    border: black solid 1px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+}
+
+.u-lf-marts-box h3 {
+    margin: 0;
+}
+
+.u-lf-marts-dropdown {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    margin-top: 8px;
+    border-radius: 5px;
+    height: 300px;
+    width: 250px;
+    overflow-y: scroll;
+    position: absolute;
+}
+
+.u-marts-div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+}
+
+.u-marts-div h4 {
+    margin-left: 10px;
 }

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UsearchResults from './UsearchResults';
 import ShowError from './ShowError';
 import UlookingFor from './UlookingFor';
+import UmartsDropdown from './UmartsDropdown';
 
 function UmapForms({ updateUserInfo }) {
     const provider = new OpenStreetMapProvider();
@@ -105,6 +106,7 @@ function UmapForms({ updateUserInfo }) {
                 </form>
 
                 <UlookingFor />
+                <UmartsDropdown />
             </div>
 
         </>
