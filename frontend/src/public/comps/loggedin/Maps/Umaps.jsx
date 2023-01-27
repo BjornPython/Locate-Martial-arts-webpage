@@ -17,6 +17,13 @@ function Umaps({ user, info, getUserInfo }) {
     const [newUserLocation, setNewUserLocation] = useState(null)
 
 
+    const [markerPoints, setMarkerPoints] = useState({ gyms: [], coaches: [], spartners: [] })
+
+    const [selectedLfs, setSelectedLfs] = useState([])
+
+    useEffect(() => {
+        console.log("SELECTED LFS: ", selectedLfs);
+    }, [selectedLfs])
 
     useEffect(() => {
         if (newUserLocation === null) { return }
@@ -43,12 +50,26 @@ function Umaps({ user, info, getUserInfo }) {
         setNewUserLocation({ location: { lat, long } })
     }
 
+    const updateMarkerPoints = () => {
+
+    }
+
+    const toggleLf = (lf) => {
+        setSelectedLfs((prevState) => {
+            if (prevState.includes(lf)) {
+                const newValue = prevState.filter(item => item !== lf)
+                return newValue
+            } else {
+                return [...prevState, lf]
+            }
+        })
+    }
 
 
     return (
         <div className='u-maps-page'>
-            <UmapForms updateUserInfo={updateUserInfo} />
-            <UmapBox lat={lat} long={long} updateNewUserLocation={updateNewUserLocation} updateUserInfo={updateUserInfo} />
+            <UmapForms updateUserInfo={updateUserInfo} selectedLfs={selectedLfs} toggleLf={toggleLf} />
+            <UmapBox lat={lat} long={long} updateNewUserLocation={updateNewUserLocation} updateUserInfo={updateUserInfo} markerPoints={markerPoints} />
         </div>
     )
 }

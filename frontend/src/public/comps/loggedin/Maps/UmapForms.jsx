@@ -9,7 +9,7 @@ import UlookingFor from './UlookingFor';
 import UmartsDropdown from './UmartsDropdown';
 import UmapSearchBtn from './UmapSearchBtn';
 
-function UmapForms({ updateUserInfo }) {
+function UmapForms({ updateUserInfo, selectedLfs, toggleLf }) {
     const provider = new OpenStreetMapProvider();
 
     const [searchedAddress, setSearchedAddress] = useState({
@@ -24,6 +24,8 @@ function UmapForms({ updateUserInfo }) {
     const [timeoutId, setTimeoutId] = useState(null);
 
     const [showError, setShowError] = useState({ show: false, errorMessage: "" })
+
+
 
     useEffect(() => {
         if (searchResults.length > 1) {
@@ -95,6 +97,7 @@ function UmapForms({ updateUserInfo }) {
         if (showSearchResults) { setShowSearchResults(false) }
     }
 
+
     return (
         <>
             <div className='u-map-css'>
@@ -108,7 +111,7 @@ function UmapForms({ updateUserInfo }) {
 
                 <hr className='u-map-form-hr' />
 
-                <UlookingFor />
+                <UlookingFor selectedLfs={selectedLfs} toggleLf={toggleLf} />
                 <UmartsDropdown />
                 <UsearchResults showSearchResults={showSearchResults} searchResults={searchResults} updateUserInfo={updateUserInfo} hideSearchResults={hideSearchResults} />
                 <UmapSearchBtn />

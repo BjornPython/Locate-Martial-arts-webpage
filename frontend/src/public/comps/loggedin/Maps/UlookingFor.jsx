@@ -17,23 +17,9 @@ const LookingFors = ({ value, toggleLf }) => {
 }
 
 
-function UlookingFor() {
+function UlookingFor({ selectedLfs, toggleLf }) {
 
-    const [selectedLfs, setSelectedLfs] = useState([])
-    useEffect(() => {
-        console.log("SELECTED LFS: ", selectedLfs);
-    }, [selectedLfs])
 
-    const toggleLf = (lf) => {
-        setSelectedLfs((prevState) => {
-            if (prevState.includes(lf)) {
-                const newValue = prevState.filter(item => item !== lf)
-                return newValue
-            } else {
-                return [...prevState, lf]
-            }
-        })
-    }
 
     return (
         <div className='u-lf-for'>
