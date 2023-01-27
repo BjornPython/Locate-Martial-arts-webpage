@@ -42,27 +42,11 @@ const DropDownMarts = ({ showDropdown, toggleLookingForMart }) => {
 
 
 
-function UmartsDropdown() {
+function UmartsDropdown({ toggleLookingForMart }) {
 
     const [showDropdown, setShowDropdown] = useState(false)
 
-    const [lookingForMarts, setLookingForMarts] = useState([])
 
-    useEffect(() => {
-        console.log("NEW LOOKING FOR MARTS: ", lookingForMarts);
-    }, [lookingForMarts])
-
-    const toggleLookingForMart = (mart) => {
-        setLookingForMarts((prevState) => {
-            if (prevState.includes(mart)) {
-                const newState = prevState.filter(value => value !== mart)
-                return newState
-            } else {
-                const newState = [...prevState, mart]
-                return newState
-            }
-        })
-    }
 
 
     const toggleShowDropdown = () => {

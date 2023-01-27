@@ -17,7 +17,7 @@ const LookingFors = ({ value, toggleLf }) => {
 }
 
 
-function UlookingFor({ selectedLfs, toggleLf }) {
+function UlookingFor({ toggleLf }) {
 
 
 

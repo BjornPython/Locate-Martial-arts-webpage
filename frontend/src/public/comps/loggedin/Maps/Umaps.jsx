@@ -21,6 +21,14 @@ function Umaps({ user, info, getUserInfo }) {
 
     const [selectedLfs, setSelectedLfs] = useState([])
 
+    const [lookingForMarts, setLookingForMarts] = useState([])
+
+    useEffect(() => {
+        console.log("NEW LOOKING FOR MARTS: ", lookingForMarts);
+    }, [lookingForMarts])
+
+
+
     useEffect(() => {
         console.log("SELECTED LFS: ", selectedLfs);
     }, [selectedLfs])
@@ -65,10 +73,21 @@ function Umaps({ user, info, getUserInfo }) {
         })
     }
 
+    const toggleLookingForMart = (mart) => {
+        setLookingForMarts((prevState) => {
+            if (prevState.includes(mart)) {
+                const newState = prevState.filter(value => value !== mart)
+                return newState
+            } else {
+                const newState = [...prevState, mart]
+                return newState
+            }
+        })
+    }
 
     return (
         <div className='u-maps-page'>
-            <UmapForms updateUserInfo={updateUserInfo} selectedLfs={selectedLfs} toggleLf={toggleLf} />
+            <UmapForms updateUserInfo={updateUserInfo} selectedLfs={selectedLfs} toggleLf={toggleLf} toggleLookingForMart={toggleLookingForMart} />
             <UmapBox lat={lat} long={long} updateNewUserLocation={updateNewUserLocation} updateUserInfo={updateUserInfo} markerPoints={markerPoints} />
         </div>
     )
