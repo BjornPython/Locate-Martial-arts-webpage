@@ -47,7 +47,7 @@ function Umaps({ user, info, getUserInfo }) {
 
     return (
         <div className='u-maps-page'>
-            <UmapForms />
+            <UmapForms updateUserInfo={updateUserInfo} />
             <UmapBox lat={lat} long={long} updateNewUserLocation={updateNewUserLocation} updateUserInfo={updateUserInfo} />
         </div>
     )

@@ -1,15 +1,23 @@
 import React from 'react'
 
-function UsearchResults({ searchResults }) {
+const ShowResult = ({ result, updateUserInfo }) => {
+
+    return (
+        <h3 onClick={() => { updateUserInfo(result.lat, result.long) }}>{result.label}</h3>
+    )
+}
+
+
+function UsearchResults({ searchResults, updateUserInfo }) {
 
     return (
         <div className='u-searchres-div'>
             {searchResults.map((result, index) => {
                 return (
-                    <h3 key={index}>{result}</h3>
+                    <ShowResult key={index} result={result} updateUserInfo={updateUserInfo}></ShowResult>
                 )
             })}
-        </div>
+        </div >
     )
 }
 

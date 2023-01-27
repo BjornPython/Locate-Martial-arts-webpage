@@ -50,6 +50,7 @@
     position: absolute;
     top: 50px;
     width: 327px;
+    max-width: 327px;
     border: black 1px solid;
 
 }
@@ -62,3 +63,4 @@
     color: gray;
     cursor: pointer;
 }
+
