@@ -72,6 +72,9 @@ function UmapForms({ updateUserInfo }) {
 
     }
 
+    const hideSearchResults = () => {
+        if (showSearchResults) { setShowSearchResults(false) }
+    }
 
     return (
         <>
@@ -82,7 +85,7 @@ function UmapForms({ updateUserInfo }) {
                     <button onClick={searchAddress} ><FontAwesomeIcon className='u-search-icon' icon={faSearch} /></button>
                 </form>
 
-                <UsearchResults showSearchResults={showSearchResults} searchResults={searchResults} updateUserInfo={updateUserInfo} />
+                <UsearchResults showSearchResults={showSearchResults} searchResults={searchResults} updateUserInfo={updateUserInfo} hideSearchResults={hideSearchResults} />
 
             </div>
 

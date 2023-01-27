@@ -1,23 +1,26 @@
 import React from 'react'
 
-const ShowResult = ({ result, updateUserInfo }) => {
+const ShowResult = ({ result, updateUserInfo, hideSearchResults }) => {
 
     return (
-        <h3 onClick={() => { updateUserInfo(result.lat, result.long) }}>{result.label}</h3>
+        <h3 onClick={() => {
+            updateUserInfo(result.lat, result.long); hideSearchResults()
+        }}>
+            {result.label}
+        </h3>
     )
 }
 
 
-function UsearchResults({ showSearchResults, searchResults, updateUserInfo }) {
+function UsearchResults({ showSearchResults, searchResults, updateUserInfo, hideSearchResults }) {
 
 
     if (showSearchResults) {
-        console.log("SHOW SEARCH RESULTS");
         return (
             <div className='u-searchres-div'>
                 {searchResults.map((result, index) => {
                     return (
-                        <ShowResult key={index} result={result} updateUserInfo={updateUserInfo}></ShowResult>
+                        <ShowResult key={index} result={result} updateUserInfo={updateUserInfo} hideSearchResults={hideSearchResults}></ShowResult>
                     )
                 })}
             </div >
