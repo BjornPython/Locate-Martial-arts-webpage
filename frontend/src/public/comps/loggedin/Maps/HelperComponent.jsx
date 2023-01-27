@@ -1,6 +1,32 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
+import L from "leaflet"
+import { Marker, Popup } from 'react-leaflet';
+
+
+const GymMarkerIcon = L.icon({
+    iconUrl: require("../../../images/icons/punching-bag.png"),
+    iconRetinaUrl: require("../../../images/icons/punching-bag.png"),
+    iconSize: [42, 42]
+
+})
+
+const CoachMarkerIcon = L.icon({
+    iconUrl: require("../../../images/icons/coach.png"),
+    iconRetinaUrl: require("../../../images/icons/coach.png"),
+    iconSize: [42, 42]
+
+})
+
+const StudentMarkerIcon = L.icon({
+    iconUrl: require("../../../images/icons/student.png"),
+    iconRetinaUrl: require("../../../images/icons/student.png"),
+    iconSize: [42, 42]
+
+})
+
+
 
 
 // Moves the maps center to the location of the marker.
@@ -26,18 +52,34 @@ const MoveMarkerOnClick = ({ updateUserInfo }) => {
     }, [])
 }
 
+const ShowMarkers = ({ data }) => {
+    console.log("DATA: ", data);
+    return data.map((marker, index) => {
+        console.log("marker: ", marker);
+        console.log("POSITION: ", { lat: marker.location.lat, lng: marker.location.long });
+        return (
+            <Marker
+                key={index}
+                position={[marker.location.lat, marker.location.long]}
+                icon={GymMarkerIcon}
+            >
+                <Popup>{marker.name}</Popup>
+            </Marker>
+        )
+    })
+}
 
 
 
 
 
 
-
-function HelperComponent({ lat, long, updateUserInfo }) {
+function HelperComponent({ lat, long, updateUserInfo, gyms }) {
     return (
         <>
             <ChangeMapCenter lat={lat} long={long} updateUserInfo={updateUserInfo} />
             <MoveMarkerOnClick updateUserInfo={updateUserInfo} />
+            <ShowMarkers data={gyms} />
         </>
     )
 }

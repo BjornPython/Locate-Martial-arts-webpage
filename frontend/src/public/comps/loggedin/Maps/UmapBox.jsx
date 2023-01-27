@@ -22,6 +22,8 @@ function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation, markerPoint
 
     useEffect(() => {
         console.log("NEW GYMS: ", gyms);
+
+
     }, [gyms])
 
     const updateUserLocation = async () => {
@@ -48,7 +50,7 @@ function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation, markerPoint
                         <button onClick={() => { updateUserLocation() }} >Set this as your location</button>
                     </Popup>
                 </Marker>
-                < HelperComponent lat={lat} long={long} updateUserInfo={updateUserInfo} />
+                < HelperComponent lat={lat} long={long} updateUserInfo={updateUserInfo} gyms={gyms} />
             </MapContainer>
         </div>
     )
