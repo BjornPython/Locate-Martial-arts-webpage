@@ -108,7 +108,7 @@ function Umaps({ user, info, getUserInfo }) {
 
     return (
         <div className='u-maps-page'>
-            <UmapForms updateUserInfo={updateUserInfo} selectedLfs={selectedLfs} toggleLf={toggleLf} toggleLookingForMart={toggleLookingForMart}
+            <UmapForms updateUserInfo={updateUserInfo} selectedLfs={selectedLfs} toggleLf={toggleLf} lookingForMarts={lookingForMarts} toggleLookingForMart={toggleLookingForMart}
                 getMarkerLocations={getMarkerLocations} />
             <UmapBox lat={lat} long={long} updateNewUserLocation={updateNewUserLocation} updateUserInfo={updateUserInfo} markerPoints={markerPoints} />
         </div>
