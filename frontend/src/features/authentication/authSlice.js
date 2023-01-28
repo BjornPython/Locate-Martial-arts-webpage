@@ -62,6 +62,8 @@ export const registerGym = createAsyncThunk("/register", async (gym, thunkAPI) =
 
 
 
+
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -71,6 +73,13 @@ const authSlice = createSlice({
             state.isSuccess = false
             state.isLoading = false
             state.message = ""
+        },
+        logout: (state) => {
+            state.isError = false
+            state.isSuccess = false
+            state.isLoading = false
+            state.message = ""
+            state.user = null
         }
     },
     extraReducers: (builder) => {
@@ -107,9 +116,10 @@ const authSlice = createSlice({
             state.message = action.payload
             state.user = null
         })
+
     }
 })
 
-export const { reset } = authSlice.actions
+export const { reset, logout } = authSlice.actions
 
 export default authSlice.reducer

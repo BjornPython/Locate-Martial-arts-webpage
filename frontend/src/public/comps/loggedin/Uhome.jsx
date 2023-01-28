@@ -8,27 +8,33 @@ import "../../css/loggedin/uhome.css"
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // import "../../scripts/userHomeScript.js"
 import "../../scripts/userHomeScript.js"
 import { useMemo } from 'react'
 import apiService from '../../../features/apis/apiService'
+import { logout } from '../../../features/authentication/authSlice'
 
 function Uhome() {
 
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth)
     const [info, setInfo] = useState(null)
     const [currentPage, setCurrentPage] = useState("search")
-
+    const [AppUser, setAppUser] = useState(null)
     const [showLogout, setShowLogout] = useState(false)
 
     useEffect(() => {
         if (!user) {
             navigate("/")
+        } else {
+            console.log("SETTING APP USER");
+            setAppUser(user)
         }
     }, [user])
+
+
 
     useEffect(() => {
         getUserInfo()
@@ -50,10 +56,11 @@ function Uhome() {
         setShowLogout(!showLogout)
     }
 
-    const logoutUser = () => {
-        localStorage.clear(() => {
-            navigate("/")
-        })
+    const CallLogoutUser = () => {
+        localStorage.clear();
+        console.log("LOGGING OUT USER");
+        dispatch(logout())
+
     }
 
 
@@ -70,7 +77,7 @@ function Uhome() {
                 {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages user={user} />}
             </div>
-            <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} logoutUser={logoutUser} />
+            <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>
     )
 }
