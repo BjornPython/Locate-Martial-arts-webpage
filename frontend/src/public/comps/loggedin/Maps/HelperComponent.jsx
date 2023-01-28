@@ -67,16 +67,23 @@ const ShowMarkers = ({ data, markerIcon }) => {
                     <div className='marker-popup-div'>
                         <div className='marker-pop-up-name'>
                             <h3>{marker.name}</h3>
-                            <span className='name-span' />
                             <h4 className='popup-bio'>{marker.coach ? "COACH" : "STUDENT"}</h4>
                         </div>
 
                         <div className='popup-info-div'>
                             <span className='popup-info-span' />
+                            <h4>Looking for sparring partner in: </h4>
+                            <div className='popup-ul'>
+                                {Object.keys(marker.lfSparArts).map((art) => { return <h4>● {art}</h4> })}
+                            </div>
+                        </div>
 
-                            <ul>
-                                {Object.keys()}
-                            </ul>
+                        <div className='popup-info-div'>
+                            <span className='popup-info-span' />
+                            <h4>Coaches: </h4>
+                            <div className='popup-ul'>
+                                {Object.keys(marker.teaches).map((art) => { return <h4>● {art}</h4> })}
+                            </div>
                         </div>
 
                     </div>
