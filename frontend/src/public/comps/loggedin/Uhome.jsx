@@ -50,7 +50,11 @@ function Uhome() {
         setShowLogout(!showLogout)
     }
 
-
+    const logoutUser = () => {
+        localStorage.clear(() => {
+            navigate("/")
+        })
+    }
 
 
     const UprofileMemo = useMemo(() => {
@@ -59,15 +63,15 @@ function Uhome() {
 
 
     return (
-        <div className='uhome-page'>
+        <div className="uhome-page" >
             <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
-            <div className="u-home-pages">
+            <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {currentPage === "search" && <Umaps info={info} user={user} />}
                 {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages user={user} />}
             </div>
-            <UlogoutWarning showLogout={showLogout} />
-        </div>
+            <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} logoutUser={logoutUser} />
+        </ div>
     )
 }
 

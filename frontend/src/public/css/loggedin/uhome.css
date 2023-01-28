@@ -81,5 +81,6 @@ html {
 }
 
 .blurred {
+    transition: 0.1s ease;
     filter: blur(5px);
   }

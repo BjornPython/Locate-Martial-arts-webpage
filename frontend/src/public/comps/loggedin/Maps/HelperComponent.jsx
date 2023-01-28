@@ -53,7 +53,6 @@ const MoveMarkerOnClick = ({ updateUserInfo }) => {
 }
 
 const ShowMarkers = ({ data, markerIcon }) => {
-    console.log("DATA: ", data);
     return data.map((marker, index) => {
         console.log("marker: ", marker);
         console.log("POSITION: ", { lat: marker.location.lat, lng: marker.location.long });
