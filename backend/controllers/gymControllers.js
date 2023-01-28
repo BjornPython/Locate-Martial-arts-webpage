@@ -85,15 +85,13 @@ const getGyms = asyncHandler(async (req, res) => {
 
             let query = {$or: []}
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
-            console.log("SEARCH MARTS: ", searchMarts);
-            const gyms = await Gym.find({$or: searchMarts});
+            const gyms = await Gym.find({$or: searchMarts}).select('-password -email');
             if (gyms) {res.status(200).json(gyms)}
             else {res.status(401).json({message: "Failed to get data from gym database."})}
             // if martial arts are not given, get all gyms.
         } else {
             console.log("HERE2");
-            const gyms = await Gym.find();
-            console.log("GYMS: ", gyms);
+            const gyms = await Gym.find().select('-password -email');
             if (gyms) {res.status(200).json(gyms)}
             else {res.status(401).json({message: "Failed to get data from gym database."})}
         }
@@ -103,11 +101,9 @@ const getGyms = asyncHandler(async (req, res) => {
         if (marts) {
             console.log("HERE3");
             const jsonMarts = JSON.parse(marts)
-            console.log("JSONMARTS: ", jsonMarts);
             const searchMarts = jsonMarts.map((art) => {
                 return {[`marts.${art}`]: {$exists: true}}
             })
-            console.log("SEARCHMARTS: ", searchMarts);
             const gyms = await Gym.find(
                 {$and: 
                     [
@@ -116,7 +112,7 @@ const getGyms = asyncHandler(async (req, res) => {
                     {$or: searchMarts}
                     ]
                 }
-            );
+            ).select('-password -email');
             if (gyms) {res.status(200).json(gyms)}
             else {res.status(401).json({message: "Failed to get data from gym database."})}
             // if martial arts are not given, get gyms that are near the location.
@@ -129,7 +125,7 @@ const getGyms = asyncHandler(async (req, res) => {
                     {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
                     {"location.long": {$lt: 0.3 + parseFloat(long)}}
                     ]
-            });
+            }).select('-password -email');
             if (gyms) {res.status(200).json(gyms)}
             else {res.status(401).json({message: "Failed to get data from gym database."})}
         }

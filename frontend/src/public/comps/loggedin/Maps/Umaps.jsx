@@ -97,11 +97,10 @@ function Umaps({ user, info, getUserInfo }) {
                 return newState
             })
         }
-
         if (selectedLfs.includes("COACH")) {
-
+            const res = await apiService.findCoach(location, JSON.stringify(lookingForMarts))
+            console.log("COACH RESPONSE: ", res);
         }
-
         if (selectedLfs.includes("SPARTNER")) {
 
         }

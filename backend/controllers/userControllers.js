@@ -85,7 +85,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
             let query = {lfSpar: true, $or: []}
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
             console.log("query: ", query);
-            const user = await User.find(query);
+            const user = await User.find(query).select('-password -email');
             console.log("USER: ", user);
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
@@ -94,7 +94,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
         } else {
             console.log("IN SPAR 2");
 
-            const user = await User.find({lfspar: true});
+            const user = await User.find({lfspar: true}).select('-password -email');
             console.log("USER: ", user);
 
             if (user) {res.status(200).json(user)}
@@ -115,7 +115,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
             let query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}, $or: []}
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
             console.log("QUERY: ", query);
-            const user = await User.find(query);
+            const user = await User.find(query).select('-password -email');
             console.log("USER: ", user);
 
             if (user) {res.status(200).json(user)}
@@ -126,7 +126,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
 
             const query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
 
-            const user = await User.find(query);
+            const user = await User.find(query).select('-password -email');
             console.log("USER: ", user);
 
             if (user) {res.status(200).json(user)}
@@ -154,14 +154,14 @@ const getCoachUsers = asyncHandler(async (req, res) => {
             let query = {coach: true, $or: []}
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
 
-            const user = await User.find(query);
+            const user = await User.find(query).select('-password -email');
 
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
             // if martial arts are not given, get users with coach = true.
         } else {
             console.log("IN COACH 2");
-            const user = await User.find({coach: true});
+            const user = await User.find({coach: true}).select('-password -email');
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
         }
@@ -181,7 +181,7 @@ const getCoachUsers = asyncHandler(async (req, res) => {
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
             console.log("QUERY2: ", query);
                 // searchMarts.map((val) => query = {...query, ...val})
-            const user = await User.find(query);
+            const user = await User.find(query).select('-password -email');
                 
             console.log("USER: ", user);
             if (user) {res.status(200).json(user)}
@@ -191,7 +191,7 @@ const getCoachUsers = asyncHandler(async (req, res) => {
             console.log("IN COACH 4");
 
             const query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
-            const user = await User.find(query);
+            const user = await User.find(query).select('-password -email');
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
         }
