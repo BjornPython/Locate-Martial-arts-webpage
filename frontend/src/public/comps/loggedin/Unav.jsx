@@ -30,16 +30,19 @@ const IconsComp = ({ icon, page, callChangePage, currentPage }) => {
 
 }
 
-function Unav({ changePage, currentPage }) {
+
+
+function Unav({ changePage, currentPage, toggleShowLogout }) {
 
     const callChangePage = (page) => {
         changePage(page)
     }
 
 
+
     return (
         <div className='u-navbar'>
-            <div className="u-n-icon sign-out-btn"> <FontAwesomeIcon className='' icon={faSignOutAlt} /></div>
+            <div className="u-n-icon sign-out-btn" > <FontAwesomeIcon className='' icon={faSignOutAlt} onClick={toggleShowLogout} /></div>
 
             <div className="u-navbar-icons">
                 <IconsComp icon={faSearch} page="search" callChangePage={callChangePage} currentPage={currentPage} />

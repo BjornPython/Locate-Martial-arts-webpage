@@ -59,9 +59,6 @@ function Umaps({ user, info, getUserInfo }) {
         setNewUserLocation({ location: { lat, long } })
     }
 
-    const updateMarkerPoints = () => {
-
-    }
 
     const toggleLf = (lf) => {
         setSelectedLfs((prevState) => {

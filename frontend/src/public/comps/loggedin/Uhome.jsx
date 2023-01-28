@@ -3,6 +3,7 @@ import Unav from './Unav'
 import Umessages from './Umessages'
 import Uprofile from './Profile/Uprofile'
 import Umaps from './Maps/Umaps'
+import UlogoutWarning from './UlogoutWarning'
 import "../../css/loggedin/uhome.css"
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -21,6 +22,7 @@ function Uhome() {
     const [info, setInfo] = useState(null)
     const [currentPage, setCurrentPage] = useState("search")
 
+    const [showLogout, setShowLogout] = useState(false)
 
     useEffect(() => {
         if (!user) {
@@ -44,6 +46,12 @@ function Uhome() {
         else { setCurrentPage(page) }
     }
 
+    const toggleShowLogout = () => {
+        setShowLogout(!showLogout)
+    }
+
+
+
 
     const UprofileMemo = useMemo(() => {
         return (<Uprofile user={user} info={info} />)
@@ -52,13 +60,13 @@ function Uhome() {
 
     return (
         <div className='uhome-page'>
-            <Unav changePage={changePage} currentPage={currentPage} />
+            <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
             <div className="u-home-pages">
                 {currentPage === "search" && <Umaps info={info} user={user} />}
                 {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages user={user} />}
             </div>
-
+            <UlogoutWarning showLogout={showLogout} />
         </div>
     )
 }
