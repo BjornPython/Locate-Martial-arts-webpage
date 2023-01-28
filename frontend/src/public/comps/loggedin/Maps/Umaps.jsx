@@ -9,10 +9,11 @@ function Umaps({ user, info, getUserInfo }) {
 
     const [userInfo, setUserInfo] = useState({
         lat: 12.8797,
-        long: 121.7740
+        long: 121.7740,
+        id: null
 
     })
-    const { lat, long } = userInfo
+    const { lat, long, id } = userInfo
 
     const [newUserLocation, setNewUserLocation] = useState(null)
 
@@ -41,7 +42,7 @@ function Umaps({ user, info, getUserInfo }) {
     useEffect(() => {
         if (!info) { return }
         else {
-            setUserInfo({ lat: info.location.lat, long: info.location.long })
+            setUserInfo({ lat: info.location.lat, long: info.location.long, id: info._id })
         }
     }, [info])
 
@@ -91,18 +92,25 @@ function Umaps({ user, info, getUserInfo }) {
         console.log("SENDING LOCATION: ", location);
         if (selectedLfs.includes("GYM")) {
             const res = await apiService.findGyms(location, JSON.stringify(lookingForMarts))
-            console.log("RESPONSE: ", res);
             setMarkerPoints((prevState) => {
-                const newState = { ...prevState, gyms: res.data }
+                const newState = { ...prevState, gyms: res.data.filter(item => item._id !== id) }
                 return newState
             })
         }
         if (selectedLfs.includes("COACH")) {
             const res = await apiService.findCoach(location, JSON.stringify(lookingForMarts))
-            console.log("COACH RESPONSE: ", res);
+            setMarkerPoints((prevState) => {
+                const newState = { ...prevState, coaches: res.data.filter(item => item._id !== id) }
+                return newState
+            })
         }
         if (selectedLfs.includes("SPARTNER")) {
+            const res = await apiService.findSparringPartners(location, JSON.stringify(lookingForMarts))
 
+            setMarkerPoints((prevState) => {
+                const newState = { ...prevState, spartners: res.data.filter(item => item._id !== id) }
+                return newState
+            })
         }
     }
 

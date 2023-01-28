@@ -52,7 +52,7 @@ const MoveMarkerOnClick = ({ updateUserInfo }) => {
     }, [])
 }
 
-const ShowMarkers = ({ data }) => {
+const ShowMarkers = ({ data, markerIcon }) => {
     console.log("DATA: ", data);
     return data.map((marker, index) => {
         console.log("marker: ", marker);
@@ -61,7 +61,7 @@ const ShowMarkers = ({ data }) => {
             <Marker
                 key={index}
                 position={[marker.location.lat, marker.location.long]}
-                icon={GymMarkerIcon}
+                icon={markerIcon}
             >
                 <Popup>{marker.name}</Popup>
             </Marker>
@@ -74,12 +74,15 @@ const ShowMarkers = ({ data }) => {
 
 
 
-function HelperComponent({ lat, long, updateUserInfo, gyms }) {
+function HelperComponent({ lat, long, updateUserInfo, markerPoints }) {
+    const { gyms, coaches, spartners } = markerPoints
     return (
         <>
             <ChangeMapCenter lat={lat} long={long} updateUserInfo={updateUserInfo} />
             <MoveMarkerOnClick updateUserInfo={updateUserInfo} />
-            <ShowMarkers data={gyms} />
+            <ShowMarkers data={gyms} markerIcon={GymMarkerIcon} />
+            <ShowMarkers data={coaches} markerIcon={CoachMarkerIcon} />
+            <ShowMarkers data={spartners} markerIcon={StudentMarkerIcon} />
         </>
     )
 }
