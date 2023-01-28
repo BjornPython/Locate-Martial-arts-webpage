@@ -1,0 +1,54 @@
+.marker-popup-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    row-gap: 0;
+    column-gap: 0;
+}
+
+.marker-pop-up-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.marker-pop-up-name h3 {
+    margin: 0;
+    text-align: center;
+}
+
+
+
+.p-popup {
+    margin: 0;
+    font-weight: 400;
+}
+
+.name-span {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    width: 60%;
+    height: 1px;
+
+background-color: black;}
+
+.popup-bio {
+    margin: 0;
+font-weight: 200;
+}
+
+.popup-info-div {
+    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;  
+}
+
+.popup-info-span {
+    width: 100%;
+    height: 1px;
+    background-color: gray;
+}

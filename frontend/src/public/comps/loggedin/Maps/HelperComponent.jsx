@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import L from "leaflet"
 import { Marker, Popup } from 'react-leaflet';
-
+import "../../../css/loggedin/Umaps/UhelperComponent.css"
 
 const GymMarkerIcon = L.icon({
     iconUrl: require("../../../images/icons/punching-bag.png"),
@@ -63,7 +63,24 @@ const ShowMarkers = ({ data, markerIcon }) => {
                 position={[marker.location.lat, marker.location.long]}
                 icon={markerIcon}
             >
-                <Popup>{marker.name}</Popup>
+                <Popup minWidth={200}>
+                    <div className='marker-popup-div'>
+                        <div className='marker-pop-up-name'>
+                            <h3>{marker.name}</h3>
+                            <span className='name-span' />
+                            <h4 className='popup-bio'>{marker.coach ? "COACH" : "STUDENT"}</h4>
+                        </div>
+
+                        <div className='popup-info-div'>
+                            <span className='popup-info-span' />
+
+                            <ul>
+                                {Object.keys()}
+                            </ul>
+                        </div>
+
+                    </div>
+                </Popup>
             </Marker>
         )
     })
