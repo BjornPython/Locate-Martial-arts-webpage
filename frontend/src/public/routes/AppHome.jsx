@@ -1,33 +1,32 @@
 import Home from "../comps/Home"
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 // import AppHomeScript from "../scripts/AppHomeScript";
 
 
 
 
-class AppHome extends React.Component {
 
+function AppHome() {
 
+    useEffect(() => {
+        console.log("MAKING SCRIPT");
+        const script = document.createElement('script');
 
-    componentDidMount() {
-        const script = document.createElement("script");
+        script.src = "../scripts/ApphomeScript.js";
         script.async = true;
-        script.src = "../scripts/AppHomeScript.js"
+
         document.body.appendChild(script);
 
-
-    }
-
-
-    render() {
-        return (
-            <div>
-                <Home />
-            </div>
-        )
-    }
+        return () => {
+            document.body.removeChild(script);
+        }
+    }, []);
+    return (
+        <div>
+            <Home />
+        </div>
+    )
 }
-
 
 export default AppHome

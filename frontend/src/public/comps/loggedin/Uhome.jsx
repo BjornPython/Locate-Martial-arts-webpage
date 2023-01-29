@@ -60,7 +60,7 @@ function Uhome() {
         localStorage.clear();
         console.log("LOGGING OUT USER");
         dispatch(logout())
-
+        window.location.reload()
     }
 
 
