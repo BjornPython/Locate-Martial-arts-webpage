@@ -4,6 +4,8 @@ import { useMap } from 'react-leaflet';
 import L from "leaflet"
 import { Marker, Popup } from 'react-leaflet';
 import "../../../css/loggedin/Umaps/UhelperComponent.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMessage } from '@fortawesome/free-solid-svg-icons';
 
 const GymMarkerIcon = L.icon({
     iconUrl: require("../../../images/icons/punching-bag.png"),
@@ -64,10 +66,15 @@ const ShowMarkers = ({ data, markerIcon, type }) => {
                     ?
                     <Popup minWidth={200}>
                         <div className='marker-popup-div'>
-                            <div className='marker-pop-up-name'>
-                                <h2>{marker.name}</h2>
-                                <h4 className='popup-bio'>{marker.coach ? "COACH" : "STUDENT"}</h4>
+                            <div className='marker-popup-name-msg'>
+                                <div className='marker-pop-up-name'>
+                                    <h2>{marker.name}</h2>
+                                    <h4 className='popup-bio'>{marker.coach ? "COACH" : "STUDENT"}</h4>
+                                </div>
+
+                                <FontAwesomeIcon icon={faMessage} className="popup-msg-icn" />
                             </div>
+
 
                             <div className='popup-info-div'>
                                 <span className='popup-info-span' />

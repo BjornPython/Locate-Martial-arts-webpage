@@ -339,7 +339,7 @@ input:focus{
 
 .edit-info h4 {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .u-delete-font {
