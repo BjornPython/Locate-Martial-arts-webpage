@@ -93,14 +93,17 @@ function Umaps({ user, info, getUserInfo }) {
                 const newState = { ...prevState, gyms: res.data.filter(item => item._id !== id) }
                 return newState
             })
-        }
+        } if (!selectedLfs.includes("GYM")) { setMarkerPoints((prevState) => { return { ...prevState, gyms: [] } }) }
+
+
         if (selectedLfs.includes("COACH")) {
             const res = await apiService.findCoach(location, JSON.stringify(lookingForMarts))
             setMarkerPoints((prevState) => {
                 const newState = { ...prevState, coaches: res.data.filter(item => item._id !== id) }
                 return newState
             })
-        }
+        } if (!selectedLfs.includes("COACH")) { setMarkerPoints((prevState) => { return { ...prevState, coaches: [] } }) }
+
         if (selectedLfs.includes("SPARTNER")) {
             const res = await apiService.findSparringPartners(location, JSON.stringify(lookingForMarts))
 
@@ -108,7 +111,7 @@ function Umaps({ user, info, getUserInfo }) {
                 const newState = { ...prevState, spartners: res.data.filter(item => item._id !== id) }
                 return newState
             })
-        }
+        } if (!selectedLfs.includes("SPARTNER")) { setMarkerPoints((prevState) => { return { ...prevState, spartners: [] } }) }
     }
 
     return (
