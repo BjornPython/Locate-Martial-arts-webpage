@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useMemo } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, Circle } from 'react-leaflet';
 import L, { setOptions } from "leaflet"
 import "../../../css/loggedin/Umaps/umapBox.css"
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
@@ -45,8 +45,11 @@ function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation, markerPoint
                             <h3>Your Position</h3>
                             <button onClick={() => { updateUserLocation() }} >Set this as your location</button>
                         </div>
-
                     </Popup>
+                    {/* <Circle
+                        center={{ lat, lng: long }}
+                        fillColor="blue"
+                        radius={10000} /> */}
                 </Marker>
                 < HelperComponent lat={lat} long={long} updateUserInfo={updateUserInfo} markerPoints={markerPoints} />
             </MapContainer>

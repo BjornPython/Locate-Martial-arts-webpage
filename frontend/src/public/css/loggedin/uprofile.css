@@ -317,7 +317,7 @@ input:focus{
 
 .save-changes {
     margin-top: 20px;
-    width: 60%;
+    width: 80%;
     display: flex;
     justify-content: flex-end;
 }
