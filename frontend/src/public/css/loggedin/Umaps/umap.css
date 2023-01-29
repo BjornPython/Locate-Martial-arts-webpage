@@ -10,6 +10,8 @@
 
 @media(max-width:920px) {
     .u-maps-page {
+        margin-top: 40px;
+        margin-bottom: 40px;
         flex-direction: column;
         
     }

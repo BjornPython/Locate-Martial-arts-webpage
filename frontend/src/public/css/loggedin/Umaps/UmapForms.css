@@ -207,3 +207,9 @@
 .u-search-btn-div h2 {
     font-weight: 500;
 }
+
+@media(max-width:920px) {
+    .u-lf-marts-dropdown {
+        height: 250px;
+    }
+}
