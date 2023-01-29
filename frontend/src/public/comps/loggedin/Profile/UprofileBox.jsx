@@ -19,7 +19,7 @@ function UprofileBox({ name, bio, changeNameBio }) {
 
     const handleSave = async () => {
         changeNameBio(newName, newBio)
-
+        SetEditing(!editing)
     }
 
     return (
@@ -33,9 +33,8 @@ function UprofileBox({ name, bio, changeNameBio }) {
                         <input type="text" name="newName" value={newName} id="" placeholder={name} className={`i-name-edit `} onChange={handleNameBioChange} />
                         <input type="text" name="newBio" value={newBio} id="" placeholder={bio !== "" ? bio : "Edit your bio"} className={`i-bio-edit`} onChange={handleNameBioChange} />
                     </div>
-                    <button onClick={handleSave}>Save</button>
+                    <button onClick={handleSave} className="save-name-btn">Save</button>
                 </div>
-
                 :
 
                 <div className='profile'>

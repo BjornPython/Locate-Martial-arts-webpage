@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema({
     bio: {type: String, required: false, default: ""},
     location: {type: Object, required: false, default: {lat: 0, long: 0}}, // Users location
     lfSpar: {type: Boolean, required: false, default: false}, // if User is looking for a sparring partner
-    lfSparArts: {type: Object, required: false, default: { "kickboxing": true }}, // User's martial arts
+    lfSparArts: {type: Object, required: false, default: {}}, // User's martial arts
     coach: {type: Boolean, required: true, default: false}, // if User is a coach
     teaches: {type: Object, required: false, default: {}}, // what the user teaches.
     lfCoach: {type: Boolean, required: false, default: false}, // if user is looking for a coach.
