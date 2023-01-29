@@ -6,6 +6,7 @@
     min-width: 500px;
     height: 550px;
     background-color: black;
+    position: relative;
 }
 
 .user-marker-popup {
@@ -23,4 +24,11 @@
     height: 30px;
     padding-left: 8px;
     padding-right: 8px;
+}
+
+.recenter-btn {
+    position: absolute;
+    z-index: 1000;
+    top: 30px;
+    right: 40px;
 }

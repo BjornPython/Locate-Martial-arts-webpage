@@ -6,3 +6,14 @@
     column-gap: 100px;
 }
 
+
+
+@media(max-width:920px) {
+    .u-maps-page {
+        flex-direction: column;
+        
+    }
+
+
+}
+

@@ -84,3 +84,9 @@ html {
     transition: 0.1s ease;
     filter: blur(5px);
   }
+
+  @media(max-width:920px) {
+    .uhome-page {
+        height: auto;
+    }
+  }

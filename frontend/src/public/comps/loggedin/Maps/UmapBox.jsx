@@ -53,6 +53,8 @@ function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation, markerPoint
                 </Marker>
                 < HelperComponent lat={lat} long={long} updateUserInfo={updateUserInfo} markerPoints={markerPoints} />
             </MapContainer>
+
+            <button className='recenter-btn'>CLICK</button>
         </div>
     )
 }
