@@ -69,7 +69,9 @@ function Uprofile({ user, info }) {
 
     }, [info])
 
-
+    useEffect(() => {
+        changeUserData()
+    }, [name, bio])
 
     // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
     const updateLfSpartner = (mart) => {
@@ -127,6 +129,7 @@ function Uprofile({ user, info }) {
     })
 
     const changeUserData = async () => {
+        console.log("CHANGING USER DATA TO: ", newUserInfo);
         const response = await apiService.updateUserInfo(user, newUserInfo);
         if (isEditingInfo) { setIsEditingInfo(false) }
         { showSave && setShowSave(false) }
@@ -196,12 +199,27 @@ function Uprofile({ user, info }) {
         }
     }
 
+    const changeNameBio = async (newName, newBio) => {
+        console.log("CHANGING NAME BIO: ", newName, newBio);
+        setNewUserInfo((prevState) => {
+            const newState = { ...prevState, name: newName, bio: newBio };
+            return newState
+        })
+    }
+
+
+    const resetNameBio = () => {
+        setNewUserInfo(JSON.parse(JSON.stringify({ ...dbUserInfo })))
+    }
+
     useEffect(() => {
-    }, [showSave])
+        console.log("NEW USER INFO: ", newUserInfo);
+    }, [newUserInfo])
+
 
     return (
         <div id='u-profile-page' className='u-profile-page'>
-            <UprofileBox name={name} bio={bio} faGear={faGear} />
+            <UprofileBox name={name} bio={bio} faGear={faGear} changeNameBio={changeNameBio} changeUserData={changeUserData} />
             <UprofileFinding lfSparArts={lfSparArts} lfCoachArts={lfCoachArts} lfDataChanged={lfDataChanged}
                 updateLfSpartner={updateLfSpartner} updateLfCoach={updateLfCoach} />
             <UprofileContents
