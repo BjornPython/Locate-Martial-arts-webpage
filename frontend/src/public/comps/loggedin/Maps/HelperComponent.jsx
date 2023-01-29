@@ -76,26 +76,49 @@ const ShowMarkers = ({ data, markerIcon, type }) => {
                             </div>
 
 
-                            <div className='popup-info-div'>
-                                <span className='popup-info-span' />
-                                <h4>Finding Spartner in: </h4>
-                                <div className='popup-ul'>
-                                    {Object.keys(marker.lfSparArts).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
-                                </div>
-                            </div>
+                            {marker.teaches &&
+                                <div className='popup-info-div'>
+                                    <span className='popup-info-span' />
+                                    <h4>finding spartner in: </h4>
+                                    <div className='popup-ul'>
+                                        {Object.keys(marker.lfSparArts).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
+                                    </div>
+                                </div>}
 
-                            <div className='popup-info-div'>
-                                <span className='popup-info-span' />
-                                <h4>Coaches: </h4>
-                                <div className='popup-ul'>
-                                    {Object.keys(marker.teaches).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
-                                </div>
-                            </div>
+                            {marker.coach &&
+                                <div className='popup-info-div'>
+                                    <span className='popup-info-span' />
+                                    <h4>coaches: </h4>
+                                    <div className='popup-ul'>
+                                        {Object.keys(marker.teaches).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
+                                    </div>
+                                </div>}
 
                         </div>
                     </Popup>
                     :
-                    <Popup>{marker.name}</Popup>
+                    <Popup>
+                        <div className='marker-popup-div'>
+                            <div className='marker-popup-name-msg'>
+                                <div className='marker-pop-up-name'>
+                                    <h2>{marker.name}</h2>
+                                    <h4 className='popup-bio'>{marker.bio ? marker.bio : "Be fit be healthy"}</h4>
+                                </div>
+
+                                <FontAwesomeIcon icon={faMessage} className="popup-msg-icn" />
+                            </div>
+
+                            {marker.marts &&
+                                <div className='popup-info-div'>
+                                    <span className='popup-info-span' />
+                                    <h4>martial arts: </h4>
+                                    <div className='popup-ul'>
+                                        {Object.keys(marker.marts).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
+                                    </div>
+                                </div>}
+
+
+                        </div></Popup>
                 }
             </Marker>
         )

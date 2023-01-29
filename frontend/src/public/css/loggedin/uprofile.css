@@ -338,6 +338,7 @@ input:focus{
 }
 
 .edit-info h4 {
+    height: auto;
     display: flex;
     align-items: flex-start;
 }
