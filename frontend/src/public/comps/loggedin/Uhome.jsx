@@ -10,7 +10,6 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // import "../../scripts/userHomeScript.js"
-import "../../scripts/userHomeScript.js"
 import { useMemo } from 'react'
 import apiService from '../../../features/apis/apiService'
 import { logout } from '../../../features/authentication/authSlice'

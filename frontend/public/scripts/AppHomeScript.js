@@ -15,7 +15,8 @@ window.onload = (() => {
     const registerCoachSpan = document.querySelector(".account-as-span-coach");
     const registerGym = document.querySelector(".account-as-btn-gym");
     const registerGymSpan = document.querySelector(".account-as-span-gym");
-
+    const hideFind = document.querySelector(".find");
+    const hideLine = document.querySelector(".main-texts-line");
 
     //GYM PAGE
 
@@ -56,6 +57,8 @@ window.onload = (() => {
 
         } else {
             loginButton.classList.toggle("btn-dark");
+            hideFind.classList.toggle("hide-find");
+            hideLine.classList.toggle("main-texts-line-hide");
             animateLogin();
         }
 
@@ -75,6 +78,8 @@ window.onload = (() => {
 
         } else {
             registerButton.classList.toggle("btn-dark");
+            hideFind.classList.toggle("hide-find");
+            hideLine.classList.toggle("main-texts-line-hide");
             animateRegister();
         }
     })
@@ -127,6 +132,9 @@ window.onload = (() => {
     // ANIMATIONS FOR HOME BUTTON
 
     homeButton.addEventListener("click", () => {
+
+        hideFind.classList.remove("hide-find");
+        hideLine.classList.remove("main-texts-line-hide");
 
 
         if (loginPage.classList.contains("login-show")) {

@@ -18,6 +18,8 @@ window.onload = (() => {
     const mainTextsInfo = document.querySelector(".main-texts-info");
     const findOne = document.querySelector(".find");
     const mainTxtLine = document.querySelector(".main-texts-line");
+    const hideLine = document.querySelector(".main-texts-line");
+    const hideFind = document.querySelector(".find-hide");
     //GYM PAGE
 
     const selectArts = document.querySelector(".select-span");
@@ -49,15 +51,12 @@ window.onload = (() => {
 
     loginButton.addEventListener("click", async () => {
         if (registerPage.classList.contains("register-show")) {
-
             registerPage.classList.toggle("register-show");
             registerButton.classList.toggle("btn-dark");
             loginButton.classList.toggle("btn-dark");
             loginPage.classList.toggle("login-show");
 
-
         } else {
-            console.log("IN ELSE");
             loginButton.classList.toggle("btn-dark");
             mainTextsInfo.classList.toggle("main-texts-hide");
             findOne.classList.toggle("find-hide");
