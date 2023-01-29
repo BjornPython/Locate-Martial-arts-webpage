@@ -52,7 +52,7 @@ const MoveMarkerOnClick = ({ updateUserInfo }) => {
     }, [])
 }
 
-const ShowMarkers = ({ data, markerIcon }) => {
+const ShowMarkers = ({ data, markerIcon, type }) => {
     return data.map((marker) => {
         return (
             <Marker
@@ -60,31 +60,36 @@ const ShowMarkers = ({ data, markerIcon }) => {
                 position={[marker.location.lat, marker.location.long]}
                 icon={markerIcon}
             >
-                <Popup minWidth={200}>
-                    <div className='marker-popup-div'>
-                        <div className='marker-pop-up-name'>
-                            <h3>{marker.name}</h3>
-                            <h4 className='popup-bio'>{marker.coach ? "COACH" : "STUDENT"}</h4>
-                        </div>
-
-                        <div className='popup-info-div'>
-                            <span className='popup-info-span' />
-                            <h4>Looking for sparring partner in: </h4>
-                            <div className='popup-ul'>
-                                {Object.keys(marker.lfSparArts).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
+                {type !== "gyms"
+                    ?
+                    <Popup minWidth={200}>
+                        <div className='marker-popup-div'>
+                            <div className='marker-pop-up-name'>
+                                <h2>{marker.name}</h2>
+                                <h4 className='popup-bio'>{marker.coach ? "COACH" : "STUDENT"}</h4>
                             </div>
-                        </div>
 
-                        <div className='popup-info-div'>
-                            <span className='popup-info-span' />
-                            <h4>Coaches: </h4>
-                            <div className='popup-ul'>
-                                {Object.keys(marker.teaches).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
+                            <div className='popup-info-div'>
+                                <span className='popup-info-span' />
+                                <h4>Finding Spartner in: </h4>
+                                <div className='popup-ul'>
+                                    {Object.keys(marker.lfSparArts).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
-                </Popup>
+                            <div className='popup-info-div'>
+                                <span className='popup-info-span' />
+                                <h4>Coaches: </h4>
+                                <div className='popup-ul'>
+                                    {Object.keys(marker.teaches).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
+                                </div>
+                            </div>
+
+                        </div>
+                    </Popup>
+                    :
+                    <Popup>{marker.name}</Popup>
+                }
             </Marker>
         )
     })
@@ -101,9 +106,9 @@ function HelperComponent({ lat, long, updateUserInfo, markerPoints }) {
         <>
             <ChangeMapCenter lat={lat} long={long} updateUserInfo={updateUserInfo} />
             <MoveMarkerOnClick updateUserInfo={updateUserInfo} />
-            <ShowMarkers data={gyms} markerIcon={GymMarkerIcon} />
-            <ShowMarkers data={coaches} markerIcon={CoachMarkerIcon} />
-            <ShowMarkers data={spartners} markerIcon={StudentMarkerIcon} />
+            <ShowMarkers data={gyms} markerIcon={GymMarkerIcon} type="gyms" />
+            <ShowMarkers data={coaches} markerIcon={CoachMarkerIcon} type="coaches" />
+            <ShowMarkers data={spartners} markerIcon={StudentMarkerIcon} type="spartners" />
         </>
     )
 }
