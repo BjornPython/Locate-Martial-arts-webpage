@@ -53,12 +53,10 @@ const MoveMarkerOnClick = ({ updateUserInfo }) => {
 }
 
 const ShowMarkers = ({ data, markerIcon }) => {
-    return data.map((marker, index) => {
-        console.log("marker: ", marker);
-        console.log("POSITION: ", { lat: marker.location.lat, lng: marker.location.long });
+    return data.map((marker) => {
         return (
             <Marker
-                key={index}
+                key={marker._id}
                 position={[marker.location.lat, marker.location.long]}
                 icon={markerIcon}
             >
@@ -73,7 +71,7 @@ const ShowMarkers = ({ data, markerIcon }) => {
                             <span className='popup-info-span' />
                             <h4>Looking for sparring partner in: </h4>
                             <div className='popup-ul'>
-                                {Object.keys(marker.lfSparArts).map((art) => { return <h4>● {art}</h4> })}
+                                {Object.keys(marker.lfSparArts).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
                             </div>
                         </div>
 
@@ -81,7 +79,7 @@ const ShowMarkers = ({ data, markerIcon }) => {
                             <span className='popup-info-span' />
                             <h4>Coaches: </h4>
                             <div className='popup-ul'>
-                                {Object.keys(marker.teaches).map((art) => { return <h4>● {art}</h4> })}
+                                {Object.keys(marker.teaches).map((art, index) => { return <h4 key={index}>● {art}</h4> })}
                             </div>
                         </div>
 
