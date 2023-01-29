@@ -20,7 +20,6 @@ function Uhome() {
     const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth)
     const [info, setInfo] = useState(null)
     const [currentPage, setCurrentPage] = useState("search")
-    const [AppUser, setAppUser] = useState(null)
     const [showLogout, setShowLogout] = useState(false)
 
     useEffect(() => {
@@ -28,7 +27,6 @@ function Uhome() {
             navigate("/")
         } else {
             console.log("SETTING APP USER");
-            setAppUser(user)
         }
     }, [user])
 
