@@ -30,7 +30,11 @@ function Home() {
         }
     }, [user, isSuccess])
 
-
+    useEffect(() => {
+        if (isError) {
+            console.log("FAILED ERROR");
+        }
+    }, [isError])
 
     const [loginFormData, setLoginFormData] = useState({
         loginEmail: "",
@@ -89,7 +93,7 @@ function Home() {
         }
 
         dispatch(loginUser(userData))
-        navigate("/userhome")
+
     }
 
     const submitRegisData = (e) => {

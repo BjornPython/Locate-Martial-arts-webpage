@@ -45,15 +45,14 @@ const loginUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body
     console.log(email, password);
     const user = await User.findOne({email})
-    console.log("USER: ", user);
     if (!user) {
-        res.status(400).json({message: "Wrong Email or Password."})
+    console.log("NO USER");
+        return res.status(400).json({message: "Wrong Email or Password."})
     }
-    console.log(await bcrypt.compare(password, user.password));
     if ( ! await bcrypt.compare(password, user.password)) {
-        res.status(400).json({message: "Wrong password"})
+        return res.status(400).json({message: "Wrong password"})
     }
-    
+    console.log("");
     const token = generateToken(user.id)
     res.status(200).json(token) 
 })

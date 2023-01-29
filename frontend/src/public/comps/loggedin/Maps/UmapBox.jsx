@@ -41,9 +41,9 @@ function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation, markerPoint
                 />
                 <Marker eventHandlers={eventHandlers} position={[lat, long]} draggable={true} icon={markerIcon}>
                     <Popup>
-                        <div>
+                        <div className='user-marker-popup'>
                             <h3>Your Position</h3>
-                            <button onClick={() => { updateUserLocation() }} >Set this as your location</button>
+                            <button onClick={() => { updateUserLocation() }} >Set as location</button>
                         </div>
                     </Popup>
                     {/* <Circle

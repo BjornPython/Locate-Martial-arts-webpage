@@ -41,6 +41,7 @@ export const loginUser = createAsyncThunk("/", async (user, thunkAPI) => {
         thunkAPI.fulfillWithValue(res)
         return res
     } catch (error) {
+        console.log("LOGIN AUTHSLICE ERROR");
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
         return thunkAPI.rejectWithValue(message)
     }
@@ -111,6 +112,7 @@ const authSlice = createSlice({
             console.log("STATE.USER: ", state.user);
         })
         .addCase(loginUser.rejected, (state, action) => {
+            console.log("LOGIN USER FAILED");
             state.isLoading = false
             state.isError = true
             state.message = action.payload
