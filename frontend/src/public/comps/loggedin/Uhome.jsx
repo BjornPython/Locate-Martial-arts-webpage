@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useMemo } from 'react'
 import apiService from '../../../features/apis/apiService'
 import { logout } from '../../../features/authentication/authSlice'
-
+import io from 'socket.io-client';
 function Uhome() {
 
     const navigate = useNavigate()
@@ -21,6 +21,18 @@ function Uhome() {
     const [info, setInfo] = useState(null)
     const [currentPage, setCurrentPage] = useState("search")
     const [showLogout, setShowLogout] = useState(false)
+
+    useEffect(() => {
+        const socket = io('http://localhost:8000');
+
+        socket.on('message', (newData) => {
+            console.log("NEW DATA: ", newData);
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
 
     useEffect(() => {
         if (!user) {
