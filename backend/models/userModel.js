@@ -26,8 +26,8 @@ const userSchema = mongoose.Schema({
     lfight: {type: Boolean, required: false, default: false}, // If user is looking for a fight.
 
     marts: {type: Object, required: false, default: false, default: {
-        "kickboxing": true,
-        "muay thai": true,
+        "Kickboxing": true,
+        "Muay Thai": true,
     }}, 
     awards: {type: [], required: false, default: ["Blue belt in BJJ", "champion in mma", "2nd runner up kickboxing"]}
     
