@@ -12,6 +12,9 @@ const makeSocket = (server) => {
         socket.emit("message", "MESSAGE RECEIVED?")
     })
 
+    io.on("userInfo", (userInfo) => {
+        console.log("RECEIVED USER INFO: ", userInfo);
+    })
 
 }
 

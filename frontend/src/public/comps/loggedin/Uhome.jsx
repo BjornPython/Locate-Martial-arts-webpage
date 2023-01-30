@@ -23,6 +23,7 @@ function Uhome() {
     const [showLogout, setShowLogout] = useState(false)
 
     useEffect(() => {
+        if (info === null || !user) { return }
         const socket = io('http://localhost:8000');
 
         socket.on('message', (newData) => {
@@ -30,15 +31,15 @@ function Uhome() {
         });
 
         return () => {
+            console.log("DISCONNECTING");
             socket.disconnect();
         };
-    }, []);
+    }, [info]);
 
     useEffect(() => {
         if (!user) {
             navigate("/")
         } else {
-            console.log("SETTING APP USER");
         }
     }, [user])
 
@@ -75,6 +76,7 @@ function Uhome() {
     const UprofileMemo = useMemo(() => {
         return (<Uprofile user={user} info={info} />)
     }, [user, info])
+
 
 
     return (
