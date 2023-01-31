@@ -26,6 +26,15 @@ function Uhome() {
     const [showLogout, setShowLogout] = useState(false)
 
 
+    useEffect(() => {
+        socket.on("message", (msg) => {
+            console.log("MESSAGE EMMITED FROM BACKEND: ", msg);
+        })
+
+        return () => {
+            console.log("DISCONNECTING");
+        }
+    }, [])
 
 
 

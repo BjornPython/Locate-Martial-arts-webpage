@@ -10,15 +10,15 @@ const makeSocket = (server) => {
     io.on("connection", (socket) => {
         console.log("NEW CLIENT CONNECTED IN BACKEND");
         socket.emit("message", "MESSAGE RECEIVED?")
+
+
+        socket.on("requestMessage", (info) => {
+            console.log("INFO RECEIVED: ", info);
+        })
     })
 
-    io.on("userInfo", (userInfo) => {
-        console.log("RECEIVED USER INFO: ", userInfo);
-    })
 
-    io.on("requestMessage", (info) => {
-        console.log("INFO RECEIVED: ", info);
-    })
+
 
 }
 
