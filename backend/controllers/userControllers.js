@@ -226,13 +226,7 @@ const updateUserInfo = asyncHandler(async (req, res) => {
 
     if (response) {res.status(200).json(response)} 
     else {res.status(400).json({message: "Failed to Update Database"})}
-    
-    // if (response._id) {
-    // res.status(200).json({...response})
 
-    // } else {
-    //     res.status(400).json({message: "Cannot find user."})
-    // }
 })
 
 const editUsersMessageChunk = asyncHandler(async (userIds, converSationId, newChunk) => {
@@ -246,10 +240,28 @@ const editUsersMessageChunk = asyncHandler(async (userIds, converSationId, newCh
     }
   });
 
-const addUserMessage = asyncHandler(async (req,res) => {
-
+const addUserMessage = asyncHandler(async (userIds, userNames, converSationId) => {
+    console.log("USERIDS: ", userIds);
+    console.log("USER NAMES: ", userNames);
+    try {
+        const user1 = await User.findByIdAndUpdate(userIds[0], 
+            {
+                [`messages.${userIds[1]}.name`]: userNames[1],  
+                [`messages.${userIds[1]}.conversationId`]: converSationId 
+            }
+        );
+        const user2 = await User.findByIdAndUpdate(userIds[1], 
+            { 
+                [`messages.${userIds[0]}.name`]: userNames[0],
+                [`messages.${userIds[0]}.conversationId`]: converSationId  
+            }
+        );
+        console.log(user1, user2)
+    } catch (err) {
+        console.error(err);
+      }
 })
 
 
 
-module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo, updateUserInfo, editUsersMessageChunk}
+module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo, updateUserInfo, editUsersMessageChunk, addUserMessage}

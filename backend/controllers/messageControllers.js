@@ -2,19 +2,35 @@ const asyncHandler = require("express-async-handler")
 const jwt = require("jsonwebtoken")
 const Message = require("../models/messageModel")
 const { v4: uuidv4 } = require('uuid');
-import { editUsersMessageChunk } from "./userControllers";
+const { editUsersMessageChunk, addUserMessage } = require("./userControllers");
 
 const createConvo = asyncHandler(async (req, res) => {
     console.log("IN CREATE CONVO");
+    console.log("BODY: ", req.body);
     const converSationId = uuidv4()
-    const {participantsIds,participantsNames }= req.body
+    const {participantOne, participantOneId, participantTwo, participantTwoId }= req.body
     const participants = [
-        {_id: participantsIds[0], name: participantsNames[0]}, 
-        {_id: participantsIds[1], name: participantsNames[1]}]
+        {_id: participantOneId, name: participantOne}, 
+        {_id: participantTwoId, name: participantTwo}
+    ]
+    console.log("PARTICIPANTS: ", participants);
     const chunkNumber = 0
+
+
+    try {
     Message.create({
-        converSationId, participants, chunkNumber
-    })
+    converSationId, participants, chunkNumber
+        })
+
+    const userIds = [participantOneId, participantTwoId]
+    const userNames = [participantOne, participantTwo]
+    addUserMessage(userIds, userNames, converSationId)
+
+
+    } catch (err) {
+        console.log("ERROR: ", err);
+    }
+    
     res.status(200).json({message: "SUCCESS"})
 })
 
@@ -23,6 +39,7 @@ const createConvo = asyncHandler(async (req, res) => {
 
 const addMessage = asyncHandler(async (req, res) => {
     console.log("IN ADD MESSAGE");
+    console.log("REQ BODY: ", req.body);
     const {converSationId, newMessage} = req.body
     Message.findOne({ converSationId })
     .sort({ chunkNumber: -1 })
@@ -44,7 +61,7 @@ const addMessage = asyncHandler(async (req, res) => {
                 });
         } else {
             const nextChunkNumber = document.chunkNumber + 1;
-            const userIds = [document[0].participants._id, document[1].participants._id]
+            const userIds = [document.participants[0]._id, document.participants[1]._id]
             const newDocument = new Message({
                 converSationId,
                 participants: document.participants,
