@@ -199,15 +199,11 @@ const getCoachUsers = asyncHandler(async (req, res) => {
 )
 
 const getUserInfo = asyncHandler(async (req, res) => {
-    console.log("IN BACKEND");
     let token = req.headers.authorization.split(" ")[1]
-    console.log("TOKEN: ", token);
     if (!token) {res.status(401).json({message: "No token received"})} 
     else { 
         const decoded = jwt.verify(token, process.env.JWT_TOKEN)
-        console.log("decoded: ", decoded);
         const userInfo = await User.findOne({_id: `${decoded.id}`})
-        console.log("USER INFO: ", userInfo);
         if (userInfo) {
             res.status(200).json(userInfo)
         } else {

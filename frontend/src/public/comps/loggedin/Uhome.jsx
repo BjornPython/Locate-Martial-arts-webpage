@@ -13,6 +13,9 @@ import { useMemo } from 'react'
 import apiService from '../../../features/apis/apiService'
 import { logout } from '../../../features/authentication/authSlice'
 import io from 'socket.io-client';
+
+const socket = io('http://localhost:8000');
+
 function Uhome() {
 
     const navigate = useNavigate()
@@ -22,19 +25,10 @@ function Uhome() {
     const [currentPage, setCurrentPage] = useState("messages")
     const [showLogout, setShowLogout] = useState(false)
 
-    useEffect(() => {
-        if (info === null || !user) { return }
-        const socket = io('http://localhost:8000');
 
-        socket.on('message', (newData) => {
-            console.log("NEW DATA: ", newData);
-        });
 
-        return () => {
-            console.log("DISCONNECTING");
-            socket.disconnect();
-        };
-    }, [info]);
+
+
 
     useEffect(() => {
         if (!user) {
@@ -78,6 +72,10 @@ function Uhome() {
     }, [user, info])
 
 
+    const getMessages = (conversationId, chunk) => {
+        console.log("EMITTING");
+        socket.emit("requestMessage", { conversationId, chunk })
+    }
 
     return (
         <div className="uhome-page" >
@@ -85,7 +83,7 @@ function Uhome() {
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {currentPage === "search" && <Umaps info={info} user={user} />}
                 {currentPage === "profile" && UprofileMemo}
-                {currentPage === "messages" && <Umessages user={user} info={info} />}
+                {currentPage === "messages" && <Umessages user={user} info={info} getMessages={getMessages} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>

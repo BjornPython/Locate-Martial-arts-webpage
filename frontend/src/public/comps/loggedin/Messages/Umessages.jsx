@@ -4,7 +4,7 @@ import UmessageUsers from './UmessageUsers'
 import UuserMessage from "./UuserMessage"
 import { useState } from 'react'
 
-function Umessages({ info }) {
+function Umessages({ info, getMessages }) {
 
 
     const [messages, setMessages] = useState([])
@@ -23,6 +23,10 @@ function Umessages({ info }) {
         console.log("MESSAGES: ", messages);
     }, [messages])
 
+    useEffect(() => {
+        if (convoId === "") { return }
+        getMessages(convoId, currentConvoChunk)
+    })
 
     useEffect(() => {
         console.log("HIGHEST CHUNK: ", currentConvoChunk);

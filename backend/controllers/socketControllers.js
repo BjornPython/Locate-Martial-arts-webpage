@@ -16,6 +16,10 @@ const makeSocket = (server) => {
         console.log("RECEIVED USER INFO: ", userInfo);
     })
 
+    io.on("requestMessage", (info) => {
+        console.log("INFO RECEIVED: ", info);
+    })
+
 }
 
 module.exports = {makeSocket}
