@@ -1,5 +1,5 @@
 import React from 'react'
-import "../../css/loggedin/umessages.css"
+import "../../../css/loggedin/umessages.css"
 import UmessageUsers from './UmessageUsers'
 import UuserMessage from "./UuserMessage"
 function Umessages() {

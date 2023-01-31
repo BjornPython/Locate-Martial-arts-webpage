@@ -1,6 +1,6 @@
 import React from 'react'
 import Unav from './Unav'
-import Umessages from './Umessages'
+import Umessages from './Messages/Umessages'
 import Uprofile from './Profile/Uprofile'
 import Umaps from './Maps/Umaps'
 import UlogoutWarning from './UlogoutWarning'

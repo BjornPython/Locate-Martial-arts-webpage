@@ -1,5 +1,5 @@
 import React from 'react'
-import "../../css/loggedin/umessageUsers.css"
+import "../../../css/loggedin/umessageUsers.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
