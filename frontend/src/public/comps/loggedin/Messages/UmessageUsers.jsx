@@ -5,16 +5,16 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
 
-const userMessages = (userName, status, key) => {
+const userMessages = (messageInfo, status, key, changeConvoId) => {
     return (
-        <div key={key} className='user'>
+        <div key={key} className='user' onClick={() => { changeConvoId(messageInfo.userId, messageInfo.value.highestChunk) }}>
             <div className='user-icon'>
                 <FontAwesomeIcon icon={faUser} />
             </div>
 
             <div className='user-info'>
-                <h3>{userName}</h3>
-                <p>{status}</p>
+                <h3>{messageInfo.value.name}</h3>
+                <p>{"active now"}</p>
             </div>
         </div>
     )
@@ -22,32 +22,12 @@ const userMessages = (userName, status, key) => {
 
 
 
-function UmessageUsers() {
-    const [Chats, setChats] = useState([
-        { userName: "nate", status: "active now" },
-        { userName: "jeff", status: "active now" },
-        { userName: "chan", status: "active now" },
-        { userName: "kev", status: "active now" },
-        { userName: "curt", status: "active now" },
-        { userName: "rob", status: "active now" },
-        { userName: "nate", status: "active now" },
-        { userName: "jeff", status: "active now" },
-        { userName: "chan", status: "active now" },
-        { userName: "kev", status: "active now" },
-        { userName: "curt", status: "active now" },
-        { userName: "rob", status: "active now" },
-        { userName: "nate", status: "active now" },
-        { userName: "jeff", status: "active now" },
-        { userName: "chan", status: "active now" },
-        { userName: "kev", status: "active now" },
-        { userName: "curt", status: "active now" },
-        { userName: "rob", status: "active now" }
+function UmessageUsers({ messages, changeConvoId }) {
 
-    ])
     return (
         <div className='u-message-page'>
-            {Chats.map((message, index) => {
-                return userMessages(message.userName, message.status, index)
+            {messages.map((messageInfo, index) => {
+                return userMessages(messageInfo, "sadfvcx", index, changeConvoId)
             })}
 
 

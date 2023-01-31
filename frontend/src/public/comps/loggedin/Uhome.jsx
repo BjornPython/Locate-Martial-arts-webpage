@@ -19,7 +19,7 @@ function Uhome() {
     const dispatch = useDispatch()
     const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth)
     const [info, setInfo] = useState(null)
-    const [currentPage, setCurrentPage] = useState("search")
+    const [currentPage, setCurrentPage] = useState("messages")
     const [showLogout, setShowLogout] = useState(false)
 
     useEffect(() => {
@@ -85,7 +85,7 @@ function Uhome() {
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {currentPage === "search" && <Umaps info={info} user={user} />}
                 {currentPage === "profile" && UprofileMemo}
-                {currentPage === "messages" && <Umessages user={user} />}
+                {currentPage === "messages" && <Umessages user={user} info={info} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>
