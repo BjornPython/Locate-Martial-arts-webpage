@@ -4,7 +4,7 @@ mongoose.set('strictQuery', false);
 
 
 const messageSchema = mongoose.Schema({
-    converSationId: {
+    conversationId: {
         type: String,
         required: [true, "Please include converSationId."]
     },

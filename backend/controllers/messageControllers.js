@@ -7,7 +7,7 @@ const { editUsersMessageChunk, addUserMessage } = require("./userControllers");
 const createConvo = asyncHandler(async (req, res) => {
     console.log("IN CREATE CONVO");
     console.log("BODY: ", req.body);
-    const converSationId = uuidv4()
+    const conversationId = uuidv4()
     const {participantOne, participantOneId, participantTwo, participantTwoId }= req.body
     const participants = [
         {_id: participantOneId, name: participantOne}, 
@@ -19,19 +19,22 @@ const createConvo = asyncHandler(async (req, res) => {
 
     try {
     Message.create({
-    converSationId, participants, chunkNumber
+    conversationId, participants, chunkNumber
         })
 
     const userIds = [participantOneId, participantTwoId]
     const userNames = [participantOne, participantTwo]
-    addUserMessage(userIds, userNames, converSationId)
+    addUserMessage(userIds, userNames, conversationId, chunkNumber)
+
+    res.status(200).json({message: "SUCCESS"})
 
 
     } catch (err) {
         console.log("ERROR: ", err);
+        res.status(400).json({message: "FAILED"})
+
     }
     
-    res.status(200).json({message: "SUCCESS"})
 })
 
 
@@ -40,8 +43,8 @@ const createConvo = asyncHandler(async (req, res) => {
 const addMessage = asyncHandler(async (req, res) => {
     console.log("IN ADD MESSAGE");
     console.log("REQ BODY: ", req.body);
-    const {converSationId, newMessage} = req.body
-    Message.findOne({ converSationId })
+    const {conversationId, newMessage} = req.body
+    Message.findOne({ conversationId })
     .sort({ chunkNumber: -1 })
     .then(document => {
         console.log("DOCUMENT: ", document);
@@ -63,7 +66,7 @@ const addMessage = asyncHandler(async (req, res) => {
             const nextChunkNumber = document.chunkNumber + 1;
             const userIds = [document.participants[0]._id, document.participants[1]._id]
             const newDocument = new Message({
-                converSationId,
+                conversationId,
                 participants: document.participants,
                 messages: [newMessage],
                 chunkNumber: nextChunkNumber
@@ -71,7 +74,7 @@ const addMessage = asyncHandler(async (req, res) => {
             newDocument.save()
                 .then(result => {
                     console.log(result);
-                    editUsersMessageChunk(userIds, converSationId, nextChunkNumber)
+                    editUsersMessageChunk(userIds, nextChunkNumber)
                     res.status(200).json({message: "created new chunk and added message to convo"})
                 })
                 .catch(error => {

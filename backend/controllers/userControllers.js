@@ -229,10 +229,10 @@ const updateUserInfo = asyncHandler(async (req, res) => {
 
 })
 
-const editUsersMessageChunk = asyncHandler(async (userIds, converSationId, newChunk) => {
+const editUsersMessageChunk = asyncHandler(async (userIds, newChunk) => {
     try {
-      const user1 = await User.findByIdAndUpdate(userIds[0], { [`messages.${converSationId[0]}.highestChunk`]: newChunk });
-      const user2 = await User.findByIdAndUpdate(userIds[1], { [`messages.${converSationId[1]}.highestChunk`]: newChunk });
+      const user1 = await User.findByIdAndUpdate(userIds[0], { [`messages.${userIds[1]}.highestChunk`]: newChunk });
+      const user2 = await User.findByIdAndUpdate(userIds[1], { [`messages.${userIds[0]}.highestChunk`]: newChunk });
   
       console.log(user1, user2);
     } catch (err) {
@@ -240,25 +240,28 @@ const editUsersMessageChunk = asyncHandler(async (userIds, converSationId, newCh
     }
   });
 
-const addUserMessage = asyncHandler(async (userIds, userNames, converSationId) => {
+const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, chunkNumber) => {
     console.log("USERIDS: ", userIds);
     console.log("USER NAMES: ", userNames);
     try {
         const user1 = await User.findByIdAndUpdate(userIds[0], 
-            {
+            {   
                 [`messages.${userIds[1]}.name`]: userNames[1],  
-                [`messages.${userIds[1]}.conversationId`]: converSationId 
+                [`messages.${userIds[1]}.conversationId`]: conversationId ,
+                [`messages.${userIds[1]}.highestChunk`]: chunkNumber 
             }
         );
         const user2 = await User.findByIdAndUpdate(userIds[1], 
             { 
                 [`messages.${userIds[0]}.name`]: userNames[0],
-                [`messages.${userIds[0]}.conversationId`]: converSationId  
+                [`messages.${userIds[0]}.conversationId`]: conversationId  ,
+                [`messages.${userIds[0]}.highestChunk`]: chunkNumber  
             }
         );
         console.log(user1, user2)
     } catch (err) {
         console.error(err);
+        throw(err)
       }
 })
 
