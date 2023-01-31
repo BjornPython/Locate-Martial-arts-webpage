@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema({
         "Muay Thai": true,
     }}, 
     awards: {type: [], required: false, default: []},
-    messages: {type: [], required: false, default: []}
+    messages: {type: Object, required: false, default: {}}
 
 }, {timestamps: true, minimize: false})
 

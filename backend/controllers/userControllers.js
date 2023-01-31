@@ -235,5 +235,21 @@ const updateUserInfo = asyncHandler(async (req, res) => {
     // }
 })
 
+const editUsersMessageChunk = asyncHandler(async (userIds, converSationId, newChunk) => {
+    try {
+      const user1 = await User.findByIdAndUpdate(userIds[0], { [`messages.${converSationId[0]}.highestChunk`]: newChunk });
+      const user2 = await User.findByIdAndUpdate(userIds[1], { [`messages.${converSationId[1]}.highestChunk`]: newChunk });
+  
+      console.log(user1, user2);
+    } catch (err) {
+      console.error(err);
+    }
+  });
 
-module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo, updateUserInfo}
+const addUserMessage = asyncHandler(async (req,res) => {
+
+})
+
+
+
+module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo, updateUserInfo, editUsersMessageChunk}
