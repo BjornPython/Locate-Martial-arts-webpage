@@ -29,8 +29,8 @@ const userSchema = mongoose.Schema({
         "Kickboxing": true,
         "Muay Thai": true,
     }}, 
-    awards: {type: [], required: false, default: ["Blue belt in BJJ", "champion in mma", "2nd runner up kickboxing"]}
-    
+    awards: {type: [], required: false, default: []},
+    messages: {type: [], required: false, default: []}
 
 }, {timestamps: true, minimize: false})
 
