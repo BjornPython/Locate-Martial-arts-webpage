@@ -42,7 +42,11 @@ function Umaps({ user, info, getUserInfo }) {
     useEffect(() => {
         if (!info) { return }
         else {
-            setUserInfo({ lat: info.location.lat, long: info.location.long, id: info._id })
+            console.log("INFO: ", info);
+            const newLocation = info.location.lat && info.location.long
+                ? { lat: info.location.lat, long: info.location.long, id: info._id }
+                : { lat: 12.8797, long: 121.7740, id: info._id }
+            setUserInfo(newLocation)
         }
     }, [info])
 
