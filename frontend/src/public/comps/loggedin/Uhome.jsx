@@ -33,6 +33,11 @@ function Uhome() {
             setMessages(msgData)
         })
 
+        socket.on("newMessage", (msgData) => {
+            console.log("NEW MESSAGE RECEIVED: ", msgData);
+            setMessages(prevState => [...prevState, msgData])
+        })
+
         return () => {
         }
     }, [])
@@ -83,7 +88,7 @@ function Uhome() {
 
     const addMessage = (convoId, msg) => {
         console.log("EMMITTING");
-        socket.emit("addMessage", { convoId, msg })
+        socket.emit("addMessage", { convoId, message: msg, sender: info.name })
     }
 
 

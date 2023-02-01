@@ -48,7 +48,9 @@ function UuserMessage({ messages, userName, chatName, addMessage, convoId }) {
 
             <div className='u-message-contents'>
                 {messages.map((msg, index) => {
-                    const type = userName === msg.sender ? true : null
+                    const type = userName === msg.sender ? null : true
+                    console.log(userName, msg.sender);
+                    console.log("TYPE: ", type);
                     return (
                         showMessage(msg.message, index, type)
                     )
