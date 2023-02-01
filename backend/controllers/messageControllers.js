@@ -51,7 +51,10 @@ const createConvo = asyncHandler(async (req, res) => {
 const addMessage = asyncHandler(async (req, res) => {
     console.log("IN ADD MESSAGE");
     console.log("REQ BODY: ", req.body);
-    const {conversationId, newMessage} = req.body
+    const {conversationId, newMessage, sender} = req.body
+
+    const messageInfo = {sender, message: newMessage}
+
     Message.findOne({ conversationId })
     .sort({ chunkNumber: -1 })
     .then(document => {
@@ -59,7 +62,7 @@ const addMessage = asyncHandler(async (req, res) => {
         if (document.messages.length < 5) {
             Message.findOneAndUpdate(
                 { _id: document._id },
-                { $push: { messages: newMessage } },
+                { $push: { messages: messageInfo } },
                 { new: true, useFindAndModify: false }
             )
                 .then(result => {
@@ -76,7 +79,7 @@ const addMessage = asyncHandler(async (req, res) => {
             const newDocument = new Message({
                 conversationId,
                 participants: document.participants,
-                messages: [newMessage],
+                messages: [messageInfo],
                 chunkNumber: nextChunkNumber
             });
             newDocument.save()
