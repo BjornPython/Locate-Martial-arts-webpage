@@ -27,13 +27,10 @@ function Uhome() {
     const [messages, setMessages] = useState([])
 
     useEffect(() => {
-        socket.on("message", (msg) => {
-            console.log("MESSAGE EMMITED FROM BACKEND: ", msg);
-        })
 
-
-        socket.on("messageContents", (messages) => {
-            console.log(messages)
+        socket.on("messageContents", (msgData) => {
+            console.log(msgData)
+            setMessages(msgData)
         })
 
         return () => {
@@ -51,6 +48,10 @@ function Uhome() {
         getUserInfo()
     }, [])
 
+
+    useEffect(() => {
+
+    }, [messages])
 
     const getUserInfo = async () => {
         const response = await apiService.getUserInfo(user);
@@ -77,8 +78,13 @@ function Uhome() {
     const getMessages = (conversationId, chunk) => {
         console.log("EMITTING");
         socket.emit("requestMessage", { conversationId, chunk })
+        socket.emit("joinConversation", conversationId)
     }
 
+    const addMessage = (convoId, msg) => {
+        console.log("EMMITTING");
+        socket.emit("addMessage", { convoId, msg })
+    }
 
 
     const UprofileMemo = useMemo(() => {
@@ -94,7 +100,7 @@ function Uhome() {
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {currentPage === "search" && <Umaps info={info} user={user} />}
                 {currentPage === "profile" && UprofileMemo}
-                {currentPage === "messages" && <Umessages user={user} info={info} getMessages={getMessages} messages={messages} />}
+                {currentPage === "messages" && <Umessages user={user} info={info} getMessages={getMessages} messages={messages} addMessage={addMessage} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>

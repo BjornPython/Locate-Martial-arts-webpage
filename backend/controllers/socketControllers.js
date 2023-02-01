@@ -11,8 +11,10 @@ const makeSocket = (server) => {
 
     io.on("connection", (socket) => {
         console.log("NEW CLIENT CONNECTED IN BACKEND");
-        socket.emit("message", "MESSAGE RECEIVED?")
-
+        socket.on("joinConversation", (conversationId) => {
+            console.log("JOINED USER");
+            socket.join(conversationId)
+        })
 
         socket.on("requestMessage", async (info) => {
             console.log("INFO RECEIVED: ", info);
@@ -20,6 +22,12 @@ const makeSocket = (server) => {
             console.log("RES: ", res);
             socket.emit("messageContents", res.messages)
         })
+
+        socket.on("addMessage", (msgData) => {
+            console.log("MSGDATA: ", msgData);
+            io.to(msgData.conversationId).emit("newMessage", msgData.message)
+        })
+
     })
 
 

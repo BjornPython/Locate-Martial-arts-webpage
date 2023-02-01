@@ -4,7 +4,7 @@ import UmessageUsers from './UmessageUsers'
 import UuserMessage from "./UuserMessage"
 import { useState } from 'react'
 
-function Umessages({ info, getMessages, messages }) {
+function Umessages({ info, getMessages, messages, addMessage }) {
 
     const [userName, setUserName] = useState("") // The name of the user
 
@@ -47,7 +47,8 @@ function Umessages({ info, getMessages, messages }) {
             <div className='u-m-page'>
                 <UmessageUsers chats={chats} changeConvo={changeConvo} />
                 <hr />
-                <UuserMessage messages={messages} userName={userName} chatName={chatName} />
+                <UuserMessage messages={messages} userName={userName} chatName={chatName}
+                    addMessage={addMessage} convoId={convoId} />
             </div>
 
         </div>

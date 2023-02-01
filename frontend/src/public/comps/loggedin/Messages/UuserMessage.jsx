@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
-const showCurrentChat = (userName, status, key) => {
+const showCurrentChat = (userName, status) => {
     return (
-        <div className='current-msg-user' key={key}>
+        <div className='current-msg-user'>
             <div className='current-user-icon'>
                 <FontAwesomeIcon icon={faUser} />
             </div>
@@ -35,21 +35,20 @@ const showMessage = (message, index, type = null) => {
 }
 
 
-function UuserMessage({ messages, userName, chatName }) {
+function UuserMessage({ messages, userName, chatName, addMessage, convoId }) {
 
-    const [currentChat, setCurrentChat] = useState({ convoName: "Nathan Flores", status: "Active now", key: 1 })
-    const { convoName, status, key } = currentChat
+
 
     return (
         <div id='u-user-message' className='u-user-message'>
 
-            {showCurrentChat(chatName, status, key)}
+            {showCurrentChat(chatName, "")}
 
             <hr />
 
             <div className='u-message-contents'>
                 {messages.map((msg, index) => {
-                    const type = userName === msg.value.name ? true : null
+                    const type = userName === msg.sender ? true : null
                     return (
                         showMessage(msg.message, index, type)
                     )
@@ -62,7 +61,7 @@ function UuserMessage({ messages, userName, chatName }) {
                 <form className="u-msg-form">
                     <input type="text" className='u-msg-input' />
                 </form>
-                <FontAwesomeIcon icon={faPaperPlane} className="send-msg-icon" />
+                <FontAwesomeIcon icon={faPaperPlane} className="send-msg-icon" onClick={() => { addMessage(convoId, "TEST MESSAGE") }} />
             </div>
 
         </div>

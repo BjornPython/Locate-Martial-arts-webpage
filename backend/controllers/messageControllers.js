@@ -7,7 +7,6 @@ const { editUsersMessageChunk, addUserMessage } = require("./userControllers");
 
 const getConvoChunk = asyncHandler(async (conversationId, convoChunk) => {
     const convo = await Message.findOne({conversationId, chunkNumber: convoChunk})
-    console.log("CONVO: ", convo);
     return convo
 })
 
