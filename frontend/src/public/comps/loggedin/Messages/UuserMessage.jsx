@@ -42,6 +42,19 @@ function UuserMessage({ messages, userName, chatName, addMessage }) {
         return showCurrentChat(chatName, "")
     }, [chatName])
 
+    const [formsValue, setFormsValue] = useState({ msgVal: "" })
+    const { msgVal } = formsValue
+
+    const resetMsgVal = () => {
+        setFormsValue({ msgVal: "" })
+    }
+    const handleMsgChange = (e) => {
+
+        setFormsValue({
+            ...formsValue,
+            msgVal: e.target.value
+        });
+    };
 
     return (
         <div id='u-user-message' className='u-user-message'>
@@ -62,10 +75,10 @@ function UuserMessage({ messages, userName, chatName, addMessage }) {
             <hr id='u-msg-hr' />
 
             <div className='u-msg-input-div'>
-                <form className="u-msg-form">
-                    <input type="text" className='u-msg-input' />
+                <form className="u-msg-form" onSubmit={(e) => { e.preventDefault(); addMessage(msgVal); resetMsgVal() }}>
+                    <input type="text" name="msgVal" value={msgVal} className='u-msg-input' onChange={handleMsgChange} />
                 </form>
-                <FontAwesomeIcon icon={faPaperPlane} className="send-msg-icon" onClick={() => { addMessage("TEST MESSAGE") }} />
+                <FontAwesomeIcon icon={faPaperPlane} className="send-msg-icon" onClick={() => { addMessage(msgVal); resetMsgVal() }} />
             </div>
 
         </div>
