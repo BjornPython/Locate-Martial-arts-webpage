@@ -5,7 +5,7 @@ import "../../../css/loggedin/Umaps/umap.css"
 import { useState, useEffect } from 'react'
 import apiService from '../../../../features/apis/apiService';
 
-function Umaps({ user, info, getUserInfo }) {
+function Umaps({ user, info, getUserInfo, createConvo }) {
 
     const [userInfo, setUserInfo] = useState({
         lat: 12.8797,

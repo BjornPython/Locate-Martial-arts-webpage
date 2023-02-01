@@ -128,6 +128,9 @@ function Uhome() {
         socket.emit("addMessage", { convoId, message: msg, sender: info.name })
     }
 
+    const createConvo = (participantOne, participantOneId, participantTwo, participantTwoId) => {
+        socket.emit("newConvo", { participantOne, participantOneId, participantTwo, participantTwoId })
+    }
 
     const UprofileMemo = useMemo(() => {
         return (<Uprofile user={user} info={info} />)
@@ -140,7 +143,7 @@ function Uhome() {
         <div className="uhome-page" >
             <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
-                {currentPage === "search" && <Umaps info={info} user={user} />}
+                {currentPage === "search" && <Umaps info={info} user={user} createConvo={createConvo} />}
                 {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} messages={messages}
                     userName={userName} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} />}

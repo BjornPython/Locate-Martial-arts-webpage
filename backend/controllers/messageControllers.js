@@ -10,6 +10,37 @@ const getConvoChunk = asyncHandler(async (conversationId, convoChunk) => {
     return convo
 })
 
+const makeConvo = asyncHandler(async (participantOne, participantOneId, participantTwo, participantTwoId) => {
+    console.log("IN CREATE CONVO");
+    const conversationId = uuidv4()
+    const participants = [
+        {_id: participantOneId, name: participantOne}, 
+        {_id: participantTwoId, name: participantTwo}
+    ]
+    console.log("PARTICIPANTS: ", participants);
+    const chunkNumber = 0
+
+
+    try {
+    Message.create({
+    conversationId, participants, chunkNumber
+        })
+
+    const userIds = [participantOneId, participantTwoId]
+    const userNames = [participantOne, participantTwo]
+    addUserMessage(userIds, userNames, conversationId, chunkNumber)
+
+    return "SUCCESS"
+
+
+    } catch (err) {
+        console.log("ERROR: ", err);
+        return "FAILED"
+
+    }
+    
+})
+
 
 const createConvo = asyncHandler(async (req, res) => {
     console.log("IN CREATE CONVO");
@@ -100,4 +131,4 @@ const addMessage = asyncHandler(async (req, res) => {
 
 
 
-module.exports = {getConvoChunk, createConvo, addMessage}
+module.exports = {getConvoChunk, createConvo, addMessage, makeConvo}
