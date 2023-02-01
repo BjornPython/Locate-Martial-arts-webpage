@@ -30,12 +30,12 @@ const makeConvo = asyncHandler(async (participantOne, participantOneId, particip
     const userNames = [participantOne, participantTwo]
     addUserMessage(userIds, userNames, conversationId, chunkNumber)
 
-    return "SUCCESS"
+    return {success: true, conversationId}
 
 
     } catch (err) {
         console.log("ERROR: ", err);
-        return "FAILED"
+        throw(err)
 
     }
     

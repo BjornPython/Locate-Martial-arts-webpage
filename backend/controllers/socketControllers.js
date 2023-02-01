@@ -1,4 +1,5 @@
 const {getConvoChunk, makeConvo } = require("./messageControllers")
+const Message = require("../models/messageModel")
 
 
 const makeSocket = (server) => {
@@ -31,7 +32,14 @@ const makeSocket = (server) => {
 
         socket.on("newConvo", async (convoData) => {
             console.log("CONVODATA: ", convoData);
-            makeConvo(convoData.participantOne, convoData.participantOneId, convoData.participantTwo, convoData.participantTwoId)
+            try {
+                const res = await makeConvo(convoData.participantOne, convoData.participantOneId, convoData.participantTwo, convoData.participantTwoId)
+                const newChat = await Message.findOne({conversationId: res.conversationId})
+                console.log("NEW CHAT: ", newChat);
+                socket.emit("newChat", newChat)
+            } catch (err) {
+                console.log(err);
+            }
         }) 
 
     })
