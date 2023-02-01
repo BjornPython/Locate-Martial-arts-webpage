@@ -35,29 +35,15 @@ const showMessage = (message, index, type = null) => {
 }
 
 
-function UuserMessage({ messages, userName }) {
+function UuserMessage({ messages, userName, chatName }) {
 
     const [currentChat, setCurrentChat] = useState({ convoName: "Nathan Flores", status: "Active now", key: 1 })
     const { convoName, status, key } = currentChat
 
-    // const [messages, setMessages] = useState([
-    //     { message: "This is the first message.", type: 1 },
-    //     { message: "This is the second message, it is a bit longer than the first one.", type: 1 },
-    //     { message: "This is the third message, it is even longer than the second one.", type: 1 },
-    //     { message: "This is the fourth message." },
-    //     { message: "This is the fifth message.", type: 1 },
-    //     { message: "This is the sixth message." },
-    //     { message: "This is the seventh message.", type: 1 },
-    //     { message: "This is the eighth message." },
-    //     { message: "This is the ninth message." },
-    //     { message: "This is the tenth message.", type: 1 }
-    // ])
-
-
     return (
         <div id='u-user-message' className='u-user-message'>
 
-            {showCurrentChat(convoName, status, key)}
+            {showCurrentChat(chatName, status, key)}
 
             <hr />
 

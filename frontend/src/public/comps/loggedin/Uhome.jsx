@@ -31,17 +31,14 @@ function Uhome() {
             console.log("MESSAGE EMMITED FROM BACKEND: ", msg);
         })
 
+
         socket.on("messageContents", (messages) => {
             console.log(messages)
         })
 
         return () => {
-            console.log("DISCONNECTING");
         }
     }, [])
-
-
-
 
     useEffect(() => {
         if (!user) {
@@ -49,8 +46,6 @@ function Uhome() {
         } else {
         }
     }, [user])
-
-
 
     useEffect(() => {
         getUserInfo()
@@ -74,21 +69,22 @@ function Uhome() {
 
     const CallLogoutUser = () => {
         localStorage.clear();
-        console.log("LOGGING OUT USER");
         dispatch(logout())
         window.location.reload()
     }
-
-
-    const UprofileMemo = useMemo(() => {
-        return (<Uprofile user={user} info={info} />)
-    }, [user, info])
 
 
     const getMessages = (conversationId, chunk) => {
         console.log("EMITTING");
         socket.emit("requestMessage", { conversationId, chunk })
     }
+
+
+
+    const UprofileMemo = useMemo(() => {
+        return (<Uprofile user={user} info={info} />)
+    }, [user, info])
+
 
 
 
