@@ -55,8 +55,8 @@ function Uhome() {
 
 
     useEffect(() => {
-
-    }, [messages])
+        setMessages([])
+    }, [currentPage])
 
     const getUserInfo = async () => {
         const response = await apiService.getUserInfo(user);

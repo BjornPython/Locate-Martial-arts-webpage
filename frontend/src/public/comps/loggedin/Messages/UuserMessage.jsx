@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "../../../css/loggedin/uuserMessage.css"
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import { current } from '@reduxjs/toolkit'
 
 const showCurrentChat = (userName, status) => {
     return (
@@ -37,20 +38,21 @@ const showMessage = (message, index, type = null) => {
 
 function UuserMessage({ messages, userName, chatName, addMessage, convoId }) {
 
+    const currentChatMemo = useMemo(() => {
+        return showCurrentChat(chatName, "")
+    }, [chatName])
 
 
     return (
         <div id='u-user-message' className='u-user-message'>
 
-            {showCurrentChat(chatName, "")}
+            {currentChatMemo}
 
             <hr />
 
             <div className='u-message-contents'>
                 {messages.map((msg, index) => {
                     const type = userName === msg.sender ? null : true
-                    console.log(userName, msg.sender);
-                    console.log("TYPE: ", type);
                     return (
                         showMessage(msg.message, index, type)
                     )
