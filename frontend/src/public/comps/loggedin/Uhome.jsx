@@ -24,11 +24,15 @@ function Uhome() {
     const [info, setInfo] = useState(null)
     const [currentPage, setCurrentPage] = useState("messages")
     const [showLogout, setShowLogout] = useState(false)
-
+    const [messages, setMessages] = useState([])
 
     useEffect(() => {
         socket.on("message", (msg) => {
             console.log("MESSAGE EMMITED FROM BACKEND: ", msg);
+        })
+
+        socket.on("messageContents", (messages) => {
+            console.log(messages)
         })
 
         return () => {
@@ -86,13 +90,15 @@ function Uhome() {
         socket.emit("requestMessage", { conversationId, chunk })
     }
 
+
+
     return (
         <div className="uhome-page" >
             <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {currentPage === "search" && <Umaps info={info} user={user} />}
                 {currentPage === "profile" && UprofileMemo}
-                {currentPage === "messages" && <Umessages user={user} info={info} getMessages={getMessages} />}
+                {currentPage === "messages" && <Umessages user={user} info={info} getMessages={getMessages} messages={messages} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>

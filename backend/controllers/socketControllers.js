@@ -16,7 +16,9 @@ const makeSocket = (server) => {
 
         socket.on("requestMessage", async (info) => {
             console.log("INFO RECEIVED: ", info);
-            getConvoChunk(info.conversationId, info.chunk)
+            const res = await getConvoChunk(info.conversationId, info.chunk)
+            console.log("RES: ", res);
+            socket.emit("messageContents", res.messages)
         })
     })
 

@@ -5,15 +5,15 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
 
-const userMessages = (messageInfo, status, key, changeConvoId) => {
+const userMessages = (chatInfo, status, key, changeConvoId) => {
     return (
-        <div key={key} className='user' onClick={() => { changeConvoId(messageInfo.value.conversationId, messageInfo.value.highestChunk) }}>
+        <div key={key} className='user' onClick={() => { changeConvoId(chatInfo.value.conversationId, chatInfo.value.highestChunk) }}>
             <div className='user-icon'>
                 <FontAwesomeIcon icon={faUser} />
             </div>
 
             <div className='user-info'>
-                <h3>{messageInfo.value.name}</h3>
+                <h3>{chatInfo.value.name}</h3>
                 <p>{"active now"}</p>
             </div>
         </div>
@@ -22,12 +22,12 @@ const userMessages = (messageInfo, status, key, changeConvoId) => {
 
 
 
-function UmessageUsers({ messages, changeConvoId }) {
+function UmessageUsers({ chats, changeConvoId }) {
 
     return (
         <div className='u-message-page'>
-            {messages.map((messageInfo, index) => {
-                return userMessages(messageInfo, "sadfvcx", index, changeConvoId)
+            {chats.map((chatInfo, index) => {
+                return userMessages(chatInfo, "sadfvcx", index, changeConvoId)
             })}
 
 

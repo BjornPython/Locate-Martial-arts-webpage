@@ -35,36 +35,37 @@ const showMessage = (message, index, type = null) => {
 }
 
 
-function UuserMessage() {
+function UuserMessage({ messages, userName }) {
 
-    const [currentChat, setCurrentChat] = useState({ userName: "Nathan Flores", status: "Active now", key: 1 })
-    const { userName, status, key } = currentChat
+    const [currentChat, setCurrentChat] = useState({ convoName: "Nathan Flores", status: "Active now", key: 1 })
+    const { convoName, status, key } = currentChat
 
-    const [messages, setMessages] = useState([
-        { message: "This is the first message.", type: 1 },
-        { message: "This is the second message, it is a bit longer than the first one.", type: 1 },
-        { message: "This is the third message, it is even longer than the second one.", type: 1 },
-        { message: "This is the fourth message." },
-        { message: "This is the fifth message.", type: 1 },
-        { message: "This is the sixth message." },
-        { message: "This is the seventh message.", type: 1 },
-        { message: "This is the eighth message." },
-        { message: "This is the ninth message." },
-        { message: "This is the tenth message.", type: 1 }
-    ])
+    // const [messages, setMessages] = useState([
+    //     { message: "This is the first message.", type: 1 },
+    //     { message: "This is the second message, it is a bit longer than the first one.", type: 1 },
+    //     { message: "This is the third message, it is even longer than the second one.", type: 1 },
+    //     { message: "This is the fourth message." },
+    //     { message: "This is the fifth message.", type: 1 },
+    //     { message: "This is the sixth message." },
+    //     { message: "This is the seventh message.", type: 1 },
+    //     { message: "This is the eighth message." },
+    //     { message: "This is the ninth message." },
+    //     { message: "This is the tenth message.", type: 1 }
+    // ])
 
 
     return (
         <div id='u-user-message' className='u-user-message'>
 
-            {showCurrentChat(userName, status, key)}
+            {showCurrentChat(convoName, status, key)}
 
             <hr />
 
             <div className='u-message-contents'>
                 {messages.map((msg, index) => {
+                    const type = userName === msg.value.name ? true : null
                     return (
-                        showMessage(msg.message, index, msg.type)
+                        showMessage(msg.message, index, type)
                     )
                 })}
             </div>

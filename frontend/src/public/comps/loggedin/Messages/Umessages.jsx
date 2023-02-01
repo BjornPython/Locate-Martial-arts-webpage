@@ -4,10 +4,11 @@ import UmessageUsers from './UmessageUsers'
 import UuserMessage from "./UuserMessage"
 import { useState } from 'react'
 
-function Umessages({ info, getMessages }) {
+function Umessages({ info, getMessages, messages }) {
 
+    const [userName, setUserName] = useState("")
 
-    const [messages, setMessages] = useState([])
+    const [chats, setChats] = useState([])
 
     const [convoId, setConvoId] = useState("")
     const [currentConvoChunk, setCurrentConvoChunk] = useState(null)
@@ -16,12 +17,11 @@ function Umessages({ info, getMessages }) {
     useEffect(() => {
         console.log("INFO: ", info);
         if (!info) { return }
-        setMessages(Object.entries(info.messages).map(([key, value]) => { return { userId: key, value } }))
+        setChats(Object.entries(info.messages).map(([key, value]) => { return { userId: key, value } }))
+        setUserName(info.name)
     }, [info])
 
-    useEffect(() => {
-        console.log("MESSAGES: ", messages);
-    }, [messages])
+
 
     useEffect(() => {
         if (convoId === "") { return }
@@ -42,9 +42,9 @@ function Umessages({ info, getMessages }) {
     return (
         <div id='u-messages' className="u-messages">
             <div className='u-m-page'>
-                <UmessageUsers messages={messages} changeConvoId={changeConvoId} />
+                <UmessageUsers chats={chats} changeConvoId={changeConvoId} />
                 <hr />
-                <UuserMessage />
+                <UuserMessage messages={messages} userName={userName} />
             </div>
 
         </div>
