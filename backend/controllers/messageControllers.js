@@ -4,6 +4,13 @@ const Message = require("../models/messageModel")
 const { v4: uuidv4 } = require('uuid');
 const { editUsersMessageChunk, addUserMessage } = require("./userControllers");
 
+
+const getConvoChunk = asyncHandler(async (conversationId, convoChunk) => {
+    const convo = await Message.find({conversationId, chunkNumber: convoChunk})
+    console.log("CONVO: ", convo);
+})
+
+
 const createConvo = asyncHandler(async (req, res) => {
     console.log("IN CREATE CONVO");
     console.log("BODY: ", req.body);
@@ -89,4 +96,5 @@ const addMessage = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = {createConvo, addMessage}
+
+module.exports = {getConvoChunk, createConvo, addMessage}

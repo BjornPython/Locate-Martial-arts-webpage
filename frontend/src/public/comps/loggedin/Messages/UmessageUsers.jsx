@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 const userMessages = (messageInfo, status, key, changeConvoId) => {
     return (
-        <div key={key} className='user' onClick={() => { changeConvoId(messageInfo.userId, messageInfo.value.highestChunk) }}>
+        <div key={key} className='user' onClick={() => { changeConvoId(messageInfo.value.conversationId, messageInfo.value.highestChunk) }}>
             <div className='user-icon'>
                 <FontAwesomeIcon icon={faUser} />
             </div>

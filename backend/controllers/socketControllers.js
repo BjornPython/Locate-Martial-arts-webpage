@@ -1,3 +1,5 @@
+const {getConvoChunk } = require("./messageControllers")
+
 
 const makeSocket = (server) => {
     const io = require('socket.io')(server, {
@@ -12,8 +14,9 @@ const makeSocket = (server) => {
         socket.emit("message", "MESSAGE RECEIVED?")
 
 
-        socket.on("requestMessage", (info) => {
+        socket.on("requestMessage", async (info) => {
             console.log("INFO RECEIVED: ", info);
+            getConvoChunk(info.conversationId, info.chunk)
         })
     })
 

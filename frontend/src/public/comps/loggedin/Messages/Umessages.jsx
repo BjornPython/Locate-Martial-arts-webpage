@@ -8,9 +8,9 @@ function Umessages({ info, getMessages }) {
 
 
     const [messages, setMessages] = useState([])
+
     const [convoId, setConvoId] = useState("")
     const [currentConvoChunk, setCurrentConvoChunk] = useState(null)
-    const [conversation, setConversation] = useState([])
 
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function Umessages({ info, getMessages }) {
     useEffect(() => {
         if (convoId === "") { return }
         getMessages(convoId, currentConvoChunk)
-    })
+    }, [convoId])
 
     useEffect(() => {
         console.log("HIGHEST CHUNK: ", currentConvoChunk);
