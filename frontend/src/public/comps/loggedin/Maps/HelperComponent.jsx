@@ -72,7 +72,7 @@ const ShowMarkers = ({ data, markerIcon, type }) => {
                                     <h4 className='popup-bio'>{marker.coach ? "COACH" : "STUDENT"}</h4>
                                 </div>
 
-                                <FontAwesomeIcon icon={faMessage} className="popup-msg-icn" />
+                                <FontAwesomeIcon icon={faMessage} className="popup-msg-icn" onClick={() => { console.log(marker._id) }} />
                             </div>
 
 

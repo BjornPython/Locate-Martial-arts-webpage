@@ -21,26 +21,58 @@ function Uhome() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { user, isLoading, isError, isSuccess } = useSelector((state) => state.auth)
+
+
     const [info, setInfo] = useState(null)
     const [currentPage, setCurrentPage] = useState("messages")
     const [showLogout, setShowLogout] = useState(false)
+
+
+    // states for
     const [messages, setMessages] = useState([])
+    const [userName, setUserName] = useState("") // The name of the user
+
+    const [chats, setChats] = useState([]) // The different chats the user has.
+
+    const [convoId, setConvoId] = useState("") // The convoId of the current user's chat
+    const [chatName, setChatName] = useState("")
+    const [currentConvoChunk, setCurrentConvoChunk] = useState(null) // The highest Chunk of the current chat
 
     useEffect(() => {
-
         socket.on("messageContents", (msgData) => {
-            console.log(msgData)
             setMessages(msgData)
         })
-
         socket.on("newMessage", (msgData) => {
-            console.log("NEW MESSAGE RECEIVED: ", msgData);
             setMessages(prevState => [...prevState, msgData])
         })
 
         return () => {
         }
     }, [])
+
+    useEffect(() => {
+        if (convoId === "") { return }
+        //Everytime time the convoId changes, it will request the new messages.
+        getMessages(convoId, currentConvoChunk)
+    }, [convoId])
+
+    const changeConvo = (conversationId, highestChunk, convoName) => {
+        // Changes the convo when the user clicks on a chat
+        if (conversationId !== convoId) {
+            setConvoId(conversationId)
+            setCurrentConvoChunk(highestChunk)
+            setChatName(convoName)
+        }
+    }
+
+
+    useEffect(() => {
+        if (!info) { return }
+        // Reorganizes the messages data from the database.
+        setChats(Object.entries(info.messages).map(([key, value]) => { return { userId: key, value } }))
+        setUserName(info.name)
+    }, [info])
+
 
     useEffect(() => {
         if (!user) {
@@ -105,7 +137,8 @@ function Uhome() {
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {currentPage === "search" && <Umaps info={info} user={user} />}
                 {currentPage === "profile" && UprofileMemo}
-                {currentPage === "messages" && <Umessages user={user} info={info} getMessages={getMessages} messages={messages} addMessage={addMessage} />}
+                {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} messages={messages}
+                    userName={userName} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>
