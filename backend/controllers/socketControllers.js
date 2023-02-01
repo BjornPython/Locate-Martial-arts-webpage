@@ -1,4 +1,4 @@
-const {getConvoChunk } = require("./messageControllers")
+const {getConvoChunk, makeConvo } = require("./messageControllers")
 
 
 const makeSocket = (server) => {
@@ -28,6 +28,11 @@ const makeSocket = (server) => {
             console.log("sending to room: ", msgData.convoId);
             io.to(msgData.convoId).emit("newMessage", {message: msgData.message, sender: msgData.sender})
         })
+
+        socket.on("newConvo", async (convoData) => {
+            console.log("CONVODATA: ", convoData);
+            makeConvo(convoData.participantOne, convoData.participantOneId, convoData.participantTwo, convoData.participantTwoId)
+        }) 
 
     })
 

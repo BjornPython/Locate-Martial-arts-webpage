@@ -54,7 +54,7 @@ const MoveMarkerOnClick = ({ updateUserInfo }) => {
     }, [])
 }
 
-const ShowMarkers = ({ data, markerIcon, type }) => {
+const ShowMarkers = ({ data, markerIcon, type, callCreateConvo }) => {
     return data.map((marker) => {
         return (
             <Marker
@@ -72,7 +72,7 @@ const ShowMarkers = ({ data, markerIcon, type }) => {
                                     <h4 className='popup-bio'>{marker.coach ? "COACH" : "STUDENT"}</h4>
                                 </div>
 
-                                <FontAwesomeIcon icon={faMessage} className="popup-msg-icn" onClick={() => { console.log(marker._id) }} />
+                                <FontAwesomeIcon icon={faMessage} className="popup-msg-icn" onClick={() => { callCreateConvo(marker.name, marker._id) }} />
                             </div>
 
 
@@ -130,15 +130,21 @@ const ShowMarkers = ({ data, markerIcon, type }) => {
 
 
 
-function HelperComponent({ lat, long, updateUserInfo, markerPoints }) {
+function HelperComponent({ userInfo, updateUserInfo, markerPoints, createConvo }) {
+    const { lat, long, name, id } = userInfo
     const { gyms, coaches, spartners } = markerPoints
+
+    const callCreateConvo = (participantTwo, participantTwoId) => {
+        createConvo(name, id, participantTwo, participantTwoId)
+    }
+
     return (
         <>
             <ChangeMapCenter lat={lat} long={long} updateUserInfo={updateUserInfo} />
             <MoveMarkerOnClick updateUserInfo={updateUserInfo} />
-            <ShowMarkers data={gyms} markerIcon={GymMarkerIcon} type="gyms" />
-            <ShowMarkers data={coaches} markerIcon={CoachMarkerIcon} type="coaches" />
-            <ShowMarkers data={spartners} markerIcon={StudentMarkerIcon} type="spartners" />
+            <ShowMarkers data={gyms} markerIcon={GymMarkerIcon} type="gyms" callCreateConvo={callCreateConvo} />
+            <ShowMarkers data={coaches} markerIcon={CoachMarkerIcon} type="coaches" callCreateConvo={callCreateConvo} />
+            <ShowMarkers data={spartners} markerIcon={StudentMarkerIcon} type="spartners" callCreateConvo={callCreateConvo} />
         </>
     )
 }

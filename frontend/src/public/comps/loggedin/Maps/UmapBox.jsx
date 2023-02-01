@@ -16,9 +16,9 @@ const markerIcon = L.icon({
 
 
 
-function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation, markerPoints }) {
+function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints, createConvo }) {
 
-
+    const { lat, long, id, name } = userInfo
 
 
     const updateUserLocation = async () => {
@@ -51,7 +51,8 @@ function UmapBox({ lat, long, updateUserInfo, updateNewUserLocation, markerPoint
                         fillColor="blue"
                         radius={10000} /> */}
                 </Marker>
-                < HelperComponent lat={lat} long={long} updateUserInfo={updateUserInfo} markerPoints={markerPoints} />
+                < HelperComponent userInfo={userInfo} updateUserInfo={updateUserInfo} markerPoints={markerPoints}
+                    createConvo={createConvo} />
             </MapContainer>
 
             <button className='recenter-btn'>CLICK</button>

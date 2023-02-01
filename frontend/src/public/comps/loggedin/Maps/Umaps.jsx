@@ -8,12 +8,13 @@ import apiService from '../../../../features/apis/apiService';
 function Umaps({ user, info, getUserInfo, createConvo }) {
 
     const [userInfo, setUserInfo] = useState({
+        name: "",
         lat: 12.8797,
         long: 121.7740,
         id: null
 
     })
-    const { lat, long, id } = userInfo
+    const { name, lat, long, id } = userInfo
 
     const [newUserLocation, setNewUserLocation] = useState(null)
 
@@ -42,11 +43,13 @@ function Umaps({ user, info, getUserInfo, createConvo }) {
     useEffect(() => {
         if (!info) { return }
         else {
-            console.log("INFO: ", info);
-            const newLocation = info.location.lat && info.location.long
-                ? { lat: info.location.lat, long: info.location.long, id: info._id }
-                : { lat: 12.8797, long: 121.7740, id: info._id }
-            setUserInfo(newLocation)
+            console.log(info);
+            const newInfo = info.location.lat && info.location.long
+                ? { lat: info.location.lat, long: info.location.long, id: info._id, name: info.name }
+                : { lat: 12.8797, long: 121.7740, id: info._id, name: info.name }
+
+            console.log(newInfo);
+            setUserInfo(newInfo)
         }
     }, [info])
 
@@ -88,9 +91,7 @@ function Umaps({ user, info, getUserInfo, createConvo }) {
     }
 
     const getMarkerLocations = async () => {
-        console.log("GETTING MARKER LOCATIONS");
         const location = newUserLocation ? newUserLocation : { lat, long }
-        console.log("SENDING LOCATION: ", location);
         if (selectedLfs.includes("GYM")) {
             const res = await apiService.findGyms(location, JSON.stringify(lookingForMarts))
             setMarkerPoints((prevState) => {
@@ -122,7 +123,8 @@ function Umaps({ user, info, getUserInfo, createConvo }) {
         <div className='u-maps-page'>
             <UmapForms updateUserInfo={updateUserInfo} selectedLfs={selectedLfs} toggleLf={toggleLf} lookingForMarts={lookingForMarts} toggleLookingForMart={toggleLookingForMart}
                 getMarkerLocations={getMarkerLocations} />
-            <UmapBox lat={lat} long={long} updateNewUserLocation={updateNewUserLocation} updateUserInfo={updateUserInfo} markerPoints={markerPoints} />
+            <UmapBox userInfo={userInfo} updateNewUserLocation={updateNewUserLocation}
+                updateUserInfo={updateUserInfo} markerPoints={markerPoints} name={name} id={id} createConvo={createConvo} />
         </div>
     )
 }
