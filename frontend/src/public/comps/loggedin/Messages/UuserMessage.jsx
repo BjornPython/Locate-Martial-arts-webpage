@@ -36,7 +36,7 @@ const showMessage = (message, index, type = null) => {
 }
 
 
-function UuserMessage({ messages, userName, chatName, addMessage, convoId }) {
+function UuserMessage({ messages, userName, chatName, addMessage }) {
 
     const currentChatMemo = useMemo(() => {
         return showCurrentChat(chatName, "")
@@ -65,7 +65,7 @@ function UuserMessage({ messages, userName, chatName, addMessage, convoId }) {
                 <form className="u-msg-form">
                     <input type="text" className='u-msg-input' />
                 </form>
-                <FontAwesomeIcon icon={faPaperPlane} className="send-msg-icon" onClick={() => { addMessage(convoId, "TEST MESSAGE") }} />
+                <FontAwesomeIcon icon={faPaperPlane} className="send-msg-icon" onClick={() => { addMessage("TEST MESSAGE") }} />
             </div>
 
         </div>

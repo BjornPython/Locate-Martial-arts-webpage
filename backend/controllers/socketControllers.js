@@ -25,6 +25,7 @@ const makeSocket = (server) => {
 
         socket.on("addMessage", (msgData) => {
             console.log("MSGDATA: ", {message: msgData.message, sender: msgData.sender});
+            console.log("sending to room: ", msgData.convoId);
             io.to(msgData.convoId).emit("newMessage", {message: msgData.message, sender: msgData.sender})
         })
 
