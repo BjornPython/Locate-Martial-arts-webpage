@@ -44,7 +44,7 @@ html {
     justify-content: flex-start;
     row-gap: 30px;
     align-items: center;
-    background-color: #d3d3d3;
+    background-color: rgba(255, 255, 255, 0.5);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -53,6 +53,7 @@ html {
 
 .logout-div h2 {
     margin-top: 40px;
+    color: black;
 }
 .logout-btns {
     display: flex;
