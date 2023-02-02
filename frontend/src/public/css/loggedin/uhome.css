@@ -8,6 +8,7 @@ html {
     overflow-x: hidden;
     scroll-behavior: smooth;
     position: relative;
+    background-image: url("../../images/backgroundImages/fightingGym.jpg");
 
 }
 
