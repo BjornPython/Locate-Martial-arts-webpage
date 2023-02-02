@@ -52,7 +52,7 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
     return (
         <div className="looking-for">
             <div className="u-for">
-                <h4 className='u-for-h' style={{ color: `${darkenSpar ? "black" : "gray"}` }}>Looking for a Sparring Partner:</h4>
+                <h4 className='u-for-h' style={{ color: `${darkenSpar ? "white" : "gray"}` }}>Looking for a Sparring Partner:</h4>
                 <div className='dropdowns-div' >
                     <div id='spartner-div' className={`looking-for-dropdown ${darkenSpar ? "looking-for-dropdown-has" : null}`}
                         onClick={() => { setShowSpar(!showSpar) }}>
@@ -69,7 +69,7 @@ function UprofileFinding({ lfSparArts, lfCoachArts, updateLfSpartner, updateLfCo
             </div>
 
             <div className="u-for">
-                <h4 className='u-for-h' style={{ color: `${darkenCoach ? "black" : "gray"}` }}>Looking for a Coach:</h4>
+                <h4 className='u-for-h' style={{ color: `${darkenCoach ? "white" : "gray"}` }}>Looking for a Coach:</h4>
                 <div className='dropdowns-div' >
                     <div id="coach-div" className={`looking-for-dropdown ${darkenCoach ? "looking-for-dropdown-has" : null}`}
                         onClick={() => { setShowCoach(!showCoach) }}>

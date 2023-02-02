@@ -150,6 +150,9 @@ input:focus{
     justify-content: space-between;
     color: gray;
     height: 90px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
 }   
 
 .u-for-h {
@@ -167,6 +170,7 @@ input:focus{
     overflow: visible;
 
 }
+
 
 .looking-for-dropdown {
     width: 180px;
@@ -186,8 +190,8 @@ input:focus{
 }
 
 .looking-for-dropdown-has {
-    color: black;
-    border-color: black;
+    color: white;
+    border-color: white;
 }
 
 .spar-dropdown {
@@ -421,13 +425,13 @@ input:focus{
         height: 400px;
         column-gap: 80px;
         margin-bottom: 40px;
-        width: 300px;
+        width: 340px;
     }
     
     
     .u-for {
+        height: 160px;
         flex-direction: column;
-        height: 120px;
         margin-bottom: 30px;
     }
 
