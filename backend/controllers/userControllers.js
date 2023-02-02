@@ -245,16 +245,16 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
                 [`messages.${userIds[1]}.name`]: userNames[1],  
                 [`messages.${userIds[1]}.conversationId`]: conversationId ,
                 [`messages.${userIds[1]}.highestChunk`]: chunkNumber 
-            }
+            }, {new: true}
         );
         const user2 = await User.findByIdAndUpdate(userIds[1], 
             { 
                 [`messages.${userIds[0]}.name`]: userNames[0],
                 [`messages.${userIds[0]}.conversationId`]: conversationId  ,
                 [`messages.${userIds[0]}.highestChunk`]: chunkNumber  
-            }
+            }, {new: true}
         );
-        console.log(user1, user2)
+        return user1
     } catch (err) {
         console.error(err);
         throw(err)

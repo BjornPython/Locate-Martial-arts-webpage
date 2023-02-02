@@ -39,46 +39,6 @@ function Uhome() {
     const [currentConvoChunk, setCurrentConvoChunk] = useState(null) // The highest Chunk of the current chat
 
 
-    // useEffect(() => {
-
-    //     socket.on("messageContents", (msgData) => {
-    //         setMessages(msgData)
-    //     })
-
-
-    //     socket.on("newMessage", (msgData) => {
-    //         console.log("UHOME NEWMSG: ", msgData);
-    //         setMessages(prevState => [...prevState, msgData])
-    //     })
-
-    //     socket.on("newChat", (newChat) => {
-    //         updateChats(newChat)
-    //     })
-
-    //     const updateChats = (newChat) => {
-    //         console.log("INFO ID: ", info);
-    //         setChats((prevState) => {
-    //             const userId = newChat.participants.participantTwoId !== info._id
-    //                 ? newChat.participants.participantTwoId
-    //                 : newChat.participants.participantOneId
-    //             const name = newChat.participants.participantTwo !== info.name
-    //                 ? newChat.participants.participantTwo
-    //                 : newChat.participants.participantOne
-    //             return [...prevState, {
-    //                 userId,
-    //                 value: {
-    //                     conversationId: newChat.conversationId,
-    //                     name
-    //                 }
-    //             }]
-    //         })
-    //     }
-
-    //     return () => {
-    //         socket.off("messageContents");
-    //         socket.off("newMessage");
-    //     };
-    // }, [])
 
     useEffect(() => {
         if (convoId === "") { return }
@@ -100,7 +60,14 @@ function Uhome() {
     useEffect(() => {
         if (!info) { return }
         // Reorganizes the messages data from the database.
-        setChats(Object.entries(info.messages).map(([key, value]) => { return { userId: key, value } }))
+        console.log(info);
+        setChats(Object.entries(info.messages).map(([key, value]) => {
+            return {
+                conversationId: value.conversationId,
+                highestChunk: value.highestChunk,
+                name: value.name
+            }
+        }))
         setUserName(info.name)
 
         socket.on("messageContents", (msgData) => {
@@ -114,27 +81,13 @@ function Uhome() {
         })
 
         socket.on("newChat", (newChat) => {
-            updateChats(newChat)
+            console.log("NEW CHAT: ", newChat);
+            setChats((prevState) => {
+                return [...prevState]
+            })
         })
 
-        const updateChats = (newChat) => {
-            console.log("INFO ID: ", info);
-            setChats((prevState) => {
-                const userId = newChat.participants.participantTwoId !== info._id
-                    ? newChat.participants.participantTwoId
-                    : newChat.participants.participantOneId
-                const name = newChat.participants.participantTwo !== info.name
-                    ? newChat.participants.participantTwo
-                    : newChat.participants.participantOne
-                return [...prevState, {
-                    userId,
-                    value: {
-                        conversationId: newChat.conversationId,
-                        name
-                    }
-                }]
-            })
-        }
+
 
         return () => {
             socket.off("messageContents");

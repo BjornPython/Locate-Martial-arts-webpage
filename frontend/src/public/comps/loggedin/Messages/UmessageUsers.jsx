@@ -28,9 +28,9 @@ function UmessageUsers({ chats, changeConvo }) {
 
     return (
         <div className='u-message-page'>
-            {chats.map((chatInfo, index) => {
+            {/* {chats.map((chatInfo, index) => {
                 return userMessages(chatInfo, "sadfvcx", index, changeConvo)
-            })}
+            })} */}
 
 
         </div>

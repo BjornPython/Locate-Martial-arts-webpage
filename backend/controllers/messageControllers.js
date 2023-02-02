@@ -28,9 +28,8 @@ const makeConvo = asyncHandler(async (participantOne, participantOneId, particip
 
     const userIds = [participantOneId, participantTwoId]
     const userNames = [participantOne, participantTwo]
-    addUserMessage(userIds, userNames, conversationId, chunkNumber)
+    return addUserMessage(userIds, userNames, conversationId, chunkNumber)
 
-    return {success: true, conversationId}
 
 
     } catch (err) {
