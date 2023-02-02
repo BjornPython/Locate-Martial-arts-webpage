@@ -43,7 +43,7 @@ function Uhome() {
     useEffect(() => {
         if (convoId === "") { return }
         //Everytime time the convoId changes, it will request the new messages.
-
+        console.log("GETTING MESSAGES");
         getMessages(convoId, currentConvoChunk)
     }, [convoId])
 

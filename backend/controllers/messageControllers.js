@@ -77,10 +77,7 @@ const createConvo = asyncHandler(async (req, res) => {
 
 
 
-const addMessage = asyncHandler(async (req, res) => {
-    console.log("IN ADD MESSAGE");
-    console.log("REQ BODY: ", req.body);
-    const {conversationId, newMessage, sender} = req.body
+const addMessage = asyncHandler(async (conversationId, newMessage, sender) => {
 
     const messageInfo = {sender, message: newMessage}
 
@@ -96,11 +93,11 @@ const addMessage = asyncHandler(async (req, res) => {
             )
                 .then(result => {
                     console.log(result);
-                    res.status(200).json({message: "added message to convo"})
+                    console.log("ADDED MSG TO CONVO");
                 })
                 .catch(error => {
                     console.error(error);
-                    res.status(200).json({message: "FAILED to added message to convo"})
+                    console.log("FAILED TO AD DMSG TO CONVO");
                 });
         } else {
             const nextChunkNumber = document.chunkNumber + 1;
@@ -115,11 +112,11 @@ const addMessage = asyncHandler(async (req, res) => {
                 .then(result => {
                     console.log(result);
                     editUsersMessageChunk(userIds, nextChunkNumber)
-                    res.status(200).json({message: "created new chunk and added message to convo"})
+                    console.log("MADE NEW MSG DOC AND ADDED MSG");
                 })
                 .catch(error => {
                     console.error(error);
-                    res.status(200).json({message: "FAILED to create new chunk and add message to convo"})
+                    console.log("FAILED TO MAKE NEW MSG DOC AND ADDED MSG");
                 });
         }
     })
