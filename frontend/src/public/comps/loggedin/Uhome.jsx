@@ -85,6 +85,10 @@ function Uhome() {
             setChats((prevState) => {
                 return [...prevState, newChat]
             })
+            setCurrentPage("messages")
+            setConvoId(newChat.conversationId)
+            setChatName(newChat.name)
+            setCurrentConvoChunk(newChat.highestChunk)
         })
 
 

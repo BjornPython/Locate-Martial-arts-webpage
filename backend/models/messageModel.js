@@ -10,14 +10,7 @@ const messageSchema = mongoose.Schema({
     },
     participants: {type: [], required: true, default: []},
 
-    messages: {type: [], required: false, default: [
-        {
-            sender: "",
-            senderName: "",
-            content: "Hello, how are you?",
-            timestamp: ""
-        }
-    ]},
+    messages: {type: [], required: false, default: []},
     chunkNumber: {type: Number, required: true, default: 0}
 }
 
