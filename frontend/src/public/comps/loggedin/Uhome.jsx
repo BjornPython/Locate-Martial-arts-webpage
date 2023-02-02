@@ -151,8 +151,13 @@ function Uhome() {
     }
 
     const createConvo = (participantOne, participantOneId, participantTwo, participantTwoId) => {
-        console.log("CREATING CONVO");
-        socket.emit("newConvo", { participantOne, participantOneId, participantTwo, participantTwoId })
+        console.log("IN CREATE CONVO");
+
+        if (!info.messages[participantTwoId]) {
+            console.log("NO CONVO");
+            socket.emit("newConvo", { participantOne, participantOneId, participantTwo, participantTwoId })
+
+        } else { console.log("USER ALREADY HAS A CONVO"); }
     }
 
     const UprofileMemo = useMemo(() => {
