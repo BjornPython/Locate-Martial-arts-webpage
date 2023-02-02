@@ -83,7 +83,7 @@ function Uhome() {
         socket.on("newChat", (newChat) => {
             console.log("NEW CHAT: ", newChat);
             setChats((prevState) => {
-                return [...prevState]
+                return [...prevState, newChat]
             })
         })
 
@@ -92,6 +92,7 @@ function Uhome() {
         return () => {
             socket.off("messageContents");
             socket.off("newMessage");
+            socket.off("newChat");
         };
 
     }, [info])

@@ -36,6 +36,7 @@ const makeSocket = (server) => {
                 const res = await makeConvo(convoData.participantOne, convoData.participantOneId, convoData.participantTwo, convoData.participantTwoId)
                 // const newChat = await Message.findOne({conversationId: res.conversationId})
                 console.log("RES: ", res.messages);
+                socket.emit("newChat", res.messages[convoData.participantTwoId])
             } catch (err) {
                 console.log(err);
             }
