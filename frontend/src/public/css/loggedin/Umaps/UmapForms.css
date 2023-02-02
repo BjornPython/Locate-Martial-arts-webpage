@@ -16,7 +16,8 @@
     width: 45px;
     border-radius: 0px;
     border-width: 1px;
-    background-color: black;
+    background-color: transparent;
+    border: none;
     color: white;
     cursor: pointer;
 }
@@ -36,13 +37,13 @@
 }
 
 .u-address-input {
-    border-radius: 0;
-    border-width: 2px;
-    border-color: black;
+    color: white;
+    border: none;
     width: 320px;
     height: 40px;
     font-size: 1.2rem;
     padding-left: 5px;
+    background-color: transparent;
 }
 
 .u-address-input::placeholder {
@@ -54,7 +55,7 @@
     margin-top: 20px;
     height: 1.5px;
     border: none;
-    background-color: black;
+    background-color: gray;
 }
 
 .display-error {
@@ -105,8 +106,8 @@
 
 .u-lf-div {
     display: flex;
-    background-color: black;
-    border: none;
+    background-color: transparent;
+    border: 1px solid gray;
     color: white;
     cursor: pointer;
     width: 110px;
@@ -158,8 +159,8 @@
     padding-right: 10px;
     height: 40px;
     margin: 0;
-    border: black solid 1px;
-    background-color: black;
+    border: white solid 1px;
+    background-color: transparent;
     color: white;
     border-radius: 5px;
 }
@@ -171,7 +172,7 @@
 .u-lf-marts-dropdown {
     display: flex;
     flex-direction: column;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.9);
     margin-top: 8px;
     border-radius: 5px;
     height: 300px;
