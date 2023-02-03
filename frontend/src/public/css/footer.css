@@ -129,6 +129,7 @@
 }
 
 @media(max-width:960px) {
+
     .footer-main-info {
         row-gap: 50px;
         flex-direction: column;
