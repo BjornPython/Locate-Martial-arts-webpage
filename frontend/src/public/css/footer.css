@@ -32,9 +32,14 @@
     align-items: flex-start;
 }
 
-.footer-main-info h1, h4 {
+.footer-main-info h1 {
     margin: 0;
 }
+
+.footer-main-info h4 {
+    margin: 0;
+}
+
 .footer-logo {
     flex-basis: 40%;
     display: flex;
