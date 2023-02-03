@@ -30,17 +30,23 @@ Need to find a gym? a coach? a sparring partner? or are you a coach who wants to
 # (FEATURES IN PROGRESS)
 
 # Homepage of user when logged in. (profile tab) 
-![Capturefirstlookprofile1](https://user-images.githubusercontent.com/110831700/214484823-293a782a-f502-4886-a3ff-637a50c246df.PNG)
+![dsavcvf](https://user-images.githubusercontent.com/110831700/216246151-85287ccf-6b3d-453e-99a9-0057818e675e.PNG)
 
 # Quick profile settings
 ### quick setup for what the user is looking for.
-![Capturefirstlookprofile](https://user-images.githubusercontent.com/110831700/214484973-8036b9c7-49f9-43cc-932e-c957c295eca0.PNG)
+![dgt](https://user-images.githubusercontent.com/110831700/216246069-b45faee1-5636-461a-bebf-8b0ef4da4f08.PNG)
 
 # Editable profile information. Updates the database when changes are saved.
-![Capturefirstlookprofile12](https://user-images.githubusercontent.com/110831700/214485063-781f339d-077e-4ade-bb94-f65575173999.PNG)
-![2](https://user-images.githubusercontent.com/110831700/214485079-2b1c286f-6c96-4e04-a493-191178a6a7b3.PNG)
+![asd](https://user-images.githubusercontent.com/110831700/216245737-20cc6412-4923-407c-9567-04d158450f80.PNG)
+![sdvcb](https://user-images.githubusercontent.com/110831700/216245794-69794355-3095-4e51-bd8a-9c3563d20d38.PNG)
+
 
 # MESSAGES TAB (IN PROGRESS)
-![ASDASD](https://user-images.githubusercontent.com/110831700/212444859-c1e8f494-fc03-4a21-b5b5-0f008720f89d.PNG)
+![updatedUImsgs](https://user-images.githubusercontent.com/110831700/216245614-793f3282-b2e5-4495-bd0e-f5b57b344b9f.PNG)
+
+
+# MAPS SEARCH 
+![updatedUI](https://user-images.githubusercontent.com/110831700/216245395-d27a1a56-706b-4793-841b-ef1e6d01f5cf.PNG)
+
 
 # Developed by: Nathan Flores
