@@ -47,7 +47,8 @@ function Uprofile({ user, info }) {
         lfCoachArts: {},
         marts: {},
         awards: [],
-        lfDataChanged: 0
+        lfDataChanged: 0,
+        initialValues: true
     })
 
     const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards, lfDataChanged } = newUserInfo
@@ -70,10 +71,12 @@ function Uprofile({ user, info }) {
     }, [info])
 
     useEffect(() => {
+        if (name === "" || !newUserInfo.initialValues) { return }
         changeUserData()
     }, [name, bio])
 
     useEffect(() => {
+        if (lfDataChanged === 0) return
         changeUserData()
     }, [lfDataChanged])
 
