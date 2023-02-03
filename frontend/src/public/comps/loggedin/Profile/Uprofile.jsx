@@ -47,12 +47,12 @@ function Uprofile({ user, info }) {
         lfCoachArts: {},
         marts: {},
         awards: [],
+        lfDataChanged: 0
     })
 
-    const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards } = newUserInfo
+    const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards, lfDataChanged } = newUserInfo
     const [showSave, setShowSave] = useState(false)
 
-    const [lfDataChanged, setLfDataChanged] = useState(0)
 
 
     // Calls the getUserInfo function to get and set the user's information. also sets the 
@@ -62,7 +62,7 @@ function Uprofile({ user, info }) {
             return
 
         } else {
-            setNewUserInfo({ ...info });
+            setNewUserInfo({ ...info, lfDataChanged: 0 });
             // had to stringiny then parse so the two states will not have the same reference.
             setDbUserInfo(JSON.parse(JSON.stringify(info)));
         }
@@ -73,26 +73,33 @@ function Uprofile({ user, info }) {
         changeUserData()
     }, [name, bio])
 
+    useEffect(() => {
+        changeUserData()
+    }, [lfDataChanged])
+
     // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
     const updateLfSpartner = (mart) => {
+        console.log("IN UPDATE LF SPARTNER");
         if (Object.keys(lfSparArts).includes(mart)) {
             // remove
             setNewUserInfo((prevState) => {
-                setLfDataChanged(prevState => prevState + 1);
                 console.log(lfDataChanged);
                 const newState = { ...prevState }
+                newState.lfDataChanged += 1
                 delete newState.lfSparArts[mart]
+                newState.lfSpar = Object.keys(lfSparArts).length > 0 ? true : false
+                console.log("LFSPAR: ", newState.lfSpar);
                 return newState
             })
-            changeUserData()
         } else {
             setNewUserInfo((prevState) => {
                 const newState = { ...prevState };
-                setLfDataChanged(prevState => prevState + 1);
+                newState.lfDataChanged += 1
                 newState.lfSparArts[mart] = true
+                newState.lfSpar = Object.keys(lfSparArts).length > 0 ? true : false
+                console.log("LFSPAR: ", newState.lfSpar);
                 return newState
             })
-            changeUserData()
         }
         // add
     }
@@ -102,19 +109,19 @@ function Uprofile({ user, info }) {
             // remove
             setNewUserInfo((prevState) => {
                 const newState = { ...prevState }
-                setLfDataChanged(prevState => prevState + 1);
                 delete newState.lfCoachArts[mart]
+                newState.lfCoach = Object.keys(lfCoachArts).length > 0 ? true : false
+                newState.lfDataChanged += 1
                 return newState
             })
-            changeUserData()
         } else {
             setNewUserInfo((prevState) => {
                 const newState = { ...prevState };
-                setLfDataChanged(prevState => prevState + 1);
                 newState.lfCoachArts[mart] = true
+                newState.lfCoach = Object.keys(lfCoachArts).length > 0 ? true : false
+                newState.lfDataChanged += 1
                 return newState
             })
-            changeUserData()
         }
         // add
     }
