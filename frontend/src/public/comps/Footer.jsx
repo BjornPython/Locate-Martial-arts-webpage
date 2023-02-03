@@ -2,32 +2,31 @@ import "../css/footer.css"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareFacebook, faSquareGithub, faSquareInstagram } from "@fortawesome/free-brands-svg-icons"
-
+import { faMapMarkerAlt, faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons"
 
 function Footer() {
     return (
         <div className="main-footer">
-            <div className="footer-infos">
-                <div className="footer-info">
-                    <h3>Contact Us</h3>
+
+            <div className="footer-main-info">
+                <div className="footer-logo">
+                    <h1>LOCATE MARTIAL ARTS</h1>
                 </div>
                 <div className="footer-info">
-                    <h3>About Us</h3>
+                    <div className="info-grp"><FontAwesomeIcon className="info-grp-icn" icon={faMapMarkerAlt} />
+                        <p>#20, Sample St., Address Village, Sample City.</p>
+                    </div>
+                    <div className="info-grp"><FontAwesomeIcon className="info-grp-icn" icon={faPhone} />
+                        <p>+123 - 4567 - 8910</p>
+                    </div>
+                    <div className="info-grp"><FontAwesomeIcon className="info-grp-icn" icon={faEnvelope} />
+                        <p style={{ color: "yellow" }}>locatemartialarts@gmail.com</p>
+                    </div>
                 </div>
-                <div className="footer-info">
-                    <h3>FAQs</h3>
+                <div className="footer-info footer-about-info">
+                    <h4>ABOUT THE COMPANY</h4>
                 </div>
             </div>
-
-            <hr className="footer-line" />
-
-            <div className="soc-icons">
-                <a href="#"><FontAwesomeIcon icon={faSquareFacebook} className="soc-fonts"></FontAwesomeIcon></a>
-                <a href="#"><FontAwesomeIcon icon={faSquareGithub} className="soc-fonts"></FontAwesomeIcon></a>
-                <a href="#"><FontAwesomeIcon icon={faSquareInstagram} className="soc-fonts"></FontAwesomeIcon></a>
-            </div>
-            <h4 className="copyright">@Copyright. All RIghts Reserved.</h4>
-
 
         </div >
     )

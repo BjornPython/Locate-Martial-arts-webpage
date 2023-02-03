@@ -20,6 +20,9 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
 
     const { lat, long, id, name } = userInfo
 
+    const [resetCenterValue, setRecetCenterValue] = useState([lat, long])
+
+
 
     const updateUserLocation = async () => {
         updateNewUserLocation()
@@ -31,6 +34,11 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
             updateUserInfo(latlng.lat, latlng.lng)
         },
     }))
+
+    const resetCenter = () => {
+        console.log("RESETTING TO VALUE: ", resetCenterValue);
+        updateUserInfo(resetCenterValue[0], resetCenterValue[1])
+    }
 
     return (
         <div className='u-map-box'>
@@ -55,7 +63,9 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
                     createConvo={createConvo} />
             </MapContainer>
 
-            <button className='recenter-btn'>CLICK</button>
+            <button className='recenter-btn' onClick={(() => {
+                resetCenter(resetCenterValue)
+            })}>CLICK</button>
         </div>
     )
 }
