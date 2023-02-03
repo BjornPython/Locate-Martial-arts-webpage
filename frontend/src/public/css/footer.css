@@ -117,3 +117,45 @@
     margin-bottom: 10px;
     color: #c5c6cc;
 }
+
+@media(max-width:1100px) {
+    .footer-info {
+        height: 220px;
+    }
+
+    .footer-about-info {
+        height: 225px;
+    }
+}
+
+@media(max-width:960px) {
+    .footer-main-info {
+        row-gap: 50px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }    
+
+    .footer-info {
+        border-bottom: none;
+        width: 400px;
+    }
+
+    .info-grp {
+        margin-left: 20px;
+    }
+
+    .footer-about-info {
+        text-align: center;
+        width: 400px;
+        overflow: visible;
+        border-bottom: none;
+    }
+    .footer-about-info h4 {
+        margin-left: 0;
+    }
+
+    .footer-about-info p {
+        margin-left: 0;
+    }
+} 
