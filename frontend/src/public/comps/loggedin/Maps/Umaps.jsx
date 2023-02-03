@@ -48,7 +48,7 @@ function Umaps({ user, info, getUserInfo, createConvo }) {
                 ? { lat: info.location.lat, long: info.location.long, id: info._id, name: info.name }
                 : { lat: 12.8797, long: 121.7740, id: info._id, name: info.name }
 
-            console.log(newInfo);
+            console.log("SETTING NEW INFO TO: ", newInfo);
             setUserInfo(newInfo)
         }
     }, [info])
@@ -59,7 +59,7 @@ function Umaps({ user, info, getUserInfo, createConvo }) {
     }
 
     const updateUserInfo = (lat, long) => {
-        setUserInfo({ lat, long })
+        setUserInfo((prevState) => { return { ...prevState, lat, long } })
     }
 
     const updateNewUserLocation = () => {
