@@ -111,7 +111,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
             const searchMarts = jsonMarts.map((art) => {
                 return {[`lfSparArts.${art}`]: {$exists: true}}
             })
-            let query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}, $or: []}
+            let query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat), $gt: parseFloat(lat) - 0.3}, "location.long": {$lt: 0.3 + parseFloat(long), $gt: parseFloat(long) - 0.3}, $or: []}
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
             console.log("QUERY: ", query);
             const user = await User.find(query).select('-password -email');
@@ -123,7 +123,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
         } else {
             console.log("IN SPAR 4");
 
-            const query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
+            const query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat), $gt: parseFloat(lat) - 0.3 }, "location.long": {$lt: 0.3 + parseFloat(long), $gt:parseFloat(long) - 0.3}}
 
             const user = await User.find(query).select('-password -email');
             console.log("USER: ", user);
