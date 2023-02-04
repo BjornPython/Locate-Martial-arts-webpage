@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react';
-import { useMap } from 'react-leaflet';
+import { useMap, useMapEvent } from 'react-leaflet';
 import L from "leaflet"
 import { Marker, Popup } from 'react-leaflet';
 import "../../../css/loggedin/Umaps/UhelperComponent.css"
@@ -127,6 +127,28 @@ const ShowMarkers = ({ data, markerIcon, type, callCreateConvo }) => {
 
 
 
+const ControllingGroup = () => {
+
+    const map = useMapEvent({
+        layeradd() {
+            let bounds = new L.LatLngBounds();
+            map.eachLayer(function (layer) {
+                if (layer instanceof L.FeatureGroup) {
+                    bounds.extend(layer.getBounds());
+                }
+            });
+
+            if (bounds.isValid()) {
+                map.fitBounds(bounds);
+            }
+        }
+    })
+
+    return null
+}
+
+
+
 
 
 
@@ -146,6 +168,7 @@ function HelperComponent({ userInfo, updateUserInfo, markerPoints, createConvo }
             <ShowMarkers data={gyms} markerIcon={GymMarkerIcon} type="gyms" callCreateConvo={callCreateConvo} />
             <ShowMarkers data={coaches} markerIcon={CoachMarkerIcon} type="coaches" callCreateConvo={callCreateConvo} />
             <ShowMarkers data={spartners} markerIcon={StudentMarkerIcon} type="spartners" callCreateConvo={callCreateConvo} />
+            <ControllingGroup />
         </>
     )
 }
