@@ -31,7 +31,6 @@ window.onload = (() => {
     if (!(loginPage.classList.contains("login-show")) || 
     !(registerPage.classList.contains("register-show"))) {
         homeButton.classList.toggle("btn-dark")
-        console.log("HOME BTN DARK ");
     }
 
 
@@ -84,7 +83,6 @@ window.onload = (() => {
         }
     })
 
-    console.log("REGISTERCOACH", registerCoach);
     registerCoach.addEventListener("click", async () => {
         if (!registerCoachSpan.classList.contains("account-as-span-active")) {
             registerCoachSpan.classList.toggle("account-as-span-active");
@@ -92,7 +90,6 @@ window.onload = (() => {
         }
 
     })
-    console.log("REGISTERGYM", registerGym);
 
     registerGym.addEventListener("click", async () => {
         if (!registerGymSpan.classList.contains("account-as-span-active")) {
@@ -110,8 +107,6 @@ window.onload = (() => {
     // ANIMATIONS FOR NAVIGATION LINKS FOR SMALLER SCREEN SIZE
 
 
-    console.log("HAMBURGER: ", hamburger);
-    console.log("LINKS: ", links);
 
     hamburger.addEventListener("click", async () => {
         
@@ -138,13 +133,11 @@ window.onload = (() => {
 
 
         if (loginPage.classList.contains("login-show")) {
-            console.log("HAS LOG IN ");
             loginButton.classList.toggle("btn-dark");
             animateLogin()
         }
 
         else if (registerPage.classList.contains("register-show")) {
-            console.log("HAS REGISTER");
             registerButton.classList.toggle("btn-dark");
             animateRegister()
         }
@@ -165,13 +158,11 @@ window.onload = (() => {
     artsBoxes.forEach((artBox) => observer.observe(artBox))
 
     selectArts.addEventListener("click", () => {
-        console.log("clicked");
         martsDropdown.classList.toggle("marts-dropdown-active")
     })
 
 
     mArts.forEach((mart) => {
-        console.log("MART: ", mart);
         mart.addEventListener("click", () => {
             const span = mart.querySelector(".m-art-span")
             span.classList.toggle("show-span")
