@@ -53,3 +53,25 @@
     height: 25px;
     color: white;
 }
+
+.eye-btn {
+    position: absolute;
+    z-index: 1000;
+    top: 90px;
+    right: 40px;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.eye-btn:hover {
+    transition: 0.2s ease-in;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.eye-icn {
+    height: 25px;
+    color: white;
+}

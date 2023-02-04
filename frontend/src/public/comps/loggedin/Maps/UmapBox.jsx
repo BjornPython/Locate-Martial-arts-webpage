@@ -5,7 +5,7 @@ import "../../../css/loggedin/Umaps/umapBox.css"
 import { useState } from 'react';
 import HelperComponent from './HelperComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowsToDot } from '@fortawesome/free-solid-svg-icons';
+import { faArrowsToDot, faEye } from '@fortawesome/free-solid-svg-icons';
 
 const markerIcon = L.icon({
     iconUrl: require("../../../images/icons/place.png"),
@@ -28,7 +28,8 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
 
 
     const changeZoom = () => {
-        mapRef.current.fitBounds(currentBounds)
+        if (currentBounds.isValid()) { mapRef.current.fitBounds(currentBounds) }
+
     }
 
 
@@ -82,7 +83,7 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
             <button className='recenter-btn' onClick={(() => {
                 resetCenter(resetCenterValue)
             })}><FontAwesomeIcon icon={faArrowsToDot} className="recenter-icn" /></button>
-            <button onClick={changeZoom}>CLICK</button>
+            <button className='eye-btn' onClick={changeZoom}><FontAwesomeIcon icon={faEye} className="eye-icn" /></button>
         </div>
     )
 }
