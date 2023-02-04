@@ -32,8 +32,13 @@ function UmapBox({
 
 
     useEffect(() => {
-        if (!userInfo.initialValues || !mapRef) { mapRef.current.setView([lat, long], 18) }
-    }, [lat, long])
+
+        if (!userInfo.initialValues || !mapRef) {
+            if (lat === 12.8797 && long === 121.7740) { mapRef.current.setView([lat, long], 5) }
+            else { mapRef.current.setView([lat, long], 18) }
+
+        }
+    }, [userInfo])
 
     const updateUserLocation = async () => {
         updateNewUserLocation()
