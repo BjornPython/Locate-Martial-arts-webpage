@@ -35,7 +35,6 @@ function Umaps({ user, info, createConvo }) {
     }, [newUserLocation])
 
     useEffect(() => {
-        console.log("INFO IS UPDATED: ", userInfo)
     }, [userInfo])
 
     useEffect(() => {
@@ -44,7 +43,6 @@ function Umaps({ user, info, createConvo }) {
             const newInfo = info.location.lat && info.location.long
                 ? { lat: info.location.lat, long: info.location.long, id: info._id, name: info.name }
                 : { lat: 12.8797, long: 121.7740, id: info._id, name: info.name }
-            console.log("NEW INFO : ", newInfo)
             setUserInfo(newInfo)
         }
     }, [info])
@@ -55,8 +53,6 @@ function Umaps({ user, info, createConvo }) {
     }
 
     const updateUserInfo = (lat, long) => {
-        console.log("UPDATING USERI NFO")
-
         setUserInfo((prevState) => { return { ...prevState, lat, long } })
     }
 

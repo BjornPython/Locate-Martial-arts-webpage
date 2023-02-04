@@ -191,6 +191,7 @@ const getCoachUsers = asyncHandler(async (req, res) => {
 
             const query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
             const user = await User.find(query).select('-password -email');
+            console.log("USER ", user);
             if (user) {res.status(200).json(user)}
             else {res.status(401).json({message: "Failed to get data from user database."})}
         }

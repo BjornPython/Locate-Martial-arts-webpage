@@ -32,6 +32,8 @@ const findSparringPartners = async (location, marts) => {
 
 const findCoach = async (location, marts) => {
   console.log("IN FIND COACH");
+  console.log("MARTS: ", marts);
+  console.log("LOCATION: ", location);
   const response = await axios.post(`${USERS_API_ENDPOINT}/coachusers`, {location, marts}, {
     headers: { 
       'Content-Type': 'application/json'
