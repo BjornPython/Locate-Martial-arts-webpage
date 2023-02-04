@@ -1,5 +1,6 @@
 .u-messages {
-    width: 100vw;
+    width: 100%;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,9 +11,7 @@
     width: 90%;
     justify-content: center;
     height: 600px;
-    margin-left: 40px;
-    margin-right: 40px;
-
+    margin-left: 50px;
     column-gap: 20px;
 }
 
