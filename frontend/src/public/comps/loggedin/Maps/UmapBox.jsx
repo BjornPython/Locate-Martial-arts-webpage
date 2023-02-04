@@ -15,25 +15,13 @@ const markerIcon = L.icon({
 
 
 
-function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints,
-    createConvo, }) {
+function UmapBox({
+    userInfo, updateUserInfo, updateNewUserLocation, markerPoints,
+    createConvo }) {
     const { lat, long, name } = userInfo
     const mapRef = useRef(null)
 
     const [currentBounds, setCurrentBounds] = useState(null)
-
-    const updateCurrentBounds = (bounds) => {
-        setCurrentBounds(bounds)
-    }
-
-
-    const changeZoom = () => {
-        if (currentBounds.isValid()) { mapRef.current.fitBounds(currentBounds) }
-
-    }
-
-
-
     const [resetCenterValue, setRecetCenterValue] = useState(null)
 
     useEffect(() => {
@@ -42,9 +30,16 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
     }, [name]) // setting centervalue useeffect dependency is on name, so it will not be updated
     // when the lat and long changes.
 
+
+    useEffect(() => {
+        if (!userInfo.initialValues || !mapRef) { mapRef.current.setView([lat, long], 18) }
+    }, [lat, long])
+
     const updateUserLocation = async () => {
         updateNewUserLocation()
     }
+
+
 
     const eventHandlers = useMemo(() => ({
         dragend(e) {
@@ -55,11 +50,24 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
 
     const resetCenter = () => {
         updateUserInfo(resetCenterValue[0], resetCenterValue[1])
+        console.log("setting map view")
+        mapRef.current.setView([resetCenterValue[0], resetCenterValue[1]], 18)
+    }
+
+    const updateCurrentBounds = (bounds) => {
+        setCurrentBounds(bounds)
+    }
+
+
+    const changeZoom = () => {
+        console.log("IN CHANGE ZOOM: ", mapRef.current.fitBounds);
+        if (currentBounds.isValid()) { mapRef.current.fitBounds(currentBounds) }
+
     }
 
     return (
         <div className='u-map-box'>
-            <MapContainer ref={mapRef} center={[lat, long]} zoom={5} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
+            <MapContainer ref={mapRef} center={[lat, long]} zoom={18} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

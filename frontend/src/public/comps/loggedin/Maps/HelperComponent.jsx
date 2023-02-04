@@ -31,18 +31,7 @@ const StudentMarkerIcon = L.icon({
 
 
 
-// Moves the maps center to the location of the marker.
-const ChangeMapCenter = ({ lat, long }) => {
-    const map = useMap();
 
-    useEffect(() => {
-        if (lat && long) {
-            map.setView([lat, long], 18)
-
-        }
-
-    }, [lat, long])
-}
 
 const MoveMarkerOnClick = ({ updateUserInfo }) => {
     const map = useMap()
@@ -164,7 +153,6 @@ function HelperComponent({ userInfo, updateUserInfo, markerPoints, createConvo, 
 
     return (
         <>
-            <ChangeMapCenter lat={lat} long={long} updateUserInfo={updateUserInfo} />
             <MoveMarkerOnClick updateUserInfo={updateUserInfo} />
             <ShowMarkers data={gyms} markerIcon={GymMarkerIcon} type="gyms" callCreateConvo={callCreateConvo} />
             <ShowMarkers data={coaches} markerIcon={CoachMarkerIcon} type="coaches" callCreateConvo={callCreateConvo} />
