@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useMemo } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMap, Circle } from 'react-leaflet';
-import L, { setOptions } from "leaflet"
+import React, { useMemo } from 'react'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from "leaflet"
 import "../../../css/loggedin/Umaps/umapBox.css"
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { useState } from 'react';
-import apiService from '../../../../features/apis/apiService';
 import HelperComponent from './HelperComponent';
 
 
@@ -18,7 +16,7 @@ const markerIcon = L.icon({
 
 function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints, createConvo }) {
 
-    const { lat, long, id, name } = userInfo
+    const { lat, long } = userInfo
 
     const [resetCenterValue, setRecetCenterValue] = useState([lat, long])
 
@@ -33,7 +31,7 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
             const latlng = e.target.getLatLng()
             updateUserInfo(latlng.lat, latlng.lng)
         },
-    }))
+    }), [])
 
     const resetCenter = () => {
         console.log("RESETTING TO VALUE: ", resetCenterValue);
