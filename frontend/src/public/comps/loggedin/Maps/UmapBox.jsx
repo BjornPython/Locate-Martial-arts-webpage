@@ -4,7 +4,8 @@ import L from "leaflet"
 import "../../../css/loggedin/Umaps/umapBox.css"
 import { useState } from 'react';
 import HelperComponent from './HelperComponent';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowsToDot } from '@fortawesome/free-solid-svg-icons';
 
 const markerIcon = L.icon({
     iconUrl: require("../../../images/icons/place.png"),
@@ -64,7 +65,7 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
 
             <button className='recenter-btn' onClick={(() => {
                 resetCenter(resetCenterValue)
-            })}>Back to Your location</button>
+            })}><FontAwesomeIcon icon={faArrowsToDot} className="recenter-icn" /></button>
         </div>
     )
 }
