@@ -77,16 +77,17 @@ function UmapBox({
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker eventHandlers={eventHandlers} position={[lat, long]} draggable={true} icon={markerIcon}>
-                    <Popup>
-                        <div className='user-marker-popup'>
-                            <h3>Your Position</h3>
-                            <button onClick={() => { updateUserLocation() }} >Set as location</button>
-                        </div>
-                    </Popup>
-
-                </Marker>
                 <FeatureGroup >
+
+                    <Marker eventHandlers={eventHandlers} position={[lat, long]} draggable={true} icon={markerIcon}>
+                        <Popup>
+                            <div className='user-marker-popup'>
+                                <h3>Your Position</h3>
+                                <button onClick={() => { updateUserLocation() }} >Set as location</button>
+                            </div>
+                        </Popup>
+
+                    </Marker>
                     < HelperComponent userInfo={userInfo} updateUserInfo={updateUserInfo} markerPoints={markerPoints}
                         createConvo={createConvo} updateCurrentBounds={updateCurrentBounds} />
                 </FeatureGroup>
