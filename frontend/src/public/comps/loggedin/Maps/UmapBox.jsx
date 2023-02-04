@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from "leaflet"
 import "../../../css/loggedin/Umaps/umapBox.css"
@@ -16,11 +16,15 @@ const markerIcon = L.icon({
 
 function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints, createConvo }) {
 
-    const { lat, long } = userInfo
+    const { lat, long, name } = userInfo
 
-    const [resetCenterValue, setRecetCenterValue] = useState([lat, long])
+    const [resetCenterValue, setRecetCenterValue] = useState(null)
 
-
+    useEffect(() => {
+        if (userInfo.initialValues) { return }
+        setRecetCenterValue([lat, long])
+    }, [name]) // setting centervalue useeffect dependency is on name, so it will not be updated
+    // when the lat and long changes.
 
     const updateUserLocation = async () => {
         updateNewUserLocation()
@@ -52,10 +56,7 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
                             <button onClick={() => { updateUserLocation() }} >Set as location</button>
                         </div>
                     </Popup>
-                    {/* <Circle
-                        center={{ lat, lng: long }}
-                        fillColor="blue"
-                        radius={10000} /> */}
+
                 </Marker>
                 < HelperComponent userInfo={userInfo} updateUserInfo={updateUserInfo} markerPoints={markerPoints}
                     createConvo={createConvo} />
@@ -63,7 +64,7 @@ function UmapBox({ userInfo, updateUserInfo, updateNewUserLocation, markerPoints
 
             <button className='recenter-btn' onClick={(() => {
                 resetCenter(resetCenterValue)
-            })}>CLICK</button>
+            })}>Back to Your location</button>
         </div>
     )
 }

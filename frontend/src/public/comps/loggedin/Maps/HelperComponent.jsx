@@ -134,14 +134,9 @@ function HelperComponent({ userInfo, updateUserInfo, markerPoints, createConvo }
     const { lat, long, name, id } = userInfo
     const { gyms, coaches, spartners } = markerPoints
 
-    useEffect(() => {
-        console.log("USEEFFECT USERINFO: ", userInfo);
-
-    }, [userInfo])
 
     const callCreateConvo = (participantTwo, participantTwoId) => {
-        console.log("FUNCTION NAME: ", userInfo.name, "ID: ", userInfo.id);
-        createConvo(userInfo.name, userInfo.id, participantTwo, participantTwoId)
+        createConvo(name, id, participantTwo, participantTwoId)
     }
 
     return (

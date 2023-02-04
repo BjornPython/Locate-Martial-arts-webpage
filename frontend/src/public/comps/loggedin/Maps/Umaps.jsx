@@ -5,13 +5,14 @@ import "../../../css/loggedin/Umaps/umap.css"
 import { useState, useEffect } from 'react'
 import apiService from '../../../../features/apis/apiService';
 
-function Umaps({ user, info, getUserInfo, createConvo }) {
+function Umaps({ user, info, createConvo }) {
 
     const [userInfo, setUserInfo] = useState({
         name: "",
         lat: 12.8797,
         long: 121.7740,
-        id: null
+        id: null,
+        initialValues: true
 
     })
     const { name, lat, long, id } = userInfo
@@ -25,15 +26,6 @@ function Umaps({ user, info, getUserInfo, createConvo }) {
 
     const [lookingForMarts, setLookingForMarts] = useState([])
 
-    useEffect(() => {
-        console.log("NEW LOOKING FOR MARTS: ", lookingForMarts);
-    }, [lookingForMarts])
-
-
-
-    useEffect(() => {
-        console.log("SELECTED LFS: ", selectedLfs);
-    }, [selectedLfs])
 
     useEffect(() => {
         if (newUserLocation === null) { return }
@@ -43,12 +35,10 @@ function Umaps({ user, info, getUserInfo, createConvo }) {
     useEffect(() => {
         if (!info) { return }
         else {
-            console.log(info);
             const newInfo = info.location.lat && info.location.long
                 ? { lat: info.location.lat, long: info.location.long, id: info._id, name: info.name }
                 : { lat: 12.8797, long: 121.7740, id: info._id, name: info.name }
 
-            console.log("SETTING NEW INFO TO: ", newInfo);
             setUserInfo(newInfo)
         }
     }, [info])
@@ -59,6 +49,8 @@ function Umaps({ user, info, getUserInfo, createConvo }) {
     }
 
     const updateUserInfo = (lat, long) => {
+        console.log("UPDATING USERI NFO")
+
         setUserInfo((prevState) => { return { ...prevState, lat, long } })
     }
 
