@@ -123,7 +123,7 @@ const getSparringUsers = asyncHandler(async (req, res) => {
         } else {
             console.log("IN SPAR 4");
 
-            const query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat), $gt: parseFloat(lat) - 0.3 }, "location.long": {$lt: 0.3 + parseFloat(long), $gt:parseFloat(long) - 0.3}}
+            const query = {lfSpar: true, "location.lat": {$lt: 0.3 + parseFloat(lat), $gt: parseFloat(lat) - 0.3 }, "location.long": {$lt: 0.3 + parseFloat(long), $gt:parseFloat(long) -0.3}}
 
             const user = await User.find(query).select('-password -email');
             console.log("USER: ", user);

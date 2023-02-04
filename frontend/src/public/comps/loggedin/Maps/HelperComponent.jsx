@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useMap, useMapEvent } from 'react-leaflet';
 import L from "leaflet"
@@ -127,7 +127,7 @@ const ShowMarkers = ({ data, markerIcon, type, callCreateConvo }) => {
 
 
 
-const ControllingGroup = () => {
+const ControllingGroup = ({ updateCurrentBounds }) => {
 
     const map = useMapEvent({
         layeradd() {
@@ -141,6 +141,7 @@ const ControllingGroup = () => {
             if (bounds.isValid()) {
                 map.fitBounds(bounds);
             }
+            updateCurrentBounds(bounds)
         }
     })
 
@@ -152,7 +153,7 @@ const ControllingGroup = () => {
 
 
 
-function HelperComponent({ userInfo, updateUserInfo, markerPoints, createConvo }) {
+function HelperComponent({ userInfo, updateUserInfo, markerPoints, createConvo, updateCurrentBounds }) {
     const { lat, long, name, id } = userInfo
     const { gyms, coaches, spartners } = markerPoints
 
@@ -168,7 +169,7 @@ function HelperComponent({ userInfo, updateUserInfo, markerPoints, createConvo }
             <ShowMarkers data={gyms} markerIcon={GymMarkerIcon} type="gyms" callCreateConvo={callCreateConvo} />
             <ShowMarkers data={coaches} markerIcon={CoachMarkerIcon} type="coaches" callCreateConvo={callCreateConvo} />
             <ShowMarkers data={spartners} markerIcon={StudentMarkerIcon} type="spartners" callCreateConvo={callCreateConvo} />
-            <ControllingGroup />
+            <ControllingGroup updateCurrentBounds={updateCurrentBounds} />
         </>
     )
 }

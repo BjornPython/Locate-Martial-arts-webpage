@@ -27,6 +27,8 @@ function Umaps({ user, info, createConvo }) {
     const [lookingForMarts, setLookingForMarts] = useState([])
 
 
+
+
     useEffect(() => {
         if (newUserLocation === null) { return }
         updateUserDbLoc(newUserLocation)
