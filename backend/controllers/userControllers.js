@@ -175,7 +175,7 @@ const getCoachUsers = asyncHandler(async (req, res) => {
                 return {[`teaches.${art}`]: {$exists: true}}
             })
 
-            let query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}, $or: []}
+            let query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat), $gt: parseFloat(lat) - 0.3 }, "location.long": {$lt: 0.3 + parseFloat(long), $gt:parseFloat(long) -0.3}, $or: []}
             console.log("QUERY1: ", query );
             query.$or = query.$or.concat(searchMarts.map(val => val)) 
             console.log("QUERY2: ", query);
@@ -189,7 +189,7 @@ const getCoachUsers = asyncHandler(async (req, res) => {
         } else {
             console.log("IN COACH 4");
 
-            const query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat)}, "location.long": {$lt: 0.3 + parseFloat(long)}}
+            const query = {coach: true, "location.lat": {$lt: 0.3 + parseFloat(lat), $gt: parseFloat(lat) - 0.3 }, "location.long": {$lt: 0.3 + parseFloat(long), $gt:parseFloat(long) -0.3}}
             const user = await User.find(query).select('-password -email');
             console.log("USER ", user);
             if (user) {res.status(200).json(user)}

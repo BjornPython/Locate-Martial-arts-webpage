@@ -106,8 +106,8 @@ const getGyms = asyncHandler(async (req, res) => {
             const gyms = await Gym.find(
                 {$and: 
                     [
-                    {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
-                    {"location.long": {$lt: 0.3 + parseFloat(long)}}, 
+                    {"location.lat": {$lt: 0.3 + parseFloat(lat), $gt: parseFloat(lat) - 0.3 }}, 
+                    {"location.long": {$lt: 0.3 + parseFloat(long), $gt:parseFloat(long) -0.3}}, 
                     {$or: searchMarts}
                     ]
                 }
@@ -121,8 +121,8 @@ const getGyms = asyncHandler(async (req, res) => {
             const gyms = await Gym.find(
                 {$and: 
                     [
-                    {"location.lat": {$lt: 0.3 + parseFloat(lat)}}, 
-                    {"location.long": {$lt: 0.3 + parseFloat(long)}}
+                        {"location.lat": {$lt: 0.3 + parseFloat(lat), $gt: parseFloat(lat) - 0.3 }}, 
+                        {"location.long": {$lt: 0.3 + parseFloat(long), $gt:parseFloat(long) -0.3}}
                     ]
             }).select('-password -email');
             if (gyms) {res.status(200).json(gyms)}
