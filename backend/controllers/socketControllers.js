@@ -13,24 +13,30 @@ const makeSocket = (server) => {
 
     io.on("connection", (socket) => {
         console.log("NEW CLIENT CONNECTED IN BACKEND");
-        socket.on("joinConversation", (info) => {
-            console.log("JOINED USER");
-            socket.join(info.conversationId)
+        socket.on("joinConversation", async (info) => {
+            const conversation = await Message.findOne({conversationId: info.conversationId})
+            console.log("CONVO " , conversation);
+            const participants = conversation.participants
+            const decoded = jwt.verify(info.token, process.env.JWT_TOKEN)
+            for (let i = 0; i < participants.length; i++) {
+                if (participants[i]._id === decoded.id) {
+                    console.log(`JOIN CONVO VERIFIED`);
+                    socket.join(info.conversationId)
+                    break;
+                } 
+            }
         })
 
         socket.on("requestMessage", async (info) => {
-            console.log("INFO RECEIVED: ", info);
             const res = await getConvoChunk(info.conversationId, info.chunk)
-            console.log("RES: ", res);
             const participants = res.participants
             const decoded = jwt.verify(info.token, process.env.JWT_TOKEN)
-            console.log("DECODED: ", decoded, "PARTICIPANTS: ", participants);
             for (let i = 0; i < participants.length; i++) {
                 if (participants[i]._id === decoded.id) {
                     console.log(`VERIFIED`);
                     socket.emit("messageContents", res.messages)
                     break;
-                }
+                } 
             }
 
         })
