@@ -155,7 +155,7 @@ function Uhome() {
 
         if (!info.messages[participantTwoId]) {
             console.log("NO CONVO");
-            socket.emit("newConvo", { participantOne, participantOneId, participantTwo, participantTwoId })
+            socket.emit("newConvo", { token: user, participantOne, participantOneId, participantTwo, participantTwoId })
 
         } else {
             console.log(info.messages[participantTwoId])
