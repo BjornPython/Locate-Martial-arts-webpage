@@ -41,16 +41,16 @@ function UmapBox({
     }, [userInfo])
 
     useEffect(() => {
+        if (!mapRef) { return }
         console.log("CURRENT BOUNDS CHANGED: ", currentBounds.isValid())
         if (currentBounds.isValid()) { mapRef.current.fitBounds(currentBounds) }
     }, [currentBounds])
 
+
+
     const updateUserLocation = async () => {
         updateNewUserLocation()
     }
-
-
-
     const eventHandlers = useMemo(() => ({
         dragend(e) {
             const latlng = e.target.getLatLng()
@@ -78,9 +78,6 @@ function UmapBox({
             }
             if (bounds.isValid()) { setCurrentBounds(bounds) }
         }))
-
-        // if (currentBounds.isValid()) { mapRef.current.fitBounds(currentBounds) }
-
     }
 
     return (

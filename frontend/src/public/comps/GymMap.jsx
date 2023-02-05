@@ -1,27 +1,26 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
-import L, { setOptions } from "leaflet"
+import L from "leaflet"
 import { MapContainer } from 'react-leaflet/MapContainer'
 import { TileLayer } from 'react-leaflet/TileLayer'
 import { useMap } from 'react-leaflet/hooks'
-import { Marker, useMapEvent } from "react-leaflet";
+import { Marker } from "react-leaflet";
 import { Popup } from "react-leaflet/Popup";
 import "leaflet/dist/leaflet.css";
 import "../css/gymMap.css"
 import GetGyms from './GetGyms';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowsToDot, faEye } from '@fortawesome/free-solid-svg-icons';
 
 // Component for getting the clicked position and setting the marker.
-const GetCoordinates = ({ setPosition }) => {
+const GetCoordinates = ({ updateLatLong }) => {
     const map = useMap();
-
 
     useEffect(() => {
         if (!map) return;
         let latLong
         map.on('click', (e) => {
-            latLong = e.latlng;
             map.setView(latLong, 18)
-            console.log("LATLONG: ", latLong);
-            setPosition([latLong.lat, latLong.lng])
+            updateLatLong(e.latlng.lat, e.latlng.lng)
         })
     }, [map])
     return null
@@ -29,7 +28,7 @@ const GetCoordinates = ({ setPosition }) => {
 
 
 // COmponent where the GymMap is, 
-function GymMap({ latLong, setLatLong, searchInfo }) {
+function GymMap({ latLong, updateLatLong, searchInfo }) {
     // a map ref for setting the view of the map.
     const mapRef = useRef()
 
@@ -47,11 +46,8 @@ function GymMap({ latLong, setLatLong, searchInfo }) {
     // sets a new position, and changes the current view of the map. 
     // if latLong is null, do not do anything.
     useEffect(() => {
-        console.log("MAPREF CURRENT: ", mapRef.current);
         if (!mapRef.current) return;
-        console.log("LATLONG: ", latLong);
         if (latLong[0] === null || latLong[1] === null) return;
-        console.log("SETTING POSITION, LAT AND LONG: ", parseFloat(latLong[0]), parseFloat(latLong[1]));
         setPosition([parseFloat(latLong[0]), parseFloat(latLong[1])])
         mapRef.current.setView({ lat: parseFloat(latLong[0]), lng: parseFloat(latLong[1]) }, 18, { animate: true, duration: 1 });
     }, [latLong])
@@ -60,11 +56,16 @@ function GymMap({ latLong, setLatLong, searchInfo }) {
     const eventHandlers = useMemo(() => ({
         dragend(e) {
             const latlng = e.target.getLatLng()
-            console.log("LATLNG: ", latlng);
-            setLatLong([parseFloat(latlng.lat), parseFloat(latlng.lng)])
+            updateLatLong(parseFloat(latlng.lat), parseFloat(latlng.lng))
         },
+
     }))
 
+    const recenterMap = () => {
+        if (!mapRef) { return }
+        console.log([latLong[0], latLong[1]])
+        mapRef.current.setView([latLong[0], latLong[1]], 18)
+    }
 
     return (
         <div className="map" >
@@ -82,9 +83,14 @@ function GymMap({ latLong, setLatLong, searchInfo }) {
 
                 <GetGyms searchInfo={searchInfo} />
 
-                <GetCoordinates setPosition={setPosition} />
+                <GetCoordinates updateLatLong={updateLatLong} />
 
             </MapContainer>
+
+            <button className='apphome-recenter-btn' onClick={(() => {
+                recenterMap()
+            })}><FontAwesomeIcon icon={faArrowsToDot} className="apphome-recenter-icn" /></button>
+            <button className='apphome-eye-btn' ><FontAwesomeIcon icon={faEye} className="apphome-recenter-icn" /></button>
         </div>
 
     )
