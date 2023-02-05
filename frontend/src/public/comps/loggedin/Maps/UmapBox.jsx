@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, FeatureGroup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, FeatureGroup } from 'react-leaflet';
 import L from "leaflet"
 import "../../../css/loggedin/Umaps/umapBox.css"
 import { useState } from 'react';
@@ -70,14 +70,13 @@ function UmapBox({
 
 
     const changeZoom = () => {
-        console.log("IN CHANGE ZOOM: ");
         let bounds = new L.LatLngBounds();
-        console.log("MAPREF LAYERS: ", mapRef.current.eachLayer((layer) => {
+        mapRef.current.eachLayer((layer) => {
             if (layer instanceof L.FeatureGroup) {
                 bounds.extend(layer.getBounds())
             }
             if (bounds.isValid()) { setCurrentBounds(bounds) }
-        }))
+        })
     }
 
     return (

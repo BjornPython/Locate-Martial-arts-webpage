@@ -1,15 +1,19 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useMemo, useState } from 'react';
 import L from "leaflet"
-import { MapContainer } from 'react-leaflet/MapContainer'
-import { TileLayer } from 'react-leaflet/TileLayer'
-import { useMap } from 'react-leaflet/hooks'
-import { Marker } from "react-leaflet";
-import { Popup } from "react-leaflet/Popup";
+import { MapContainer, TileLayer, Marker, Popup, FeatureGroup, useMap } from 'react-leaflet';
+
 import "leaflet/dist/leaflet.css";
 import "../css/gymMap.css"
 import GetGyms from './GetGyms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowsToDot, faEye } from '@fortawesome/free-solid-svg-icons';
+
+const markerIcon = L.icon({
+    iconUrl: require("../images/icons/place.png"),
+    iconRetinaUrl: require("../images/icons/place.png"),
+    iconSize: [42, 42]
+})
+
 
 // Component for getting the clicked position and setting the marker.
 const GetCoordinates = ({ updateLatLong }) => {
@@ -29,17 +33,22 @@ const GetCoordinates = ({ updateLatLong }) => {
 // COmponent where the GymMap is, 
 function GymMap({ latLong, updateLatLong, searchInfo }) {
     // a map ref for setting the view of the map.
-    const mapRef = useRef()
+    const mapRef = useRef(null)
 
-    // Used for setting the starting position of the center of the 
-    // map and the starting position of the marker.
-    // Initializing the image and size of the markerIcon.
-    const markerIcon = L.icon({
-        iconUrl: require("../images/icons/place.png"),
-        iconRetinaUrl: require("../images/icons/place.png"),
-        iconSize: [42, 42]
-    })
 
+    const [appHomeCurrentBounds, setAppHomeCurrentBounds] = useState(L.latLngBounds([null, null], [null, null]))
+
+
+    useEffect(() => {
+        if (appHomeCurrentBounds.isValid() && mapRef) {
+            mapRef.current.fitBounds(appHomeCurrentBounds)
+        }
+    }, [appHomeCurrentBounds])
+
+
+    useEffect(() => {
+        changeZoom()
+    }, [searchInfo])
 
     // an event handler of the Marker. gets the latitude and the longitude
     // of the marker when it is dragged, and sets the latLong.
@@ -47,6 +56,7 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
         dragend(e) {
             const latlng = e.target.getLatLng()
             updateLatLong(parseFloat(latlng.lat), parseFloat(latlng.lng))
+            mapRef.current.setView([parseFloat(latlng.lat), parseFloat(latlng.lng)], 18)
         },
 
     }))
@@ -56,7 +66,19 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
         console.log([latLong[0], latLong[1]])
         mapRef.current.setView([latLong[0], latLong[1]], 18)
     }
-    console.log("LATLONG GMYMAP: ", latLong)
+
+    const changeZoom = () => {
+        let bounds = new L.LatLngBounds();
+        if (!mapRef.current) { return }
+        mapRef.current.eachLayer((layer) => {
+            if (layer instanceof L.FeatureGroup) {
+                bounds.extend(layer.getBounds())
+            }
+        })
+
+        if (bounds.isValid()) { setAppHomeCurrentBounds(bounds) }
+    }
+
     return (
         <div className="map" >
             <MapContainer ref={mapRef} center={latLong} zoom={18} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
@@ -64,23 +86,26 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
+                <FeatureGroup >
+                    <Marker eventHandlers={eventHandlers} position={latLong} draggable={true} icon={markerIcon}>
+                        <Popup>
+                            <h4>Your Position</h4> <br /> <p>lat: {latLong[0]} lng: {latLong[1]}</p>
+                        </Popup>
+                    </Marker>
 
-                <Marker eventHandlers={eventHandlers} position={latLong} draggable={true} icon={markerIcon}>
-                    <Popup>
-                        <h4>Your Position</h4> <br /> <p>lat: {latLong[0]} lng: {latLong[1]}</p>
-                    </Popup>
-                </Marker>
+                    <GetGyms searchInfo={searchInfo} />
 
-                <GetGyms searchInfo={searchInfo} />
+                    <GetCoordinates updateLatLong={updateLatLong} />
+                </FeatureGroup>
 
-                <GetCoordinates updateLatLong={updateLatLong} />
+
 
             </MapContainer>
 
             <button className='apphome-recenter-btn' onClick={(() => {
                 recenterMap()
             })}><FontAwesomeIcon icon={faArrowsToDot} className="apphome-recenter-icn" /></button>
-            <button className='apphome-eye-btn' ><FontAwesomeIcon icon={faEye} className="apphome-recenter-icn" /></button>
+            <button className='apphome-eye-btn' onClick={() => { changeZoom() }} ><FontAwesomeIcon icon={faEye} className="apphome-recenter-icn" /></button>
         </div>
 
     )
