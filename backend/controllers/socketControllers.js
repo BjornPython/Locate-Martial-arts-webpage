@@ -1,5 +1,6 @@
 const {getConvoChunk, makeConvo, addMessage } = require("./messageControllers")
 const Message = require("../models/messageModel")
+const jwt = require("jsonwebtoken")
 
 
 const makeSocket = (server) => {
@@ -12,16 +13,26 @@ const makeSocket = (server) => {
 
     io.on("connection", (socket) => {
         console.log("NEW CLIENT CONNECTED IN BACKEND");
-        socket.on("joinConversation", (conversationId) => {
+        socket.on("joinConversation", (info) => {
             console.log("JOINED USER");
-            socket.join(conversationId)
+            socket.join(info.conversationId)
         })
 
         socket.on("requestMessage", async (info) => {
             console.log("INFO RECEIVED: ", info);
             const res = await getConvoChunk(info.conversationId, info.chunk)
             console.log("RES: ", res);
-            socket.emit("messageContents", res.messages)
+            const participants = res.participants
+            const decoded = jwt.verify(info.token, process.env.JWT_TOKEN)
+            console.log("DECODED: ", decoded, "PARTICIPANTS: ", participants);
+            for (let i = 0; i < participants.length; i++) {
+                if (participants[i]._id === decoded.id) {
+                    console.log(`VERIFIED`);
+                    socket.emit("messageContents", res.messages)
+                    break;
+                }
+            }
+
         })
 
         socket.on("addMessage", async (msgData) => {

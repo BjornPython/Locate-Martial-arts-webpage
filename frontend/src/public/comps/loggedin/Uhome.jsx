@@ -141,8 +141,8 @@ function Uhome() {
 
     const getMessages = (conversationId, chunk) => {
         console.log("EMITTING");
-        socket.emit("requestMessage", { conversationId, chunk })
-        socket.emit("joinConversation", conversationId)
+        socket.emit("requestMessage", { conversationId, chunk, token: user })
+        socket.emit("joinConversation", { conversationId, token: user })
     }
 
     const addMessage = (msg) => {
@@ -157,7 +157,14 @@ function Uhome() {
             console.log("NO CONVO");
             socket.emit("newConvo", { participantOne, participantOneId, participantTwo, participantTwoId })
 
-        } else { console.log("USER ALREADY HAS A CONVO"); }
+        } else {
+            console.log(info.messages[participantTwoId])
+            setCurrentPage("messages")
+            setConvoId(info.messages[participantTwoId].conversationId)
+            setChatName(info.messages[participantTwoId].name)
+            setCurrentConvoChunk(info.messages[participantTwoId].highestChunk)
+
+        }
     }
 
     const UprofileMemo = useMemo(() => {
