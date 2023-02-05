@@ -24,7 +24,7 @@ function Uhome() {
 
 
     const [info, setInfo] = useState(null)
-    const [currentPage, setCurrentPage] = useState("messages")
+    const [currentPage, setCurrentPage] = useState("search")
     const [showLogout, setShowLogout] = useState(false)
 
 

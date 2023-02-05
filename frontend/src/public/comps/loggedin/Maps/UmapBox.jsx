@@ -21,7 +21,7 @@ function UmapBox({
     const { lat, long, name } = userInfo
     const mapRef = useRef(null)
 
-    const [currentBounds, setCurrentBounds] = useState(null)
+    const [currentBounds, setCurrentBounds] = useState(L.latLngBounds([null, null], [null, null]))
     const [resetCenterValue, setRecetCenterValue] = useState(null)
 
     useEffect(() => {
@@ -39,6 +39,11 @@ function UmapBox({
 
         }
     }, [userInfo])
+
+    useEffect(() => {
+        console.log("CURRENT BOUNDS CHANGED: ", currentBounds.isValid())
+        if (currentBounds.isValid()) { mapRef.current.fitBounds(currentBounds) }
+    }, [currentBounds])
 
     const updateUserLocation = async () => {
         updateNewUserLocation()
@@ -65,8 +70,16 @@ function UmapBox({
 
 
     const changeZoom = () => {
-        console.log("IN CHANGE ZOOM: ", mapRef.current.fitBounds);
-        if (currentBounds.isValid()) { mapRef.current.fitBounds(currentBounds) }
+        console.log("IN CHANGE ZOOM: ");
+        let bounds = new L.LatLngBounds();
+        console.log("MAPREF LAYERS: ", mapRef.current.eachLayer((layer) => {
+            if (layer instanceof L.FeatureGroup) {
+                bounds.extend(layer.getBounds())
+            }
+            if (bounds.isValid()) { setCurrentBounds(bounds) }
+        }))
+
+        // if (currentBounds.isValid()) { mapRef.current.fitBounds(currentBounds) }
 
     }
 

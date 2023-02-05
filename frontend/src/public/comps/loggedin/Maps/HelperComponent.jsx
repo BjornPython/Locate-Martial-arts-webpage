@@ -120,21 +120,13 @@ const ControllingGroup = ({ updateCurrentBounds }) => {
 
     const map = useMapEvent({
         layeradd() {
-            let bounds = new L.LatLngBounds();
-            map.eachLayer(function (layer) {
-                if (layer instanceof L.FeatureGroup) {
-                    bounds.extend(layer.getBounds());
-                }
-            });
-
-            if (bounds.isValid()) {
-                map.fitBounds(bounds);
-            }
-            updateCurrentBounds(bounds)
+            console.log("LAYER ADDED")
         }
-    })
+
+    });
 
     return null
+
 }
 
 

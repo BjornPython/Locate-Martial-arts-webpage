@@ -35,6 +35,7 @@ function Umaps({ user, info, createConvo }) {
     }, [newUserLocation])
 
     useEffect(() => {
+        console.log("USER INFO CHANGED TO: ", userInfo)
     }, [userInfo])
 
     useEffect(() => {
