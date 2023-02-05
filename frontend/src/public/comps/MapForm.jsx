@@ -7,7 +7,7 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import uuid from 'react-uuid';
 import Addresses from './Addresses'
 
-function MapForm({ handleSearch, setSearchInfo }) {
+function MapForm({ handleSearch, updateSearchInfo }) {
 
 
     //provider for the address input autocomplete.
@@ -32,6 +32,9 @@ function MapForm({ handleSearch, setSearchInfo }) {
 
     const [searchedAddress, setSearchedAddress] = useState({ address: "" })
     const { address } = searchedAddress
+
+
+
     const changeSearchedAddress = (e) => {
         console.log("CURRENT ADDRESS: ", address);
 
@@ -195,7 +198,7 @@ function MapForm({ handleSearch, setSearchInfo }) {
                     <span className='select-span'></span>
                 </div>
 
-                <button onClick={() => { setSearchInfo({ location: [lat, long], lf, marts, other }); console.log("CLICK"); }} className="find-gyms-btn"><h2>SEARCH</h2></button>
+                <button onClick={() => { updateSearchInfo({ location: [lat, long], lf, marts, other }); console.log("CLICK"); }} className="find-gyms-btn"><h2>SEARCH</h2></button>
 
                 <div className='marts-dropdown'>
                     <div className='m-art' onClick={() => { addArt("Muay Thai") }}>

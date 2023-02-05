@@ -14,9 +14,7 @@ function Gym() {
     }, [])
 
     const handleSearch = (lat, long) => {
-        console.log("IN GYM: ", lat, long);
         setLatLong([lat, long])
-        console.log("LATLONG: ", latLong);
     }
 
     const handleAddressSearch = (address, lf, art) => {
@@ -27,12 +25,16 @@ function Gym() {
         setLatLong([lat, long])
     }
 
+    const updateSearchInfo = (newSearchInfo) => {
+        setSearchInfo(newSearchInfo)
+    }
+
 
     return (
         <div className="gym-page">
             <div className="gym-components">
 
-                <MapForm handleSearch={handleSearch} handleAddressSearch={handleAddressSearch} setSearchInfo={setSearchInfo} />
+                <MapForm handleSearch={handleSearch} handleAddressSearch={handleAddressSearch} updateSearchInfo={updateSearchInfo} />
 
                 <div className="gym-map">
                     <div className="map-bg">

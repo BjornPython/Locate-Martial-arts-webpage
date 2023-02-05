@@ -47,6 +47,10 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
         }
     }, [appHomeCurrentBounds])
 
+    useEffect(() => {
+        if (!mapRef.current) { return }
+        mapRef.current.setView([latLong[0], latLong[1]], 18)
+    }, [latLong])
 
 
     // an event handler of the Marker. gets the latitude and the longitude
