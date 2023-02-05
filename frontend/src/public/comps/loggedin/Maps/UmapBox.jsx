@@ -98,7 +98,7 @@ function UmapBox({
 
                     </Marker>
                     < HelperComponent userInfo={userInfo} updateUserInfo={updateUserInfo} markerPoints={markerPoints}
-                        createConvo={createConvo} updateCurrentBounds={updateCurrentBounds} />
+                        createConvo={createConvo} updateCurrentBounds={updateCurrentBounds} changeZoom={changeZoom} />
                 </FeatureGroup>
 
             </MapContainer>
