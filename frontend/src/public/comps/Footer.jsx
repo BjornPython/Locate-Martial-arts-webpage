@@ -1,5 +1,5 @@
 import "../css/footer.css"
-import img from "../images/locate-icon.png"
+import img from "../images/icons/locate-icon.png"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSquareFacebook, faSquareGithub, faSquareInstagram } from "@fortawesome/free-brands-svg-icons"
 import { faMapMarkerAlt, faEnvelope, faPhone } from "@fortawesome/free-solid-svg-icons"

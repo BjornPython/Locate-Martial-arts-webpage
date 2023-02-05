@@ -1,12 +1,12 @@
 
 import "../css/arts.css"
 
-import img1 from "../images/5.webp"
-import img2 from "../images/6.jpg"
-import img3 from "../images/7.jpg"
-import img4 from "../images/8.jpg"
-import img5 from "../images/9.webp"
-import karate from "../images/karate-combat.jpg"
+import img1 from "../images/martialArtsImages/5.webp"
+import img2 from "../images/martialArtsImages/6.jpg"
+import img3 from "../images/martialArtsImages/7.jpg"
+import img4 from "../images/martialArtsImages/8.jpg"
+import img5 from "../images/martialArtsImages/9.webp"
+import karate from "../images/martialArtsImages/karate-combat.jpg"
 
 
 const ShowMartInfo = ({ img, mart, info }) => {
