@@ -63,13 +63,16 @@ const MyMarkers = ({ data }) => {
 }
 
 
-function GetGyms({ searchInfo }) {
+function GetGyms({ searchInfo, changeZoom }) {
 
 
     const [gymLocations, setGymLocations] = useState(null)
     const [coachLocations, setCoachLocations] = useState(null)
     const [spartnerLocations, setSpartnerLocations] = useState(null)
 
+    useEffect(() => {
+        changeZoom()
+    }, [gymLocations, coachLocations, spartnerLocations])
 
     useEffect(() => {
         if (!searchInfo) { return }
@@ -81,9 +84,8 @@ function GetGyms({ searchInfo }) {
             // Get gyms data from gym database
             console.log("IN GYM");
             const getGymData = async () => {
-                const gymData = await apiService.findGyms({ lat: location[0], long: location[1] }, JSON.stringify(marts))
-                console.log(gymData);
                 try {
+                    const gymData = await apiService.findGyms({ lat: location[0], long: location[1] }, JSON.stringify(marts))
                     const gymPoints = gymData.data.map((gym) => {
                         return { lat: gym.location.lat, lng: gym.location.long, title: gym.name, type: "gym" }
                     })

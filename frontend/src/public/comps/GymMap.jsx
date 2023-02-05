@@ -40,15 +40,14 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
 
 
     useEffect(() => {
+        console.log("CURRENT BOUNDS CHANGED")
         if (appHomeCurrentBounds.isValid() && mapRef) {
+            console.log("FITTING BOUNDS")
             mapRef.current.fitBounds(appHomeCurrentBounds)
         }
     }, [appHomeCurrentBounds])
 
 
-    useEffect(() => {
-        changeZoom()
-    }, [searchInfo])
 
     // an event handler of the Marker. gets the latitude and the longitude
     // of the marker when it is dragged, and sets the latLong.
@@ -69,14 +68,13 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
 
     const changeZoom = () => {
         let bounds = new L.LatLngBounds();
-        if (!mapRef.current) { return }
         mapRef.current.eachLayer((layer) => {
             if (layer instanceof L.FeatureGroup) {
                 bounds.extend(layer.getBounds())
             }
         })
 
-        if (bounds.isValid()) { setAppHomeCurrentBounds(bounds) }
+        if (bounds.isValid()) { setAppHomeCurrentBounds(bounds) } else { console.log("BOUNDS INVALID"); }
     }
 
     return (
@@ -93,7 +91,7 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
                         </Popup>
                     </Marker>
 
-                    <GetGyms searchInfo={searchInfo} />
+                    <GetGyms searchInfo={searchInfo} changeZoom={changeZoom} />
 
                     <GetCoordinates updateLatLong={updateLatLong} />
                 </FeatureGroup>
