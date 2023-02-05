@@ -5,13 +5,13 @@ import MapForm from "./MapForm"
 
 function Gym() {
 
-    const [latLong, setLatLong] = useState([])
+    const [latLong, setLatLong] = useState([14.59637514, 120.9782618])
 
     const [searchInfo, setSearchInfo] = useState(null)
 
     useEffect(() => {
         console.log("latlong changed: ", latLong)
-    }, [latLong])
+    }, [])
 
     const handleSearch = (lat, long) => {
         console.log("IN GYM: ", lat, long);

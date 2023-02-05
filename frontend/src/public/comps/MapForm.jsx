@@ -123,7 +123,7 @@ function MapForm({ handleSearch, setSearchInfo }) {
     // Triggered when latLongFormData is changed. calls the 
     // handleSearch function to pin and center the map.
     useEffect(() => {
-        if (lat === "" || long === "") { return }
+        if (!lat || !long) { return }
         console.log("LATLONG FORMDATA: ", userLatLong);
         handleSearch(lat, long)
     }, [userLatLong])

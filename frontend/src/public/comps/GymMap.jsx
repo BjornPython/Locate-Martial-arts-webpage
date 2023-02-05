@@ -17,9 +17,8 @@ const GetCoordinates = ({ updateLatLong }) => {
 
     useEffect(() => {
         if (!map) return;
-        let latLong
         map.on('click', (e) => {
-            map.setView(latLong, 18)
+            map.setView(e.latlng, 18)
             updateLatLong(e.latlng.lat, e.latlng.lng)
         })
     }, [map])
@@ -34,7 +33,6 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
 
     // Used for setting the starting position of the center of the 
     // map and the starting position of the marker.
-    const [position, setPosition] = useState([14.59637514, 120.9782618])
     // Initializing the image and size of the markerIcon.
     const markerIcon = L.icon({
         iconUrl: require("../images/icons/place.png"),
@@ -42,15 +40,7 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
         iconSize: [42, 42]
     })
 
-    // Triggered when the latLong passed from the Gym.jsx changes. 
-    // sets a new position, and changes the current view of the map. 
-    // if latLong is null, do not do anything.
-    useEffect(() => {
-        if (!mapRef.current) return;
-        if (latLong[0] === null || latLong[1] === null) return;
-        setPosition([parseFloat(latLong[0]), parseFloat(latLong[1])])
-        mapRef.current.setView({ lat: parseFloat(latLong[0]), lng: parseFloat(latLong[1]) }, 18, { animate: true, duration: 1 });
-    }, [latLong])
+
     // an event handler of the Marker. gets the latitude and the longitude
     // of the marker when it is dragged, and sets the latLong.
     const eventHandlers = useMemo(() => ({
@@ -66,18 +56,18 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
         console.log([latLong[0], latLong[1]])
         mapRef.current.setView([latLong[0], latLong[1]], 18)
     }
-
+    console.log("LATLONG GMYMAP: ", latLong)
     return (
         <div className="map" >
-            <MapContainer ref={mapRef} center={position} zoom={18} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
+            <MapContainer ref={mapRef} center={latLong} zoom={18} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
-                <Marker eventHandlers={eventHandlers} position={position} draggable={true} icon={markerIcon}>
+                <Marker eventHandlers={eventHandlers} position={latLong} draggable={true} icon={markerIcon}>
                     <Popup>
-                        <h4>Your Position</h4> <br /> <p>lat: {position[0]} lng: {position[1]}</p>
+                        <h4>Your Position</h4> <br /> <p>lat: {latLong[0]} lng: {latLong[1]}</p>
                     </Popup>
                 </Marker>
 
