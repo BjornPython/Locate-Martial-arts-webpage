@@ -43,10 +43,18 @@ const makeSocket = (server) => {
         })
 
         socket.on("addMessage", async (msgData) => {
-            console.log("MSGDATA: ", {message: msgData.message, sender: msgData.sender});
-            console.log("sending to room: ", msgData.convoId);
-            const res = await addMessage(msgData.convoId, msgData.message, msgData.sender)
-            io.to(msgData.convoId).emit("newMessage", {message: msgData.message, sender: msgData.sender})
+            const decoded = jwt.verify(msgData.token, process.env.JWT_TOKEN)
+            console.log(msgData.conversationId, msgData.chunk);
+            const convoChunk = await getConvoChunk(msgData.conversationId, msgData.chunk)
+            console.log("convoChunk: ", convoChunk)
+            // for (let i = 0; i < participants.length; i++) {
+            //     if (participants[i]._id === decoded.id) {
+            //         console.log(`ADDING MESSAGE`);
+            //         const res = await addMessage(msgData.convoId, msgData.message, msgData.sender)
+            //         io.to(msgData.convoId).emit("newMessage", {message: msgData.message, sender: msgData.sender})
+            //         break;
+            //     } 
+            // }            
         })
 
         socket.on("newConvo", async (convoData) => {

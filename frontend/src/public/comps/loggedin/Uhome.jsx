@@ -147,7 +147,7 @@ function Uhome() {
 
     const addMessage = (msg) => {
         console.log("EMMITTING");
-        socket.emit("addMessage", { convoId, message: msg, sender: info.name })
+        socket.emit("addMessage", { token: user, conversationId: msg.conversationId, message: msg, sender: info.name })
     }
 
     const createConvo = (participantOne, participantOneId, participantTwo, participantTwoId) => {

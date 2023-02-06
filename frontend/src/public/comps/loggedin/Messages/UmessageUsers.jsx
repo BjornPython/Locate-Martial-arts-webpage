@@ -1,7 +1,7 @@
 import React from 'react'
 import "../../../css/loggedin/umessageUsers.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
 
@@ -11,12 +11,15 @@ const userMessages = (chat, key, changeConvo) => {
             changeConvo(chat.conversationId, chat.highestChunk, chat.name)
         }}>
             <div className='user-icon'>
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={faCircle} className="profile-pic" />
             </div>
 
             <div className='user-info'>
                 <h3>{chat.name}</h3>
-                <p>{"active now"}</p>
+                <div className='status-div'>
+                    <FontAwesomeIcon icon={faCircle} className="active-icn" /> <p> {"active now"}</p>
+                    {/* <p> {"inactive"}</p> */}
+                </div>
             </div>
         </div>
     )
