@@ -5,7 +5,7 @@ import UuserMessage from "./UuserMessage"
 import { useState } from 'react'
 
 function Umessages({
-    chats, changeConvo, messages, addMessage, userName, chatName,
+    chats, changeConvo, messages, addMessage, userId, chatName,
     convoId
 }) {
 
@@ -21,7 +21,7 @@ function Umessages({
             <div className='u-m-page'>
                 <UmessageUsers chats={chats} changeConvo={changeConvo} />
                 <hr />
-                <UuserMessage messages={messages} userName={userName} chatName={chatName}
+                <UuserMessage messages={messages} userId={userId} chatName={chatName}
                     addMessage={addMessage} convoId={convoId} />
             </div>
 

@@ -77,10 +77,10 @@ const createConvo = asyncHandler(async (req, res) => {
 
 
 
-const addMessage = asyncHandler(async (conversationId, newMessage, sender) => {
+const addMessage = asyncHandler(async (conversationId, newMessage, senderId) => {
 
-    const messageInfo = {sender, message: newMessage}
-
+    const messageInfo = {senderId, message: newMessage}
+    console.log("CONVERSATIONID: ", conversationId);
     Message.findOne({ conversationId })
     .sort({ chunkNumber: -1 })
     .then(document => {

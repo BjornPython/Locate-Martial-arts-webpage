@@ -36,7 +36,7 @@ const showMessage = (message, index, type = null) => {
 }
 
 
-function UuserMessage({ messages, userName, chatName, addMessage }) {
+function UuserMessage({ messages, userId, chatName, addMessage }) {
 
     const currentChatMemo = useMemo(() => {
         return showCurrentChat(chatName, "")
@@ -56,6 +56,18 @@ function UuserMessage({ messages, userName, chatName, addMessage }) {
         });
     };
 
+    const messagesMemo = useMemo(() => {
+        return (
+            messages.map((msg, index) => {
+                console.log("USER ID: ", userId, "MSG SENDER: ", msg.senderId);
+                const type = userId === msg.senderId ? null : true
+                return (
+                    showMessage(msg.message, index, type)
+                )
+            })
+        )
+    }, [messages])
+
     return (
         <div id='u-user-message' className='u-user-message'>
 
@@ -64,12 +76,7 @@ function UuserMessage({ messages, userName, chatName, addMessage }) {
             <hr />
 
             <div className='u-message-contents'>
-                {messages.map((msg, index) => {
-                    const type = userName === msg.sender ? null : true
-                    return (
-                        showMessage(msg.message, index, type)
-                    )
-                })}
+                {messagesMemo}
             </div>
 
             <hr id='u-msg-hr' />

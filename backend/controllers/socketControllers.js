@@ -43,18 +43,23 @@ const makeSocket = (server) => {
         })
 
         socket.on("addMessage", async (msgData) => {
-            const decoded = jwt.verify(msgData.token, process.env.JWT_TOKEN)
-            console.log(msgData.conversationId, msgData.chunk);
-            const convoChunk = await getConvoChunk(msgData.conversationId, msgData.chunk)
+
+            const {token, conversationId, message, chunk } = msgData
+            const decoded = jwt.verify(token, process.env.JWT_TOKEN)
+            console.log(conversationId, chunk);
+            const convoChunk = await getConvoChunk(conversationId, chunk)
+            
             console.log("convoChunk: ", convoChunk)
-            // for (let i = 0; i < participants.length; i++) {
-            //     if (participants[i]._id === decoded.id) {
-            //         console.log(`ADDING MESSAGE`);
-            //         const res = await addMessage(msgData.convoId, msgData.message, msgData.sender)
-            //         io.to(msgData.convoId).emit("newMessage", {message: msgData.message, sender: msgData.sender})
-            //         break;
-            //     } 
-            // }            
+            const participants = convoChunk.participants
+            console.log("PARTICIPANTS: ", participants);
+            for (let i = 0; i < participants.length; i++) {
+                if (participants[i]._id === decoded.id) {
+                    console.log(`ADDING MESSAGE`);
+                    const res = await addMessage(conversationId, message, decoded.id)
+                    io.to(conversationId).emit("newMessage", {message: message, senderId: decoded.id})
+                    break;
+                } 
+            }            
         })
 
         socket.on("newConvo", async (convoData) => {

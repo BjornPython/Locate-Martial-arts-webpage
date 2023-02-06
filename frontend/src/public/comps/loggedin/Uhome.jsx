@@ -30,7 +30,7 @@ function Uhome() {
 
     // states for messages
     const [messages, setMessages] = useState([])
-    const [userName, setUserName] = useState("") // The name of the user
+    const [userId, setUserId] = useState("") // The name of the user
 
     const [chats, setChats] = useState([]) // The different chats the user has.
 
@@ -68,7 +68,7 @@ function Uhome() {
                 name: value.name
             }
         }))
-        setUserName(info.name)
+        setUserId(info._id)
 
         socket.on("messageContents", (msgData) => {
             setMessages(msgData)
@@ -147,7 +147,7 @@ function Uhome() {
 
     const addMessage = (msg) => {
         console.log("EMMITTING");
-        socket.emit("addMessage", { token: user, conversationId: msg.conversationId, message: msg, sender: info.name })
+        socket.emit("addMessage", { token: user, conversationId: convoId, message: msg, chunk: currentConvoChunk })
     }
 
     const createConvo = (participantOne, participantOneId, participantTwo, participantTwoId) => {
@@ -181,7 +181,7 @@ function Uhome() {
                 {currentPage === "search" && <Umaps info={info} user={user} createConvo={createConvo} />}
                 {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} messages={messages}
-                    userName={userName} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} />}
+                    userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>
