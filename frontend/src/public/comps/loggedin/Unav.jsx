@@ -16,8 +16,9 @@ const IconsComp = ({ icon, page, callChangePage, currentPage }) => {
     }
 
     useEffect(() => {
-        if (currentPage !== page)
-            setShowSpan(false)
+        if (currentPage !== page) { setShowSpan(false) }
+        else { setShowSpan(true) }
+
     }, [currentPage])
 
 
