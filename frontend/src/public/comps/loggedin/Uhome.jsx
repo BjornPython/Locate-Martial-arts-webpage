@@ -29,7 +29,7 @@ function Uhome() {
 
 
     // states for messages
-    const [messages, setMessages] = useState(Object)
+    const [messages, setMessages] = useState({})
     const [userId, setUserId] = useState("") // The id of the user
     const [currentMessages, setCurrentMessages] = useState([])
     const [chats, setChats] = useState([]) // The different chats the user has.
@@ -85,6 +85,10 @@ function Uhome() {
                     [conversationId]: [...prevState[conversationId], { senderId, message }]
                 }
                 return { ...newState }
+            })
+            setCurrentMessages(prevState => {
+                console.log("CURRENT MESSAGES: ", prevState);
+                return [...prevState, { senderId, message }]
             })
         })
 

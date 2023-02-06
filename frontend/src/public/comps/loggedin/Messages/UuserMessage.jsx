@@ -45,6 +45,8 @@ function UuserMessage({ currentMessages, userId, chatName, addMessage }) {
     const [formsValue, setFormsValue] = useState({ msgVal: "" })
     const { msgVal } = formsValue
 
+
+
     const resetMsgVal = () => {
         setFormsValue({ msgVal: "" })
     }
@@ -57,6 +59,8 @@ function UuserMessage({ currentMessages, userId, chatName, addMessage }) {
     };
 
     const messagesMemo = useMemo(() => {
+        console.log("reRENDERING MESSAGES: ", currentMessages);
+
         return (
             currentMessages.map((msg, index) => {
                 console.log("USER ID: ", userId, "MSG SENDER: ", msg.senderId);
