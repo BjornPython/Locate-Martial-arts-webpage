@@ -76,7 +76,6 @@ function Uhome() {
         socket.on("messageContents", (msgData) => {
             setMessages(prevState => {
                 const newState = { ...prevState, [msgData.conversationId]: msgData.messageContent }
-                console.log("NEWSTATE: ", newState);
                 return { ...newState }
             })
         })
@@ -147,8 +146,8 @@ function Uhome() {
 
 
     const getMessages = (conversationId, chunk) => {
-        console.log("EMITTING");
-        if (!messages.conversationId) {
+        console.log("CONVO: ", messages[conversationId]);
+        if (!messages[conversationId]) {
             console.log("convoId not in messages");
             socket.emit("requestMessage", { conversationId, chunk, token: user })
             socket.emit("joinConversation", { conversationId, token: user }) // will remove later, will join all convos when user logs in.
