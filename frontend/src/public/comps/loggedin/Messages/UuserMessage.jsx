@@ -57,15 +57,15 @@ function UuserMessage({ messages, userId, chatName, addMessage }) {
     };
 
     const messagesMemo = useMemo(() => {
-        return (
-            messages.map((msg, index) => {
-                console.log("USER ID: ", userId, "MSG SENDER: ", msg.senderId);
-                const type = userId === msg.senderId ? null : true
-                return (
-                    showMessage(msg.message, index, type)
-                )
-            })
-        )
+        // return (
+        //     messages.map((msg, index) => {
+        //         console.log("USER ID: ", userId, "MSG SENDER: ", msg.senderId);
+        //         const type = userId === msg.senderId ? null : true
+        //         return (
+        //             showMessage(msg.message, index, type)
+        //         )
+        //     })
+        // )
     }, [messages])
 
     return (

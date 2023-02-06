@@ -29,8 +29,8 @@ function Uhome() {
 
 
     // states for messages
-    const [messages, setMessages] = useState([])
-    const [userId, setUserId] = useState("") // The name of the user
+    const [messages, setMessages] = useState(Object)
+    const [userId, setUserId] = useState("") // The id of the user
 
     const [chats, setChats] = useState([]) // The different chats the user has.
 
@@ -56,6 +56,9 @@ function Uhome() {
         }
     }
 
+    useEffect(() => {
+        console.log("MESSAGES CHANGED TO: ", messages);
+    }, [messages])
 
     useEffect(() => {
         if (!info) { return }
@@ -71,7 +74,11 @@ function Uhome() {
         setUserId(info._id)
 
         socket.on("messageContents", (msgData) => {
-            setMessages(msgData)
+            setMessages(prevState => {
+                const newState = { ...prevState, [msgData.conversationId]: msgData.messageContent }
+                console.log("NEWSTATE: ", newState);
+                return { ...newState }
+            })
         })
 
 
@@ -141,8 +148,12 @@ function Uhome() {
 
     const getMessages = (conversationId, chunk) => {
         console.log("EMITTING");
-        socket.emit("requestMessage", { conversationId, chunk, token: user })
-        socket.emit("joinConversation", { conversationId, token: user })
+        if (!messages.conversationId) {
+            console.log("convoId not in messages");
+            socket.emit("requestMessage", { conversationId, chunk, token: user })
+            socket.emit("joinConversation", { conversationId, token: user }) // will remove later, will join all convos when user logs in.
+        }
+
     }
 
     const addMessage = (msg) => {

@@ -29,13 +29,14 @@ const makeSocket = (server) => {
         })
 
         socket.on("requestMessage", async (info) => {
-            const res = await getConvoChunk(info.conversationId, info.chunk)
+            const {token, conversationId, chunk} = info
+            const res = await getConvoChunk(conversationId, chunk)
             const participants = res.participants
-            const decoded = jwt.verify(info.token, process.env.JWT_TOKEN)
+            const decoded = jwt.verify(token, process.env.JWT_TOKEN)
             for (let i = 0; i < participants.length; i++) {
                 if (participants[i]._id === decoded.id) {
                     console.log(`VERIFIED`);
-                    socket.emit("messageContents", res.messages)
+                    socket.emit("messageContents", {conversationId, messageContent: res.messages})
                     break;
                 } 
             }
