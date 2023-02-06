@@ -31,7 +31,7 @@ function Uhome() {
     // states for messages
     const [messages, setMessages] = useState(Object)
     const [userId, setUserId] = useState("") // The id of the user
-
+    const [currentMessages, setCurrentMessages] = useState([])
     const [chats, setChats] = useState([]) // The different chats the user has.
 
     const [convoId, setConvoId] = useState("") // The convoId of the current user's chat
@@ -47,14 +47,7 @@ function Uhome() {
         getMessages(convoId, currentConvoChunk)
     }, [convoId])
 
-    const changeConvo = (conversationId, highestChunk, convoName) => {
-        // Changes the convo when the user clicks on a chat
-        if (conversationId !== convoId) {
-            setConvoId(conversationId)
-            setCurrentConvoChunk(highestChunk)
-            setChatName(convoName)
-        }
-    }
+
 
     useEffect(() => {
         console.log("MESSAGES CHANGED TO: ", messages);
@@ -74,10 +67,12 @@ function Uhome() {
         setUserId(info._id)
 
         socket.on("messageContents", (msgData) => {
+            console.log("RECEIVED MESSAGE CONTENTS FROM BACKEND");
             setMessages(prevState => {
                 const newState = { ...prevState, [msgData.conversationId]: msgData.messageContent }
                 return { ...newState }
             })
+            setCurrentMessages(msgData.messageContent)
         })
 
 
@@ -151,6 +146,15 @@ function Uhome() {
         window.location.reload()
     }
 
+    const changeConvo = (conversationId, highestChunk, convoName) => {
+        // Changes the convo when the user clicks on a chat
+        if (conversationId !== convoId) {
+
+            setConvoId(conversationId)
+            setCurrentConvoChunk(highestChunk)
+            setChatName(convoName)
+        }
+    }
 
     const getMessages = (conversationId, chunk) => {
         console.log("CONVO: ", messages[conversationId]);
@@ -158,6 +162,8 @@ function Uhome() {
             console.log("convoId not in messages");
             socket.emit("requestMessage", { conversationId, chunk, token: user })
             socket.emit("joinConversation", { conversationId, token: user }) // will remove later, will join all convos when user logs in.
+        } else {
+            setCurrentMessages(messages[conversationId])
         }
 
     }
@@ -197,7 +203,7 @@ function Uhome() {
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {currentPage === "search" && <Umaps info={info} user={user} createConvo={createConvo} />}
                 {currentPage === "profile" && UprofileMemo}
-                {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} messages={messages}
+                {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
                     userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
