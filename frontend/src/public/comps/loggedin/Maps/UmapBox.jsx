@@ -36,7 +36,6 @@ function UmapBox({
 
     useEffect(() => {
         if (!mapRef) { return }
-        console.log("CURRENT BOUNDS CHANGED: ", currentBounds.isValid())
         if (currentBounds.isValid()) { mapRef.current.fitBounds(currentBounds) }
     }, [currentBounds])
 
@@ -54,7 +53,6 @@ function UmapBox({
 
     const resetCenter = () => {
         updateUserInfo(resetCenterValue[0], resetCenterValue[1])
-        console.log("setting map view")
         mapRef.current.setView([resetCenterValue[0], resetCenterValue[1]], 18)
     }
 

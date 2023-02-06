@@ -31,7 +31,6 @@ function Umaps({ user, info, createConvo }) {
 
     useEffect(() => {
         if (newUserLocation === null) { return }
-        console.log("NEW USER LOC UPDATED");
         updateUserInfo(newUserLocation.location.lat, newUserLocation.location.long)
         setRecetCenterValue([newUserLocation.location.lat, newUserLocation.location.long])
         updateUserDbLoc(newUserLocation)
