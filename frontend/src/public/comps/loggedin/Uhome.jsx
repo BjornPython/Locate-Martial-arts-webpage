@@ -83,7 +83,14 @@ function Uhome() {
 
         socket.on("newMessage", (msgData) => {
             console.log("UHOME NEWMSG: ", msgData);
-            setMessages(prevState => [...prevState, msgData])
+            const { conversationId, senderId, message } = msgData
+            setMessages(prevState => {
+                const newState = {
+                    ...prevState,
+                    [conversationId]: [...prevState[conversationId], { senderId, message }]
+                }
+                return { ...newState }
+            })
         })
 
         socket.on("newChat", (newChat) => {
