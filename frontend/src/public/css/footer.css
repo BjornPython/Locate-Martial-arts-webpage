@@ -88,6 +88,9 @@
     display: flex;
 }
 
+.info-grp p {
+    margin: 0;
+}
 
 
 .info-grp-icn {

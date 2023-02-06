@@ -17,18 +17,12 @@ const markerIcon = L.icon({
 
 function UmapBox({
     userInfo, updateUserInfo, updateNewUserLocation, markerPoints,
-    createConvo }) {
+    createConvo, resetCenterValue, }) {
     const { lat, long, name } = userInfo
     const mapRef = useRef(null)
 
     const [currentBounds, setCurrentBounds] = useState(L.latLngBounds([null, null], [null, null]))
-    const [resetCenterValue, setRecetCenterValue] = useState(null)
 
-    useEffect(() => {
-        if (userInfo.initialValues) { return }
-        setRecetCenterValue([lat, long])
-    }, [name]) // setting centervalue useeffect dependency is on name, so it will not be updated
-    // when the lat and long changes.
 
 
     useEffect(() => {

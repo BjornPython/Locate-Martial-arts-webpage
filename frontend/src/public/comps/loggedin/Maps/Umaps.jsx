@@ -13,7 +13,6 @@ function Umaps({ user, info, createConvo }) {
         long: 121.7740,
         id: null,
         initialValues: true
-
     })
     const { name, lat, long, id } = userInfo
 
@@ -26,11 +25,15 @@ function Umaps({ user, info, createConvo }) {
 
     const [lookingForMarts, setLookingForMarts] = useState([])
 
+    const [resetCenterValue, setRecetCenterValue] = useState(null)
 
 
 
     useEffect(() => {
         if (newUserLocation === null) { return }
+        console.log("NEW USER LOC UPDATED");
+        updateUserInfo(newUserLocation.location.lat, newUserLocation.location.long)
+        setRecetCenterValue([newUserLocation.location.lat, newUserLocation.location.long])
         updateUserDbLoc(newUserLocation)
     }, [newUserLocation])
 
@@ -45,6 +48,7 @@ function Umaps({ user, info, createConvo }) {
                 ? { lat: info.location.lat, long: info.location.long, id: info._id, name: info.name }
                 : { lat: 12.8797, long: 121.7740, id: info._id, name: info.name }
             setUserInfo(newInfo)
+            setRecetCenterValue([info.location.lat, info.location.long])
         }
     }, [info])
 
@@ -87,6 +91,8 @@ function Umaps({ user, info, createConvo }) {
 
     const getMarkerLocations = async () => {
         const location = newUserLocation ? newUserLocation : { lat, long }
+        console.log("NEWUSER LOCATION: ", newUserLocation);
+        console.log(" LOCATION: ", location);
         if (selectedLfs.includes("GYM")) {
             const res = await apiService.findGyms(location, JSON.stringify(lookingForMarts))
             setMarkerPoints((prevState) => {
@@ -118,7 +124,7 @@ function Umaps({ user, info, createConvo }) {
         <div className='u-maps-page'>
             <UmapForms updateUserInfo={updateUserInfo} selectedLfs={selectedLfs} toggleLf={toggleLf} lookingForMarts={lookingForMarts} toggleLookingForMart={toggleLookingForMart}
                 getMarkerLocations={getMarkerLocations} />
-            <UmapBox userInfo={userInfo} updateNewUserLocation={updateNewUserLocation}
+            <UmapBox userInfo={userInfo} updateNewUserLocation={updateNewUserLocation} resetCenterValue={resetCenterValue}
                 updateUserInfo={updateUserInfo} markerPoints={markerPoints} name={name} id={id} createConvo={createConvo} />
         </div>
     )
