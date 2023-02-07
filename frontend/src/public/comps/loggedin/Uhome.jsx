@@ -51,6 +51,7 @@ function Uhome() {
 
 
     useEffect(() => {
+        console.log("MESSAGES CHANGED");
     }, [messages])
 
     useEffect(() => {

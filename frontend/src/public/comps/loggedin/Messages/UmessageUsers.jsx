@@ -11,6 +11,7 @@ const UserMessages = ({ chat, changeConvo, messages }) => {
 
     const lastMessage = useMemo(() => {
         const { conversationId } = chat
+        console.log("MESSAGES: ", messages);
         console.log("CONVO: ", messages[conversationId]);
         if ([conversationId] in messages) {
             const convoIndex = messages[conversationId].length > 0 ? messages[conversationId].length - 1 : null
@@ -21,6 +22,8 @@ const UserMessages = ({ chat, changeConvo, messages }) => {
     }, [messages])
 
     const chatMemo = useMemo(() => {
+
+
         return (
             <>
                 <div className='user-icon'>
@@ -38,7 +41,7 @@ const UserMessages = ({ chat, changeConvo, messages }) => {
                 </div>
             </>
         )
-    }, [])
+    }, [messages])
 
 
     return (

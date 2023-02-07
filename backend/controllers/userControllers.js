@@ -237,6 +237,15 @@ const editUsersMessageChunk = asyncHandler(async (userIds, newChunk) => {
     }
   });
 
+const editUserConvoSeen = asyncHandler(async (userIds, isSeen) => {
+    const {senderId, receiverId} = userIds
+    try {
+        const user = await User.findByIdAndUpdate(receiverId, {[`messages.${senderId}.seen`]: isSeen})
+    } catch(err) {
+        console.log(err);
+    }
+})
+
 const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, chunkNumber) => {
     console.log("USERIDS: ", userIds);
     console.log("USER NAMES: ", userNames);
@@ -266,4 +275,7 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
 
 
 
-module.exports = {registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo, updateUserInfo, editUsersMessageChunk, addUserMessage}
+module.exports = {
+    registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo, 
+    updateUserInfo, editUsersMessageChunk, addUserMessage, editUserConvoSeen
+}

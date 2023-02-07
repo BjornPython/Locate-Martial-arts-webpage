@@ -80,11 +80,9 @@ const createConvo = asyncHandler(async (req, res) => {
 const addMessage = asyncHandler(async (conversationId, newMessage, senderId) => {
 
     const messageInfo = {senderId, message: newMessage}
-    console.log("CONVERSATIONID: ", conversationId);
     Message.findOne({ conversationId })
     .sort({ chunkNumber: -1 })
     .then(document => {
-        console.log("DOCUMENT: ", document);
         if (document.messages.length < 5) {
             Message.findOneAndUpdate(
                 { _id: document._id },
