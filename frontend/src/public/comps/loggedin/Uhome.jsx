@@ -89,7 +89,7 @@ function Uhome() {
         socket.on("newChat", (newChat) => {
             console.log("NEW CHAT: ", newChat);
             setChats((prevState) => {
-                return [...prevState, newChat]
+                return { ...prevState, newChat }
             })
             setCurrentPage("messages")
             setConvoId(newChat.conversationId)
