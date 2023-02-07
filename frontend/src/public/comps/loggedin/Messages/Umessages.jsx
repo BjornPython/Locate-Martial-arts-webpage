@@ -6,12 +6,12 @@ import { useState } from 'react'
 
 function Umessages({
     chats, changeConvo, currentMessages, addMessage, userId, chatName,
-    convoId, messages
+    convoId, messages, toggleSeenConvo
 }) {
 
     const uMessageUsersMemo = useMemo(() => {
         return (
-            <UmessageUsers chats={chats} changeConvo={changeConvo} messages={messages} />
+            <UmessageUsers chats={chats} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />
         )
     }, [chats, messages])
 

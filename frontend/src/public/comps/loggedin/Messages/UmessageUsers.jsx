@@ -5,7 +5,7 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import uuid from 'react-uuid'
 
 
-const UserMessages = ({ chat, changeConvo, messages }) => {
+const UserMessages = ({ chatUserId, chat, changeConvo, messages, toggleSeenConvo }) => {
 
 
 
@@ -46,8 +46,9 @@ const UserMessages = ({ chat, changeConvo, messages }) => {
 
     return (
         <div className='user' onClick={() => {
-            console.log("USER CLICKED");
+            console.log("USER CLICKED: ", chatUserId);
             changeConvo(chat.conversationId, chat.highestChunk, chat.name)
+            toggleSeenConvo(chatUserId, true)
         }}>
             {chatMemo}
         </div>
@@ -56,12 +57,13 @@ const UserMessages = ({ chat, changeConvo, messages }) => {
 
 
 
-function UmessageUsers({ chats, changeConvo, messages }) {
+function UmessageUsers({ chats, changeConvo, messages, toggleSeenConvo }) {
 
     return (
         <div className='u-message-page'>
-            {Object.entries(chats).map(([key, value]) => {
-                return <UserMessages key={key} chat={value} changeConvo={changeConvo} messages={messages} />
+            {Object.entries(chats).map(([chatUserId, value]) => {
+                return <UserMessages key={chatUserId} chatUserId={chatUserId} chat={value}
+                    changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />
 
             })}
 

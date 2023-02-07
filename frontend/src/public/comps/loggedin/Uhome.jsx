@@ -122,8 +122,10 @@ function Uhome() {
 
     useEffect(() => {
         console.log(chats);
-        if (chats.length < 1) { return }
+        if (Object.entries(chats).length < 1) { return }
+        console.log("CHATS: ", chats);
         Object.entries(chats).map(([chatKey, val]) => {
+            console.log("JOINING...: ", val.conversationId);
             socket.emit("joinConversation", { conversationId: val.conversationId, token: user })
         })
     }, [chats])
@@ -192,6 +194,14 @@ function Uhome() {
         }
     }
 
+    const toggleSeenConvo = (chatId, isSeen) => {
+        setChats(prevState => {
+            const newState = { ...prevState, [chatId]: { ...prevState[chatId], seen: isSeen } }
+            return { ...newState }
+        })
+        socket.emit("toggleSeen", { token: user, chatId, isSeen })
+    }
+
     const UprofileMemo = useMemo(() => {
         return (<Uprofile user={user} info={info} />)
     }, [user, info])
@@ -206,7 +216,7 @@ function Uhome() {
                 {currentPage === "search" && <Umaps info={info} user={user} createConvo={createConvo} />}
                 {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
-                    userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} />}
+                    userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>

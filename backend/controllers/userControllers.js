@@ -239,6 +239,7 @@ const editUsersMessageChunk = asyncHandler(async (userIds, newChunk) => {
 
 const editUserConvoSeen = asyncHandler(async (userIds, isSeen) => {
     const {senderId, receiverId} = userIds
+    console.log(`CHANGING ......  messages.${senderId}.seen`);
     try {
         const user = await User.findByIdAndUpdate(receiverId, {[`messages.${senderId}.seen`]: isSeen})
     } catch(err) {

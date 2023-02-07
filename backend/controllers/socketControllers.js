@@ -2,7 +2,7 @@ const {getConvoChunk, makeConvo, addMessage } = require("./messageControllers")
 const Message = require("../models/messageModel")
 const User = require("../models/userModel")
 const jwt = require("jsonwebtoken")
-
+const { editUserConvoSeen }  = require("./userControllers")
 
 const makeSocket = (server) => {
     const io = require('socket.io')(server, {
@@ -15,6 +15,7 @@ const makeSocket = (server) => {
     io.on("connection", (socket) => {
         console.log("NEW CLIENT CONNECTED IN BACKEND");
         socket.on("joinConversation", async (info) => {
+            console.log("SENT ID: ", info.conversationId);
             const conversation = await Message.findOne({conversationId: info.conversationId})
             console.log("CONVO " , conversation);
             const participants = conversation.participants
@@ -81,6 +82,18 @@ const makeSocket = (server) => {
                 console.log(err);
             }
         }) 
+
+        socket.on("toggleSeen", async (chatData) => {
+            const {token, chatId, isSeen} = chatData
+            console.log("CHATID: ", chatId, "ISSEEN: ", isSeen);
+
+            const decoded = jwt.verify(token, process.env.JWT_TOKEN)
+            const user =  await User.findById(decoded.id)
+            console.log("ID SENT::::    ", decoded.id);
+            if (user) {
+            editUserConvoSeen({senderId: chatId, receiverId: decoded.id}, true)
+            }
+        })
 
     })
 
