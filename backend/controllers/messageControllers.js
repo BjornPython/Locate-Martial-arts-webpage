@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler")
 const jwt = require("jsonwebtoken")
 const Message = require("../models/messageModel")
 const { v4: uuidv4 } = require('uuid');
-const { editUsersMessageChunk, addUserMessage } = require("./userControllers");
+const { editUsersMessageChunk, addUserMessage, editUserConvoSeen } = require("./userControllers");
 
 
 const getConvoChunk = asyncHandler(async (conversationId, convoChunk) => {
@@ -77,7 +77,7 @@ const createConvo = asyncHandler(async (req, res) => {
 
 
 
-const addMessage = asyncHandler(async (conversationId, newMessage, senderId) => {
+const addMessage = asyncHandler(async (conversationId, newMessage, senderId, receiverId) => {
 
     const messageInfo = {senderId, message: newMessage}
     Message.findOne({ conversationId })
@@ -91,6 +91,7 @@ const addMessage = asyncHandler(async (conversationId, newMessage, senderId) => 
             )
                 .then(result => {
                     console.log(result);
+                    editUserConvoSeen({senderId, receiverId}, false)
                     console.log("ADDED MSG TO CONVO");
                 })
                 .catch(error => {
@@ -110,6 +111,7 @@ const addMessage = asyncHandler(async (conversationId, newMessage, senderId) => 
                 .then(result => {
                     console.log(result);
                     editUsersMessageChunk(userIds, nextChunkNumber)
+                    editUserConvoSeen({senderId, receiverId}, false)
                     console.log("MADE NEW MSG DOC AND ADDED MSG");
                 })
                 .catch(error => {

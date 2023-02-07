@@ -56,7 +56,8 @@ const makeSocket = (server) => {
             for (let i = 0; i < participants.length; i++) {
                 if (participants[i]._id === decoded.id) {
                     console.log(`ADDING MESSAGE`);
-                    const res = await addMessage(conversationId, message, decoded.id)
+                    const receiverId = i === 0 ? participants[1] : participants[0]
+                    const res = await addMessage(conversationId, message, decoded.id, receiverId)
                     io.to(conversationId).emit("newMessage", {conversationId, message: message, senderId: decoded.id})
                     break;
                 } 

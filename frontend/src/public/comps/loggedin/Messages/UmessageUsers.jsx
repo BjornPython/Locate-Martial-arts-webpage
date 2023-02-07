@@ -34,7 +34,7 @@ const UserMessages = ({ chat, changeConvo, messages }) => {
                     <h3>{chat.name}</h3>
                     <div className='status-div'>
                         <FontAwesomeIcon icon={faCircle} className="active-icn" />
-                        {!chat.seen
+                        {chat.seen
                             ? <p>{lastMessage}</p>
                             : <p style={{ color: "white", "fontWeight": "bold" }}>{lastMessage}</p>}
                     </div>
