@@ -33,7 +33,7 @@ const UserMessages = ({ chat, changeConvo, messages }) => {
                         <FontAwesomeIcon icon={faCircle} className="active-icn" />
                         {!chat.seen
                             ? <p>{lastMessage}</p>
-                            : <p style={{ color: "white", "font-weight": "bold" }}>{lastMessage}</p>}
+                            : <p style={{ color: "white", "fontWeight": "bold" }}>{lastMessage}</p>}
                     </div>
                 </div>
             </>
@@ -57,10 +57,11 @@ function UmessageUsers({ chats, changeConvo, messages }) {
 
     return (
         <div className='u-message-page'>
-            {chats.map((chat, index) => {
-                const key = uuid()
-                return <UserMessages key={key} chat={chat} index={index} changeConvo={changeConvo} messages={messages} />
+            {Object.entries(chats).map(([key, value]) => {
+                return <UserMessages key={key} chat={value} changeConvo={changeConvo} messages={messages} />
+
             })}
+
 
 
         </div>

@@ -32,7 +32,7 @@ function Uhome() {
     const [messages, setMessages] = useState({})
     const [userId, setUserId] = useState("") // The id of the user
     const [currentMessages, setCurrentMessages] = useState([])
-    const [chats, setChats] = useState([]) // The different chats the user has.
+    const [chats, setChats] = useState({}) // The different chats the user has.
 
     const [convoId, setConvoId] = useState("") // The convoId of the current user's chat
     const [chatName, setChatName] = useState("")
@@ -57,14 +57,7 @@ function Uhome() {
         if (!info) { return }
         // Reorganizes the messages data from the database.
         console.log(info);
-        setChats(Object.entries(info.messages).map(([key, value]) => {
-            return {
-                conversationId: value.conversationId,
-                highestChunk: value.highestChunk,
-                name: value.name,
-                seen: value.seen ? value.seen : false
-            }
-        }))
+        setChats(info.messages)
         setUserId(info._id)
 
         socket.on("messageContents", (msgData) => {
@@ -129,9 +122,9 @@ function Uhome() {
     useEffect(() => {
         console.log(chats);
         if (chats.length < 1) { return }
-        chats.map((chat) => {
-            socket.emit("joinConversation", { conversationId: chat.conversationId, token: user })
-        })
+        // chats.map((chat) => {
+        //     socket.emit("joinConversation", { conversationId: chat.conversationId, token: user })
+        // })
     }, [chats])
 
     const getUserInfo = async () => {
