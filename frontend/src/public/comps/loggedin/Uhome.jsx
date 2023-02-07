@@ -41,6 +41,7 @@ function Uhome() {
 
 
     useEffect(() => {
+        console.log("NEW CONVO ID: ", convoId);
         if (convoId === "") { return }
         //Everytime time the convoId changes, it will request the new messages.
         console.log("GETTING MESSAGES");
@@ -50,7 +51,6 @@ function Uhome() {
 
 
     useEffect(() => {
-        console.log("MESSAGES CHANGED TO: ", messages);
     }, [messages])
 
     useEffect(() => {
@@ -61,7 +61,8 @@ function Uhome() {
             return {
                 conversationId: value.conversationId,
                 highestChunk: value.highestChunk,
-                name: value.name
+                name: value.name,
+                seen: value.seen ? value.seen : false
             }
         }))
         setUserId(info._id)
@@ -150,14 +151,14 @@ function Uhome() {
         window.location.reload()
     }
 
-    const changeConvo = (conversationId, highestChunk, convoName) => {
+    const changeConvo = (newConvoId, highestChunk, convoName) => {
         // Changes the convo when the user clicks on a chat
-        if (conversationId !== convoId) {
+        console.log("CURRENT CONVOID: ", convoId);
+        console.log("CHANGE CONVOID TO: ", newConvoId, newConvoId !== convoId);
+        setConvoId(newConvoId)
+        setCurrentConvoChunk(highestChunk)
+        setChatName(convoName)
 
-            setConvoId(conversationId)
-            setCurrentConvoChunk(highestChunk)
-            setChatName(convoName)
-        }
     }
 
     const getMessages = (conversationId, chunk) => {
@@ -208,7 +209,7 @@ function Uhome() {
                 {currentPage === "search" && <Umaps info={info} user={user} createConvo={createConvo} />}
                 {currentPage === "profile" && UprofileMemo}
                 {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
-                    userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} />}
+                    userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>
