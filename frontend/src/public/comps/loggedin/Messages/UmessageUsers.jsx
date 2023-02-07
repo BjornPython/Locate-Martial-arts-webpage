@@ -10,7 +10,13 @@ const UserMessages = ({ chat, changeConvo, messages }) => {
 
 
     const lastMessage = useMemo(() => {
-        if ([chat.conversationId] in messages) { return messages[chat.conversationId][0].message }
+        const { conversationId } = chat
+        console.log("CONVO: ", messages[conversationId]);
+        if ([conversationId] in messages) {
+            const convoLength = messages[conversationId].length
+            console.log("LENGTH: ", convoLength);
+            return messages[conversationId][convoLength - 1].message
+        }
         else { return "dont have last msg yet." }
     }, [messages])
 

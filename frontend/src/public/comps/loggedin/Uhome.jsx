@@ -128,6 +128,10 @@ function Uhome() {
 
     useEffect(() => {
         console.log(chats);
+        if (chats.length < 1) { return }
+        chats.map((chat) => {
+            socket.emit("joinConversation", { conversationId: chat.conversationId, token: user })
+        })
     }, [chats])
 
     const getUserInfo = async () => {
@@ -166,7 +170,6 @@ function Uhome() {
         if (!messages[conversationId]) {
             console.log("convoId not in messages");
             socket.emit("requestMessage", { conversationId, chunk, token: user })
-            socket.emit("joinConversation", { conversationId, token: user }) // will remove later, will join all convos when user logs in.
         } else {
             setCurrentMessages(messages[conversationId])
         }
