@@ -122,9 +122,9 @@ function Uhome() {
     useEffect(() => {
         console.log(chats);
         if (chats.length < 1) { return }
-        // chats.map((chat) => {
-        //     socket.emit("joinConversation", { conversationId: chat.conversationId, token: user })
-        // })
+        Object.entries(chats).map(([chatKey, val]) => {
+            socket.emit("joinConversation", { conversationId: val.conversationId, token: user })
+        })
     }, [chats])
 
     const getUserInfo = async () => {
