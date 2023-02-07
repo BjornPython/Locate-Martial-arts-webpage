@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import "../../../css/loggedin/uuserMessage.css"
 import { useState, useMemo } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -38,14 +38,21 @@ const showMessage = (message, index, type = null) => {
 
 function UuserMessage({ currentMessages, userId, chatName, addMessage }) {
 
+
+    const msgEndRef = useRef(null)
+    const inputRef = useRef(null)
+    const [formsValue, setFormsValue] = useState({ msgVal: "" })
+    const { msgVal } = formsValue
+
     const currentChatMemo = useMemo(() => {
         return showCurrentChat(chatName, "")
     }, [chatName])
 
-    const [formsValue, setFormsValue] = useState({ msgVal: "" })
-    const { msgVal } = formsValue
-
-
+    useEffect(() => {
+        if (!msgEndRef || !inputRef) { return }
+        msgEndRef.current.scrollIntoView();
+        inputRef.current.focus();
+    }, [currentMessages])
 
     const resetMsgVal = () => {
         setFormsValue({ msgVal: "" })
@@ -72,20 +79,18 @@ function UuserMessage({ currentMessages, userId, chatName, addMessage }) {
 
     return (
         <div id='u-user-message' className='u-user-message'>
-
             {currentChatMemo}
-
             <hr />
-
             <div className='u-message-contents'>
                 {messagesMemo}
-            </div>
+                <div ref={msgEndRef}></div>
+            </div >
 
             <hr id='u-msg-hr' />
 
             <div className='u-msg-input-div'>
                 <form className="u-msg-form" onSubmit={(e) => { e.preventDefault(); addMessage(msgVal); resetMsgVal() }}>
-                    <input type="text" name="msgVal" value={msgVal} className='u-msg-input' onChange={handleMsgChange} />
+                    <input ref={inputRef} type="text" name="msgVal" value={msgVal} className='u-msg-input' onChange={handleMsgChange} />
                 </form>
                 <FontAwesomeIcon icon={faPaperPlane} className="send-msg-icon" onClick={() => { addMessage(msgVal); resetMsgVal() }} />
             </div>

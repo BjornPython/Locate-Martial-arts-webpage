@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import "../../../css/loggedin/umessageUsers.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faCircle } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import uuid from 'react-uuid'
 
 
@@ -11,7 +10,6 @@ const UserMessages = ({ chat, changeConvo, messages }) => {
 
 
     const lastMessage = useMemo(() => {
-        console.log("LAST MSG RERENDERED");
         if ([chat.conversationId] in messages) { return messages[chat.conversationId][0].message }
         else { return "dont have last msg yet." }
     }, [messages])
