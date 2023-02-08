@@ -41,28 +41,12 @@ function Uhome() {
 
 
     useEffect(() => {
-        console.log("NEW CONVO ID: ", convoId);
-        if (convoId === "") { return }
-        //Everytime time the convoId changes, it will request the new messages.
-        console.log("GETTING MESSAGES");
-        getMessages(convoId, currentConvoChunk)
-    }, [convoId])
-
-
-
-    useEffect(() => {
-        console.log("MESSAGES CHANGED: ", messages);
-    }, [messages])
-
-    useEffect(() => {
         if (!info) { return }
         // Reorganizes the messages data from the database.
-        console.log(info);
         setChats(info.messages)
         setUserId(info._id)
 
         socket.on("messageContents", (msgData) => {
-            console.log("RECEIVED MESSAGE CONTENTS FROM BACKEND");
             setMessages(prevState => {
                 const newState = { ...prevState, [msgData.conversationId]: msgData.messageContent }
                 return { ...newState }
@@ -75,14 +59,13 @@ function Uhome() {
             console.log("UHOME NEWMSG: ", msgData);
             const { conversationId, senderId, message } = msgData
             setMessages(prevState => {
-
                 if (prevState[conversationId]) {
+
                     const newState = {
                         ...prevState,
                         [conversationId]: [...prevState[conversationId], { senderId, message }]
                     }
                     return { ...newState }
-
                 } else {
                     const newState = {
                         ...prevState,
@@ -91,18 +74,16 @@ function Uhome() {
                     return { ...newState }
                 }
             })
-
-            if (convoId === conversationId || convoId === senderId) {
-                setCurrentMessages(prevState => {
-                    console.log("CURRENT MESSAGES: ", prevState);
-                    return [...prevState, { senderId, message }]
-                })
-            }
-
-        })
+            // if (convoId === conversationId || convoId === senderId) {
+            //     setCurrentMessages(prevState => {
+            //         return [...prevState, { senderId, message }]
+            //     })
+            // }
+            checkCurrentMessages(conversationId, senderId, message)
+        }
+        )
 
         socket.on("newChat", (newChat) => {
-            console.log("NEW CHAT: ", newChat);
             setChats((prevState) => {
                 return { ...prevState, newChat }
             })
@@ -135,14 +116,26 @@ function Uhome() {
     }, [])
 
     useEffect(() => {
-        console.log(chats);
         if (Object.entries(chats).length < 1) { return }
-        console.log("CHATS: ", chats);
         Object.entries(chats).map(([chatKey, val]) => {
-            console.log("JOINING...: ", val.conversationId);
             socket.emit("joinConversation", { conversationId: val.conversationId, token: user })
         })
     }, [chats])
+
+
+    useEffect(() => {
+        console.log("NEW CONVO ID: ", convoId);
+        if (convoId === "") { return }
+        //Everytime time the convoId changes, it will request the new messages.
+        console.log("GETTING MESSAGES");
+        getMessages(convoId, currentConvoChunk)
+    }, [convoId])
+
+
+
+    useEffect(() => {
+        console.log("MESSAGES CHANGED: ", messages);
+    }, [messages])
 
     const getUserInfo = async () => {
         const response = await apiService.getUserInfo(user);
@@ -167,35 +160,58 @@ function Uhome() {
 
     const changeConvo = (newConvoId, highestChunk, convoName) => {
         // Changes the convo when the user clicks on a chat
-        console.log("CURRENT CONVOID: ", convoId);
-        console.log("CHANGE CONVOID TO: ", newConvoId, newConvoId !== convoId);
+        console.log("CHANGE CONVO CALLED");
+        console.log("CURRENT COONVO ID: ", convoId);
         setConvoId(newConvoId)
         setCurrentConvoChunk(highestChunk)
         setChatName(convoName)
+        // if (messages[newConvoId] && messages[newConvoId].length <= 1) {
+        //     console.log("CONVO HAS LESS THAN 1 MESSAGES, REQUESTING MESSAGES. ");
+        //     getMessages(newConvoId, highestChunk, true)
+        // }
 
     }
 
-    const getMessages = (conversationId, chunk) => {
-        console.log("CONVO: ", messages[conversationId]);
+    const checkCurrentMessages = (conversationId, senderId, message) => {
+        console.log("CONVO ID IN CHECK: ", convoId);
+
+        setConvoId(prevState => {
+
+            if (prevState === conversationId || prevState === senderId) {
+                setCurrentMessages(prevState => {
+                    return [...prevState, { senderId, message }]
+                })
+            }
+
+            return prevState
+        })
+
+    }
+
+    const getMessages = (conversationId, chunk, force = null) => {
         if (!messages[conversationId]) {
-            console.log("convoId not in messages");
             socket.emit("requestMessage", { conversationId, chunk, token: user })
-        } else {
+        } else if (force) {
+            socket.emit("requestMessage", { conversationId, chunk, token: user })
+
+        } else if (messages[conversationId]) {
+            socket.emit("requestMessage", { conversationId, chunk, token: user })
+        }
+
+        else {
             setCurrentMessages(messages[conversationId])
         }
 
     }
 
     const addMessage = (msg) => {
-        console.log("EMMITTING");
+        console.log("addMessage function called.");
         socket.emit("addMessage", { token: user, conversationId: convoId, message: msg, chunk: currentConvoChunk })
     }
 
     const createConvo = (participantOne, participantOneId, participantTwo, participantTwoId) => {
-        console.log("IN CREATE CONVO");
 
         if (!info.messages[participantTwoId]) {
-            console.log("NO CONVO");
             socket.emit("newConvo", { token: user, participantOne, participantOneId, participantTwo, participantTwoId })
 
         } else {
