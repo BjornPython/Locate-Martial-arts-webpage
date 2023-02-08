@@ -74,11 +74,18 @@ function Uhome() {
                     return { ...newState }
                 }
             })
-            // if (convoId === conversationId || convoId === senderId) {
-            //     setCurrentMessages(prevState => {
-            //         return [...prevState, { senderId, message }]
-            //     })
-            // }
+            setUserId(prevState => {
+                if (prevState !== senderId) {
+                    setChats(prevChats => {
+                        const newChats = {
+                            ...prevChats,
+                            [senderId]: { ...prevChats[senderId], seen: false }
+                        }
+                        return newChats
+                    })
+                }
+                return prevState
+            })
             checkCurrentMessages(conversationId, senderId, message)
         }
         )
@@ -92,6 +99,7 @@ function Uhome() {
             setChatName(newChat.name)
             setCurrentConvoChunk(newChat.highestChunk)
         })
+
 
 
 
@@ -181,6 +189,7 @@ function Uhome() {
                 setCurrentMessages(prevState => {
                     return [...prevState, { senderId, message }]
                 })
+
             }
 
             return prevState

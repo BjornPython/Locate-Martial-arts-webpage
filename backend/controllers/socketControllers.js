@@ -92,7 +92,7 @@ const makeSocket = (server) => {
             console.log("ID SENT::::    ", decoded.id);
             if (user) {
             editUserConvoSeen({senderId: chatId, receiverId: decoded.id}, true)
-            }
+        } 
         })
 
     })
