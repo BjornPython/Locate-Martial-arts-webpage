@@ -66,15 +66,13 @@ const makeSocket = (server) => {
         })
 
         socket.on("newConvo", async (convoData) => {
-            console.log("CONVODATA: ", convoData);
             try {
                 const decoded = jwt.verify(convoData.token, process.env.JWT_TOKEN)
                 console.log("DECODED: ", decoded);
                 const user =  await User.findById(decoded.id)
                 if (user) { 
-                    console.log("USER EXISTS: ", user);
                     const res = await makeConvo(convoData.participantOne, convoData.participantOneId, convoData.participantTwo, convoData.participantTwoId)
-                console.log("RES: ", res.messages);
+                    console.log("NEW CONVO RES: ", res);
                 socket.emit("newChat", res.messages[convoData.participantTwoId])
                 }
                 

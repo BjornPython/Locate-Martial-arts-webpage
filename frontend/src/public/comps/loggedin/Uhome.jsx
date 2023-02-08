@@ -56,7 +56,6 @@ function Uhome() {
 
 
         socket.on("newMessage", (msgData) => {
-            console.log("UHOME NEWMSG: ", msgData);
             const { conversationId, senderId, message } = msgData
             setMessages(prevState => {
                 if (prevState[conversationId]) {
@@ -132,17 +131,14 @@ function Uhome() {
 
 
     useEffect(() => {
-        console.log("NEW CONVO ID: ", convoId);
         if (convoId === "") { return }
         //Everytime time the convoId changes, it will request the new messages.
-        console.log("GETTING MESSAGES");
         getMessages(convoId, currentConvoChunk)
     }, [convoId])
 
 
 
     useEffect(() => {
-        console.log("MESSAGES CHANGED: ", messages);
     }, [messages])
 
     const getUserInfo = async () => {
@@ -168,8 +164,6 @@ function Uhome() {
 
     const changeConvo = (newConvoId, highestChunk, convoName) => {
         // Changes the convo when the user clicks on a chat
-        console.log("CHANGE CONVO CALLED");
-        console.log("CURRENT COONVO ID: ", convoId);
         setConvoId(newConvoId)
         setCurrentConvoChunk(highestChunk)
         setChatName(convoName)
@@ -181,7 +175,6 @@ function Uhome() {
     }
 
     const checkCurrentMessages = (conversationId, senderId, message) => {
-        console.log("CONVO ID IN CHECK: ", convoId);
 
         setConvoId(prevState => {
 
@@ -202,19 +195,13 @@ function Uhome() {
             socket.emit("requestMessage", { conversationId, chunk, token: user })
         } else if (force) {
             socket.emit("requestMessage", { conversationId, chunk, token: user })
-
-        } else if (messages[conversationId]) {
-            socket.emit("requestMessage", { conversationId, chunk, token: user })
-        }
-
-        else {
+        } else {
             setCurrentMessages(messages[conversationId])
         }
 
     }
 
     const addMessage = (msg) => {
-        console.log("addMessage function called.");
         socket.emit("addMessage", { token: user, conversationId: convoId, message: msg, chunk: currentConvoChunk })
     }
 
@@ -224,7 +211,6 @@ function Uhome() {
             socket.emit("newConvo", { token: user, participantOne, participantOneId, participantTwo, participantTwoId })
 
         } else {
-            console.log(info.messages[participantTwoId])
             setCurrentPage("messages")
             setConvoId(info.messages[participantTwoId].conversationId)
             setChatName(info.messages[participantTwoId].name)

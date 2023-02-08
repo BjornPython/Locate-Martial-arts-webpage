@@ -42,15 +42,13 @@ const makeConvo = asyncHandler(async (participantOne, participantOneId, particip
 
 
 const createConvo = asyncHandler(async (req, res) => {
-    console.log("IN CREATE CONVO");
-    console.log("BODY: ", req.body);
+
     const conversationId = uuidv4()
     const {participantOne, participantOneId, participantTwo, participantTwoId }= req.body
     const participants = [
         {_id: participantOneId, name: participantOne}, 
         {_id: participantTwoId, name: participantTwo}
     ]
-    console.log("PARTICIPANTS: ", participants);
     const chunkNumber = 0
 
 

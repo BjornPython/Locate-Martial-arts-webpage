@@ -31,14 +31,13 @@ function Umaps({ user, info, createConvo }) {
 
     useEffect(() => {
         if (newUserLocation === null) { return }
+        console.log("NEW USER LOC: ", newUserLocation);
         updateUserInfo(newUserLocation.location.lat, newUserLocation.location.long)
         setRecetCenterValue([newUserLocation.location.lat, newUserLocation.location.long])
         updateUserDbLoc(newUserLocation)
     }, [newUserLocation])
 
-    useEffect(() => {
-        console.log("USER INFO CHANGED TO: ", userInfo)
-    }, [userInfo])
+
 
     useEffect(() => {
         if (!info) { return }
@@ -90,8 +89,7 @@ function Umaps({ user, info, createConvo }) {
 
     const getMarkerLocations = async () => {
         const location = newUserLocation ? newUserLocation : { lat, long }
-        console.log("NEWUSER LOCATION: ", newUserLocation);
-        console.log(" LOCATION: ", location);
+
         if (selectedLfs.includes("GYM")) {
             const res = await apiService.findGyms(location, JSON.stringify(lookingForMarts))
             setMarkerPoints((prevState) => {
