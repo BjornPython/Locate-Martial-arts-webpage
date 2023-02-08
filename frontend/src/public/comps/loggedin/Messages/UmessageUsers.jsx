@@ -10,12 +10,14 @@ const UserMessages = ({ chatUserId, chat, changeConvo, messages, toggleSeenConvo
 
 
     const lastMessage = useMemo(() => {
+        console.log("MESSAGES CHANGED IN USERMESSAGES: ", messages);
         const { conversationId } = chat
         console.log("MESSAGES: ", messages);
         console.log("CONVO: ", messages[conversationId]);
-        if ([conversationId] in messages) {
+        if (messages[conversationId]) {
             const convoIndex = messages[conversationId].length > 0 ? messages[conversationId].length - 1 : null
-            if (convoIndex) { return messages[conversationId][convoIndex].message }
+            console.log("CONVOINDEX: ", convoIndex);
+            if (convoIndex !== null) { console.log("RETURNING INDEX: ", convoIndex); return messages[conversationId][convoIndex].message }
             else { return "no convo yet." }
         }
         else { return "dont have last msg yet." }

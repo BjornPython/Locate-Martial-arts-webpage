@@ -51,7 +51,7 @@ function Uhome() {
 
 
     useEffect(() => {
-        console.log("MESSAGES CHANGED");
+        console.log("MESSAGES CHANGED: ", messages);
     }, [messages])
 
     useEffect(() => {
@@ -75,16 +75,30 @@ function Uhome() {
             console.log("UHOME NEWMSG: ", msgData);
             const { conversationId, senderId, message } = msgData
             setMessages(prevState => {
-                const newState = {
-                    ...prevState,
-                    [conversationId]: [...prevState[conversationId], { senderId, message }]
+
+                if (prevState[conversationId]) {
+                    const newState = {
+                        ...prevState,
+                        [conversationId]: [...prevState[conversationId], { senderId, message }]
+                    }
+                    return { ...newState }
+
+                } else {
+                    const newState = {
+                        ...prevState,
+                        [conversationId]: [{ senderId, message }]
+                    }
+                    return { ...newState }
                 }
-                return { ...newState }
             })
-            setCurrentMessages(prevState => {
-                console.log("CURRENT MESSAGES: ", prevState);
-                return [...prevState, { senderId, message }]
-            })
+
+            if (convoId === conversationId || convoId === senderId) {
+                setCurrentMessages(prevState => {
+                    console.log("CURRENT MESSAGES: ", prevState);
+                    return [...prevState, { senderId, message }]
+                })
+            }
+
         })
 
         socket.on("newChat", (newChat) => {

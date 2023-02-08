@@ -10,6 +10,7 @@ function Umessages({
 }) {
 
     const uMessageUsersMemo = useMemo(() => {
+        console.log("RERENDERING UMESSAGEUSERSMEMO: ", messages);
         return (
             <UmessageUsers chats={chats} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />
         )
