@@ -13,6 +13,7 @@ const makeSocket = (server) => {
 
 
     io.on("connection", (socket) => {
+
         socket.on("usersRoom", (userId) => {
             console.log("USER ID RECEIVED: ", userId);
             socket.join(userId)
@@ -21,12 +22,16 @@ const makeSocket = (server) => {
 
 
         socket.on("joinConversation", async (info) => {
-            const conversation = await Message.findOne({conversationId: info.conversationId})
+            const {conversationId} = info
+            if (!conversationId ) 
+            {console.log("MISSING REQUIREMENTS: conversationId "); return}
+            const conversation = await Message.findOne({conversationId})
+            if (!conversation) {return}
             const participants = conversation.participants
             const decoded = jwt.verify(info.token, process.env.JWT_TOKEN)
             for (let i = 0; i < participants.length; i++) {
                 if (participants[i]._id === decoded.id) {
-                    socket.join(info.conversationId)
+                    socket.join(conversationId)
                     break;
                 } 
             }
@@ -34,6 +39,7 @@ const makeSocket = (server) => {
 
         socket.on("requestMessage", async (info) => {
             const {token, conversationId, chunk} = info
+            if (!token || !conversationId || !chunk) {console.log("MISSING REQUIREMENTS: !token || !conversationId || !chunk"); return}
             const res = await getConvoChunk(conversationId, chunk)
             const participants = res.participants
             const decoded = jwt.verify(token, process.env.JWT_TOKEN)
@@ -64,18 +70,25 @@ const makeSocket = (server) => {
         })
 
         socket.on("newConvo", async (convoData) => {
+            const {token, participantOne, participantOneId, participantTwo, participantTwoId} = convoData
+            if (!token || !participantOne || !participantOneId || !participantTwo || !participantTwoId) {return}
             try {
-                const decoded = jwt.verify(convoData.token, process.env.JWT_TOKEN)
+                const decoded = jwt.verify(token, process.env.JWT_TOKEN)
                 const user =  await User.findById(decoded.id)
                 if (user) { 
-                    const res = await makeConvo(convoData.participantOne, convoData.participantOneId, convoData.participantTwo, convoData.participantTwoId)
-                socket.emit("newChat", res.messages[convoData.participantTwoId])
+                    const res = await makeConvo(participantOne, participantOneId, participantTwo, participantTwoId)
+                console.log("RES: ", res); 
+                socket.emit("newChat", res.newUserMessages.messages[convoData.participantTwoId]);
+                console.log("emitting to participant two to join room");
+                socket.to(participantTwoId).emit("requestJoinRoom", (res.conversationId));
                 }
                 
             } catch (err) {
                 console.log(err);
             }
         }) 
+
+        
 
         socket.on("toggleSeen", async (chatData) => {
             const {token, chatId, isSeen} = chatData

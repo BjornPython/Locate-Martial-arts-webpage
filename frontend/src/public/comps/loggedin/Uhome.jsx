@@ -24,7 +24,7 @@ function Uhome() {
 
 
     const [info, setInfo] = useState(null)
-    const [currentPage, setCurrentPage] = useState("search")
+    const [currentPage, setCurrentPage] = useState("messages")
     const [showLogout, setShowLogout] = useState(false)
 
 
@@ -46,10 +46,15 @@ function Uhome() {
         setChats(info.messages)
         setUserId(info._id)
 
-        socket.emit("usersRoom", info._id)
+        socket.emit("usersRoom", info._id);
 
+        socket.on("requestJoinRoom", (conversationId) => {
+            console.log("joining conversation: ", conversationId);
+            socket.emit("joinConversation", { conversationId, token: user })
+        })
 
         socket.on("messageContents", (msgData) => {
+            console.log("MSG CONTENTS RECEIVED: ", msgData);
             setMessages(prevState => {
                 const newState = { ...prevState, [msgData.conversationId]: msgData.messageContent }
                 return { ...newState }
@@ -60,6 +65,7 @@ function Uhome() {
 
         socket.on("newMessage", (msgData) => {
             const { conversationId, senderId, message } = msgData
+            console.log("NEW MESSAGE: ", msgData);
             setMessages(prevState => {
                 if (prevState[conversationId]) {
                     const newState = {
@@ -105,6 +111,7 @@ function Uhome() {
 
 
         return () => {
+            socket.off("requestJoinRoom");
             socket.off("messageContents");
             socket.off("newMessage");
             socket.off("newChat");
@@ -138,10 +145,6 @@ function Uhome() {
         getMessages(convoId, currentConvoChunk)
     }, [convoId])
 
-
-
-    useEffect(() => {
-    }, [messages])
 
     const getUserInfo = async () => {
         const response = await apiService.getUserInfo(user);
