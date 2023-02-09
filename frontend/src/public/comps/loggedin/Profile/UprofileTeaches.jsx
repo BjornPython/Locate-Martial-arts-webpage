@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMemo } from 'react'
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import uuid from 'react-uuid'
-const ShowTeaches = ({ art, showSpan }) => {
+const ShowTeaches = ({ art, showSpan, toggleTeachesArt }) => {
+
+    const [span, setSpan] = useState(showSpan)
+
+    const toggleSpan = () => {
+        setSpan(!span)
+    }
+
+    useEffect(() => {
+        console.log("NEW SPAN: ", span);
+    }, [span])
 
     return (
-        <div className="teaches-mart">
-            <span>
+        <div className={`teaches-mart ${span ? "teaches-mart-active" : ""}`} onClick={() => { toggleSpan(); toggleTeachesArt(art) }}>
+            <span >
 
             </span>
             <h4>{art}</h4>
@@ -21,7 +31,28 @@ function UprofileTeaches() {
 
     const [selectedArts, setSelectedArts] = useState([])
 
+    const toggleTeachesArt = (art) => {
+        console.log("TOGGLING");
+        if (selectedArts.includes(art)) {
+            setSelectedArts(prevArts => { return prevArts.filter(selectedArt => (selectedArt !== art)) })
+        } else {
+            setSelectedArts(prevArts => { return [...prevArts, art] })
+        }
+    }
 
+    useEffect(() => {
+        console.log("NEW SELECTED ARTS: ", selectedArts);
+    }, [selectedArts])
+
+    const teachesArtMemo = useMemo(() => {
+
+        return (diffArts.map((mart) => {
+            const teachesKey = uuid()
+            return (<ShowTeaches key={teachesKey} art={mart} toggleTeachesArt={toggleTeachesArt}
+                showSpan={selectedArts.includes(mart) ? true : false} />)
+        }))
+
+    }, [])
 
     return (
         <div className='u-profile-teaches'>
@@ -32,10 +63,7 @@ function UprofileTeaches() {
             </div>
 
             <div className='teaches-dropdown'>
-                {diffArts.map((mart) => {
-                    const teachesKey = uuid()
-                    return <ShowTeaches key={teachesKey} art={mart} />
-                })}
+                {teachesArtMemo}
             </div>
 
         </div>

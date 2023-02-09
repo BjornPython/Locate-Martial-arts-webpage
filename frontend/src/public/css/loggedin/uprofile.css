@@ -434,7 +434,7 @@ input:focus{
     flex-direction: column;
     align-items: center;
     width: 200px;
-    height: 100px;
+    height: 200px;
     background-color: white;
     color: black;
     overflow-y: scroll;
@@ -449,11 +449,19 @@ input:focus{
 }
 
 .teaches-mart span {
+    transition: 0.2s ease-in;
     background-color: red;
     border: 0;
-    width: 5px;
     height: 100%;
+    width: 0px;
 }
+
+.teaches-mart-active span {
+    transition: 0.2s ease-in;
+    width: 5px;
+}
+
+
 
 .teaches-mart h4 {
     margin-left: 5px;
