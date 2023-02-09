@@ -32,6 +32,7 @@ const UserMessages = ({ chatUserId, chat, changeConvo, messages, toggleSeenConvo
                     <h3>{chat.name}</h3>
                     <div className='status-div'>
                         <FontAwesomeIcon icon={faCircle} className="active-icn" />
+                        {console.log("CHAT SEEN: ", chat.seen)}
                         {chat.seen
                             ? <p>{lastMessage}</p>
                             : <p style={{ color: "white", "fontWeight": "bold" }}>{lastMessage}</p>}
@@ -39,7 +40,7 @@ const UserMessages = ({ chatUserId, chat, changeConvo, messages, toggleSeenConvo
                 </div>
             </>
         )
-    }, [messages])
+    }, [chat, messages])
 
 
     return (
