@@ -48,10 +48,11 @@ function Uprofile({ user, info }) {
         marts: {},
         awards: [],
         lfDataChanged: 0,
+        teaches: {},
         initialValues: true
     })
 
-    const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards, lfDataChanged } = newUserInfo
+    const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards, lfDataChanged, teaches } = newUserInfo
     const [showSave, setShowSave] = useState(false)
 
 
@@ -229,7 +230,7 @@ function Uprofile({ user, info }) {
                 isEditingInfo={isEditingInfo} handleEditProfile={handleEditProfile} showSave={showSave}
                 marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
                 handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
-                changeUserStatus={changeUserStatus} changeUserData={changeUserData} />
+                changeUserStatus={changeUserStatus} changeUserData={changeUserData} teaches={teaches} />
         </div>
 
     )

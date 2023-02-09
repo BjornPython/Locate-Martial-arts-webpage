@@ -79,12 +79,12 @@
 .popup-ul {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 
 .popup-ul h4 {
-    flex-basis: 50%;
     margin: 0;
     margin-top: 2px;
     font-weight: 600;

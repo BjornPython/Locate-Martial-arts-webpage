@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
 import UprofileMarts from './UprofileMarts'
 import UprofileAwards from './UprofileAwards'
-
+import UprofileTeaches from './UprofileTeaches'
 const showPSpan = (txt) => {
     return (<><p>{txt}</p><span /></>)
 }
@@ -33,6 +33,8 @@ function UprofileContents(
             {showPSpan("Help people near you connect with you. Pin your area on the maps to set.")}
             <UprofileStatus coach={coach} changeUserStatus={changeUserStatus} isEditingInfo={isEditingInfo} />
             {showPSpan("Are you a coach or a student?")}
+
+
             <div className='save-changes'>
                 {console.log("SHOWSAVE? ", showSave)}
                 {showSave

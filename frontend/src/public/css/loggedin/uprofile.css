@@ -405,6 +405,62 @@ input:focus{
     color: gray;
 }
 
+.u-profile-teaches {
+    position: relative;
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.teaches-dropdown-btn {
+    margin-top: 20px;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 180px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.teaches-dropdown-btn h4 {
+    margin: 0;
+}
+
+.teaches-dropdown {
+    position: absolute;
+    top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 200px;
+    background-color: white;
+    color: black;
+    overflow-y: visible;
+    height: 200px;
+
+}
+
+.teaches-mart {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.teaches-mart span {
+    background-color: red;
+    width: 5px;
+    height: 100%;
+    border: none;
+}
+
+.teaches-mart h4 {
+    margin: 0;
+}
+
 @media(max-width:920px) {
 
     #spartner-div {
