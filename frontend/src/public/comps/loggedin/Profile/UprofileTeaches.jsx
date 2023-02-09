@@ -27,7 +27,7 @@ function UprofileTeaches() {
         <div className='u-profile-teaches'>
 
             <div className='teaches-dropdown-btn'>
-                <h4>Teaches... </h4>
+                <h4>You Teach... </h4>
                 <FontAwesomeIcon icon={faCaretDown} />
             </div>
 

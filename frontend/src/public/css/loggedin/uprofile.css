@@ -432,14 +432,12 @@ input:focus{
     top: 60px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
     width: 200px;
+    height: 100px;
     background-color: white;
     color: black;
-    overflow-y: visible;
-    height: 200px;
-
+    overflow-y: scroll;
 }
 
 .teaches-mart {
@@ -452,13 +450,13 @@ input:focus{
 
 .teaches-mart span {
     background-color: red;
+    border: 0;
     width: 5px;
     height: 100%;
-    border: none;
 }
 
 .teaches-mart h4 {
-    margin: 0;
+    margin-left: 5px;
 }
 
 @media(max-width:920px) {
