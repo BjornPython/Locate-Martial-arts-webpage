@@ -251,7 +251,7 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
     console.log("USERIDS: ", userIds);
     console.log("USER NAMES: ", userNames);
     try {
-        const user1 = await User.findByIdAndUpdate(userIds[0], 
+        const userOne = await User.findByIdAndUpdate(userIds[0], 
             {   
                 [`messages.${userIds[1]}.name`]: userNames[1],  
                 [`messages.${userIds[1]}.conversationId`]: conversationId ,
@@ -259,7 +259,7 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
                 [`messages.${userIds[1]}.seen`]: true
             }, {new: true}
         );
-        const user2 = await User.findByIdAndUpdate(userIds[1], 
+        const userTwo = await User.findByIdAndUpdate(userIds[1], 
             { 
                 [`messages.${userIds[0]}.name`]: userNames[0],
                 [`messages.${userIds[0]}.conversationId`]: conversationId  ,
@@ -267,7 +267,7 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
                 [`messages.${userIds[0]}.seen`]: true  
             }, {new: true}
         );
-        return user1
+        return {userOneMessages: userOne.messages, userTwoMessages: userTwo.messages}
     } catch (err) {
         console.error(err);
         throw(err)

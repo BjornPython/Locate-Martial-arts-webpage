@@ -29,6 +29,7 @@ const makeConvo = asyncHandler(async (participantOne, participantOneId, particip
     const userIds = [participantOneId, participantTwoId]
     const userNames = [participantOne, participantTwo]
     const newUserMessages = await addUserMessage(userIds, userNames, conversationId, chunkNumber)
+    console.log("NEW USER MESSAGES: ", newUserMessages);
     return {newUserMessages, conversationId}
 
 

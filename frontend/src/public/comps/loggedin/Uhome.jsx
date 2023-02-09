@@ -38,6 +38,9 @@ function Uhome() {
     const [chatName, setChatName] = useState("")
     const [currentConvoChunk, setCurrentConvoChunk] = useState(null) // The highest Chunk of the current chat
 
+    useEffect(() => {
+        console.log("NEW CHATS: ", chats);
+    }, [chats])
 
 
     useEffect(() => {
@@ -48,9 +51,15 @@ function Uhome() {
 
         socket.emit("usersRoom", info._id);
 
-        socket.on("requestJoinRoom", (conversationId) => {
+        socket.on("requestJoinRoom", (info) => {
+            const { conversationId, newChat } = info
             console.log("joining conversation: ", conversationId);
             socket.emit("joinConversation", { conversationId, token: user })
+            console.log("NEW CHAT: ", newChat);
+            setChats((prevState) => {
+                console.log("PREVSTATE OF CHATS: ", prevState);
+                return newChat
+            })
         })
 
         socket.on("messageContents", (msgData) => {
@@ -98,8 +107,10 @@ function Uhome() {
         )
 
         socket.on("newChat", (newChat) => {
+            console.log("NEW CHAT: ", newChat);
             setChats((prevState) => {
-                return { ...prevState, newChat }
+                console.log("PREVSTATE OF CHATS: ", prevState);
+                return newChat
             })
             setCurrentPage("messages")
             setConvoId(newChat.conversationId)
@@ -196,6 +207,7 @@ function Uhome() {
     }
 
     const getMessages = (conversationId, chunk, force = null) => {
+        console.log("IN GET MESSAGES: ", conversationId, chunk, force);
         if (!messages[conversationId]) {
             socket.emit("requestMessage", { conversationId, chunk, token: user })
         } else if (force) {
