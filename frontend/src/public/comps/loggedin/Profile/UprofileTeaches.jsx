@@ -30,7 +30,7 @@ function UprofileTeaches() {
         "Boxing", "Karate", "Wrestling", "Sambo"]
 
     const [selectedArts, setSelectedArts] = useState([])
-
+    const [showDropdown, setShowDropdown] = useState(false)
     const toggleTeachesArt = (art) => {
         console.log("TOGGLING");
         if (selectedArts.includes(art)) {
@@ -44,27 +44,35 @@ function UprofileTeaches() {
         console.log("NEW SELECTED ARTS: ", selectedArts);
     }, [selectedArts])
 
+    const toggleDropdown = () => {
+        setShowDropdown(prevState => !prevState)
+    }
+
     const teachesArtMemo = useMemo(() => {
 
         return (diffArts.map((mart) => {
             const teachesKey = uuid()
-            return (<ShowTeaches key={teachesKey} art={mart} toggleTeachesArt={toggleTeachesArt}
+            return (<ShowTeaches key={mart} art={mart} toggleTeachesArt={toggleTeachesArt}
                 showSpan={selectedArts.includes(mart) ? true : false} />)
         }))
 
-    }, [])
+    }, [selectedArts])
+
+
+
 
     return (
         <div className='u-profile-teaches'>
 
-            <div className='teaches-dropdown-btn'>
+            <div className='teaches-dropdown-btn' onClick={toggleDropdown}>
                 <h4>You Teach... </h4>
                 <FontAwesomeIcon icon={faCaretDown} />
             </div>
 
-            <div className='teaches-dropdown'>
-                {teachesArtMemo}
-            </div>
+            {showDropdown &&
+                <div className='teaches-dropdown'>
+                    {teachesArtMemo}
+                </div>}
 
         </div>
     )
