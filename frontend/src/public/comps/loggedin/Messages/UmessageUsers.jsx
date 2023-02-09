@@ -40,7 +40,7 @@ const UserMessages = ({ chatUserId, chat, changeConvo, messages, toggleSeenConvo
                 </div>
             </>
         )
-    }, [chat, messages])
+    }, [chat])
 
 
     return (

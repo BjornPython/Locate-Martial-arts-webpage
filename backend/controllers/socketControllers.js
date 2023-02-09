@@ -39,12 +39,15 @@ const makeSocket = (server) => {
 
         socket.on("requestMessage", async (info) => {
             const {token, conversationId, chunk} = info
-            if (!token || !conversationId || !chunk) {console.log("MISSING REQUIREMENTS: !token || !conversationId || !chunk"); return}
+            console.log("RECEIVED DATA: ", token, conversationId, chunk, (!token || !conversationId || chunk === undefined ));
+
+            if (!token || !conversationId || chunk === undefined ) {console.log("MISSING REQUIREMENTS: !token || !conversationId || !chunk"); return}
             const res = await getConvoChunk(conversationId, chunk)
             const participants = res.participants
             const decoded = jwt.verify(token, process.env.JWT_TOKEN)
             for (let i = 0; i < participants.length; i++) {
                 if (participants[i]._id === decoded.id) {
+                    console.log("EMITTING MESSAGE CONTENTS: ", res.messages);
                     socket.emit("messageContents", {conversationId, messageContent: res.messages})
                     break;
                 } 

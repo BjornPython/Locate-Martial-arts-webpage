@@ -53,7 +53,6 @@ function Uhome() {
 
         socket.on("requestJoinRoom", (info) => {
             const { conversationId, newChat } = info
-            console.log("joining conversation: ", conversationId);
             socket.emit("joinConversation", { conversationId, token: user })
             console.log("NEW CHAT: ", newChat);
             setChats((prevState) => {
@@ -63,7 +62,6 @@ function Uhome() {
         })
 
         socket.on("messageContents", (msgData) => {
-            console.log("MSG CONTENTS RECEIVED: ", msgData);
             setMessages(prevState => {
                 const newState = { ...prevState, [msgData.conversationId]: msgData.messageContent }
                 return { ...newState }
@@ -74,9 +72,9 @@ function Uhome() {
 
         socket.on("newMessage", (msgData) => {
             const { conversationId, senderId, message } = msgData
-            console.log("NEW MESSAGE: ", msgData);
             setMessages(prevState => {
                 if (prevState[conversationId]) {
+                    console.log("MESSAGE ALREADY EXISTS");
                     const newState = {
                         ...prevState,
                         [conversationId]: [...prevState[conversationId], { senderId, message }]
@@ -107,9 +105,7 @@ function Uhome() {
         )
 
         socket.on("newChat", (newChat) => {
-            console.log("NEW CHAT: ", newChat);
             setChats((prevState) => {
-                console.log("PREVSTATE OF CHATS: ", prevState);
                 return newChat
             })
             setCurrentPage("messages")
@@ -153,6 +149,7 @@ function Uhome() {
     useEffect(() => {
         if (convoId === "") { return }
         //Everytime time the convoId changes, it will request the new messages.
+        console.log("GETTING MESSAGES");
         getMessages(convoId, currentConvoChunk)
     }, [convoId])
 
@@ -183,10 +180,7 @@ function Uhome() {
         setConvoId(newConvoId)
         setCurrentConvoChunk(highestChunk)
         setChatName(convoName)
-        // if (messages[newConvoId] && messages[newConvoId].length <= 1) {
-        //     console.log("CONVO HAS LESS THAN 1 MESSAGES, REQUESTING MESSAGES. ");
-        //     getMessages(newConvoId, highestChunk, true)
-        // }
+
 
     }
 
@@ -209,6 +203,7 @@ function Uhome() {
     const getMessages = (conversationId, chunk, force = null) => {
         console.log("IN GET MESSAGES: ", conversationId, chunk, force);
         if (!messages[conversationId]) {
+            console.log("requesting messages");
             socket.emit("requestMessage", { conversationId, chunk, token: user })
         } else if (force) {
             socket.emit("requestMessage", { conversationId, chunk, token: user })
