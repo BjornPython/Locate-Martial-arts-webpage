@@ -10,14 +10,10 @@ const UserMessages = ({ chatUserId, chat, changeConvo, messages, toggleSeenConvo
 
 
     const lastMessage = useMemo(() => {
-        console.log("MESSAGES CHANGED IN USERMESSAGES: ", messages);
         const { conversationId } = chat
-        console.log("MESSAGES: ", messages);
-        console.log("CONVO: ", messages[conversationId]);
         if (messages[conversationId]) {
             const convoIndex = messages[conversationId].length > 0 ? messages[conversationId].length - 1 : null
-            console.log("CONVOINDEX: ", convoIndex);
-            if (convoIndex !== null) { console.log("RETURNING INDEX: ", convoIndex); return messages[conversationId][convoIndex].message }
+            if (convoIndex !== null) { return messages[conversationId][convoIndex].message }
             else { return "no convo yet." }
         }
         else { return "dont have last msg yet." }
@@ -48,7 +44,6 @@ const UserMessages = ({ chatUserId, chat, changeConvo, messages, toggleSeenConvo
 
     return (
         <div className='user' onClick={() => {
-            console.log("USER CLICKED: ", chatUserId);
             changeConvo(chat.conversationId, chat.highestChunk, chat.name)
             toggleSeenConvo(chatUserId, true)
         }}>

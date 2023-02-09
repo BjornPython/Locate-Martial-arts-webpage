@@ -46,6 +46,9 @@ function Uhome() {
         setChats(info.messages)
         setUserId(info._id)
 
+        socket.emit("usersRoom", info._id)
+
+
         socket.on("messageContents", (msgData) => {
             setMessages(prevState => {
                 const newState = { ...prevState, [msgData.conversationId]: msgData.messageContent }
@@ -59,7 +62,6 @@ function Uhome() {
             const { conversationId, senderId, message } = msgData
             setMessages(prevState => {
                 if (prevState[conversationId]) {
-
                     const newState = {
                         ...prevState,
                         [conversationId]: [...prevState[conversationId], { senderId, message }]

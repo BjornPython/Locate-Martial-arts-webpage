@@ -13,16 +13,19 @@ const makeSocket = (server) => {
 
 
     io.on("connection", (socket) => {
-        console.log("NEW CLIENT CONNECTED IN BACKEND");
+        socket.on("usersRoom", (userId) => {
+            console.log("USER ID RECEIVED: ", userId);
+            socket.join(userId)
+        })
+
+
+
         socket.on("joinConversation", async (info) => {
-            console.log("SENT ID: ", info.conversationId);
             const conversation = await Message.findOne({conversationId: info.conversationId})
-            console.log("CONVO " , conversation);
             const participants = conversation.participants
             const decoded = jwt.verify(info.token, process.env.JWT_TOKEN)
             for (let i = 0; i < participants.length; i++) {
                 if (participants[i]._id === decoded.id) {
-                    console.log(`JOIN CONVO VERIFIED`);
                     socket.join(info.conversationId)
                     break;
                 } 
@@ -36,7 +39,6 @@ const makeSocket = (server) => {
             const decoded = jwt.verify(token, process.env.JWT_TOKEN)
             for (let i = 0; i < participants.length; i++) {
                 if (participants[i]._id === decoded.id) {
-                    console.log(`VERIFIED`);
                     socket.emit("messageContents", {conversationId, messageContent: res.messages})
                     break;
                 } 
@@ -48,15 +50,11 @@ const makeSocket = (server) => {
 
             const {token, conversationId, message, chunk } = msgData
             const decoded = jwt.verify(token, process.env.JWT_TOKEN)
-            console.log(conversationId, chunk);
             const convoChunk = await getConvoChunk(conversationId, chunk)
             
-            console.log("convoChunk: ", convoChunk)
             const participants = convoChunk.participants
-            console.log("PARTICIPANTS: ", participants);
             for (let i = 0; i < participants.length; i++) {
                 if (participants[i]._id === decoded.id) {
-                    console.log(`ADDING MESSAGE`);
                     const receiverId = i === 0 ? participants[1] : participants[0]
                     const res = await addMessage(conversationId, message, decoded.id, receiverId)
                     io.to(conversationId).emit("newMessage", {conversationId, message: message, senderId: decoded.id})
@@ -68,11 +66,9 @@ const makeSocket = (server) => {
         socket.on("newConvo", async (convoData) => {
             try {
                 const decoded = jwt.verify(convoData.token, process.env.JWT_TOKEN)
-                console.log("DECODED: ", decoded);
                 const user =  await User.findById(decoded.id)
                 if (user) { 
                     const res = await makeConvo(convoData.participantOne, convoData.participantOneId, convoData.participantTwo, convoData.participantTwoId)
-                    console.log("NEW CONVO RES: ", res);
                 socket.emit("newChat", res.messages[convoData.participantTwoId])
                 }
                 
@@ -83,11 +79,9 @@ const makeSocket = (server) => {
 
         socket.on("toggleSeen", async (chatData) => {
             const {token, chatId, isSeen} = chatData
-            console.log("CHATID: ", chatId, "ISSEEN: ", isSeen);
 
             const decoded = jwt.verify(token, process.env.JWT_TOKEN)
             const user =  await User.findById(decoded.id)
-            console.log("ID SENT::::    ", decoded.id);
             if (user) {
             editUserConvoSeen({senderId: chatId, receiverId: decoded.id}, true)
         } 

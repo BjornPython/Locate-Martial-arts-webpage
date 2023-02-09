@@ -82,16 +82,13 @@ function Uprofile({ user, info }) {
 
     // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
     const updateLfSpartner = (mart) => {
-        console.log("IN UPDATE LF SPARTNER");
         if (Object.keys(lfSparArts).includes(mart)) {
             // remove
             setNewUserInfo((prevState) => {
-                console.log(lfDataChanged);
                 const newState = { ...prevState }
                 newState.lfDataChanged += 1
                 delete newState.lfSparArts[mart]
                 newState.lfSpar = Object.keys(lfSparArts).length > 0 ? true : false
-                console.log("LFSPAR: ", newState.lfSpar);
                 return newState
             })
         } else {
@@ -100,7 +97,6 @@ function Uprofile({ user, info }) {
                 newState.lfDataChanged += 1
                 newState.lfSparArts[mart] = true
                 newState.lfSpar = Object.keys(lfSparArts).length > 0 ? true : false
-                console.log("LFSPAR: ", newState.lfSpar);
                 return newState
             })
         }
@@ -139,7 +135,6 @@ function Uprofile({ user, info }) {
     })
 
     const changeUserData = async () => {
-        console.log("CHANGING USER DATA TO: ", newUserInfo);
         const response = await apiService.updateUserInfo(user, newUserInfo);
         if (isEditingInfo) { setIsEditingInfo(false) }
         { showSave && setShowSave(false) }
@@ -210,7 +205,6 @@ function Uprofile({ user, info }) {
     }
 
     const changeNameBio = async (newName, newBio) => {
-        console.log("CHANGING NAME BIO: ", newName, newBio);
         setNewUserInfo((prevState) => {
             const newState = { ...prevState, name: newName, bio: newBio };
             return newState
@@ -223,7 +217,6 @@ function Uprofile({ user, info }) {
     }
 
     useEffect(() => {
-        console.log("NEW USER INFO: ", newUserInfo);
     }, [newUserInfo])
 
 
