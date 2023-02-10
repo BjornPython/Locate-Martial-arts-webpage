@@ -51,6 +51,7 @@ html {
 
 
 .login {
+  position: relative;
   transform: rotate(70deg);
   margin-bottom: 190px;
   margin-right: 100px;

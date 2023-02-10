@@ -26,7 +26,7 @@ function UprofileStatus({ coach, changeUserStatus, teaches, changeTeaches, isEdi
 
                     <div className={`user-stud what-status ${!coach && "what-status-active"}`} onClick={() => { callChangeUserStatus(0) }}>
                         <span></span>
-                        <div className="status-txt"><h4>student</h4></div>
+                        <div className="status-txt"><h4>Student</h4></div>
                     </div>
 
                 </div>
