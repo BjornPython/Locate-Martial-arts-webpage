@@ -402,16 +402,17 @@ html {
     font-size: medium;
   }
 
+  .main-texts-line {
+    margin-top: 40px;
+  }
+
   .find {
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 40px;
     height: 120px;
     justify-content: center;
   }
 
-  .find h1 {
-    margin: 0;
-  }
 
   
 

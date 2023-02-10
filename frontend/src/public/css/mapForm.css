@@ -349,11 +349,34 @@
     }
     
     .find-btn {
+        font-size: 0.6rem;
+        height: 25px;
         width: 100px;
     }
 
     .marts-dropdown {
-        top: 320px;
+        top: 310px;
         height: 150px;
+        width: 220px
+    }
+
+    .select-m-arts {
+        width: 200px;
+        font-size: 0.8rem;
+    }
+
+    .m-art {
+        height: 40px;
+        font-size: 0.8rem;
+    }
+
+    .m-art-span {
+        height: 40px;
+
+    }
+
+    .find-gyms-btn {
+        width: 100px;
+        height: 40px;
     }
 }
