@@ -4,16 +4,10 @@ import authService from "./authService"
 
 let user = JSON.parse(localStorage.getItem("user"))
 
-const gymUser = JSON.parse(localStorage.getItem("gymUser"))
 
-
-if (!user) {
-    if (gymUser) {
-        user = gymUser
-    }
-}
 const initialState = {
     user: user ? user : null,
+    userType: "user",
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -108,10 +102,10 @@ const authSlice = createSlice({
         })
         .addCase(loginUser.fulfilled, (state, action) => {
             console.log("LOGIN USER FULFILLED");
-            console.log("action.payload: ", action.payload);
+            console.log("action.payload.token: ", action.payload.token);
             state.isLoading = false
             state.isSuccess = true
-            state.user = action.payload
+            state.user = action.payload.token
             console.log("STATE.USER: ", state.user);
         })
         .addCase(loginUser.rejected, (state, action) => {

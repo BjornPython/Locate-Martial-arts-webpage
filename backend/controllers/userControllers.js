@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel")
+const Gym = require("../models/gymModel")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 
@@ -45,17 +46,26 @@ const loginUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body
     console.log(email, password);
     const user = await User.findOne({email})
-    if (!user) {
-        
+    if (user) {
+        if (!await bcrypt.compare(password, user.password)) {
+            return res.status(400).json({message: "Wrong email or password"})
+        }
+        const token = generateToken(user.id)
+        res.status(200).json({type: "user", token}) 
 
-        return res.status(400).json({message: "Wrong Email or Password."})
+    } else {
+        const gym = await Gym.findOne({email})
+        if (gym) {
+            if (!await bcrypt.compare(password, gym.password)) {
+                return res.status(400).json({message: "Wrong email or password"})
+            } 
+            const token = generateToken(user.id)
+        res.status(200).json({type: "gym", token}) 
+        } else {
+            res.status(400).json({message: "Wrong Email or Password."})
+        }
+
     }
-    if ( ! await bcrypt.compare(password, user.password)) {
-        return res.status(400).json({message: "Wrong password"})
-    }
-    console.log("");
-    const token = generateToken(user.id)
-    res.status(200).json(token) 
 })
 
 // Generate token for Users
