@@ -7,19 +7,22 @@ import UserHome from './public/routes/UserHome';
 
 import { useEffect } from 'react';
 import AppHome from './public/routes/AppHome';
-
+import Ghome from './public/comps/gymLoggedin/Ghome';
 
 
 function App() {
 
-  const { user } = useSelector((state) => state.auth)
+  const { user, userType } = useSelector((state) => state.auth)
 
   return (
     <Router>
       <Routes>
 
         <Route path='/' element={<AppHome />} />
-        <Route path='/userhome' element={<UserHome />} />
+
+        {userType === "user" ? <Route path='/home' element={<UserHome />} /> : <Route path='/home' element={<Ghome />} />}
+        {/* <Route path='/home' element={<UserHome />} />
+        <Route path='/gymhome' element={<Ghome />} /> */}
       </Routes>
 
     </Router>

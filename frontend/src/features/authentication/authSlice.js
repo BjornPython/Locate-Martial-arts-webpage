@@ -3,11 +3,11 @@ import authService from "./authService"
 
 
 let user = JSON.parse(localStorage.getItem("user"))
-
+let userType = JSON.parse(localStorage.getItem("type"))
 
 const initialState = {
     user: user ? user : null,
-    userType: "user",
+    userType: userType ? userType : null,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -106,6 +106,7 @@ const authSlice = createSlice({
             state.isLoading = false
             state.isSuccess = true
             state.user = action.payload.token
+            state.userType = action.payload.type
             console.log("STATE.USER: ", state.user);
         })
         .addCase(loginUser.rejected, (state, action) => {

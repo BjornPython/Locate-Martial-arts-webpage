@@ -63,7 +63,7 @@ const loginUser = asyncHandler(async (req, res) => {
             }
             console.log("GENERATING TOKEN...");
             const token = generateToken(gym.id)
-            res.status(200).json({type: "user", token})  
+            res.status(200).json({type: "gym", token})  
         } else {
             res.status(400).json({message: "Wrong Email or Password."})
         }
