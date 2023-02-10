@@ -47,20 +47,23 @@ const loginUser = asyncHandler(async (req, res) => {
     console.log(email, password);
     const user = await User.findOne({email})
     if (user) {
-        if (!await bcrypt.compare(password, user.password)) {
+        if (!bcrypt.compare(password, user.password)) {
             return res.status(400).json({message: "Wrong email or password"})
         }
         const token = generateToken(user.id)
         res.status(200).json({type: "user", token}) 
 
     } else {
+        console.log("NO USER, FINDING GYM...");
         const gym = await Gym.findOne({email})
         if (gym) {
-            if (!await bcrypt.compare(password, gym.password)) {
+            if (!bcrypt.compare(password, gym.password)) {
+                console.log("WRONG PASS...");
                 return res.status(400).json({message: "Wrong email or password"})
-            } 
-            const token = generateToken(user.id)
-        res.status(200).json({type: "gym", token}) 
+            }
+            console.log("GENERATING TOKEN...");
+            const token = generateToken(gym.id)
+            res.status(200).json({type: "user", token})  
         } else {
             res.status(400).json({message: "Wrong Email or Password."})
         }

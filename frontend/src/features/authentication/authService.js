@@ -20,6 +20,7 @@ const loginUser = async (userData) => {
     const response = await axios.post(API_URL + "login", {email: userData.email, password: userData.password})
     console.log("AUTHSERVICE RES: ", response);
     if (response.data) {
+        console.log("RECEIVED RESPONSE DATA: ", response);
         localStorage.setItem("user", JSON.stringify(response.data.token))
         localStorage.setItem("type", JSON.stringify(response.data.type))
     }
