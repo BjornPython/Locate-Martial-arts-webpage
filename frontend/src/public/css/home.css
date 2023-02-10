@@ -130,6 +130,7 @@ html {
 
 
 .register {
+  position: relative;
   transform: rotate(70deg);
   margin-bottom: 40px;
   margin-right: 190px;

@@ -30,10 +30,8 @@ function Home() {
 
 
     useEffect(() => {
-        console.log("IS ERROR CHANGED");
         if (isError) {
             setTimeout(() => {
-                console.log("DISPATCHING AFTER 3S");
                 dispatch(hideError())
             }, 3000)
         }

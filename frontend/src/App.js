@@ -11,15 +11,13 @@ import AppHome from './public/routes/AppHome';
 
 
 function App() {
-  const abortCont = new AbortController();
 
   const { user } = useSelector((state) => state.auth)
 
   return (
     <Router>
       <Routes>
-        {/* {!user && <Route path='/' element={<AppHome />} />}
-        {!user && <Route path='/userhome' element={<UserHome />} />} */}
+
         <Route path='/' element={<AppHome />} />
         <Route path='/userhome' element={<UserHome />} />
       </Routes>

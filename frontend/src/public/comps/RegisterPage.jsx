@@ -99,6 +99,7 @@ function RegisterPage({ isError }) {
                     </div>
                     <button onClick={submitRegisData}>Register</button>
                 </form>
+                {isError && <AuthWarning errorMsg={"REGISTER FAILED"} />}
             </div>
         </div>
 
