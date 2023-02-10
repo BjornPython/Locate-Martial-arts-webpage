@@ -144,3 +144,22 @@ a {
 
     
 }
+
+@media(max-width:420px) {
+    .brand {
+        justify-content: center;
+    }
+
+    .brand h3 {
+        font-size: 0.6rem;
+    }
+
+    .navbar-brand {
+        width: 85%;
+        justify-content: space-between;
+    }
+
+    .navbar-brand img {
+        width: 55px;
+    }
+}

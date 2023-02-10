@@ -83,7 +83,7 @@ function GymMap({ latLong, updateLatLong, searchInfo }) {
 
     return (
         <div className="map" >
-            <MapContainer ref={mapRef} center={latLong} zoom={18} scrollWheelZoom={true} style={{ height: "500px", width: "450px" }}>
+            <MapContainer ref={mapRef} center={latLong} zoom={18} scrollWheelZoom={true} style={{ height: "100%", width: "100%" }}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

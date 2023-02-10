@@ -41,7 +41,12 @@
         flex-direction: column;
     }
   }
-
+  
+  @media(max-width:420px) {
+    .map-bg {
+        width: 400px;
+    }
+  }
 
 
 
