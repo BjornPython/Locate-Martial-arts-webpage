@@ -26,7 +26,7 @@ function UprofileAwards({ isEditingInfo, awards, delMart, delAward, addAward, ha
 
     return (
         <div className='u-profile-marts'>
-            <h4>Achievements:</h4>
+            <h3>ACHIEVEMENTS</h3>
             <div className='u-profile-grp'>
                 <div className='profile-marts-box'>
                     {!isEditingInfo

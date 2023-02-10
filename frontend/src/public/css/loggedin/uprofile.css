@@ -163,6 +163,7 @@ input:focus{
     align-items: center;
     height: 40px;
     transition: color 0.2s ease-in;
+    font-weight: 400;
 }
 
 .dropdowns-div {
@@ -189,6 +190,10 @@ input:focus{
     cursor: pointer;
     transition: color 0.2s ease-in;
 
+}
+
+.looking-for-dropdown h4 {
+    font-weight: 400;
 }
 
 .looking-for-dropdown-has {
@@ -256,7 +261,9 @@ input:focus{
     align-items: flex-start;
 }
 
-.u-profile-marts h4 {
+.u-profile-marts h3 {
+    font-weight: 400;
+    letter-spacing: 2px;
     margin: 0;
 }
 
@@ -289,6 +296,7 @@ input:focus{
     padding-left: 20px;
     padding-right: 10px;
     font-weight: 400;
+    letter-spacing: 1px;
     border-left: solid 2px white;
     margin-top: 0;
 
@@ -342,6 +350,11 @@ input:focus{
     justify-content: center;
 }
 
+.status-txt h4 {
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
 .save-changes {
     margin-top: 20px;
     width: 80%;
@@ -367,6 +380,8 @@ input:focus{
 .edit-info h4 {
     height: auto;
     display: flex;
+    margin: 0;
+    letter-spacing: 1px;
     align-items: flex-start;
 }
 

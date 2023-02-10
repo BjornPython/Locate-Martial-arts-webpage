@@ -26,7 +26,7 @@ function UprofileMarts({ isEditingInfo, marts, addMart, delMart, handleNewInfo, 
 
     return (
         <div className='u-profile-marts'>
-            <h4>Martial Arts:</h4>
+            <h3>MARTIAL ARTS</h3>
             <div className='u-profile-grp'>
                 <div className='profile-marts-box'>
 

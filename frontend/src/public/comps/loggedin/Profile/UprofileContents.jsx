@@ -25,7 +25,7 @@ function UprofileContents(
             <UprofileAwards isEditingInfo={isEditingInfo} awards={awards} delMart={delMart} delAward={delAward} addAward={addAward} handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} />
             {showPSpan("People can see your martial arts when they check your profile.")}
             <div className='u-profile-marts'>
-                <h4>Your Area:</h4>
+                <h3>YOUR AREA</h3>
                 <div className='u-profile-grp'>
                     <h4 className='user-loc'>Cainta Greenpark, Cainta Rizal</h4>
                 </div>

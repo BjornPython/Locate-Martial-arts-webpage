@@ -17,7 +17,7 @@ function UprofileStatus({ coach, changeUserStatus, teaches, changeTeaches, isEdi
         <>
 
             <div className='u-profile-marts'>
-                <h4>Account Status:</h4>
+                <h3>ACCOUNT STATUS</h3>
                 <div className="u-status">
                     <div className={`user-coach what-status ${coach && "what-status-active"}`} onClick={() => { callChangeUserStatus(1) }}>
                         <span></span>
