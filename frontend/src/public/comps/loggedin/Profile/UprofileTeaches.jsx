@@ -11,11 +11,10 @@ const ShowTeaches = ({ art, showSpan, toggleTeachesArt }) => {
         setSpan(!span)
     }
 
-    useEffect(() => {
-        console.log("NEW SPAN: ", span);
-    }, [span])
+
 
     return (
+
         <div className={`teaches-mart ${span ? "teaches-mart-active" : ""}`} onClick={() => { toggleSpan(); toggleTeachesArt(art) }}>
             <span >
 

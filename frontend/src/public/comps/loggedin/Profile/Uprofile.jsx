@@ -30,8 +30,6 @@ function Uprofile({ user, info }) {
 
     // has the initial value of userInfo. information here will be displayed in the
     // user's profile. 
-
-
     const [dbUserInfo, setDbUserInfo] = useState(null)
 
 
@@ -60,15 +58,12 @@ function Uprofile({ user, info }) {
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
     useEffect(() => {
-        if (info === null) {
-            return
-
-        } else {
+        if (info === null) { return }
+        else {
             setNewUserInfo({ ...info, lfDataChanged: 0 });
             // had to stringiny then parse so the two states will not have the same reference.
             setDbUserInfo(JSON.parse(JSON.stringify(info)));
         }
-
     }, [info])
 
     useEffect(() => {
@@ -76,12 +71,14 @@ function Uprofile({ user, info }) {
         changeUserData()
     }, [name, bio])
 
+    // Used for updating database when lfSparArts or lfCoachArts changes
     useEffect(() => {
-        if (lfDataChanged === 0) return
+        if (lfDataChanged === 0) { return }
         changeUserData()
     }, [lfDataChanged])
 
-    // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding // FUNCTIONS FOR UprofileFinding
+
+    // Used to update LfSpartner and calls the changeUserData() which updates the database.
     const updateLfSpartner = (mart) => {
         if (Object.keys(lfSparArts).includes(mart)) {
             // remove
@@ -103,7 +100,7 @@ function Uprofile({ user, info }) {
         }
         // add
     }
-
+    // Used to update lfCoachArts and calls the changeUserData() which updates the database.
     const updateLfCoach = (mart) => {
         if (Object.keys(lfCoachArts).includes(mart)) {
             // remove
@@ -123,11 +120,10 @@ function Uprofile({ user, info }) {
                 return newState
             })
         }
-        // add
     }
     //****************************************************************************************************************************** */
 
-
+    // Used for the forms when user is adding their martial arts or awards.
     const handleNewInfo = ((e) => {
         setNewInfo((prevState) => ({
             ...prevState,
@@ -135,6 +131,7 @@ function Uprofile({ user, info }) {
         }))
     })
 
+    // Function used to update the user's database.
     const changeUserData = async () => {
         const response = await apiService.updateUserInfo(user, newUserInfo);
         if (isEditingInfo) { setIsEditingInfo(false) }
@@ -160,6 +157,7 @@ function Uprofile({ user, info }) {
         })
     }
 
+    // Adds a new info in newUserInfo
     const addNewInfo = (info, type = null) => {
         if (type) {
             setNewUserInfo((prevState) => {
@@ -177,6 +175,7 @@ function Uprofile({ user, info }) {
         }
     }
 
+    // Used to update user's status to coach/student
     const changeUserStatus = (makeCoach) => {
         if (isEditingInfo) {
             if (makeCoach === 1 && coach === false) {
@@ -205,6 +204,7 @@ function Uprofile({ user, info }) {
         }
     }
 
+    // Used to update user's name and bio.
     const changeNameBio = async (newName, newBio) => {
         setNewUserInfo((prevState) => {
             const newState = { ...prevState, name: newName, bio: newBio };
@@ -213,12 +213,7 @@ function Uprofile({ user, info }) {
     }
 
 
-    const resetNameBio = () => {
-        setNewUserInfo(JSON.parse(JSON.stringify({ ...dbUserInfo })))
-    }
 
-    useEffect(() => {
-    }, [newUserInfo])
 
 
     return (

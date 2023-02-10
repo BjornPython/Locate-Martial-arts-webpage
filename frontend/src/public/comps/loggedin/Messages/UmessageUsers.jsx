@@ -16,7 +16,11 @@ const UserMessages = ({ chatUserId, chat, changeConvo, messages, toggleSeenConvo
             if (convoIndex !== null) { return messages[conversationId][convoIndex].message }
             else { return "no convo yet." }
         }
-        else { return "dont have last msg yet." }
+        else { return "..." }
+    }, [messages])
+
+    useEffect(() => {
+        console.log("NEW MESSAGES: ", messages);
     }, [messages])
 
     const chatMemo = useMemo(() => {
@@ -40,7 +44,7 @@ const UserMessages = ({ chatUserId, chat, changeConvo, messages, toggleSeenConvo
                 </div>
             </>
         )
-    }, [chat])
+    }, [chat, messages])
 
 
     return (
