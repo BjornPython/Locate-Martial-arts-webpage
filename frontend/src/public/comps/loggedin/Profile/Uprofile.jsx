@@ -24,9 +24,6 @@ function Uprofile({ user, info }) {
         addAward: ""
     })
     const { addMart, addAward } = newInfo
-    // Used when the dom is first loaded. will only display userInfo once the
-    // user's information from the backend is received and set.
-
 
     // has the initial value of userInfo. information here will be displayed in the
     // user's profile. 
@@ -76,6 +73,10 @@ function Uprofile({ user, info }) {
         if (lfDataChanged === 0) { return }
         changeUserData()
     }, [lfDataChanged])
+
+    useEffect(() => {
+
+    }, [teaches])
 
 
     // Used to update LfSpartner and calls the changeUserData() which updates the database.
@@ -212,7 +213,12 @@ function Uprofile({ user, info }) {
         })
     }
 
-
+    const changeTeaches = (newTeaches) => {
+        setNewUserInfo(prevState => {
+            const newState = { ...prevState, teaches: { ...newTeaches } }
+            return newState
+        })
+    }
 
 
 
@@ -225,7 +231,7 @@ function Uprofile({ user, info }) {
                 isEditingInfo={isEditingInfo} handleEditProfile={handleEditProfile} showSave={showSave}
                 marts={marts} awards={awards} addMart={addMart} delMart={delMart} delAward={delAward} addAward={addAward}
                 handleNewInfo={handleNewInfo} addNewInfo={addNewInfo} UprofileStatus={UprofileStatus} coach={coach}
-                changeUserStatus={changeUserStatus} changeUserData={changeUserData} teaches={teaches} />
+                changeUserStatus={changeUserStatus} changeUserData={changeUserData} teaches={teaches} changeTeaches={changeTeaches} />
         </div>
 
     )

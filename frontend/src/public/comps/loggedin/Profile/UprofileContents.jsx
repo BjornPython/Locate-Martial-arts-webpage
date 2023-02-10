@@ -14,7 +14,7 @@ function UprofileContents(
         isEditingInfo, handleEditProfile, showSave,
         marts, awards, addMart, delMart, delAward, addAward,
         handleNewInfo, addNewInfo, UprofileStatus, coach, changeUserStatus,
-        changeUserData
+        changeUserData, teaches, changeTeaches
     }
 ) {
     return (
@@ -31,7 +31,7 @@ function UprofileContents(
                 </div>
             </div>
             {showPSpan("Help people near you connect with you. Pin your area on the maps to set.")}
-            <UprofileStatus coach={coach} changeUserStatus={changeUserStatus} isEditingInfo={isEditingInfo} />
+            <UprofileStatus coach={coach} changeUserStatus={changeUserStatus} isEditingInfo={isEditingInfo} teaches={teaches} changeTeaches={changeTeaches} />
             {showPSpan("Are you a coach or a student?")}
 
 

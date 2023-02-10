@@ -22,10 +22,7 @@ const editArt = (award, id, delAward) => {
 
 
 function UprofileAwards({ isEditingInfo, awards, delMart, delAward, addAward, handleNewInfo, addNewInfo }) {
-    useEffect(() => {
-        console.log("AWARDS CHANGED: ", awards);
 
-    }, [awards])
 
     return (
         <div className='u-profile-marts'>

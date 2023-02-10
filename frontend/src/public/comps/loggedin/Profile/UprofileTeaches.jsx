@@ -24,23 +24,30 @@ const ShowTeaches = ({ art, showSpan, toggleTeachesArt }) => {
     )
 }
 
-function UprofileTeaches() {
+function UprofileTeaches({ teaches, changeTeaches }) {
     const diffArts = ["Muay Thai", "Kickboxing", "Mixed Martial Arts", "Brazilian Jiu Jitsu",
         "Boxing", "Karate", "Wrestling", "Sambo"]
 
-    const [selectedArts, setSelectedArts] = useState([])
+    const [selectedArts, setSelectedArts] = useState(Object.entries(teaches).map(key => { return key }))
     const [showDropdown, setShowDropdown] = useState(false)
     const toggleTeachesArt = (art) => {
-        console.log("TOGGLING");
-        if (selectedArts.includes(art)) {
-            setSelectedArts(prevArts => { return prevArts.filter(selectedArt => (selectedArt !== art)) })
+        if (selectedArts[art]) {
+            setSelectedArts(prevArts => {
+                const newArts = { ...prevArts }
+                delete newArts[art]
+                return newArts
+            })
         } else {
-            setSelectedArts(prevArts => { return [...prevArts, art] })
+            setSelectedArts(prevArts => {
+                const newArts = { ...prevArts, [art]: true }
+                return newArts
+            })
         }
     }
 
     useEffect(() => {
         console.log("NEW SELECTED ARTS: ", selectedArts);
+        changeTeaches(selectedArts)
     }, [selectedArts])
 
     const toggleDropdown = () => {
@@ -52,7 +59,7 @@ function UprofileTeaches() {
         return (diffArts.map((mart) => {
             const teachesKey = uuid()
             return (<ShowTeaches key={mart} art={mart} toggleTeachesArt={toggleTeachesArt}
-                showSpan={selectedArts.includes(mart) ? true : false} />)
+                showSpan={selectedArts[mart] ? true : false} />)
         }))
 
     }, [selectedArts])

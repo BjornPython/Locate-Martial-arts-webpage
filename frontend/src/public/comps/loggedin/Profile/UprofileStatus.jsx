@@ -3,7 +3,7 @@ import UprofileTeaches from './UprofileTeaches'
 
 
 
-function UprofileStatus({ coach, changeUserStatus, isEditingInfo }) {
+function UprofileStatus({ coach, changeUserStatus, teaches, changeTeaches }) {
 
     useEffect(() => {
     }, [coach])
@@ -32,7 +32,7 @@ function UprofileStatus({ coach, changeUserStatus, isEditingInfo }) {
                 </div>
 
             </div>
-            {coach && <UprofileTeaches />}
+            {coach && <UprofileTeaches teaches={teaches} changeTeaches={changeTeaches} />}
         </>
     )
 }
