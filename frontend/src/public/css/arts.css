@@ -143,3 +143,20 @@
         transition: none;
     }
 }
+
+@media(max-width:420px) {
+
+    .hide {
+        transform: translateX(0);
+        transition: none;
+    }
+
+
+    .arts-text {
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+
+}

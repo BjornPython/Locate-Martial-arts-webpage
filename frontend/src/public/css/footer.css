@@ -168,3 +168,17 @@
         margin-left: 0;
     }
 } 
+
+@media(max-width:420px) {
+    .footer-logo {
+        width: 100%;
+    }
+
+    .footer-info {
+        width: 100%;
+    }
+
+    .footer-about-info {
+        width: 100%;
+    }
+}
