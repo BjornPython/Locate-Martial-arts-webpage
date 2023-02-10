@@ -28,7 +28,7 @@ function UprofileTeaches({ teaches, changeTeaches }) {
     const diffArts = ["Muay Thai", "Kickboxing", "Mixed Martial Arts", "Brazilian Jiu Jitsu",
         "Boxing", "Karate", "Wrestling", "Sambo"]
 
-    const [selectedArts, setSelectedArts] = useState(Object.entries(teaches).map(key => { return key }))
+    const [selectedArts, setSelectedArts] = useState(teaches)
     const [showDropdown, setShowDropdown] = useState(false)
     const toggleTeachesArt = (art) => {
         if (selectedArts[art]) {
@@ -47,7 +47,8 @@ function UprofileTeaches({ teaches, changeTeaches }) {
 
     useEffect(() => {
         console.log("NEW SELECTED ARTS: ", selectedArts);
-        changeTeaches(selectedArts)
+        if (Object.keys(teaches).length !== Object.keys(selectedArts).length)
+            changeTeaches(selectedArts)
     }, [selectedArts])
 
     const toggleDropdown = () => {
@@ -57,8 +58,7 @@ function UprofileTeaches({ teaches, changeTeaches }) {
     const teachesArtMemo = useMemo(() => {
 
         return (diffArts.map((mart) => {
-            const teachesKey = uuid()
-            return (<ShowTeaches key={mart} art={mart} toggleTeachesArt={toggleTeachesArt}
+            return (<ShowTeaches key={`teaches ${mart}`} art={mart} toggleTeachesArt={toggleTeachesArt}
                 showSpan={selectedArts[mart] ? true : false} />)
         }))
 

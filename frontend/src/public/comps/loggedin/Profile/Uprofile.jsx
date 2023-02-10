@@ -50,13 +50,16 @@ function Uprofile({ user, info }) {
     const { name, bio, coach, lfSparArts, lfCoachArts, marts, awards, lfDataChanged, teaches } = newUserInfo
     const [showSave, setShowSave] = useState(false)
 
-
+    useEffect(() => {
+        console.log("TEACHES IN UPROFILE: ", teaches);
+    }, [teaches])
 
     // Calls the getUserInfo function to get and set the user's information. also sets the 
     // setDisplayInfo to true so the profile will display the information.
     useEffect(() => {
         if (info === null) { return }
         else {
+            console.log("INFO: ", info);
             setNewUserInfo({ ...info, lfDataChanged: 0 });
             // had to stringiny then parse so the two states will not have the same reference.
             setDbUserInfo(JSON.parse(JSON.stringify(info)));
@@ -65,12 +68,14 @@ function Uprofile({ user, info }) {
 
     useEffect(() => {
         if (name === "" || !newUserInfo.initialValues) { return }
+        console.log("NAME CHANGED");
         changeUserData()
     }, [name, bio])
 
     // Used for updating database when lfSparArts or lfCoachArts changes
     useEffect(() => {
         if (lfDataChanged === 0) { return }
+        console.log("LFDATA CHANGED: ", lfDataChanged);
         changeUserData()
     }, [lfDataChanged])
 
@@ -201,7 +206,7 @@ function Uprofile({ user, info }) {
         } else {
             setIsEditingInfo(!isEditingInfo)
             setShowSave(!showSave)
-            setNewUserInfo(JSON.parse(JSON.stringify({ ...dbUserInfo })))
+            setNewUserInfo(JSON.parse(JSON.stringify({ ...dbUserInfo, lfDataChanged: 0 })))
         }
     }
 
@@ -214,6 +219,7 @@ function Uprofile({ user, info }) {
     }
 
     const changeTeaches = (newTeaches) => {
+        console.log("CHANGING TEACHES: ");
         setNewUserInfo(prevState => {
             const newState = { ...prevState, teaches: { ...newTeaches } }
             return newState
