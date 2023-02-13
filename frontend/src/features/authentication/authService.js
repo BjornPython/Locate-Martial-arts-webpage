@@ -33,7 +33,8 @@ const registerGym = async(gymData) => {
     const response = await axios.post(`${GYM_API_ENDPOINT}/register`, gymData)
     console.log("RESPONSE: ", response);
     if (response.data) {
-        localStorage.setItem("gymUser", JSON.stringify(response.data))
+        localStorage.setItem("user", JSON.stringify(response.data))
+        localStorage.setItem("userType", JSON.stringify(response.data))
     }
     console.log("REPONSE.DATA: ", response.data);
     return response.data

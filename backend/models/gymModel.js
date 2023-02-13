@@ -16,9 +16,19 @@ const gymSchema = mongoose.Schema({
         type: String,
         required: [true, "Please include a password."]
     },
-
+    bio: {
+        type: String,
+        required: false,
+        default: ""
+    },
+    awards: {
+        type: [],
+        required: false,
+        default: []
+    },  
+    messages: {type: Object, required: false, default: {}},
     location: {type: Object, required: false, default: {lat: 0, long: 0}},
-    marts: {type: Object, required: false, default: {"muay thai": {coach: ["coach id sample 1", "coach id sample 2"], students: ["student id sample 1", "student id sample 2"]}}}}
+    marts: {type: Object, required: false, default: {"Muay Thai": true}}}
 
 , {timestamps: true})
 

@@ -43,6 +43,12 @@ const findCoach = async (location, marts) => {
   if (response) { return response } else {return "no response from request"}
 }
 
+const getGymInfo = async (token ) => {
+  const response = await axios.get(GYM_API_ENDPOINT, {headers: {
+    Authorization: `Bearer ${token}`
+  }})
+}
+
 const getUserInfo = async (token) => {
   const response = await axios.get(USERS_API_ENDPOINT, {headers: {
     Authorization: `Bearer ${token}`

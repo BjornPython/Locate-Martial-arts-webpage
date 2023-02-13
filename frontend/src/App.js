@@ -20,7 +20,11 @@ function App() {
 
         <Route path='/' element={<AppHome />} />
 
-        {userType === "user" ? <Route path='/home' element={<UserHome />} /> : <Route path='/home' element={<Ghome user={user} userType={userType} />} />}
+        {userType === "user" 
+        ? 
+        <Route path='/home' element={<UserHome />} /> 
+        : 
+        <Route path='/home' element={<Ghome user={user} userType={userType} />} />}
         {/* <Route path='/home' element={<UserHome />} />
         <Route path='/gymhome' element={<Ghome />} /> */}
       </Routes>

@@ -4,7 +4,23 @@ const jwt = require("jsonwebtoken")
 const Gym = require("../models/gymModel")
 
 
+// GETGYMINFO  // GETGYMINFO  // GETGYMINFO  // GETGYMINFO  // GETGYMINFO  // GETGYMINFO  
 
+
+const getGymInfo = asyncHandler(async (req, res) => {
+    let token = req.headers.authorization.split(" ")[1]
+    if (!token) {res.status(401).json({message: "No token received"})} 
+    else {
+        const decoded = jwt.verify(token, process.env.JWT_TOKEN)
+        const gymInfo = await Gym.findOne({_id: `${decoded.id}`})
+        if (gymInfo) {
+            res.status(200).json(gymInfo)
+        } else {
+            res.status(400).json({message: "Failed to get Gym Info from database."})
+        }
+    }
+    
+})
 
 // REGISTER GYM // REGISTER GYM // REGISTER GYM // REGISTER GYM // REGISTER GYM 
 
@@ -129,8 +145,6 @@ const getGyms = asyncHandler(async (req, res) => {
             else {res.status(401).json({message: "Failed to get data from gym database."})}
         }
     }
-
-
 })
 
 
@@ -140,4 +154,4 @@ const generateToken = (id) => {
 }
 
 
-module.exports = {registerGym, loginGym, getGyms}
+module.exports = {registerGym, loginGym, getGyms, getGymInfo}
