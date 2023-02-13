@@ -66,8 +66,18 @@ const updateUserInfo = async (token, newUserInfo) => {
   return response
 }
 
+const updateGymInfo = async (token, newGymInfo) => {
+  const response = await axios.post(`${GYM_API_ENDPOINT}/update`, {newGymInfo}, {headers: {
+    Authorization: `Bearer ${token}`
+  }})
+
+  return response
+}
+
+
+
 const apiService = {
-    findGyms, findSparringPartners, findCoach, getUserInfo, updateUserInfo, getGymInfo
+    findGyms, findSparringPartners, findCoach, getUserInfo, updateUserInfo, getGymInfo, updateGymInfo
 }
 
 export default apiService

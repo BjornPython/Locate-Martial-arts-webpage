@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
+import "../../css/loggedin/uprofile.css"
+import GprofileBox from './GprofileBox'
 
-function Gprofile() {
-
-
+function Gprofile({ name, bio }) {
 
     return (
-        <div>
+        <div id='u-profile-page' className='u-profile-page'>
+            <GprofileBox name={name} bio={bio} />
+
 
         </div>
     )

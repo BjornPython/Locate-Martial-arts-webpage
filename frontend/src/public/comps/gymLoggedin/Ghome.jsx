@@ -2,13 +2,14 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import Unav from '../loggedin/Unav'
 import { useNavigate } from 'react-router-dom'
-import Uprofile from '../loggedin/Profile/Uprofile'
-import { Dispatch } from 'react'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../features/authentication/authSlice'
 import UlogoutWarning from '../loggedin/UlogoutWarning'
 import axios from 'axios'
 import apiService from '../../../features/apis/apiService'
+import Gprofile from './Gprofile'
+
+
 function Ghome({ user, userType }) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -20,6 +21,9 @@ function Ghome({ user, userType }) {
         awards: [],
         marts: {}
     })
+
+    const { name, bio } = gymInfo
+
 
     useEffect(() => {
         if (!user) {
@@ -60,6 +64,9 @@ function Ghome({ user, userType }) {
         window.location.reload()
     }
 
+    const changeGymData = async () => {
+        const response = await apiService.updateGymInfo(user, gymInfo)
+    }
 
 
     return (
@@ -67,7 +74,7 @@ function Ghome({ user, userType }) {
             <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {/* {currentPage === "search" && <Umaps info={info} user={user} createConvo={createConvo} />} */}
-                {/* {currentPage === "profile" && <Uprofile user={user} info={info} />} */}
+                {currentPage === "profile" && <Gprofile name={name} bio={bio} />}
                 {/* {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
                     userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />} */}
             </div>

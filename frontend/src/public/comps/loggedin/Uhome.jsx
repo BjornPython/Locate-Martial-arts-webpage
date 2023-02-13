@@ -48,7 +48,7 @@ function Uhome() {
         // Reorganizes the messages data from the database.
         setChats(info.messages)
         setUserId(info._id)
-
+        console.log("INFO: ", info);
         socket.emit("usersRoom", info._id);
 
         socket.on("requestJoinRoom", (info) => {
