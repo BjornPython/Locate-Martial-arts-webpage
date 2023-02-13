@@ -47,6 +47,7 @@ const getGymInfo = async (token ) => {
   const response = await axios.get(GYM_API_ENDPOINT, {headers: {
     Authorization: `Bearer ${token}`
   }})
+  return response
 }
 
 const getUserInfo = async (token) => {
@@ -66,7 +67,7 @@ const updateUserInfo = async (token, newUserInfo) => {
 }
 
 const apiService = {
-    findGyms, findSparringPartners, findCoach, getUserInfo, updateUserInfo
+    findGyms, findSparringPartners, findCoach, getUserInfo, updateUserInfo, getGymInfo
 }
 
 export default apiService

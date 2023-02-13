@@ -7,7 +7,8 @@ import { Dispatch } from 'react'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../features/authentication/authSlice'
 import UlogoutWarning from '../loggedin/UlogoutWarning'
-
+import axios from 'axios'
+import apiService from '../../../features/apis/apiService'
 function Ghome({ user, userType }) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -25,6 +26,24 @@ function Ghome({ user, userType }) {
             navigate("/")
         }
     }, [user])
+
+    useEffect(() => {
+        getGymInfo()
+    }, [])
+
+    useEffect(() => {
+        console.log("NEW GYM INFO: ", gymInfo);
+    }, [gymInfo])
+
+
+    const getGymInfo = async () => {
+
+        const response = await apiService.getGymInfo(user)
+        console.log("RESPONSE: ", response);
+        if (response.data) {
+            setGymInfo(response.data)
+        }
+    }
 
     const changePage = (page) => {
         if (page === currentPage) { return }

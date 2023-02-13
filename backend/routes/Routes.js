@@ -11,6 +11,8 @@ router.post("/users/login", loginUser)
 router.post("/users/sparringusers", getSparringUsers)
 router.post("/users/coachusers", getCoachUsers)
 router.post("/users/update", updateUserInfo)
+
+
 router.post("/gym/register", registerGym)
 router.post("/gym/login", loginGym)
 router.post("/gym/getgyms", getGyms)
