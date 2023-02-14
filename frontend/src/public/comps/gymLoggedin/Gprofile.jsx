@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import "../../css/loggedin/uprofile.css"
+import apiService from '../../../features/apis/apiService'
 import GprofileBox from './GprofileBox'
 import GprofileContents from './GprofileContents'
 import { useEffect } from 'react'
-function Gprofile({ gymInfo }) {
+function Gprofile({ user, gymInfo }) {
 
     // Used for adding martial arts and awards/Achievements
     const [newInfo, setNewInfo] = useState({
@@ -79,11 +80,21 @@ function Gprofile({ gymInfo }) {
         })
     }
 
+    // GET THISS WORKINGG!!!!!!!!!!!!!!!!!!!
+    const changeGymData = async () => {
+        console.log("CHANGING DATA TO: ", profileGymInfo);
+        const response = await apiService.updateGymInfo(user, profileGymInfo)
+        console.log("RESPONSE: ", response);
+        if (isEditingInfo) { setIsEditingInfo(false) }
+        { showSave && setShowSave(false) }
+    }
+
     return (
         <div id='u-profile-page' className='u-profile-page'>
             <GprofileBox name={name} bio={bio} />
             <GprofileContents handleEditProfile={handleEditProfile} isEditingInfo={isEditingInfo} marts={marts} delMart={delMart}
-                handleNewInfo={handleNewInfo} addMart={addMart} addNewInfo={addNewInfo} addAward={addAward} awards={awards} delAward={delAward} />
+                handleNewInfo={handleNewInfo} addMart={addMart} addNewInfo={addNewInfo} addAward={addAward} awards={awards}
+                delAward={delAward} showSave={showSave} changeGymData={changeGymData} />
 
         </div>
     )

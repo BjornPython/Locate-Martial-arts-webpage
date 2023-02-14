@@ -151,7 +151,12 @@ const updateGymInfo = asyncHandler(async (req, res) => {
     let token = req.headers.authorization.split(" ")[1]
     console.log(token);
     const decoded = jwt.verify(token, process.env.JWT_TOKEN);
-    toUpdate = {...req.body.gymInfo}
+    toUpdate = {...req.body.profileGymInfo}
+    console.log("TO UPDATE: ", toUpdate.awards);
+    const response = await Gym.findByIdAndUpdate({_id: `${decoded.id}`}, {$set: toUpdate}, {new: true}).select("-password")
+
+    if (response) {res.status(200).json(response)} 
+    else {res.status(400).json({message: "Failed to Update Database"})}
 })
 
 

@@ -17,7 +17,7 @@ router.post("/gym/register", registerGym)
 router.post("/gym/login", loginGym)
 router.post("/gym/getgyms", getGyms)
 router.get("/gym", getGymInfo)
-router.post("/gym", updateGymInfo)
+router.post("/gym/update", updateGymInfo)
 
 router.post("/messages/createconvo", createConvo)
 router.post("/messages/addmsg", addMessage)

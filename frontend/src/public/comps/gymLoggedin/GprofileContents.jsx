@@ -9,7 +9,10 @@ const showPSpan = (txt) => {
     return (<><p>{txt}</p><span /></>)
 }
 
-function GprofileContents({ handleEditProfile, isEditingInfo, marts, awards, delMart, addNewInfo, handleNewInfo, addMart, addAward, delAward }) {
+function GprofileContents({
+    handleEditProfile, isEditingInfo, marts, awards, delMart, addNewInfo,
+    handleNewInfo, addMart, addAward, delAward, showSave, changeGymData
+}) {
     return (
         <div className="u-profile-contents">
             <FontAwesomeIcon icon={faGear} className="p-setting-icon" onClick={() => { handleEditProfile(); }} />
@@ -20,6 +23,23 @@ function GprofileContents({ handleEditProfile, isEditingInfo, marts, awards, del
             <GprofileAwards isEditingInfo={isEditingInfo} awards={awards} addNewInfo={addNewInfo} addAward={addAward}
                 handleNewInfo={handleNewInfo} delAward={delAward} />
             {showPSpan("People can see your gym's awards when they click your icon on the map.")}
+
+            <div className='u-profile-marts'>
+                <h3>YOUR AREA</h3>
+                <div className='u-profile-grp'>
+                    <h4 className='user-loc'>Cainta Greenpark, Cainta Rizal</h4>
+                </div>
+            </div>
+            {showPSpan("Help people near you connect with you. Pin your area on the maps to set.")}
+
+            <div className='save-changes'>
+                {console.log("SHOWSAVE? ", showSave)}
+                {showSave
+                    ? (
+                        <button onClick={changeGymData}>Save Changes</button>
+                    )
+                    : null}
+            </div>
         </div>
     )
 }

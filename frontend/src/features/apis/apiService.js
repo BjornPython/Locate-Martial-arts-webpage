@@ -66,8 +66,8 @@ const updateUserInfo = async (token, newUserInfo) => {
   return response
 }
 
-const updateGymInfo = async (token, newGymInfo) => {
-  const response = await axios.post(`${GYM_API_ENDPOINT}/update`, {newGymInfo}, {headers: {
+const updateGymInfo = async (token, profileGymInfo) => {
+  const response = await axios.post(`${GYM_API_ENDPOINT}/update`, {profileGymInfo}, {headers: {
     Authorization: `Bearer ${token}`
   }})
 

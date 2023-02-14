@@ -63,10 +63,7 @@ function Ghome({ user, userType }) {
         window.location.reload()
     }
 
-    // GET THISS WORKINGG!!!!!!!!!!!!!!!!!!!
-    const changeGymData = async () => {
-        const response = await apiService.updateGymInfo(user, gymInfo)
-    }
+
 
 
 
@@ -76,7 +73,7 @@ function Ghome({ user, userType }) {
             <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {/* {currentPage === "search" && <Umaps info={info} user={user} createConvo={createConvo} />} */}
-                {currentPage === "profile" && <Gprofile gymInfo={gymInfo} />}
+                {currentPage === "profile" && <Gprofile gymInfo={gymInfo} user={user} />}
                 {/* {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
                     userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />} */}
             </div>

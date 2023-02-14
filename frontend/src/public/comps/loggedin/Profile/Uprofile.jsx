@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faGear, faCaretDown, faXmark, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { useState, useRef } from 'react'
-import uuid from 'react-uuid'
+import { faGear } from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
 import "../../../css/loggedin/uprofile.css"
 import apiService from '../../../../features/apis/apiService'
 
