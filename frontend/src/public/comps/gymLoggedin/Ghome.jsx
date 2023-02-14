@@ -8,7 +8,7 @@ import UlogoutWarning from '../loggedin/UlogoutWarning'
 import axios from 'axios'
 import apiService from '../../../features/apis/apiService'
 import Gprofile from './Gprofile'
-
+import Gmaps from './Gmaps'
 
 function Ghome({ user, userType }) {
     const navigate = useNavigate()
@@ -72,7 +72,7 @@ function Ghome({ user, userType }) {
         <div className="uhome-page" >
             <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
-                {/* {currentPage === "search" && <Umaps info={info} user={user} createConvo={createConvo} />} */}
+                {currentPage === "search" && <Gmaps info={gymInfo} user={user} />}
                 {currentPage === "profile" && <Gprofile gymInfo={gymInfo} user={user} />}
                 {/* {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
                     userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />} */}
