@@ -65,7 +65,7 @@ function Uprofile({ user, info }) {
     }, [info])
 
     useEffect(() => {
-        if (name === "" || !newUserInfo.initialValues) { return }
+        if (name === "" || newUserInfo.initialValues) { return }
         console.log("NAME CHANGED");
         changeUserData()
     }, [name, bio])

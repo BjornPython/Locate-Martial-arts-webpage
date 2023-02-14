@@ -21,6 +21,7 @@ const editMart = (mart, id, delMart) => {
 }
 
 
+
 function GprofileMarts({ isEditingInfo, marts, delMart, handleNewInfo, addMart, addNewInfo }) {
     return (
         <div className='u-profile-marts'>

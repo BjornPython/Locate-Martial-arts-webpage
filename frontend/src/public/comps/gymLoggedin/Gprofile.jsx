@@ -15,10 +15,25 @@ function Gprofile({ user, gymInfo }) {
     const [isEditingInfo, setIsEditingInfo] = useState(false)
     const [showSave, setShowSave] = useState(false)
     const [dbGymInfo, setDbGymInfo] = useState(gymInfo)
-    const [profileGymInfo, setProfileGymInfo] = useState(gymInfo)
+    const [profileGymInfo, setProfileGymInfo] = useState({
+        name: "",
+        bio: "",
+        marts: {},
+        awards: [],
+        initialValues: true
+    })
     const { name, bio, marts, awards } = profileGymInfo
 
+
     useEffect(() => {
+        console.log("NAME CHANGED");
+        if (name === "" || profileGymInfo.initialValues) { return }
+        console.log("NAME CHANGED");
+        changeGymData()
+    }, [name, bio])
+
+    useEffect(() => {
+        console.log("profile info changed");
         setProfileGymInfo(gymInfo)
         setDbGymInfo(JSON.parse(JSON.stringify({ ...gymInfo })))
     }, [gymInfo])
@@ -89,9 +104,19 @@ function Gprofile({ user, gymInfo }) {
         { showSave && setShowSave(false) }
     }
 
+    const changeNameBio = async (newName, newBio) => {
+        console.log("CJANGE NAME BIO CALLED");
+        setProfileGymInfo((prevState) => {
+            const newState = { ...prevState, name: newName, bio: newBio };
+            console.log("NEW STATE: ", newState);
+            return newState
+        })
+    }
+
+
     return (
         <div id='u-profile-page' className='u-profile-page'>
-            <GprofileBox name={name} bio={bio} />
+            <GprofileBox name={name} bio={bio} changeNameBio={changeNameBio} />
             <GprofileContents handleEditProfile={handleEditProfile} isEditingInfo={isEditingInfo} marts={marts} delMart={delMart}
                 handleNewInfo={handleNewInfo} addMart={addMart} addNewInfo={addNewInfo} addAward={addAward} awards={awards}
                 delAward={delAward} showSave={showSave} changeGymData={changeGymData} />
