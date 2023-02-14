@@ -32,11 +32,11 @@ function UprofileMarts({ isEditingInfo, marts, addMart, delMart, handleNewInfo, 
 
                     {!isEditingInfo
                         ? Object.keys(marts).map((mart, val) => {
-                            const id = uuid()
+                            const id = `UprofileMarts ${mart}`
                             return showInfo(mart, id)
                         })
                         : Object.keys(marts).map((mart, val) => {
-                            const id = uuid()
+                            const id = `UprofileMarts ${mart}`
                             return editMart(mart, id, delMart)
                         })
                     }

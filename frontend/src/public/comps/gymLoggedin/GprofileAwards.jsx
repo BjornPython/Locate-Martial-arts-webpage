@@ -1,7 +1,6 @@
-import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import uuid from 'react-uuid'
-import { useEffect } from 'react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faXmark, faPlus } from "@fortawesome/free-solid-svg-icons"
+
 const showInfo = (mart, id) => {
     return (
         <div key={id} className='edit-info'>
@@ -21,9 +20,8 @@ const editArt = (award, id, delAward) => {
 }
 
 
-function UprofileAwards({ isEditingInfo, awards, delAward, addAward, handleNewInfo, addNewInfo }) {
-
-
+function GprofileAwards({ isEditingInfo, awards, handleNewInfo, addNewInfo, delAward, addAward }) {
+    console.log("ADDAWARD: ", addAward);
     return (
         <div className='u-profile-marts'>
             <h3>ACHIEVEMENTS</h3>
@@ -31,11 +29,11 @@ function UprofileAwards({ isEditingInfo, awards, delAward, addAward, handleNewIn
                 <div className='profile-marts-box'>
                     {!isEditingInfo
                         ? awards.map((award, val) => {
-                            const id = `UprofileAwards ${award}`
+                            const id = `GprofileAwards ${award}`
                             return showInfo(award, id)
                         })
                         : awards.map((award, val) => {
-                            const id = `UprofileAwards ${award}`
+                            const id = `GprofileAwards ${award}`
                             return editArt(award, id, delAward)
                         })}
                     {isEditingInfo &&
@@ -49,4 +47,4 @@ function UprofileAwards({ isEditingInfo, awards, delAward, addAward, handleNewIn
     )
 }
 
-export default UprofileAwards
+export default GprofileAwards

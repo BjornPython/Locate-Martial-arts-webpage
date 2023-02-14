@@ -15,7 +15,7 @@ function Gprofile({ gymInfo }) {
     const [showSave, setShowSave] = useState(false)
     const [dbGymInfo, setDbGymInfo] = useState(gymInfo)
     const [profileGymInfo, setProfileGymInfo] = useState(gymInfo)
-    const { name, bio, marts } = profileGymInfo
+    const { name, bio, marts, awards } = profileGymInfo
 
     useEffect(() => {
         setProfileGymInfo(gymInfo)
@@ -60,6 +60,7 @@ function Gprofile({ gymInfo }) {
             })
         } else {
             setProfileGymInfo(prevState => {
+                console.log("INFO: ", info);
                 const newState = {
                     ...prevState,
                     awards: [...prevState.awards, info]
@@ -70,11 +71,19 @@ function Gprofile({ gymInfo }) {
         }
     }
 
+    const delAward = (award) => {
+        setProfileGymInfo((prevState) => {
+            const newState = { ...prevState };
+            newState.awards = newState.awards.filter((item) => item !== award);
+            return newState
+        })
+    }
+
     return (
         <div id='u-profile-page' className='u-profile-page'>
             <GprofileBox name={name} bio={bio} />
             <GprofileContents handleEditProfile={handleEditProfile} isEditingInfo={isEditingInfo} marts={marts} delMart={delMart}
-                handleNewInfo={handleNewInfo} addMart={addMart} addNewInfo={addNewInfo} />
+                handleNewInfo={handleNewInfo} addMart={addMart} addNewInfo={addNewInfo} addAward={addAward} awards={awards} delAward={delAward} />
 
         </div>
     )
