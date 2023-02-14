@@ -147,6 +147,12 @@ const getGyms = asyncHandler(async (req, res) => {
     }
 })
 
+const updateGymInfo = asyncHandler(async (req, res) => {
+    let token = req.headers.authorization.split(" ")[1]
+    console.log(token);
+    const decoded = jwt.verify(token, process.env.JWT_TOKEN);
+    toUpdate = {...req.body.gymInfo}
+})
 
 
 const generateToken = (id) => {
@@ -154,4 +160,4 @@ const generateToken = (id) => {
 }
 
 
-module.exports = {registerGym, loginGym, getGyms, getGymInfo}
+module.exports = {registerGym, loginGym, getGyms, getGymInfo, updateGymInfo}

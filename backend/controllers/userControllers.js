@@ -214,11 +214,12 @@ const getCoachUsers = asyncHandler(async (req, res) => {
 )
 
 const getUserInfo = asyncHandler(async (req, res) => {
+    console.log("GETTING USER INFO...");
     let token = req.headers.authorization.split(" ")[1]
     if (!token) {res.status(401).json({message: "No token received"})} 
     else { 
         const decoded = jwt.verify(token, process.env.JWT_TOKEN)
-        const userInfo = await User.findOne({_id: `${decoded.id}`})
+        const userInfo = await User.findById(decoded.id).select("-password")
         if (userInfo) {
             res.status(200).json(userInfo)
         } else {

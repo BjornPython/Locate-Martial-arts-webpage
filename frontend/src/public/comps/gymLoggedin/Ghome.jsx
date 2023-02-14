@@ -22,7 +22,6 @@ function Ghome({ user, userType }) {
         marts: {}
     })
 
-    const { name, bio } = gymInfo
 
 
     useEffect(() => {
@@ -64,6 +63,7 @@ function Ghome({ user, userType }) {
         window.location.reload()
     }
 
+    // GET THISS WORKINGG!!!!!!!!!!!!!!!!!!!
     const changeGymData = async () => {
         const response = await apiService.updateGymInfo(user, gymInfo)
     }
@@ -74,7 +74,7 @@ function Ghome({ user, userType }) {
             <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {/* {currentPage === "search" && <Umaps info={info} user={user} createConvo={createConvo} />} */}
-                {currentPage === "profile" && <Gprofile name={name} bio={bio} />}
+                {currentPage === "profile" && <Gprofile gymInfo={gymInfo} />}
                 {/* {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
                     userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />} */}
             </div>

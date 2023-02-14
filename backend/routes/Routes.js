@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 
 const { registerUser, loginUser, getSparringUsers, getCoachUsers, getUserInfo, updateUserInfo } = require("../controllers/userControllers")
-const {registerGym, loginGym, getGyms, getGymInfo } = require("../controllers/gymControllers")
+const {registerGym, loginGym, getGyms, getGymInfo, updateGymInfo } = require("../controllers/gymControllers")
 const {createConvo, addMessage} = require("../controllers/messageControllers")
 
 router.get("/users", getUserInfo)
@@ -17,6 +17,7 @@ router.post("/gym/register", registerGym)
 router.post("/gym/login", loginGym)
 router.post("/gym/getgyms", getGyms)
 router.get("/gym", getGymInfo)
+router.post("/gym", updateGymInfo)
 
 router.post("/messages/createconvo", createConvo)
 router.post("/messages/addmsg", addMessage)
