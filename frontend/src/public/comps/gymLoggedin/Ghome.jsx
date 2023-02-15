@@ -7,8 +7,8 @@ import { logout } from '../../../features/authentication/authSlice'
 import UlogoutWarning from '../loggedin/UlogoutWarning'
 import axios from 'axios'
 import apiService from '../../../features/apis/apiService'
-import Gprofile from './Gprofile'
-import Gmaps from './Gmaps'
+import Gprofile from './profile/Gprofile'
+import Gmaps from './maps/Gmaps'
 
 function Ghome({ user, userType }) {
     const navigate = useNavigate()
@@ -19,7 +19,8 @@ function Ghome({ user, userType }) {
         name: "",
         location: { lat: 0, long: 0 },
         awards: [],
-        marts: {}
+        marts: {},
+        messages: {}
     })
 
     useEffect(() => {

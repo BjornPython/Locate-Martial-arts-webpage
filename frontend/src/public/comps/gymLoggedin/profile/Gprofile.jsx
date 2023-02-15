@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import "../../css/loggedin/uprofile.css"
-import apiService from '../../../features/apis/apiService'
+import "../../../css/loggedin/uprofile.css"
+import apiService from '../../../../features/apis/apiService'
 import GprofileBox from './GprofileBox'
 import GprofileContents from './GprofileContents'
 import { useEffect } from 'react'

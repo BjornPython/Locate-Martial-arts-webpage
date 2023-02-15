@@ -1,9 +1,9 @@
 import React from 'react'
-import "../../css/loggedin/Umaps/umap.css"
+import "../../../css/loggedin/Umaps/umap.css"
 import { useState, useEffect } from 'react'
-import apiService from '../../../features/apis/apiService'
-import UmapForms from '../loggedin/Maps/UmapForms'
-import UmapBox from '../loggedin/Maps/UmapBox'
+import apiService from '../../../../features/apis/apiService'
+import UmapForms from '../../loggedin/Maps/UmapForms'
+import UmapBox from '../../loggedin/Maps/UmapBox'
 function Gmaps({ user, info, createConvo, updateGymLoc }) {
 
     const [userInfo, setUserInfo] = useState({
