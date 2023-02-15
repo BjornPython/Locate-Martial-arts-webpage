@@ -9,10 +9,16 @@ import axios from 'axios'
 import apiService from '../../../features/apis/apiService'
 import Gprofile from './profile/Gprofile'
 import Gmaps from './maps/Gmaps'
+import Gmessages from './messages/Gmessages'
+
+import io from 'socket.io-client';
+const socket = io('http://localhost:8000');
+
 
 function Ghome({ user, userType }) {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
     const [currentPage, setCurrentPage] = useState("profile")
     const [showLogout, setShowLogout] = useState(false)
     const [gymInfo, setGymInfo] = useState({
@@ -22,6 +28,22 @@ function Ghome({ user, userType }) {
         marts: {},
         messages: {}
     })
+
+    // STATES FOR MESSAGES
+    const [messages, setMessages] = useState({})
+    const [userId, setUserId] = useState("") // The id of the user
+    const [currentMessages, setCurrentMessages] = useState([])
+    const [chats, setChats] = useState({}) // The different chats the user has.
+
+    const [convoId, setConvoId] = useState("") // The convoId of the current user's chat
+    const [chatName, setChatName] = useState("")
+    const [currentConvoChunk, setCurrentConvoChunk] = useState(null) // The highest Chunk of the current chat
+
+    useEffect(() => {
+        console.log("NEW CHATS: ", chats);
+    }, [chats])
+
+
 
     useEffect(() => {
         if (!user) {
@@ -35,7 +57,88 @@ function Ghome({ user, userType }) {
 
     useEffect(() => {
         console.log("NEW GYM INFO: ", gymInfo);
+        if (!gymInfo) { return }
+        // Reorganizes the messages data from the database.
+        setChats(gymInfo.messages)
+        setUserId(gymInfo._id)
+        socket.emit("usersRoom", gymInfo._id);
+
+        socket.on("requestJoinRoom", (info) => {
+            const { conversationId, newChat } = info
+            socket.emit("joinConversation", { conversationId, token: user })
+            console.log("NEW CHAT: ", newChat);
+            setChats((prevState) => {
+                console.log("PREVSTATE OF CHATS: ", prevState);
+                return newChat
+            })
+        })
+
+        socket.on("messageContents", (msgData) => {
+            setMessages(prevState => {
+                const newState = { ...prevState, [msgData.conversationId]: msgData.messageContent }
+                return { ...newState }
+            })
+            setCurrentMessages(msgData.messageContent)
+        })
+
+
+        socket.on("newMessage", (msgData) => {
+            const { conversationId, senderId, message } = msgData
+            setMessages(prevState => {
+                if (prevState[conversationId]) {
+                    console.log("MESSAGE ALREADY EXISTS");
+                    const newState = {
+                        ...prevState,
+                        [conversationId]: [...prevState[conversationId], { senderId, message }]
+                    }
+                    return { ...newState }
+                } else {
+                    const newState = {
+                        ...prevState,
+                        [conversationId]: [{ senderId, message }]
+                    }
+                    return { ...newState }
+                }
+            })
+            setUserId(prevState => {
+                if (prevState !== senderId) {
+                    setChats(prevChats => {
+                        const newChats = {
+                            ...prevChats,
+                            [senderId]: { ...prevChats[senderId], seen: false }
+                        }
+                        return newChats
+                    })
+                }
+                return prevState
+            })
+            checkCurrentMessages(conversationId, senderId, message)
+        }
+        )
+
+        socket.on("newChat", (newChat) => {
+            setChats((prevState) => {
+                return newChat
+            })
+            setCurrentPage("messages")
+            setConvoId(newChat.conversationId)
+            setChatName(newChat.name)
+            setCurrentConvoChunk(newChat.highestChunk)
+        })
+
+
+
+
+        return () => {
+            socket.off("requestJoinRoom");
+            socket.off("messageContents");
+            socket.off("newMessage");
+            socket.off("newChat");
+        };
     }, [gymInfo])
+
+
+
 
 
     const updateGymLoc = (lat, long) => {
@@ -68,8 +171,68 @@ function Ghome({ user, userType }) {
         window.location.reload()
     }
 
+    const checkCurrentMessages = (conversationId, senderId, message) => {
+
+        setConvoId(prevState => {
+
+            if (prevState === conversationId || prevState === senderId) {
+                setCurrentMessages(prevState => {
+                    return [...prevState, { senderId, message }]
+                })
+
+            }
+
+            return prevState
+        })
+
+    }
+
+    const addMessage = (msg) => {
+        socket.emit("addMessage", { token: user, conversationId: convoId, message: msg, chunk: currentConvoChunk })
+    }
+
+    const createConvo = (participantOne, participantOneId, participantTwo, participantTwoId) => {
+
+        if (!gymInfo.messages[participantTwoId]) {
+            socket.emit("newConvo", { token: user, participantOne, participantOneId, participantTwo, participantTwoId })
+
+        } else {
+            setCurrentPage("messages")
+            setConvoId(gymInfo.messages[participantTwoId].conversationId)
+            setChatName(gymInfo.messages[participantTwoId].name)
+            setCurrentConvoChunk(gymInfo.messages[participantTwoId].highestChunk)
+
+        }
+    }
 
 
+    const getMessages = (conversationId, chunk, force = null) => {
+        console.log("IN GET MESSAGES: ", conversationId, chunk, force);
+        if (!messages[conversationId]) {
+            console.log("requesting messages");
+            socket.emit("requestMessage", { conversationId, chunk, token: user })
+        } else if (force) {
+            socket.emit("requestMessage", { conversationId, chunk, token: user })
+        } else {
+            setCurrentMessages(messages[conversationId])
+        }
+
+    }
+
+    const changeConvo = (newConvoId, highestChunk, convoName) => {
+        // Changes the convo when the user clicks on a chat
+        setConvoId(newConvoId)
+        setCurrentConvoChunk(highestChunk)
+        setChatName(convoName)
+    }
+
+    const toggleSeenConvo = (chatId, isSeen) => {
+        setChats(prevState => {
+            const newState = { ...prevState, [chatId]: { ...prevState[chatId], seen: isSeen } }
+            return { ...newState }
+        })
+        socket.emit("toggleSeen", { token: user, chatId, isSeen })
+    }
 
 
 
@@ -79,8 +242,8 @@ function Ghome({ user, userType }) {
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
                 {currentPage === "search" && <Gmaps info={gymInfo} user={user} updateGymLoc={updateGymLoc} />}
                 {currentPage === "profile" && <Gprofile gymInfo={gymInfo} user={user} />}
-                {/* {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
-                    userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />} */}
+                {currentPage === "messages" && <Gmessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
+                    userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />}
             </div>
             <UlogoutWarning showLogout={showLogout} toggleShowLogout={toggleShowLogout} CallLogoutUser={CallLogoutUser} />
         </ div>
