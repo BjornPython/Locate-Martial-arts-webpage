@@ -39,9 +39,7 @@ function Ghome({ user, userType }) {
     const [chatName, setChatName] = useState("")
     const [currentConvoChunk, setCurrentConvoChunk] = useState(null) // The highest Chunk of the current chat
 
-    useEffect(() => {
-        console.log("NEW CHATS: ", chats);
-    }, [chats])
+
 
 
 
@@ -59,6 +57,7 @@ function Ghome({ user, userType }) {
         console.log("NEW GYM INFO: ", gymInfo);
         if (!gymInfo) { return }
         // Reorganizes the messages data from the database.
+        console.log("SETTING CHATS TO: ", gymInfo.messages);
         setChats(gymInfo.messages)
         setUserId(gymInfo._id)
         socket.emit("usersRoom", gymInfo._id);
@@ -138,7 +137,9 @@ function Ghome({ user, userType }) {
     }, [gymInfo])
 
 
-
+    useEffect(() => {
+        console.log("CHATS: ", chats);
+    }, [chats])
 
 
     const updateGymLoc = (lat, long) => {
