@@ -152,7 +152,7 @@ const updateGymInfo = asyncHandler(async (req, res) => {
     console.log(token);
     const decoded = jwt.verify(token, process.env.JWT_TOKEN);
     toUpdate = {...req.body.profileGymInfo}
-    console.log("TO UPDATE: ", toUpdate.awards);
+    console.log("TO UPDATE: ", toUpdate);
     const response = await Gym.findByIdAndUpdate({_id: `${decoded.id}`}, {$set: toUpdate}, {new: true}).select("-password")
 
     if (response) {res.status(200).json(response)} 

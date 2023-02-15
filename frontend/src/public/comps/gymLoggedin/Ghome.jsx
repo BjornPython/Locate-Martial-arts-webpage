@@ -22,8 +22,6 @@ function Ghome({ user, userType }) {
         marts: {}
     })
 
-
-
     useEffect(() => {
         if (!user) {
             navigate("/")
@@ -38,6 +36,12 @@ function Ghome({ user, userType }) {
         console.log("NEW GYM INFO: ", gymInfo);
     }, [gymInfo])
 
+
+    const updateGymLoc = (lat, long) => {
+        setGymInfo(prevState => {
+            return { ...prevState, location: { lat, long } }
+        })
+    }
 
     const getGymInfo = async () => {
 
@@ -72,7 +76,7 @@ function Ghome({ user, userType }) {
         <div className="uhome-page" >
             <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
-                {currentPage === "search" && <Gmaps info={gymInfo} user={user} />}
+                {currentPage === "search" && <Gmaps info={gymInfo} user={user} updateGymLoc={updateGymLoc} />}
                 {currentPage === "profile" && <Gprofile gymInfo={gymInfo} user={user} />}
                 {/* {currentPage === "messages" && <Umessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
                     userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />} */}

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import apiService from '../../../features/apis/apiService'
 import UmapForms from '../loggedin/Maps/UmapForms'
 import UmapBox from '../loggedin/Maps/UmapBox'
-function Gmaps({ user, info, createConvo }) {
+function Gmaps({ user, info, createConvo, updateGymLoc }) {
 
     const [userInfo, setUserInfo] = useState({
         name: "",
@@ -36,6 +36,9 @@ function Gmaps({ user, info, createConvo }) {
         updateUserDbLoc(newUserLocation)
     }, [newUserLocation])
 
+    useEffect(() => {
+        console.log("USER INFO: ", userInfo);
+    }, [userInfo])
 
 
     useEffect(() => {
@@ -50,7 +53,10 @@ function Gmaps({ user, info, createConvo }) {
     }, [info])
 
     const updateUserDbLoc = async () => {
-        const response = await apiService.updateUserInfo(user, newUserLocation)
+        console.log("MAKIGN REQUEST");
+        updateGymLoc(newUserLocation.location.lat, newUserLocation.location.long)
+        const response = await apiService.updateGymInfo(user, newUserLocation)
+        console.log("RESPONSE: ", response);
         return response
     }
 
