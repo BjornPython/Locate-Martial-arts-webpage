@@ -54,20 +54,16 @@ function Ghome({ user, userType }) {
     }, [])
 
     useEffect(() => {
-        console.log("NEW GYM INFO: ", gymInfo);
         if (!gymInfo) { return }
         // Reorganizes the messages data from the database.
-        console.log("SETTING CHATS TO: ", gymInfo.messages);
-        setChats(gymInfo.messages)
+        setChats(gymInfo.messages ? gymInfo.messages : {})
         setUserId(gymInfo._id)
         socket.emit("usersRoom", gymInfo._id);
 
         socket.on("requestJoinRoom", (info) => {
             const { conversationId, newChat } = info
             socket.emit("joinConversation", { conversationId, token: user })
-            console.log("NEW CHAT: ", newChat);
             setChats((prevState) => {
-                console.log("PREVSTATE OF CHATS: ", prevState);
                 return newChat
             })
         })
@@ -85,7 +81,6 @@ function Ghome({ user, userType }) {
             const { conversationId, senderId, message } = msgData
             setMessages(prevState => {
                 if (prevState[conversationId]) {
-                    console.log("MESSAGE ALREADY EXISTS");
                     const newState = {
                         ...prevState,
                         [conversationId]: [...prevState[conversationId], { senderId, message }]
@@ -116,9 +111,7 @@ function Ghome({ user, userType }) {
         )
 
         socket.on("newChat", (newChat) => {
-            setChats((prevState) => {
-                return newChat
-            })
+            setChats(newChat)
             setCurrentPage("messages")
             setConvoId(newChat.conversationId)
             setChatName(newChat.name)
@@ -151,9 +144,8 @@ function Ghome({ user, userType }) {
     const getGymInfo = async () => {
 
         const response = await apiService.getGymInfo(user)
-        console.log("RESPONSE: ", response);
         if (response.data) {
-            setGymInfo(response.data)
+            setGymInfo({ ...response.data, messages: response.data.messages ? response.data.messages : {} })
         }
     }
 
@@ -193,8 +185,9 @@ function Ghome({ user, userType }) {
     }
 
     const createConvo = (participantOne, participantOneId, participantTwo, participantTwoId) => {
-
-        if (!gymInfo.messages[participantTwoId]) {
+        console.log("CREATE CONVO CALLED: ", participantOne, participantOneId, participantTwo, participantTwoId);
+        console.log("GYM MESSAGES: ", gymInfo.messages);
+        if (!(gymInfo.messages[participantTwoId])) {
             socket.emit("newConvo", { token: user, participantOne, participantOneId, participantTwo, participantTwoId })
 
         } else {
@@ -208,7 +201,6 @@ function Ghome({ user, userType }) {
 
 
     const getMessages = (conversationId, chunk, force = null) => {
-        console.log("IN GET MESSAGES: ", conversationId, chunk, force);
         if (!messages[conversationId]) {
             console.log("requesting messages");
             socket.emit("requestMessage", { conversationId, chunk, token: user })
@@ -241,7 +233,7 @@ function Ghome({ user, userType }) {
         <div className="uhome-page" >
             <Unav changePage={changePage} currentPage={currentPage} toggleShowLogout={toggleShowLogout} />
             <div className={`u-home-pages ${showLogout && "blurred"}`}>
-                {currentPage === "search" && <Gmaps info={gymInfo} user={user} updateGymLoc={updateGymLoc} />}
+                {currentPage === "search" && <Gmaps info={gymInfo} user={user} updateGymLoc={updateGymLoc} createConvo={createConvo} />}
                 {currentPage === "profile" && <Gprofile gymInfo={gymInfo} user={user} />}
                 {currentPage === "messages" && <Gmessages chats={chats} getMessages={getMessages} currentMessages={currentMessages}
                     userId={userId} chatName={chatName} addMessage={addMessage} changeConvo={changeConvo} messages={messages} toggleSeenConvo={toggleSeenConvo} />}

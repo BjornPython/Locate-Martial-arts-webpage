@@ -1,6 +1,7 @@
 const {getConvoChunk, makeConvo, addMessage } = require("./messageControllers")
 const Message = require("../models/messageModel")
 const User = require("../models/userModel")
+const Gym = require("../models/gymModel")
 const jwt = require("jsonwebtoken")
 const { editUserConvoSeen }  = require("./userControllers")
 
@@ -73,6 +74,7 @@ const makeSocket = (server) => {
         })
 
         socket.on("newConvo", async (convoData) => {
+            console.log("IN NEW CONVO");
             const {token, participantOne, participantOneId, participantTwo, participantTwoId} = convoData
             if (!token || !participantOne || !participantOneId || !participantTwo || !participantTwoId) {return}
             try {
@@ -80,14 +82,13 @@ const makeSocket = (server) => {
                 const user =  await User.findById(decoded.id)
                 if (user) { 
                     const res = await makeConvo(participantOne, participantOneId, participantTwo, participantTwoId)
-                    console.log("RES: ", res); 
                     const newUserOneChat = res.newUserMessages.userOneMessages
-                    console.log("NEW USER ONE CHAT: ", newUserOneChat);
-                    socket.emit("newChat", newUserOneChat);
                     const newUserTwoChat = res.newUserMessages.userTwoMessages
-                    console.log("NEW USER TWO CHAT: ", newUserTwoChat);
-                    console.log("emitting to participant two to join room");
                     socket.to(participantTwoId).emit("requestJoinRoom", ({conversationId: res.conversationId, newChat: newUserTwoChat}));
+                } else {
+                    console.log("FINDING GYM USER WITH ID: ", decoded.id);
+                    const  gymUser = await Gym.findById(decoded.id)
+                    console.log("GYM USER: ", gymUser);
                 }
                 
             } catch (err) {
