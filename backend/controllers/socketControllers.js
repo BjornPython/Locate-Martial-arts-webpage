@@ -57,7 +57,7 @@ const makeSocket = (server) => {
         })
 
         socket.on("addMessage", async (msgData) => {
-
+            console.log("MSG RECEIVED");
             const {token, conversationId, message, chunk } = msgData
             const decoded = jwt.verify(token, process.env.JWT_TOKEN)
             const convoChunk = await getConvoChunk(conversationId, chunk)

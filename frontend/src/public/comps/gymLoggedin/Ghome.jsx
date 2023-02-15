@@ -78,6 +78,7 @@ function Ghome({ user, userType }) {
 
 
         socket.on("newMessage", (msgData) => {
+            console.log("NEW MESSAGE RECEINVED: ", msgData);
             const { conversationId, senderId, message } = msgData
             setMessages(prevState => {
                 if (prevState[conversationId]) {
@@ -131,9 +132,19 @@ function Ghome({ user, userType }) {
 
 
     useEffect(() => {
-        console.log("CHATS: ", chats);
+        if (Object.entries(chats).length < 1) { return }
+        Object.entries(chats).map(([chatKey, val]) => {
+            socket.emit("joinConversation", { conversationId: val.conversationId, token: user })
+        })
     }, [chats])
 
+
+    useEffect(() => {
+        if (convoId === "") { return }
+        //Everytime time the convoId changes, it will request the new messages.
+        console.log("GETTING MESSAGES");
+        getMessages(convoId, currentConvoChunk)
+    }, [convoId])
 
     const updateGymLoc = (lat, long) => {
         setGymInfo(prevState => {
@@ -181,6 +192,7 @@ function Ghome({ user, userType }) {
     }
 
     const addMessage = (msg) => {
+        console.log("ADDING MSG");
         socket.emit("addMessage", { token: user, conversationId: convoId, message: msg, chunk: currentConvoChunk })
     }
 
