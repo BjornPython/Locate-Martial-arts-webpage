@@ -266,7 +266,7 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
     console.log("USERIDS: ", userIds);
     console.log("USER NAMES: ", userNames);
     try {
-        const userOne = await User.findByIdAndUpdate(userIds[0], 
+        let userOne = await User.findByIdAndUpdate(userIds[0], 
             {   
                 [`messages.${userIds[1]}.name`]: userNames[1],  
                 [`messages.${userIds[1]}.conversationId`]: conversationId ,
@@ -274,7 +274,7 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
                 [`messages.${userIds[1]}.seen`]: true
             }, {new: true}
         );
-        const userTwo = await User.findByIdAndUpdate(userIds[1], 
+        let userTwo = await User.findByIdAndUpdate(userIds[1], 
             { 
                 [`messages.${userIds[0]}.name`]: userNames[0],
                 [`messages.${userIds[0]}.conversationId`]: conversationId  ,
@@ -282,6 +282,29 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
                 [`messages.${userIds[0]}.seen`]: true  
             }, {new: true}
         );
+
+        if (!userOne) {
+            userOne = await Gym.findByIdAndUpdate(userIds[0], 
+                {   
+                    [`messages.${userIds[1]}.name`]: userNames[1],  
+                    [`messages.${userIds[1]}.conversationId`]: conversationId ,
+                    [`messages.${userIds[1]}.highestChunk`]: chunkNumber,
+                    [`messages.${userIds[1]}.seen`]: true
+                }, {new: true}
+            );
+
+        if (!userTwo) {
+            userTwo = await User.findByIdAndUpdate(userIds[1], 
+                { 
+                    [`messages.${userIds[0]}.name`]: userNames[0],
+                    [`messages.${userIds[0]}.conversationId`]: conversationId  ,
+                    [`messages.${userIds[0]}.highestChunk`]: chunkNumber  ,
+                    [`messages.${userIds[0]}.seen`]: true  
+                }, {new: true}
+            );
+        }
+        }
+
         return {userOneMessages: userOne.messages, userTwoMessages: userTwo.messages}
     } catch (err) {
         console.error(err);

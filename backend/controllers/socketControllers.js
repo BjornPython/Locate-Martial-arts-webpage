@@ -82,13 +82,17 @@ const makeSocket = (server) => {
                 const user =  await User.findById(decoded.id)
                 if (user) { 
                     const res = await makeConvo(participantOne, participantOneId, participantTwo, participantTwoId)
-                    const newUserOneChat = res.newUserMessages.userOneMessages
                     const newUserTwoChat = res.newUserMessages.userTwoMessages
                     socket.to(participantTwoId).emit("requestJoinRoom", ({conversationId: res.conversationId, newChat: newUserTwoChat}));
                 } else {
                     console.log("FINDING GYM USER WITH ID: ", decoded.id);
                     const  gymUser = await Gym.findById(decoded.id)
                     console.log("GYM USER: ", gymUser);
+                    if (gymUser) {
+                        const res = await makeConvo(participantOne, participantOneId, participantTwo, participantTwoId)
+                        const newUserTwoChat = res.newUserMessages.userTwoMessages
+                        socket.to(participantTwoId).emit("requestJoinRoom", ({conversationId: res.conversationId, newChat: newUserTwoChat}));
+                    }
                 }
                 
             } catch (err) {
