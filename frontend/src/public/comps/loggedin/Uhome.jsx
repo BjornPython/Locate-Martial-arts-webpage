@@ -105,6 +105,7 @@ function Uhome() {
         )
 
         socket.on("newChat", (newChat) => {
+            console.log("NEW CHAT RECEIVED");
             setChats((prevState) => {
                 return newChat
             })

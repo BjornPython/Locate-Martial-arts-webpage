@@ -94,7 +94,7 @@ const ShowMarkers = ({ data, markerIcon, type, callCreateConvo }) => {
                                     <h4 className='popup-bio'>{marker.bio ? marker.bio : "Be fit be healthy"}</h4>
                                 </div>
 
-                                <FontAwesomeIcon icon={faMessage} className="popup-msg-icn" />
+                                <FontAwesomeIcon icon={faMessage} className="popup-msg-icn" onClick={() => { callCreateConvo(marker.name, marker._id) }} />
                             </div>
 
                             {marker.marts &&

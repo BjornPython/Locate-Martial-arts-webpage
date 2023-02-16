@@ -213,6 +213,7 @@ function Ghome({ user, userType }) {
 
 
     const getMessages = (conversationId, chunk, force = null) => {
+        console.log("GET MESSAGES CALLED: ", conversationId, chunk, force);
         if (!messages[conversationId]) {
             console.log("requesting messages");
             socket.emit("requestMessage", { conversationId, chunk, token: user })

@@ -83,6 +83,7 @@ const makeSocket = (server) => {
                 if (user) { 
                     const res = await makeConvo(participantOne, participantOneId, participantTwo, participantTwoId)
                     const newUserOneChat = res.newUserMessages.userOneMessages
+                    console.log("EMITTING NEW CHAT 1");
                     socket.emit("newChat", newUserOneChat);
                     const newUserTwoChat = res.newUserMessages.userTwoMessages
                     socket.to(participantTwoId).emit("requestJoinRoom", ({conversationId: res.conversationId, newChat: newUserTwoChat}));
@@ -94,7 +95,8 @@ const makeSocket = (server) => {
                         const res = await makeConvo(participantOne, participantOneId, participantTwo, participantTwoId)
                         const newUserOneChat = res.newUserMessages.userOneMessages
                         socket.emit("newChat", newUserOneChat);
-                        const newUserTwoChat = res.newUserMessages.userTwoMessages
+                    console.log("EMITTING NEW CHAT 2");
+                    const newUserTwoChat = res.newUserMessages.userTwoMessages
                         socket.to(participantTwoId).emit("requestJoinRoom", ({conversationId: res.conversationId, newChat: newUserTwoChat}));
                     }
                 }

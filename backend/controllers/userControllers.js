@@ -266,6 +266,7 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
     console.log("USERIDS: ", userIds);
     console.log("USER NAMES: ", userNames);
     try {
+        console.log("FINDING USER ONE  WITH ID: ",userIds[0] );
         let userOne = await User.findByIdAndUpdate(userIds[0], 
             {   
                 [`messages.${userIds[1]}.name`]: userNames[1],  
@@ -274,6 +275,7 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
                 [`messages.${userIds[1]}.seen`]: true
             }, {new: true}
         );
+        console.log("FINDING USER TWO  WITH ID: ",userIds[1] );
         let userTwo = await User.findByIdAndUpdate(userIds[1], 
             { 
                 [`messages.${userIds[0]}.name`]: userNames[0],
@@ -283,7 +285,9 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
             }, {new: true}
         );
 
+        console.log("USER TWO RES: ", userTwo);
         if (!userOne) {
+            console.log("FINDING GYM USER ONE WITH ID: ", userIds[0]);
             userOne = await Gym.findByIdAndUpdate(userIds[0], 
                 {   
                     [`messages.${userIds[1]}.name`]: userNames[1],  
@@ -293,8 +297,11 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
                 }, {new: true}
             );
 
+        }
+
         if (!userTwo) {
-            userTwo = await User.findByIdAndUpdate(userIds[1], 
+            console.log("FINDING GYM USER TWO WITH ID: ", userIds[1]);
+            userTwo = await Gym.findByIdAndUpdate(userIds[1], 
                 { 
                     [`messages.${userIds[0]}.name`]: userNames[0],
                     [`messages.${userIds[0]}.conversationId`]: conversationId  ,
@@ -303,7 +310,9 @@ const addUserMessage = asyncHandler(async (userIds, userNames, conversationId, c
                 }, {new: true}
             );
         }
-        }
+
+        console.log("USERONE: ", userOne);
+        console.log("USERTWO: ", userTwo);
 
         return {userOneMessages: userOne.messages, userTwoMessages: userTwo.messages}
     } catch (err) {
